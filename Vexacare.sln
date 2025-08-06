@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vexacare.Domain", "Vexacare.Domain\Vexacare.Domain.csproj", "{3118B401-2BCD-4E82-B984-C3F7D9193D08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vexacare.Application", "Vexacare.Application\Vexacare.Application.csproj", "{83895B5E-84C9-4F7A-B06C-4E6EC742C239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vexacare.Infrastructure", "Vexacare.Infrastructure\Vexacare.Infrastructure.csproj", "{4BB595AA-29F6-4159-814A-3EE53C1C707D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vexacare.Web", "Vexacare.Web\Vexacare.Web.csproj", "{842F45AC-5FA0-48ED-87E0-E36E38AC5A27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3118B401-2BCD-4E82-B984-C3F7D9193D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3118B401-2BCD-4E82-B984-C3F7D9193D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3118B401-2BCD-4E82-B984-C3F7D9193D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3118B401-2BCD-4E82-B984-C3F7D9193D08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83895B5E-84C9-4F7A-B06C-4E6EC742C239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83895B5E-84C9-4F7A-B06C-4E6EC742C239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83895B5E-84C9-4F7A-B06C-4E6EC742C239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83895B5E-84C9-4F7A-B06C-4E6EC742C239}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB595AA-29F6-4159-814A-3EE53C1C707D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BB595AA-29F6-4159-814A-3EE53C1C707D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB595AA-29F6-4159-814A-3EE53C1C707D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BB595AA-29F6-4159-814A-3EE53C1C707D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{842F45AC-5FA0-48ED-87E0-E36E38AC5A27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842F45AC-5FA0-48ED-87E0-E36E38AC5A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842F45AC-5FA0-48ED-87E0-E36E38AC5A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842F45AC-5FA0-48ED-87E0-E36E38AC5A27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17D7680F-4B05-406E-9D4A-6C576EDCAAB2}
+	EndGlobalSection
+EndGlobal
