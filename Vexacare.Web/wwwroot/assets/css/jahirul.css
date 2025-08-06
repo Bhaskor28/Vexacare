@@ -1,0 +1,437 @@
+:root {
+  --primary-bg: #06b6b4;
+  --primary-text: #1f2937;
+  --hover-accent: #09b2b5;
+}
+
+
+.success-stories-section {
+  background-color: #FAFAFA;
+  padding: 150px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.success-title {
+  text-align: center;
+  font-size: 44px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.marquee-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee {
+  display: flex;
+  animation: marquee 20s linear infinite running;
+  gap: 1.5rem;
+}
+
+.review-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.review-card {
+  background: white;
+  border: 1px solid #F0F0F0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 24px;
+  width: 450px;
+  flex-shrink: 0;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.review-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #344054;
+}
+
+.review-card p {
+  font-size: 16px;
+  color: #667085;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Gradient overlays */
+.gradient-left,
+.gradient-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.gradient-left {
+  left: 0;
+  background: linear-gradient(to right, #FAFAFA 20%, transparent);
+}
+
+.gradient-right {
+  right: 0;
+  background: linear-gradient(to left, #FAFAFA 20%, transparent);
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+/* Ready to Transform Your Health?=================================================================================== */
+
+
+
+.home-bookings-bg {
+  background-color: #f0fafb;
+  padding: 120px 0;
+}
+
+
+.home-bookings-heading {
+  font-size: 48px;
+  color: #101828; /* Tailwind's text-primaryText */
+  font-weight: 600;
+  text-align: center;
+}
+
+.home-bookings-subtext {
+  font-size: 1rem;
+  color: #667085; /* Tailwind's text-grayText */
+  margin-top: 1rem;
+  text-align: center;
+}
+
+
+.home-bookings-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: 1px solid #09b2b5;
+}
+
+.btn-primary {
+  background-color: #09b2b5; /* Tailwind's bg-primaryBg */
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #E4F5F6; /* Tailwind's hover:bg-secondaryBg */
+  color: #09b2b5;
+  border-color: #09b2b5;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #09b2b5;
+}
+
+.btn-outline:hover {
+  background-color: #09b2b5;
+  color: white;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.btn-primary:hover .arrow {
+  transform: translateX(8px);
+}
+
+
+/* Our Latest Blog =========================================================*/ 
+
+     
+
+ /* Paste the CSS I gave above here */
+      .blog-bg-123 {
+        background-color: #FAFAFA;
+        padding-top: 150px;
+        padding-bottom: 100px;
+      }
+
+      
+
+      .header-flex-456 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+      }
+
+      .blog-title-789 {
+        color: #212529;
+        font-size: 48px;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      .btn-viewall-321 {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border: 1px solid #06b6b4;
+        background-color: #FAFAFA;
+        color: #06b6b4;
+        font-weight: 700;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .btn-viewall-321:hover {
+        background-color: #06b6b4;
+        color: white;
+      }
+
+      .arrow-icon-654 {
+        transition: transform 0.3s;
+        color: inherit;
+      }
+
+      .btn-viewall-321:hover .arrow-icon-654 {
+        color: white;
+        transform: translateX(4px);
+      }
+
+      .card-grid-987 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+
+      .card-111 {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.4s;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-111:hover {
+        box-shadow: none;
+      }
+
+      .card-img-222 {
+        width: 100%;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        object-fit: cover;
+        height: 300px;
+      }
+
+      .card-content-333 {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card-date-444 {
+        color: #6b7280;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .card-icon-555 {
+        display: inline-flex;
+      }
+
+      .card-title-666 {
+        color: #4b5563;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .card-desc-777 {
+        color: #6b7280;
+        font-size: 18px;
+        margin-top: 12px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .readmore-text-888 {
+        color: #06b6b4;
+        font-size: 24px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        user-select: none;
+      }
+
+      .readmore-text-888:hover .readmore-arrow-999 {
+        transform: translateX(8px);
+        transition: transform 0.3s;
+      }
+
+      .readmore-arrow-999 {
+        transition: transform 0.3s;
+        color: inherit;
+      }
+
+
+/* Discover How Our Gut Test Process Works */
+
+.tpw-bg-001 {
+  background-color: #F0FAFB;
+  padding-top: 150px;
+  font-family: Arial, sans-serif;
+}
+
+.tpw-grid-003 {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* always 2 columns */
+  gap: 32px;
+  align-items: center;
+}
+
+.image-wrapper-004 {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  max-height: 450px;
+}
+
+.tpw-image-005 {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 450px;
+}
+
+.play-button-overlay-006 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.play-icon-007 {
+  color: white;
+  font-size: 36px;
+  user-select: none;
+}
+
+.tpw-text-container-008 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tpw-title-009 {
+  color: #303030;
+  font-size: 48px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  line-height: 1.1;
+}
+
+.tpw-description-010 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 32px;
+  color: #444;
+  line-height: 1.5;
+}
+
+.tpw-btn-011 {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #06b6b4;
+  color: white;
+  font-weight: 700;
+  border: 1px solid #06b6b4;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+  text-decoration: none;
+  user-select: none;
+  font-size: 18px;
+  width: max-content;
+}
+
+.tpw-btn-011:hover {
+  background-color: #e0f3f3;
+  color: #06b6b4;
+  border-color: #06b6b4;
+}
+
+.tpw-arrow-012 {
+  transition: transform 0.3s;
+  stroke: currentColor;
+}
+
+.tpw-btn-011:hover .tpw-arrow-012 {
+  transform: translateX(4px);
+}
