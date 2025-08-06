@@ -1,8 +1,585 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VEXACARE - Feel Good Inside Out</title>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <!-- ==== Favicon ==== -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet" />
+
+    <!-- ==== Plugins CSS Links ==== -->
+    <link rel="stylesheet"
+          type="text/css"
+          href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+          integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <!-- ==== Custom CSS Links ==== -->
+    <link rel="stylesheet" type="text/css" href="assets/css/somor.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/jahirul.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+</head>
+<body>
+
+    <main id="main">
+        <!-- Hero Section Start -->
+        <section id="hero"
+                 class="hero-section"
+                 class="hero"
+                 aria-label="Hero section">
+            <div class="container">
+                <div class="hero-grid">
+                    <!-- Left -->
+                    <div class="hero-content">
+                        <h2 class="hero-title">
+                            Transform Your Health Through
+                            <span class="accent"> Gut Microbiota </span> Insights
+                        </h2>
+
+                        <p class="hero-desc">
+                            Discover your unique gut microbiome profile with AI-powered
+                            analysis for personalized health recommendations
+                        </p>
+
+                        <div class="hero-actions" role="group" aria-label="Hero actions">
+                            <button class="btn btn-primary" id="buy-test-btn" type="button">
+                                <span>Buy Test Kit</span>
+                                <!-- Inline arrow icon (GoArrowRight equivalent) -->
+                                <svg class="arrow"
+                                     width="20"
+                                     height="20"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="2"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     aria-hidden="true">
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+
+                            <button class="btn btn-outline"
+                                    id="book-consult-btn"
+                                    type="button">
+                                <span>Book a Consultation</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right -->
+                    <div class="hero-image" aria-hidden="false">
+                        <img src="assets/images/HeroImages.png"
+                             alt="Hero illustration showing gut microbiota" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Hero Section End -->
+        <!-- Revolution Section Start -->
+        <section id="revolution">
+            <div class="container">
+                <div class="revolution-content">
+                    <h1 class="revolution-title">The Revolution of Your Health</h1>
+                    <p class="revolution-description">
+                        A transformative journey powered by microbiota insights, AI, and
+                        medical expertise to help you take control of your health.
+                    </p>
+                </div>
+
+                <div class="revolution-item-grid">
+                    <div class="revolution-item">
+                        <div class="revolution-item-header">
+                            <div class="revolution-item-number">
+                                <div class="revolution-item-number-text">1</div>
+                            </div>
+
+                            <div class="revolution-item-title">
+                                <h3 class="revolution-item-title-text">
+                                    Advanced Gut Analysis
+                                </h3>
+                                <div class="revolution-item-subtitle">
+                                    <p class="revolution-item-subtitle-text">
+                                        Cutting-edge tech
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="revolution-item-description">
+                            <p class="revolution-item-paragraph">
+                                Our advanced AI analyzes your unique data to create a
+                                personalized health optimization strategy.
+                            </p>
+                        </div>
+
+                        <div class="revolution-item-tags">
+                            <div class="revolution-item-tag">Doctor Review</div>
+                            <div class="revolution-item-tag">Doctor Review</div>
+                            <div class="revolution-item-tag">Doctor Review</div>
+                        </div>
+                    </div>
+
+                    <div class="revolution-item">
+                        <div class="revolution-item-header">
+                            <div class="revolution-item-number">
+                                <div class="revolution-item-number-text">2</div>
+                            </div>
+
+                            <div class="revolution-item-title">
+                                <h3 class="revolution-item-title-text">
+                                    AI-Powered Health Plan
+                                </h3>
+                                <div class="revolution-item-subtitle">
+                                    <p class="revolution-item-subtitle-text">
+                                        Smart Technology
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="revolution-item-description">
+                            <p class="revolution-item-paragraph">
+                                Experienced healthcare professionals validate and refine your
+                                personalized health recommendations.
+                            </p>
+                        </div>
+
+                        <div class="revolution-item-tags">
+                            <div class="revolution-item-tag">Doctor Review</div>
+                            <div class="revolution-item-tag">Doctor Review</div>
+                            <div class="revolution-item-tag">Doctor Review</div>
+                        </div>
+                    </div>
+
+                    <div class="revolution-item">
+                        <div class="revolution-item-header">
+                            <div class="revolution-item-number">
+                                <div class="revolution-item-number-text">3</div>
+                            </div>
+
+                            <div class="revolution-item-title">
+                                <h3 class="revolution-item-title-text">
+                                    Expert Medical Review
+                                </h3>
+                                <div class="revolution-item-subtitle">
+                                    <p class="revolution-item-subtitle-text">
+                                        Professional Care
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="revolution-item-description">
+                            <p class="revolution-item-paragraph">
+                                Comprehensive microbiome sequencing and analysis using
+                                next-generation technology to map your gut health profile.
+                            </p>
+                        </div>
+
+                        <div class="revolution-item-tags">
+                            <div class="revolution-item-tag">Doctor Review</div>
+                            <div class="revolution-item-tag">Doctor Review</div>
+                            <div class="revolution-item-tag">Doctor Review</div>
+                        </div>
+                    </div>
+
+                    <div class="revolution-item">
+                        <div class="revolution-item-header">
+                            <div class="revolution-item-number">
+                                <div class="revolution-item-number-text">4</div>
+                            </div>
+
+                            <div class="revolution-item-title">
+                                <h3 class="revolution-item-title-text">
+                                    Continuous Health Journey
+                                </h3>
+                                <div class="revolution-item-subtitle">
+                                    <p class="revolution-item-subtitle-text">24/7 Support</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="revolution-item-description">
+                            <p class="revolution-item-paragraph">
+                                Regular monitoring and adjustments to your plan with ongoing
+                                professional support and guidance.
+                            </p>
+                        </div>
+
+                        <div class="revolution-item-tags">
+                            <div class="revolution-item-tag">Doctor Review</div>
+                            <div class="revolution-item-tag">Doctor Review</div>
+                            <div class="revolution-item-tag">Doctor Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Revolution Section End -->
+        <!-- Our Medical Experts Section Start -->
+        <section class="doctors-section" aria-label="Doctors">
+            <div class="container">
+                <div class="doctors-header">
+                    <div class="header-top">
+                        <h2 class="doctors-title">Our Medical Experts</h2>
+                    </div>
+
+                    <div class="doctors-row" style="margin-top: 6px">
+                        <p class="doctors-sub">
+                            Our medical experts are here to guide you.
+                        </p>
+
+                        <button class="btn-outline"
+                                id="view-all-btn"
+                                type="button"
+                                aria-label="View all doctors">
+                            <span>View All</span>
+                            <!-- right arrow icon (MdOutlineKeyboardArrowRight) -->
+                            <svg width="22"
+                                 height="22"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <path d="M10 6l6 6-6 6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- All doctor cards -->
+                <div class="grid-12" id="doctors-grid" aria-live="polite">
+                    <!-- JavaScript will populate 8 cards here -->
+                </div>
+            </div>
+        </section>
+        <!-- Our Medical Experts Section End -->
+        <!-- Success Stories start -->
+        <section class="success-stories-section">
+            <div class="container">
+                <h1 class="success-title">Success Stories</h1>
+                <div class="marquee-wrapper">
+                    <div class="marquee">
+                        <!-- Repeat this .review-card group for 2x to simulate loop -->
+                        <div class="review-row">
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                                         class="avatar"
+                                         alt="Emily Carter" />
+                                    <h2>Emily Carter</h2>
+                                </div>
+                                <p>
+                                    After using Valora’s home test kit, I was able to detect a
+                                    concern early and consult my doctor just in time. Truly
+                                    life-saving!
+                                </p>
+                            </div>
+
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                                         class="avatar"
+                                         alt="Michael Green" />
+                                    <h2>Michael Green</h2>
+                                </div>
+                                <p>
+                                    The process was smooth and easy. The instructions were
+                                    clear, and results came quickly. I recommend it to anyone!
+                                </p>
+                            </div>
+
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="https://randomuser.me/api/portraits/women/65.jpg"
+                                         class="avatar"
+                                         alt="Sophia Lopez" />
+                                    <h2>Sophia Lopez</h2>
+                                </div>
+                                <p>
+                                    Valora helped me take control of my health. I never thought
+                                    a simple home kit could bring so much peace of mind.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Duplicate for marquee loop -->
+                        <div class="review-row">
+                            <!-- Copy-paste the same 3 cards again -->
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                                         class="avatar"
+                                         alt="Emily Carter" />
+                                    <h2>Emily Carter</h2>
+                                </div>
+                                <p>
+                                    After using Valora’s home test kit, I was able to detect a
+                                    concern early and consult my doctor just in time. Truly
+                                    life-saving!
+                                </p>
+                            </div>
+
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                                         class="avatar"
+                                         alt="Michael Green" />
+                                    <h2>Michael Green</h2>
+                                </div>
+                                <p>
+                                    The process was smooth and easy. The instructions were
+                                    clear, and results came quickly. I recommend it to anyone!
+                                </p>
+                            </div>
+
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="https://randomuser.me/api/portraits/women/65.jpg"
+                                         class="avatar"
+                                         alt="Sophia Lopez" />
+                                    <h2>Sophia Lopez</h2>
+                                </div>
+                                <p>
+                                    Valora helped me take control of my health. I never thought
+                                    a simple home kit could bring so much peace of mind.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gradient overlays -->
+                    <div class="gradient-left"></div>
+                    <div class="gradient-right"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Success Stories end -->
+        <!-- Discover How Our Gut Test Process Works start -->
+        <section class="tpw-bg-001">
+            <div class=" container">
+                <div class="container-002">
+                    <div class="tpw-grid-003">
+                        <!-- Image Section -->
+                        <div class="image-wrapper-004"
+                             aria-label="Play video button (image placeholder)">
+                            <img class="tpw-image-005"
+                                 src="./assets/images/kit.png"
+                                 alt="Gut test process thumbnail" />
+                            <div class="play-button-overlay-006" aria-hidden="true">
+                                <svg class="play-icon-007"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor"
+                                     width="36"
+                                     height="36">
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M14.752 12l-6.518 3.753V8.247L14.752 12z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Text Section -->
+                        <div class="tpw-text-container-008">
+                            <h1 class="tpw-title-009">
+                                Discover How Our Gut Test Process Works
+                            </h1>
+                            <p class="tpw-description-010">
+                                Watch this short video to see how our gut microbiota test works
+                                — from receiving your kit and collecting a sample to getting a
+                                personalized, AI-powered health report with actionable nutrition
+                                and supplement guidance.
+                            </p>
+                            <a href="#" class="tpw-btn-011">
+                                Watch Now
+                                <svg class="tpw-arrow-012"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor"
+                                     width="20"
+                                     height="20">
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Discover How Our Gut Test Process Works end-->
+        <!-- Our Latest Blog start -->
+        <section class="blog-bg-123 py-150-abc">
+            <div class="container">
+                <div class="container-xyz">
+                    <!-- header -->
+                    <div class="header-flex-456">
+                        <h1 class="blog-title-789">Our Latest Blog</h1>
+                        <button class="btn-viewall-321">
+                            View All
+                            <svg class="arrow-icon-654"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor"
+                                 width="20"
+                                 height="20">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- card section -->
+                    <div class="card-grid-987">
+                        <!-- Card 1 -->
+                        <div class="card-111">
+                            <img class="card-img-222"
+                                 src="./assets/images/kit.png"
+                                 alt="Blog 1" />
+                            <div class="card-content-333">
+                                <h1 class="card-date-444">
+                                    <span class="card-icon-555"></span> 2025-08-06
+                                </h1>
+                                <h1 class="card-title-666">Blog Title 1</h1>
+                                <p class="card-desc-777">
+                                    This is the description for blog post 1, truncated to one
+                                    line.
+                                </p>
+                                <div>
+                                    <p class="readmore-text-888">
+                                        Read More
+                                        <svg class="readmore-arrow-999"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor"
+                                             width="24"
+                                             height="24">
+                                            <path stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="card-111">
+                            <img class="card-img-222"
+                                 src="./assets/images/kit.png"
+                                 alt="Blog 2" />
+                            <div class="card-content-333">
+                                <h1 class="card-date-444">
+                                    <span class="card-icon-555"></span> 2025-08-05
+                                </h1>
+                                <h1 class="card-title-666">Blog Title 2</h1>
+                                <p class="card-desc-777">
+                                    This is the description for blog post 2, truncated to one
+                                    line.
+                                </p>
+                                <div>
+                                    <p class="readmore-text-888">
+                                        Read More
+                                        <svg class="readmore-arrow-999"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor"
+                                             width="24"
+                                             height="24">
+                                            <path stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="card-111">
+                            <img class="card-img-222"
+                                 src="./assets/images/kit.png"
+                                 alt="Blog 3" />
+                            <div class="card-content-333">
+                                <h1 class="card-date-444">
+                                    <span class="card-icon-555"></span> 2025-08-04
+                                </h1>
+                                <h1 class="card-title-666">Blog Title 3</h1>
+                                <p class="card-desc-777">
+                                    This is the description for blog post 3, truncated to one
+                                    line.
+                                </p>
+                                <div>
+                                    <p class="readmore-text-888">
+                                        Read More
+                                        <svg class="readmore-arrow-999"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor"
+                                             width="24"
+                                             height="24">
+                                            <path stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Our Latest Blog end -->
+        <!-- Ready to Transform Your Health? start -->
+        <div class="home-bookings-bg">
+            <div class="container">
+                <h1 class="home-bookings-heading">Ready to Transform Your Health?</h1>
+                <p class="home-bookings-subtext">
+                    Book a consultation with our medical experts
+                </p>
+                <div class="home-bookings-buttons">
+                    <button class="btn btn-primary">
+                        Book Medical Consultation
+                        <span class="arrow">&#8594;</span>
+                    </button>
+                    <button class="btn btn-outline">See Plans</button>
+                </div>
+            </div>
+        </div>
+        <!-- Ready to Transform Your Health? end -->
+    </main>
+
+    <!-- ==== All Js Links ==== -->
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/doctos.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
