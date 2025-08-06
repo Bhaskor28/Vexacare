@@ -1,0 +1,4953 @@
+/*responsive devices*/
+
+@media only screen and (min-width: 1600px) and (max-width: 1799px) {
+  /* ============================================================================
+                              Business Layout Part Start
+  ============================================================================ */
+  #black_overlay {
+    display: none !important;
+  }
+  .business_mobile_bars {
+    display: none;
+  }
+  .business_layout_body_wrapper {
+    margin-left: 240px;
+    padding: 0 20px;
+  }
+  .business_layout_body_topbar {
+    padding: 20px 0px 18px;
+    margin-bottom: 0px;
+  }
+  .business_layout_body_topbar_left_title {
+    font-size: 19px;
+    line-height: 24px;
+    margin-right: 0px;
+  }
+  .business_layout_body_topbar_left {
+    align-items: center;
+    min-width: fit-content;
+    gap: 10px;
+  }
+  .business_layout_body_topbar_left_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .business_layout_body_topbar_left_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_left_date {
+    font-size: 13px;
+    line-height: 24px;
+    margin-left: 0px;
+  }
+  .business_layout_body_topbar_right_search {
+    width: 320px;
+    padding: 10px 10px 10px 20px;
+  }
+  .business_layout_body_topbar_right_search input {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search input::placeholder {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .business_layout_body_topbar_right_search_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right_icon {
+    width: 45px;
+    height: 45px;
+  }
+  .business_layout_body_topbar_right_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right {
+    gap: 10px;
+  }
+  .business_sidebar {
+    width: 240px;
+    padding: 30px 20px;
+  }
+  .business_sidebar_menu_link {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .business_sidebar_menu_link svg {
+    width: 20px;
+  }
+  .business_sidebar_menu_list {
+    gap: 8px;
+  }
+  .business_sidebar_bottom_logout_btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_img {
+    width: 40px;
+    height: 40px;
+  }
+  .business_sidebar_bottom_user {
+    gap: 10px;
+  }
+  .business_sidebar_bottom_user_name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_info {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  /* ============================================================================
+                              Business Layout Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Home Part Start
+  ============================================================================ */
+  .business--home--header--column--row {
+    gap: 20px;
+  }
+  .business--home--header--wrapper {
+    gap: 20px;
+  }
+  .business--home--report h4 {
+    font-size: 16px;
+  }
+  .business--home--header--count h5 {
+    font-size: 20px;
+  }
+  .business--home--body--count h2 {
+    font-size: 50px;
+  }
+  .business--home--body--count h2 span {
+    font-size: 14px;
+  }
+  .business--home--report button {
+    padding: 13px 12px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                              Business Home Part End
+  ============================================================================ */
+}
+
+/* desktop devices  */
+@media only screen and (min-width: 1366px) and (max-width: 1599px) {
+  /* ============================================================================
+                                Hero Part Start
+  ============================================================================ */
+  .hero_section {
+    padding: 60px 0;
+  }
+  .hero_section_left {
+    width: 100%;
+  }
+  .hero_section_title {
+    font-size: 56px;
+    line-height: 90px;
+  }
+  .hero_right_shadow_bottom {
+    bottom: -2px;
+  }
+  .hero_left_rating {
+    margin-bottom: 60px;
+  }
+  /* ============================================================================
+                                Hero Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Feedback Part End
+  ============================================================================ */
+  .qna_section {
+    padding: 70px 0;
+  }
+  .qna_wrapper {
+    gap: 30px;
+  }
+  .qna_left {
+    width: 50%;
+  }
+  .qna_right {
+    width: 50%;
+  }
+  .qna_left_title {
+    font-size: 45px;
+    line-height: 60px;
+  }
+  .qna_left_text {
+    font-size: 16px;
+    line-height: 28px;
+  }
+  .qna_left_join_btn {
+    width: 170px;
+    height: 50px;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .accordion-button {
+    font-size: 16px;
+  }
+  .accordion_body_text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                                Feedback Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Contact Part Start
+  ============================================================================ */
+  .contact_us_section {
+    padding: 80px 0;
+  }
+  .contact_us_title {
+    font-size: 40px;
+    line-height: 64px;
+    max-width: 70%;
+  }
+  /* ============================================================================
+                                Contact Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Layout Part Start
+  ============================================================================ */
+  #black_overlay {
+    display: none !important;
+  }
+  .business_mobile_bars {
+    display: none;
+  }
+  .business_layout_body_wrapper {
+    margin-left: 240px;
+    padding: 0 20px;
+  }
+  .business_layout_body_topbar {
+    padding: 20px 0px 18px;
+    margin-bottom: 0px;
+  }
+  .business_layout_body_topbar_left_title {
+    font-size: 19px;
+    line-height: 24px;
+    margin-right: 0px;
+  }
+  .business_layout_body_topbar_left {
+    align-items: center;
+    min-width: fit-content;
+    gap: 10px;
+  }
+  .business_layout_body_topbar_left_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .business_layout_body_topbar_left_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_left_date {
+    font-size: 13px;
+    line-height: 24px;
+    margin-left: 0px;
+  }
+  .business_layout_body_topbar_right_search {
+    width: 320px;
+    padding: 10px 10px 10px 20px;
+  }
+  .business_layout_body_topbar_right_search input {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search input::placeholder {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .business_layout_body_topbar_right_search_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right_icon {
+    width: 45px;
+    height: 45px;
+  }
+  .business_layout_body_topbar_right_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right {
+    gap: 10px;
+  }
+  .business_sidebar {
+    width: 240px;
+    padding: 30px 20px;
+  }
+  .business_sidebar_menu_link {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .business_sidebar_menu_link svg {
+    width: 20px;
+  }
+  .business_sidebar_menu_list {
+    gap: 8px;
+  }
+  .business_sidebar_bottom_logout_btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_img {
+    width: 40px;
+    height: 40px;
+  }
+  .business_sidebar_bottom_user {
+    gap: 10px;
+  }
+  .business_sidebar_bottom_user_name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_info {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  /* ============================================================================
+                              Business Layout Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Home Part Start
+  ============================================================================ */
+  .business--home--header--wrapper {
+    flex-direction: column;
+  }
+  .business--home--header--column--row {
+    width: 100%;
+    gap: 20px;
+  }
+  .business--home--header--column {
+    padding: 20px;
+  }
+  .business--home--header--count h5 {
+    font-size: 18px;
+  }
+  .business--home--body--count h2 {
+    font-size: 40px;
+  }
+  .business--home--body--count h2 span {
+    font-size: 14px;
+  }
+  .business--home--header--count--icon {
+    width: 40px;
+    height: 40px;
+  }
+  .business--home--header--count--icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .business--home--header--report {
+    width: 100%;
+    flex-direction: row;
+  }
+  .business--home--report {
+    padding: 10px 18px;
+    width: -webkit-fill-available;
+  }
+  .business--home--report button {
+    padding: 14px 12px;
+    font-size: 14px;
+  }
+  .business--home--body--column--title {
+    align-items: center;
+  }
+  .business--home--body--column--title h3 {
+    font-size: 16px;
+  }
+  .business--home--body--column--button {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 14px 32px;
+  }
+  /* ============================================================================
+                              Business Home Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Current Menu Part Start
+  ============================================================================ */
+  .business-current-menu-sidebar-all-tab {
+    width: 100% !important;
+    flex-direction: row !important;
+  }
+  .business-current-menu-sidebar button {
+    width: auto;
+  }
+  .business-current-menu-sidebar button {
+    font-size: 14px;
+    gap: 10px;
+  }
+  .business-current-menu-link-quantity {
+    font-size: 10px;
+  }
+  .business--new--menu--header h4 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .business--new--menu--header h3 {
+    font-size: 20px;
+  }
+  .business-current-menu-sidebar {
+    flex-direction: column;
+  }
+  .business-current-menu-tab-content {
+    width: 100%;
+  }
+  .business-current-menu-sidebar button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .business-current-tab-heading {
+    font-size: 18px;
+  }
+  .business-current-menu-tab-wraper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .business-current-menu-card-name {
+    font-size: 16px;
+  }
+  .business-current-menu-tab-card p {
+    font-size: 13px;
+  }
+  /* ============================================================================
+                            Business Current Menu Part End
+  ============================================================================ */
+}
+/* laptop devices   */
+@media only screen and (min-width: 1200px) and (max-width: 1365px) {
+  /* ============================================================================
+                                Hero Part Start
+  ============================================================================ */
+  .hero_section {
+    padding: 60px 0;
+  }
+  .hero_section_left {
+    width: 100%;
+  }
+  .hero_section_title {
+    font-size: 46px;
+    line-height: 70px;
+  }
+  .hero_section_text {
+    font-size: 16px;
+  }
+  .hero_right_shadow_bottom {
+    bottom: -2px;
+  }
+  .hero_left_join_btn {
+    font-size: 16px;
+    padding: 12px 35px;
+  }
+  .hero_left_rating {
+    margin-bottom: 50px;
+  }
+  /* ============================================================================
+                                Hero Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Feedback Part End
+  ============================================================================ */
+  .qna_section {
+    padding: 70px 0;
+  }
+  .qna_wrapper {
+    gap: 30px;
+  }
+  .qna_left {
+    width: 50%;
+  }
+  .qna_right {
+    width: 50%;
+  }
+  .qna_left_title {
+    font-size: 45px;
+    line-height: 60px;
+  }
+  .qna_left_text {
+    font-size: 16px;
+    line-height: 28px;
+  }
+  .qna_left_join_btn {
+    width: 170px;
+    height: 50px;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .accordion-button {
+    font-size: 16px;
+  }
+  .accordion_body_text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                                Feedback Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Contact Part Start
+  ============================================================================ */
+  .contact_us_section {
+    padding: 80px 0;
+  }
+  .contact_us_title {
+    font-size: 40px;
+    line-height: 64px;
+    max-width: 80%;
+  }
+  /* ============================================================================
+                                Contact Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Login Part Start
+  ============================================================================ */
+  .business--login--section {
+    height: 100%;
+    padding: 0 0;
+  }
+  .business--login--wrapper {
+    background: none;
+    box-shadow: none;
+    gap: 30px;
+  }
+  /* ============================================================================
+                              Business Login Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                          Business Subscription Part Start
+  ============================================================================ */
+  .business--login--title h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .business--form--radio--label h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li i {
+    font-size: 10px;
+  }
+  .business--form--radio--label ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--radio--label {
+    padding: 20px 24px;
+  }
+  .business--form--btn-container {
+    margin-top: 10px;
+  }
+  .business--form--btn--gary {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                          Business Subscription Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Layout Part Start
+  ============================================================================ */
+  #black_overlay {
+    display: none !important;
+  }
+  .business_mobile_bars {
+    display: none;
+  }
+  .business_layout_body_wrapper {
+    margin-left: 240px;
+    padding: 0 20px;
+  }
+  .business_layout_body_topbar {
+    padding: 20px 0px 18px;
+    margin-bottom: 0px;
+  }
+  .business_layout_body_topbar_left_title {
+    font-size: 19px;
+    line-height: 24px;
+    margin-right: 0px;
+  }
+  .business_layout_body_topbar_left {
+    align-items: center;
+    min-width: fit-content;
+    gap: 10px;
+  }
+  .business_layout_body_topbar_left_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .business_layout_body_topbar_left_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_left_date {
+    font-size: 13px;
+    line-height: 24px;
+    margin-left: 0px;
+  }
+  .business_layout_body_topbar_right_search {
+    width: 320px;
+    padding: 10px 10px 10px 20px;
+  }
+  .business_layout_body_topbar_right_search input {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search input::placeholder {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .business_layout_body_topbar_right_search_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right_icon {
+    width: 45px;
+    height: 45px;
+  }
+  .business_layout_body_topbar_right_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right {
+    gap: 10px;
+  }
+  .business_sidebar {
+    width: 240px;
+    padding: 30px 20px;
+  }
+  .business_sidebar_menu_link {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .business_sidebar_menu_link svg {
+    width: 20px;
+  }
+  .business_sidebar_menu_list {
+    gap: 8px;
+  }
+  .business_sidebar_bottom_logout_btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_img {
+    width: 40px;
+    height: 40px;
+  }
+  .business_sidebar_bottom_user {
+    gap: 10px;
+  }
+  .business_sidebar_bottom_user_name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_info {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  /* ============================================================================
+                              Business Layout Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Home Part Start
+  ============================================================================ */
+  .business--home--header--wrapper {
+    flex-direction: column;
+  }
+  .business--home--header--column--row {
+    width: 100%;
+    gap: 20px;
+  }
+  .business--home--header--column {
+    padding: 20px;
+  }
+  .business--home--header--count h5 {
+    font-size: 18px;
+  }
+  .business--home--body--count h2 {
+    font-size: 32px;
+  }
+  .business--home--body--count h2 span {
+    font-size: 14px;
+  }
+  .business--home--header--count--icon {
+    width: 30px;
+    height: 30px;
+  }
+  .business--home--header--count--icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .business--home--header--report {
+    width: 100%;
+    flex-direction: row;
+  }
+  .business--home--report {
+    padding: 10px 18px;
+    width: -webkit-fill-available;
+  }
+  .business--home--report button {
+    padding: 14px 12px;
+    font-size: 14px;
+  }
+  .business--home--body--column--title {
+    align-items: center;
+  }
+  .business--home--body--column--title h3 {
+    font-size: 16px;
+  }
+  .business--home--body--column--button {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 14px 32px;
+  }
+  /* ============================================================================
+                              Business Home Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Current Menu Part Start
+  ============================================================================ */
+  .business-current-menu-sidebar-all-tab {
+    width: 100% !important;
+    flex-direction: row !important;
+  }
+  .business-current-menu-sidebar button {
+    width: auto;
+  }
+  .business-current-menu-sidebar button {
+    font-size: 14px;
+    gap: 10px;
+  }
+  .business-current-menu-link-quantity {
+    font-size: 10px;
+  }
+  .business--new--menu--header h4 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .business--new--menu--header h3 {
+    font-size: 20px;
+  }
+  .business-current-menu-sidebar {
+    flex-direction: column;
+  }
+  .business-current-menu-tab-content {
+    width: 100%;
+  }
+  .business-current-menu-sidebar button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .business-current-tab-heading {
+    font-size: 18px;
+  }
+  .business-current-menu-tab-wraper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .business-current-menu-card-name {
+    font-size: 16px;
+  }
+  .business-current-menu-tab-card p {
+    font-size: 13px;
+  }
+  /* ============================================================================
+                            Business Current Menu Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Payment Part Start
+  ============================================================================ */
+  .business--subscription--card {
+    width: 50%;
+  }
+  /* ============================================================================
+                            Business Payment Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business View Profile Part Start
+  ============================================================================ */
+  .business--view--profile--header h3 {
+    font-size: 20px;
+  }
+  .business--view--profile--edit i,
+  .business--view--profile--edit p {
+    font-size: 14px;
+  }
+  .business--form--group--row {
+    flex-direction: column;
+  }
+  /* ============================================================================
+                        Business View Profile Part End
+  ============================================================================ */
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  /* ============================================================================
+                                Hero Part Start
+  ============================================================================ */
+  .hero_section {
+    padding: 60px 0;
+  }
+  .hero_section_left {
+    width: 100%;
+  }
+  .hero_section_title {
+    font-size: 40px;
+    line-height: 70px;
+  }
+  .hero_section_text {
+    font-size: 16px;
+  }
+  .hero_right_shadow_bottom {
+    bottom: -2px;
+  }
+  .hero_left_join_btn {
+    font-size: 16px;
+    padding: 12px 35px;
+  }
+  .hero_left_rating {
+    margin-bottom: 50px;
+  }
+  /* ============================================================================
+                                Hero Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                About Part Start
+  ============================================================================ */
+  .about_feedback_section {
+    padding: 60px 0;
+  }
+  .section_title {
+    font-size: 28px;
+  }
+  .about_feedback_bottom {
+    max-width: 100%;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  .about_feedback_item {
+    width: 49%;
+    height: 100%;
+    padding: 20px;
+  }
+  .about_feedback_item_top h5 {
+    font-size: 35px;
+    text-align: center;
+  }
+  .about_feedback_item_top h5 span {
+    font-size: 16px;
+  }
+  .about_feedback_top {
+    margin-bottom: 25px;
+  }
+  .about_feedback_item_bottom_title {
+    font-size: 18px;
+    margin-top: 0;
+    text-align: center;
+  }
+  .about_feedback_item_bottom_text {
+    font-size: 13px;
+    line-height: 24px;
+    text-align: center;
+    margin-top: 0;
+  }
+  /* ============================================================================
+                                About Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Feedback Part End
+  ============================================================================ */
+  .qna_section {
+    padding: 70px 0;
+  }
+  .qna_wrapper {
+    gap: 30px;
+  }
+  .qna_left {
+    width: 50%;
+  }
+  .qna_right {
+    width: 50%;
+  }
+  .qna_left_title {
+    font-size: 45px;
+    line-height: 60px;
+  }
+  .qna_left_text {
+    font-size: 14px;
+    line-height: 28px;
+  }
+  .qna_left_join_btn {
+    width: 170px;
+    height: 50px;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .accordion-button {
+    font-size: 16px;
+  }
+  .accordion_body_text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                                Feedback Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Our Team Part Start
+  ============================================================================ */
+  .our_team_section {
+    padding: 50px 0;
+  }
+  /* ============================================================================
+                                Our Team Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Contact Part Start
+  ============================================================================ */
+  .contact_us_section {
+    padding: 80px 0;
+  }
+  .contact_us_title {
+    font-size: 40px;
+    line-height: 64px;
+    max-width: 70%;
+  }
+  /* ============================================================================
+                                Contact Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Footer Part Start
+  ============================================================================ */
+  .footer_logo {
+    max-width: 230px;
+  }
+  /* ============================================================================
+                                Footer Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Login Part Start
+  ============================================================================ */
+  .business--login--section {
+    height: 100%;
+    padding: 0 0;
+  }
+  .business--login--wrapper {
+    background: none;
+    box-shadow: none;
+    gap: 30px;
+  }
+  .business--form--group input {
+    font-size: 14px;
+  }
+  .business--form--forgot a {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                              Business Login Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Registration Part Start
+  ============================================================================ */
+  .business--form--select {
+    font-size: 14px;
+  }
+  .business--form--select--icon {
+    top: 58%;
+    font-size: 12px;
+  }
+  /* ============================================================================
+                              Registration Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Customer Information Part Start
+  ============================================================================ */
+  .customer_information_top_texts p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .customer_information_top_texts {
+    gap: 10px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .customer_information_top_title {
+    font-size: 16px;
+    line-height: 25px;
+    border-bottom: 1px solid #2e1a00;
+    margin-top: 30px;
+  }
+  .full_name_inputs {
+    gap: 0px;
+    flex-direction: column;
+  }
+  .customer_information_bottom_btn {
+    font-size: 14px;
+  }
+  .customer_information_bottom_checkbox {
+    gap: 5px;
+  }
+  .customer_information_bottom_checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 15px;
+  }
+  .customer_information_bottom_checkbox label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_information_content_box {
+    width: 100%;
+    padding: 50px 20px;
+    gap: 30px;
+    background: transparent;
+    box-shadow: none;
+  }
+  .customer_information_bottom_inputs input {
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  .customer_information_bottom_inputs input::placeholder {
+    font-size: 14px;
+  }
+  .customer_information_bottom_inputs label {
+    font-size: 18px;
+  }
+  /* ============================================================================
+                            Customer Information Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                          Business Subscription Part Start
+  ============================================================================ */
+  .business--login--title h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .business--form--radio--label h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li i {
+    font-size: 10px;
+  }
+  .business--form--radio--label ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--radio--label {
+    padding: 20px 24px;
+  }
+  .business--form--btn-container {
+    margin-top: 10px;
+  }
+  .business--form--btn--gary {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                          Business Subscription Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Layout Part Start
+  ============================================================================ */
+  .business_sidebar {
+    left: -100%;
+    transition: all ease-in-out 0.3s;
+  }
+  .business_sidebar.visible {
+    left: 0 !important;
+  }
+  .business_mobile_bars {
+    display: flex !important;
+  }
+  .business_layout_body_wrapper {
+    margin-left: 0;
+    padding: 0 20px;
+  }
+  .business_layout_body_topbar {
+    padding: 20px 0px 18px;
+    margin-bottom: 0px;
+  }
+  .business_layout_body_topbar_left_title {
+    font-size: 19px;
+    line-height: 24px;
+    margin-right: 0px;
+  }
+  .business_layout_body_topbar_left {
+    align-items: center;
+    min-width: fit-content;
+    gap: 10px;
+  }
+  .business_layout_body_topbar_left_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .business_layout_body_topbar_left_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_left_date {
+    font-size: 13px;
+    line-height: 24px;
+    margin-left: 0px;
+  }
+  .business_layout_body_topbar_right_search {
+    width: 320px;
+    padding: 8px 10px 8px 20px;
+  }
+  .business_layout_body_topbar_right_search input {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search input::placeholder {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .business_layout_body_topbar_right_search_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right_icon {
+    width: 45px;
+    height: 45px;
+  }
+  .business_layout_body_topbar_right_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right {
+    gap: 10px;
+  }
+  .business_sidebar {
+    width: 260px;
+    padding: 30px 20px;
+  }
+  .business_sidebar_menu_link {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .business_sidebar_menu_link svg {
+    width: 20px;
+  }
+  .business_sidebar_menu_list {
+    gap: 8px;
+  }
+  .business_sidebar_bottom_logout_btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_img {
+    width: 40px;
+    height: 40px;
+  }
+  .business_sidebar_bottom_user {
+    gap: 10px;
+  }
+  .business_sidebar_bottom_user_name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_info {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  /* ============================================================================
+                              Business Layout Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Home Part Start
+  ============================================================================ */
+  .business--home--header--wrapper {
+    flex-direction: column;
+  }
+  .business--home--header--column--row {
+    width: 100%;
+    gap: 20px;
+  }
+  .business--home--header--column {
+    padding: 20px;
+  }
+  .business--home--header--count h5 {
+    font-size: 18px;
+  }
+  .business--home--body--count h2 {
+    font-size: 32px;
+  }
+  .business--home--body--count h2 span {
+    font-size: 14px;
+  }
+  .business--home--header--count--icon {
+    width: 30px;
+    height: 30px;
+  }
+  .business--home--header--count--icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .business--home--header--report {
+    width: 100%;
+    flex-direction: row;
+  }
+  .business--home--report {
+    padding: 10px 18px;
+    width: -webkit-fill-available;
+  }
+  .business--home--report button {
+    padding: 14px 12px;
+    font-size: 14px;
+  }
+  .business--home--body--column--title {
+    gap: 10px;
+    flex-direction: column;
+  }
+  .business--home--body--column--title h3 {
+    font-size: 16px;
+  }
+  .business--home--body--column--button {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 14px 32px;
+  }
+  /* ============================================================================
+                              Business Home Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business QR Code Part Start
+  ============================================================================ */
+  .business--form--qr--code--header button {
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px 20px;
+  }
+  .business--form--qr--code--header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  /* ============================================================================
+                            Business QR Code Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Current Menu Part Start
+  ============================================================================ */
+  .business-current-menu-sidebar-all-tab {
+    width: 100% !important;
+    flex-direction: row !important;
+  }
+  .business-current-menu-sidebar button {
+    width: auto;
+  }
+  .business-current-menu-sidebar button {
+    font-size: 14px;
+    gap: 10px;
+  }
+  .business-current-menu-link-quantity {
+    font-size: 10px;
+  }
+  .business--new--menu--header h4 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .business--new--menu--header h3 {
+    font-size: 20px;
+  }
+  .business-current-menu-sidebar {
+    flex-direction: column;
+  }
+  .business-current-menu-tab-content {
+    width: 100%;
+  }
+  .business-current-menu-sidebar button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .business-current-tab-heading {
+    font-size: 18px;
+  }
+  .business-current-menu-tab-wraper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .business-current-menu-card-name {
+    font-size: 16px;
+  }
+  .business-current-menu-tab-card p {
+    font-size: 13px;
+  }
+  /* ============================================================================
+                            Business Current Menu Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Payment Part Start
+  ============================================================================ */
+  .business--subscription--card {
+    width: 50%;
+  }
+  /* ============================================================================
+                            Business Payment Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business View Profile Part Start
+  ============================================================================ */
+  .business--view--profile--header h3 {
+    font-size: 20px;
+  }
+  .business--view--profile--edit i,
+  .business--view--profile--edit p {
+    font-size: 14px;
+  }
+  .business--form--group--row {
+    flex-direction: column;
+  }
+  /* ============================================================================
+                        Business View Profile Part End
+  ============================================================================ */
+}
+
+/* Tab devices   */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* ============================================================================
+                                Navbar Part Start
+  ============================================================================ */
+  .navbar_link {
+    font-size: 14px;
+  }
+  /* ============================================================================
+                                Navbar Part Start
+  ============================================================================ */
+
+  /* ============================================================================
+                                Hero Part Start
+  ============================================================================ */
+  .hero_section {
+    padding: 60px 0;
+  }
+  .hero_section_left {
+    width: 90%;
+  }
+  .hero_section_title {
+    font-size: 35px;
+    line-height: 58px;
+  }
+  .hero_section_text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .hero_left_rating_title {
+    font-size: 14px;
+  }
+  .hero_left_rating_img {
+    max-width: 100px;
+  }
+  .hero_left_rating {
+    margin-bottom: 40px;
+  }
+  .hero_left_join_btn {
+    font-size: 14px;
+    padding: 13px 35px;
+  }
+  /* ============================================================================
+                                Hero Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                About Part Start
+  ============================================================================ */
+  .about_feedback_section {
+    padding: 60px 0;
+  }
+  .section_title {
+    font-size: 28px;
+  }
+  .about_feedback_bottom {
+    max-width: 100%;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  .about_feedback_item {
+    width: 49%;
+    height: 100%;
+    padding: 20px;
+  }
+  .about_feedback_item_top h5 {
+    font-size: 35px;
+    text-align: center;
+  }
+  .about_feedback_item_top h5 span {
+    font-size: 16px;
+  }
+  .about_feedback_top {
+    margin-bottom: 25px;
+  }
+  .about_feedback_item_bottom_title {
+    font-size: 18px;
+    margin-top: 0;
+    text-align: center;
+  }
+  .about_feedback_item_bottom_text {
+    font-size: 13px;
+    line-height: 24px;
+    text-align: center;
+    margin-top: 0;
+  }
+  /* ============================================================================
+                                About Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Feedback Part Start
+  ============================================================================ */
+  .qna_wrapper {
+    gap: 40px;
+    flex-direction: column;
+  }
+  .qna_left {
+    width: 100%;
+  }
+  .qna_right {
+    width: 100%;
+  }
+  .qna_section {
+    padding: 50px 0;
+  }
+  .qna_left_title {
+    font-size: 26px;
+    line-height: 44px;
+    text-align: center;
+  }
+  .qna_left_text {
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    max-width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .qna_left_join_btn {
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
+    margin: 0 auto 40px;
+  }
+  .accordion-button {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .accordion_body_text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .accordion-wrapper {
+    gap: 20px;
+    display: flex !important;
+    flex-direction: initial;
+    flex-wrap: wrap;
+  }
+  .accordion-item {
+    width: 48%;
+    flex-grow: 0;
+    height: fit-content;
+  }
+  /* ============================================================================
+                            Feedback Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Our Team Part Start
+  ============================================================================ */
+  .our_team_section {
+    padding: 40px 0;
+  }
+  .our_team_section_text {
+    font-size: 14px;
+    line-height: 24px;
+    max-width: 100%;
+  }
+  .our_team_item {
+    width: 49%;
+  }
+  .our_team_bottom {
+    margin-top: 30px;
+    row-gap: 30px;
+  }
+  .our_team_item_text {
+    margin-top: 10px;
+  }
+  .our_team_item_title {
+    font-size: 20px;
+  }
+  .our_team_item_position {
+    font-size: 15px;
+  }
+  /* ============================================================================
+                                Our Team Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Contact Part Start
+  ============================================================================ */
+  .contact_us_section {
+    padding: 80px 0;
+  }
+  .contact_us_title {
+    font-size: 30px;
+    line-height: 45px;
+    max-width: 80%;
+  }
+  .contact_btn {
+    width: 180px;
+    height: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  /* ============================================================================
+                                Contact Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Footer Part Start
+  ============================================================================ */
+  .footer_logo {
+    max-width: 200px;
+  }
+  /* ============================================================================
+                                Footer Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Login Part Start
+  ============================================================================ */
+  .business--login--section {
+    height: 100%;
+    padding: 0 0;
+  }
+  .business--login--wrapper {
+    max-width: 450px;
+    padding: 20px;
+    gap: 30px;
+    background: none;
+    box-shadow: none;
+  }
+  .business--form--group label {
+    font-size: 14px;
+  }
+  .business--form--group input {
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  .business--form--forgot a {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .business--login--title {
+    text-align: center;
+    min-width: 145px;
+    text-wrap: nowrap;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--secondary-color);
+  }
+  .business--login--form {
+    gap: 10px;
+  }
+  .toggle-password i {
+    font-size: 12px;
+  }
+  .business--form--btn {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                              Business Login Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Registration Part Start
+  ============================================================================ */
+  .business--form--forgot span {
+    font-size: 10px !important;
+  }
+  .business--form--select {
+    font-size: 12px;
+    line-height: 24px;
+    border-radius: 5px;
+  }
+  .business--form--select--icon {
+    top: 58%;
+    font-size: 12px;
+  }
+  .form-check-label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .form-check-label a {
+    font-size: 12px;
+    text-transform: capitalize;
+  }
+  /* ============================================================================
+                              Registration Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Customer Information Part Start
+  ============================================================================ */
+  .customer_information_top_texts p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .customer_information_top_texts {
+    gap: 10px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .customer_information_top_title {
+    font-size: 16px;
+    line-height: 25px;
+    border-bottom: 1px solid #2e1a00;
+    margin-top: 30px;
+  }
+  .full_name_inputs {
+    gap: 0px;
+    flex-direction: column;
+  }
+  .customer_information_bottom_btn {
+    font-size: 14px;
+  }
+  .customer_information_bottom_checkbox {
+    gap: 5px;
+  }
+  .customer_information_bottom_checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 15px;
+  }
+  .customer_information_bottom_checkbox label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_information_content_box {
+    width: 100%;
+    padding: 50px 20px;
+    gap: 30px;
+    background: transparent;
+    box-shadow: none;
+  }
+  .customer_information_bottom_inputs input {
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  .customer_information_bottom_inputs input::placeholder {
+    font-size: 14px;
+  }
+  .customer_information_bottom_inputs label {
+    font-size: 18px;
+  }
+  /* ============================================================================
+                            Customer Information Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Customer Rating Part Start
+  ============================================================================ */
+  .customer_rating_inner {
+    flex-direction: column;
+  }
+  .customer_rating_inner_box {
+    width: 100%;
+    padding: 25px;
+  }
+  .customer_rating_list_item_title_box {
+    width: 100%;
+  }
+  .customer_rating_list_item_title {
+    font-size: 18px;
+  }
+  .customer_rating_list_item_checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+  .customer_rating_list {
+    margin-top: 25px;
+  }
+  .customer_rating_heading h1 {
+    font-size: 24px;
+  }
+  .ratings_stars {
+    margin-left: auto;
+  }
+  .customer_rating_submit_btn {
+    width: 300px;
+    height: 50px;
+    font-size: 16px;
+  }
+  .customer_rating_submit {
+    margin-top: 35px;
+  }
+  /* ============================================================================
+                            Customer Rating Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                          Business Subscription Part Start
+  ============================================================================ */
+  .business--login--title h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .business--form--radio--label h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li i {
+    font-size: 10px;
+  }
+  .business--form--radio--label ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--radio--label {
+    padding: 20px 24px;
+  }
+  .business--form--btn-container {
+    margin-top: 10px;
+  }
+  .business--form--btn--gary {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                          Business Subscription Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business Card Details Part Start
+  ============================================================================ */
+  .business--form--details h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--details ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--details ul li i {
+    font-size: 10px;
+  }
+  .business--form--details ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--payment h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--payment--method--btn img {
+    width: 60px;
+  }
+  .business--form--group--wrap input {
+    font-size: 12px;
+    line-height: 24px;
+    padding: 6px 20px;
+    border-radius: 5px;
+  }
+  /* ============================================================================
+                        Business Card Details Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Details Part Start
+  ============================================================================ */
+  .business--form--upload--container {
+    height: 140px;
+    border-width: 1px;
+  }
+  .business--form--upload--title {
+    font-size: 14px;
+  }
+  .business--form--upload--subtitle {
+    font-size: 11px;
+  }
+  .business--form--customer {
+    flex-direction: column;
+  }
+  .business--form--customer h3 {
+    font-size: 14px;
+    text-align: center;
+  }
+  .business--form--customer--count {
+    justify-content: center;
+    gap: 5px;
+  }
+  .business--form--customer--count input {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                            Business Details Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Layout Part Start
+  ============================================================================ */
+  .business_sidebar {
+    left: -100%;
+    transition: all ease-in-out 0.3s;
+  }
+  .business_sidebar.visible {
+    left: 0 !important;
+  }
+  .business_mobile_bars {
+    display: flex !important;
+  }
+  .business_layout_body_wrapper {
+    margin-left: 0;
+    padding: 0 20px;
+  }
+  .business_layout_body_topbar {
+    padding: 20px 0px 18px;
+    margin-bottom: 0px;
+  }
+  .business_layout_body_topbar_left_title {
+    font-size: 19px;
+    line-height: 24px;
+    margin-right: 0px;
+  }
+  .business_layout_body_topbar_left {
+    align-items: center;
+    min-width: fit-content;
+    gap: 10px;
+  }
+  .business_layout_body_topbar_left_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .business_layout_body_topbar_left_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_left_date {
+    font-size: 13px;
+    line-height: 24px;
+    margin-left: 0px;
+  }
+  .business_layout_body_topbar_right_search {
+    width: 320px;
+    padding: 8px 10px 8px 20px;
+  }
+  .business_layout_body_topbar_right_search input {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search input::placeholder {
+    font-size: 14px;
+  }
+  .business_layout_body_topbar_right_search_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .business_layout_body_topbar_right_search_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right_icon {
+    width: 45px;
+    height: 45px;
+  }
+  .business_layout_body_topbar_right_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right {
+    gap: 10px;
+  }
+  .business_sidebar {
+    width: 260px;
+    padding: 30px 20px;
+  }
+  .business_sidebar_menu_link {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .business_sidebar_menu_link svg {
+    width: 20px;
+  }
+  .business_sidebar_menu_list {
+    gap: 8px;
+  }
+  .business_sidebar_bottom_logout_btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_img {
+    width: 40px;
+    height: 40px;
+  }
+  .business_sidebar_bottom_user {
+    gap: 10px;
+  }
+  .business_sidebar_bottom_user_name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_info {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  /* ============================================================================
+                              Business Layout Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Home Part Start
+  ============================================================================ */
+  .business--home--header--wrapper {
+    flex-direction: column;
+  }
+  .business--home--header--column--row {
+    width: 100%;
+    gap: 20px;
+  }
+  .business--home--header--column {
+    padding: 20px;
+  }
+  .business--home--header--count h5 {
+    font-size: 18px;
+  }
+  .business--home--body--count h2 {
+    font-size: 32px;
+  }
+  .business--home--body--count h2 span {
+    font-size: 14px;
+  }
+  .business--home--header--count--icon {
+    width: 30px;
+    height: 30px;
+  }
+  .business--home--header--count--icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .business--home--header--report {
+    width: 100%;
+    flex-direction: row;
+  }
+  .business--home--report {
+    padding: 10px 18px;
+    width: -webkit-fill-available;
+  }
+  .business--home--report button {
+    padding: 14px 12px;
+    font-size: 14px;
+  }
+  .business--home--body--column--title {
+    gap: 10px;
+    flex-direction: column;
+  }
+  .business--home--body--column--title h3 {
+    font-size: 16px;
+  }
+  .business--home--body--column--button {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 14px 32px;
+  }
+  /* ============================================================================
+                              Business Home Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business QR Code Part Start
+  ============================================================================ */
+  .business--form--qr--code--header button {
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 10px 20px;
+  }
+  .business--form--qr--code--header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  /* ============================================================================
+                            Business QR Code Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Current Menu Part Start
+  ============================================================================ */
+  .business-current-menu-sidebar-all-tab {
+    width: 100% !important;
+    flex-direction: row !important;
+  }
+  .business-current-menu-sidebar button {
+    width: auto;
+  }
+  .business-current-menu-sidebar button {
+    font-size: 14px;
+    gap: 10px;
+  }
+  .business-current-menu-link-quantity {
+    font-size: 10px;
+  }
+  .business--new--menu--header h4 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .business--new--menu--header h3 {
+    font-size: 20px;
+  }
+  .business-current-menu-sidebar {
+    flex-direction: column;
+  }
+  .business-current-menu-tab-content {
+    width: 100%;
+  }
+  .business-current-menu-sidebar button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .business-current-tab-heading {
+    font-size: 18px;
+  }
+  .business-current-menu-tab-wraper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .business-current-menu-card-name {
+    font-size: 16px;
+  }
+  .business-current-menu-tab-card p {
+    font-size: 13px;
+  }
+  /* ============================================================================
+                            Business Current Menu Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business View Profile Part Start
+  ============================================================================ */
+  .business--view--profile--header h3 {
+    font-size: 18px;
+  }
+  .business--view--profile--edit i,
+  .business--view--profile--edit p {
+    font-size: 12px;
+  }
+  .business--form--group--row {
+    flex-direction: column;
+  }
+  /* ============================================================================
+                        Business View Profile Part End
+  ============================================================================ */
+}
+
+/* Tab lower only  */
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  /* ============================================================================
+                                Navbar Part Start
+  ============================================================================ */
+  .navbar_link {
+    font-size: 14px;
+  }
+  .navbar_logo {
+    max-width: 120px;
+  }
+  /* ============================================================================
+                                Navbar Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Hero Part Start
+  ============================================================================ */
+  .hero_section {
+    padding: 40px 0;
+  }
+  .hero_section_wrapper {
+    flex-direction: column;
+  }
+  .hero_right_shadow_top {
+    top: -2px;
+  }
+  .hero_right_shadow_bottom {
+    bottom: -2px;
+  }
+  .hero_section_left {
+    width: 100%;
+  }
+  .hero_section_title {
+    font-size: 26px;
+    line-height: 45px;
+    letter-spacing: 0px;
+    text-align: center;
+  }
+  .hero_section_text {
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+  }
+  .hero_left_rating {
+    justify-content: center;
+    margin-bottom: 35px;
+  }
+  .hero_left_btns {
+    justify-content: center;
+  }
+  .hero_left_join_btn {
+    font-size: 14px;
+  }
+  /* ============================================================================
+                                Hero Part End
+  ============================================================================ */
+  /* ============================================================================
+                                About Part Start
+  ============================================================================ */
+  .about_feedback_section {
+    padding: 60px 0;
+  }
+  .section_title {
+    font-size: 28px;
+  }
+  .about_feedback_bottom {
+    max-width: 100%;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  .about_feedback_item {
+    width: 49%;
+    height: 100%;
+    padding: 20px;
+  }
+  .about_feedback_item_top h5 {
+    font-size: 35px;
+    text-align: center;
+  }
+  .about_feedback_item_top h5 span {
+    font-size: 16px;
+  }
+  .about_feedback_top {
+    margin-bottom: 25px;
+  }
+  .about_feedback_item_bottom_title {
+    font-size: 18px;
+    margin-top: 0;
+    text-align: center;
+  }
+  .about_feedback_item_bottom_text {
+    font-size: 13px;
+    line-height: 24px;
+    text-align: center;
+    margin-top: 0;
+  }
+  /* ============================================================================
+                                About Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Feedback Part Start
+  ============================================================================ */
+  .qna_wrapper {
+    gap: 40px;
+    flex-direction: column;
+  }
+  .qna_left {
+    width: 100%;
+  }
+  .qna_right {
+    width: 100%;
+  }
+  .qna_section {
+    padding: 50px 0;
+  }
+  .qna_left_title {
+    font-size: 26px;
+    line-height: 44px;
+    text-align: center;
+  }
+  .qna_left_text {
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    max-width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .qna_left_join_btn {
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
+    margin: 0 auto 40px;
+  }
+  .accordion-button {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .accordion_body_text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .accordion-wrapper {
+    gap: 20px;
+  }
+  /* ============================================================================
+                            Feedback Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Our Team Part Start
+  ============================================================================ */
+  .our_team_section {
+    padding: 40px 0;
+  }
+  .our_team_section_text {
+    font-size: 14px;
+    line-height: 24px;
+    max-width: 100%;
+  }
+  .our_team_item {
+    width: 49%;
+  }
+  .our_team_bottom {
+    margin-top: 30px;
+    row-gap: 30px;
+  }
+  .our_team_item_text {
+    margin-top: 10px;
+  }
+  .our_team_item_title {
+    font-size: 20px;
+  }
+  .our_team_item_position {
+    font-size: 15px;
+  }
+  /* ============================================================================
+                                Our Team Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Contact Part Start
+  ============================================================================ */
+  .contact_us_section {
+    padding: 80px 0;
+  }
+  .contact_us_title {
+    font-size: 30px;
+    line-height: 45px;
+    max-width: 100%;
+  }
+  .contact_btn {
+    width: 180px;
+    height: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  /* ============================================================================
+                                Contact Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Footer Part Start
+  ============================================================================ */
+  .footer_logo {
+    max-width: 180px;
+  }
+  .footer_text {
+    font-size: 15px;
+    line-height: 24px;
+    max-width: 100%;
+    margin: 30px auto 40px;
+  }
+  .footer_address_links {
+    gap: 15px;
+    flex-direction: column;
+  }
+  .footer_address_links li {
+    font-size: 16px;
+    line-height: 24px;
+    gap: 16px;
+  }
+  .footer_social_links li a i {
+    font-size: 20px;
+  }
+  .footer_copyright_area {
+    padding: 24px 0 0;
+    margin-top: 50px;
+    flex-direction: column;
+  }
+  .footer_copyright_text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .footer_section {
+    padding: 50px 0 30px;
+  }
+  /* ============================================================================
+                                Footer Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Login Part Start
+  ============================================================================ */
+  .business--login--section {
+    height: 100%;
+    padding: 0 0;
+  }
+  .business--login--wrapper {
+    max-width: 450px;
+    padding: 20px;
+    gap: 30px;
+    background: none;
+    box-shadow: none;
+  }
+  .business--form--group label {
+    font-size: 14px;
+  }
+  .business--form--group input {
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  .business--form--forgot a {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .business--login--title {
+    text-align: center;
+    min-width: 145px;
+    text-wrap: nowrap;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--secondary-color);
+  }
+  .business--login--form {
+    gap: 10px;
+  }
+  .toggle-password i {
+    font-size: 12px;
+  }
+  .business--form--btn {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                              Business Login Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Registration Part Start
+  ============================================================================ */
+  .business--form--forgot span {
+    font-size: 10px !important;
+  }
+  .business--form--select {
+    font-size: 12px;
+    line-height: 24px;
+    border-radius: 5px;
+  }
+  .business--form--select--icon {
+    top: 58%;
+    font-size: 12px;
+  }
+  .form-check-label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .form-check-label a {
+    font-size: 12px;
+    text-transform: capitalize;
+  }
+  /* ============================================================================
+                              Registration Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Customer Information Part Start
+  ============================================================================ */
+  .customer_information_top_texts p {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_information_top_texts {
+    gap: 10px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .customer_information_top_title {
+    font-size: 16px;
+    line-height: 25px;
+    border-bottom: 1px solid #2e1a00;
+    margin-top: 30px;
+  }
+  .full_name_inputs {
+    gap: 0px;
+    flex-direction: column;
+  }
+  .customer_information_bottom_btn {
+    width: 300px;
+    height: 45px;
+    font-size: 12px;
+    margin: 40px auto 0;
+  }
+  .customer_information_bottom_checkbox {
+    gap: 5px;
+  }
+  .customer_information_bottom_checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 15px;
+  }
+  .customer_information_bottom_checkbox label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_information_content_box {
+    width: 100%;
+    padding: 50px 20px;
+    gap: 30px;
+    background: transparent;
+    box-shadow: none;
+  }
+  .customer_information_bottom_inputs input {
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  .customer_information_bottom_inputs input::placeholder {
+    font-size: 12px;
+  }
+  .customer_information_bottom_inputs label {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                            Customer Information Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Customer Rating Part Start
+  ============================================================================ */
+  .customer_rating_inner {
+    flex-direction: column;
+  }
+  .customer_rating_inner_box {
+    width: 100%;
+    padding: 25px;
+  }
+  .customer_rating_list_item_title_box {
+    width: 100%;
+  }
+  .customer_rating_list_item_title {
+    font-size: 18px;
+  }
+  .customer_rating_list_item_checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+  .customer_rating_list {
+    gap: 20px;
+    margin-top: 25px;
+  }
+  .customer_rating_heading h1 {
+    font-size: 22px;
+  }
+  .ratings_stars {
+    margin-left: auto;
+  }
+  .customer_rating_submit_btn {
+    width: 300px;
+    height: 50px;
+    font-size: 16px;
+  }
+  .customer_rating_submit {
+    margin-top: 35px;
+  }
+  /* ============================================================================
+                            Customer Rating Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Customer Success Part Start
+  ============================================================================ */
+  .customer_success_content_box {
+    width: 100%;
+    padding: 50px 20px;
+  }
+  .customer_success_emoji {
+    width: 100px;
+  }
+  .customer_success_top_title {
+    font-size: 20px;
+  }
+  .feedback_item_name {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .stars label {
+    font-size: 25px;
+  }
+  .customer_success_bottom {
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .customer_success_bottom_text {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_success_bottom_textarea {
+    width: 100%;
+    height: 110px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--Blue-Grey-300, #dfe3e8);
+    background: #fff;
+    font-size: 12px;
+  }
+  .customer_success_bottom_textarea::placeholder {
+    font-size: 12px;
+  }
+  .customer_success_bottom_radio_input {
+    width: min-content;
+  }
+  .customer_success_bottom_radio {
+    gap: 15px;
+    justify-content: space-between;
+  }
+  .customer_success_bottom_radio_label {
+    width: max-content;
+  }
+  .customer_success_bottom_radio_label label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_success_bottom_btns {
+    margin-top: 10px;
+  }
+  .customer_success_feedback_bottom {
+    height: 45px;
+    font-size: 14px;
+  }
+  .customer_success_bottom_radio_input input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+  .customer_success_bottom_btn {
+    width: 200px;
+    height: 45px;
+    font-size: 16px;
+  }
+  /* ============================================================================
+                              Customer Success Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                          Business Subscription Part Start
+  ============================================================================ */
+  .business--login--title h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .business--form--radio--label h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li i {
+    font-size: 10px;
+  }
+  .business--form--radio--label ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--radio--label {
+    padding: 20px 24px;
+  }
+  .business--form--btn-container {
+    margin-top: 10px;
+  }
+  .business--form--btn--gary {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                          Business Subscription Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business Card Details Part Start
+  ============================================================================ */
+  .business--form--details h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--details ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--details ul li i {
+    font-size: 10px;
+  }
+  .business--form--details ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--payment h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--payment--method--btn img {
+    width: 60px;
+  }
+  .business--form--group--wrap input {
+    font-size: 12px;
+    line-height: 24px;
+    padding: 6px 20px;
+    border-radius: 5px;
+  }
+  /* ============================================================================
+                        Business Card Details Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Details Part Start
+  ============================================================================ */
+  .business--form--upload--container {
+    height: 140px;
+    border-width: 1px;
+  }
+  .business--form--upload--title {
+    font-size: 14px;
+  }
+  .business--form--upload--subtitle {
+    font-size: 11px;
+  }
+  .business--form--customer {
+    flex-direction: column;
+  }
+  .business--form--customer h3 {
+    font-size: 14px;
+    text-align: center;
+  }
+  .business--form--customer--count {
+    justify-content: center;
+    gap: 5px;
+  }
+  .business--form--customer--count input {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                            Business Details Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Layout Part Start
+  ============================================================================ */
+  .business_sidebar {
+    left: -100%;
+    transition: all ease-in-out 0.3s;
+  }
+  .business_sidebar.visible {
+    left: 0 !important;
+  }
+  .business_layout_body_wrapper {
+    margin-left: 0;
+    padding: 0 20px;
+  }
+  .business_layout_body_topbar {
+    padding: 20px 0px 18px;
+    margin-bottom: 0px;
+  }
+  .business_layout_body_topbar_left_title {
+    font-size: 18px;
+    line-height: 24px;
+    margin-right: 0px;
+  }
+  .business_layout_body_topbar_left {
+    align-items: start;
+    flex-direction: column;
+    min-width: fit-content;
+  }
+  .business_layout_body_topbar_left_icon {
+    display: none;
+  }
+  .business_layout_body_topbar_left_date {
+    font-size: 12px;
+    line-height: 24px;
+    margin-left: 0px;
+  }
+  .business_layout_body_topbar_right_search {
+    width: calc(100% - 40px);
+    display: flex;
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease-in-out;
+    z-index: 99;
+  }
+  .business_layout_body_topbar_right_search.active {
+    top: 20px;
+  }
+  .business_topbar_search_icon {
+    display: flex !important;
+  }
+  .business_layout_body_topbar_right_icon {
+    width: 45px;
+    height: 45px;
+  }
+  .business_layout_body_topbar_right_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right {
+    gap: 10px;
+  }
+  .business_layout_body_topbar_right_icon {
+    display: flex !important;
+  }
+  .business_sidebar {
+    width: 260px;
+    padding: 30px 20px;
+  }
+  .business_sidebar_menu_link {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .business_sidebar_menu_link svg {
+    width: 20px;
+  }
+  .business_sidebar_menu_list {
+    gap: 8px;
+  }
+  .business_sidebar_bottom_logout_btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_img {
+    width: 40px;
+    height: 40px;
+  }
+  .business_sidebar_bottom_user {
+    gap: 10px;
+  }
+  .business_sidebar_bottom_user_name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_info {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  /* ============================================================================
+                              Business Layout Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Home Part Start
+  ============================================================================ */
+  .business--home--header--wrapper {
+    gap: 10px;
+    flex-direction: column;
+  }
+  .business--home--header--column--row {
+    width: 100%;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .business--home--header--column {
+    padding: 20px;
+    gap: 10px;
+  }
+  .business--home--header--count h5 {
+    font-size: 20px;
+  }
+  .business--home--header--count--icon {
+    width: 35px;
+    height: 35px;
+  }
+  .business--home--header--count--icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .business--home--body--count h2 {
+    font-size: 38px;
+  }
+  .business--home--body--count h2 span {
+    font-size: 14px;
+  }
+  .business--home--report button {
+    min-width: 115px;
+    padding: 10px 10px;
+    font-size: 15px;
+  }
+  .business--home--report h4 {
+    font-size: 17px;
+  }
+  .business--home--header--report {
+    width: 100%;
+    gap: 10px;
+  }
+  .business--home--body--column--title {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .business--home--body--column {
+    gap: 15px;
+  }
+  .business--home--body--column--title h4 {
+    font-size: 16px;
+  }
+  .business--home--body--column {
+    padding: 10px 10px;
+  }
+  .business--home--body--column--title h3 {
+    font-size: 16px;
+  }
+  .business--home--body--column--button {
+    font-size: 16px;
+    padding: 10px 30px;
+  }
+  .business--home--body--wrapper {
+    padding: 15px;
+  }
+  /* ============================================================================
+                              Business Home Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Current Menu Part Start
+  ============================================================================ */
+  #business-current-floating-menu-filter {
+    display: block !important;
+  }
+  .business-current-menu-sidebar-all-tab {
+    width: 100% !important;
+    position: fixed;
+    bottom: 88px;
+    right: 30px;
+    max-width: 280px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    border: 1px solid #dbdbdb;
+    transition: all linear 0.3s;
+  }
+  .business-current-menu-sidebar-all-tab.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .business--new--menu--header h4 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .business--new--menu--header h3 {
+    font-size: 20px;
+  }
+  .business-current-menu-sidebar {
+    flex-direction: column;
+  }
+  .business-current-menu-tab-content {
+    width: 100%;
+  }
+  .business-current-menu-sidebar button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .business-current-tab-heading {
+    font-size: 18px;
+  }
+  .business-current-menu-tab-wraper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .business-current-menu-card-name {
+    font-size: 16px;
+  }
+  .business-current-menu-tab-card p {
+    font-size: 13px;
+  }
+  /* ============================================================================
+                            Business Current Menu Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business New Manu Part Start
+  ============================================================================ */
+  .business--new--menu--body--row h3 {
+    font-size: 20px;
+  }
+  .business--new--menu--body {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .business--new--menu--item {
+    width: 100%;
+  }
+  .business--new--menu--body button {
+    font-size: 14px;
+    line-height: 24px;
+    padding: 8px 44px;
+  }
+  /* ============================================================================
+                            Business New Manu Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Payment Part Start
+  ============================================================================ */
+  .business--subscription {
+    flex-direction: column;
+  }
+  .business--subscription--card {
+    width: 100%;
+    padding: 15px;
+  }
+  .business--subscription--title h4 {
+    font-size: 20px;
+  }
+  /* ============================================================================
+                            Business Payment Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business View Profile Part Start
+  ============================================================================ */
+  .business--view--profile {
+    flex-direction: column;
+  }
+  .business--view--profile--header h3 {
+    font-size: 18px;
+  }
+  .business--view--profile--edit i,
+  .business--view--profile--edit p {
+    font-size: 12px;
+  }
+  .business--form--group--row {
+    flex-direction: column;
+  }
+  /* ============================================================================
+                        Business View Profile Part End
+  ============================================================================ */
+}
+
+/* Mobile devices   */
+@media only screen and (min-width: 375px) and (max-width: 575px) {
+  /* ============================================================================
+                                Navbar Part Start
+  ============================================================================ */
+  .navbar_link {
+    font-size: 10px;
+    padding: 10px 15px;
+  }
+  .navbar_logo {
+    max-width: 95px;
+  }
+  .navbar_menu {
+    gap: 5px;
+  }
+  /* ============================================================================
+                                Navbar Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Hero Part Start
+  ============================================================================ */
+  .hero_section {
+    padding: 40px 0;
+  }
+  .hero_section_wrapper {
+    flex-direction: column;
+  }
+  .hero_right_shadow_top {
+    top: -2px;
+  }
+  .hero_right_shadow_bottom {
+    bottom: -2px;
+  }
+  .hero_section_left {
+    width: 100%;
+  }
+  .hero_section_title {
+    font-size: 26px;
+    line-height: 45px;
+    letter-spacing: 0px;
+    text-align: center;
+  }
+  .hero_section_text {
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+  }
+  .hero_left_rating {
+    justify-content: center;
+    margin-bottom: 35px;
+  }
+  .hero_left_btns {
+    justify-content: center;
+  }
+  .hero_left_join_btn {
+    font-size: 14px;
+  }
+  /* ============================================================================
+                                Hero Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                About Part Start
+  ============================================================================ */
+  .about_feedback_section {
+    padding: 60px 0;
+  }
+  .section_title {
+    font-size: 28px;
+  }
+  .about_feedback_bottom {
+    max-width: 100%;
+  }
+  .about_feedback_item {
+    width: 100%;
+    padding: 20px;
+  }
+  .about_feedback_item_top h5 {
+    font-size: 35px;
+    text-align: center;
+  }
+  .about_feedback_item_top h5 span {
+    font-size: 16px;
+  }
+  .about_feedback_top {
+    margin-bottom: 25px;
+  }
+  .about_feedback_item_bottom_title {
+    font-size: 18px;
+    margin-top: 0;
+    text-align: center;
+  }
+  .about_feedback_item_bottom_text {
+    font-size: 13px;
+    line-height: 24px;
+    text-align: center;
+    margin-top: 0;
+  }
+  /* ============================================================================
+                                About Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Feedback Part Start
+  ============================================================================ */
+  .qna_wrapper {
+    gap: 40px;
+    flex-direction: column;
+  }
+  .qna_left {
+    width: 100%;
+  }
+  .qna_right {
+    width: 100%;
+  }
+  .qna_section {
+    padding: 50px 0;
+  }
+  .qna_left_title {
+    font-size: 22px;
+    line-height: 44px;
+    text-align: center;
+  }
+  .qna_left_text {
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+  }
+  .qna_left_join_btn {
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
+    margin: 0 auto 40px;
+  }
+  .accordion-button {
+    padding: 10px !important;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .accordion_body_text {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .accordion-wrapper {
+    gap: 20px;
+  }
+  /* ============================================================================
+                            Feedback Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Our Team Part Start
+  ============================================================================ */
+  .our_team_section {
+    padding: 40px 0;
+  }
+  .our_team_section_text {
+    font-size: 14px;
+    line-height: 24px;
+    max-width: 100%;
+  }
+  .our_team_item {
+    width: 100%;
+  }
+  .our_team_bottom {
+    margin-top: 30px;
+    row-gap: 30px;
+  }
+  .our_team_item_text {
+    margin-top: 10px;
+  }
+  .our_team_item_title {
+    font-size: 20px;
+  }
+  .our_team_item_position {
+    font-size: 15px;
+  }
+  /* ============================================================================
+                                Our Team Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Contact Part Start
+  ============================================================================ */
+  .contact_us_section {
+    padding: 60px 0;
+  }
+  .contact_us_title {
+    font-size: 20px;
+    line-height: 30px;
+    max-width: 100%;
+  }
+  .contact_us_btns {
+    gap: 10px;
+    flex-direction: column;
+  }
+  .contact_btn {
+    width: 180px;
+    height: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  /* ============================================================================
+                                Contact Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Footer Part Start
+  ============================================================================ */
+  .footer_logo {
+    max-width: 180px;
+  }
+  .footer_text {
+    font-size: 15px;
+    line-height: 24px;
+    max-width: 100%;
+    margin: 30px auto 40px;
+  }
+  .footer_address_links {
+    gap: 15px;
+    flex-direction: column;
+  }
+  .footer_address_links li {
+    font-size: 16px;
+    line-height: 24px;
+    gap: 16px;
+  }
+  .footer_social_links li a i {
+    font-size: 20px;
+  }
+  .footer_copyright_area {
+    padding: 24px 0 0;
+    margin-top: 50px;
+    flex-direction: column;
+  }
+  .footer_copyright_text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .footer_section {
+    padding: 50px 0 30px;
+  }
+  /* ============================================================================
+                                Footer Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Login Part Start
+  ============================================================================ */
+  .business--login--section {
+    height: 100%;
+    padding: 0 0;
+  }
+  .business--login--wrapper {
+    max-width: 100%;
+    padding: 20px;
+    gap: 30px;
+    background: none;
+    box-shadow: none;
+  }
+  .business--form--group label {
+    font-size: 14px;
+  }
+  .business--form--group input {
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  .business--form--forgot a {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .business--login--title {
+    text-align: center;
+    min-width: 145px;
+    text-wrap: nowrap;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--secondary-color);
+  }
+  .business--login--form {
+    gap: 10px;
+  }
+  .toggle-password i {
+    font-size: 12px;
+  }
+  .business--form--btn {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                              Business Login Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Registration Part Start
+  ============================================================================ */
+  .business--form--forgot span {
+    font-size: 10px !important;
+  }
+  .business--form--select {
+    font-size: 12px;
+    line-height: 24px;
+    border-radius: 5px;
+  }
+  .business--form--select--icon {
+    top: 58%;
+    font-size: 12px;
+  }
+  .form-check-label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .form-check-label a {
+    font-size: 12px;
+    text-transform: capitalize;
+  }
+  /* ============================================================================
+                              Registration Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Customer Scan Part Start
+  ============================================================================ */
+  .customer_scan_top_title {
+    font-size: 18px;
+    border-bottom: 1px solid #2e1a00;
+  }
+  .customer_scan_content_box {
+    padding: 50px 20px;
+    background: #fcfcfc;
+    box-shadow: none;
+  }
+  .customer_scan_qr_code {
+    margin-top: 30px;
+    width: 220px;
+    height: 220px;
+  }
+  /* ============================================================================
+                              Customer Scan Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Customer Information Part Start
+  ============================================================================ */
+  .customer_information_top_texts p {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_information_top_texts {
+    gap: 10px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  .customer_information_top_title {
+    font-size: 16px;
+    line-height: 25px;
+    border-bottom: 1px solid #2e1a00;
+    margin-top: 30px;
+  }
+  .full_name_inputs {
+    gap: 0px;
+    flex-direction: column;
+  }
+  .customer_information_bottom_btn {
+    width: 300px;
+    height: 45px;
+    font-size: 12px;
+    margin: 40px auto 0;
+  }
+  .customer_information_bottom_checkbox {
+    gap: 5px;
+  }
+  .customer_information_bottom_checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 15px;
+  }
+  .customer_information_bottom_checkbox label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_information_content_box {
+    width: 100%;
+    padding: 50px 20px;
+    gap: 30px;
+    background: transparent;
+    box-shadow: none;
+  }
+  .customer_information_bottom_inputs input {
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  .customer_information_bottom_inputs input::placeholder {
+    font-size: 12px;
+  }
+  .customer_information_bottom_inputs label {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                            Customer Information Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Customer Rating Part Start
+  ============================================================================ */
+  .customer_rating_inner {
+    flex-direction: column;
+  }
+  .customer_rating_inner_box {
+    width: 100%;
+    padding: 25px;
+  }
+  .customer_rating_list_item {
+    flex-direction: column;
+    gap: 0;
+  }
+  .customer_rating_list_item_title_box {
+    width: 100%;
+  }
+  .customer_rating_list_item_title {
+    font-size: 15px;
+  }
+  .customer_rating_list_item_checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+  .customer_rating_list {
+    gap: 20px;
+    margin-top: 25px;
+  }
+  .customer_rating_heading h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .ratings_stars {
+    margin-left: auto;
+  }
+  .customer_rating_submit_btn {
+    width: 300px;
+    height: 50px;
+    font-size: 16px;
+  }
+  .customer_rating_submit {
+    margin-top: 35px;
+  }
+  /* ============================================================================
+                            Customer Rating Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Customer Success Part Start
+  ============================================================================ */
+  .customer_success_content_box {
+    width: 100%;
+    padding: 50px 20px;
+  }
+  .customer_success_emoji {
+    width: 100px;
+  }
+  .customer_success_top_title {
+    font-size: 20px;
+  }
+  .feedback_item_name {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .stars label {
+    font-size: 25px;
+  }
+  .customer_success_bottom {
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .customer_success_bottom_text {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_success_bottom_textarea {
+    width: 100%;
+    height: 110px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--Blue-Grey-300, #dfe3e8);
+    background: #fff;
+    font-size: 12px;
+  }
+  .customer_success_bottom_textarea::placeholder {
+    font-size: 12px;
+  }
+  .customer_success_bottom_radio_input {
+    width: min-content;
+  }
+  .customer_success_bottom_radio {
+    gap: 15px;
+    justify-content: space-between;
+  }
+  .customer_success_bottom_radio_label {
+    width: max-content;
+  }
+  .customer_success_bottom_radio_label label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_success_bottom_btns {
+    margin-top: 10px;
+  }
+  .customer_success_feedback_bottom {
+    height: 45px;
+    font-size: 14px;
+  }
+  .customer_success_bottom_radio_input input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+  .customer_success_bottom_btn {
+    width: 200px;
+    height: 45px;
+    font-size: 16px;
+  }
+  /* ============================================================================
+                              Customer Success Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                          Business Subscription Part Start
+  ============================================================================ */
+  .business--login--title h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .business--form--radio--label h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li i {
+    font-size: 10px;
+  }
+  .business--form--radio--label ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--radio--label {
+    padding: 20px 24px;
+  }
+  .business--form--btn-container {
+    margin-top: 10px;
+  }
+  .business--form--btn--gary {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                          Business Subscription Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business Card Details Part Start
+  ============================================================================ */
+  .business--form--details h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--details ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--details ul li i {
+    font-size: 10px;
+  }
+  .business--form--details ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--payment h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--payment--method--btn img {
+    width: 60px;
+  }
+  .business--form--group--wrap input {
+    font-size: 12px;
+    line-height: 24px;
+    padding: 6px 20px;
+    border-radius: 5px;
+  }
+  /* ============================================================================
+                        Business Card Details Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business Outlet Selection Part Start
+  ============================================================================ */
+  .business--form--outlet--label {
+    padding: 10px 20px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                        Business Outlet Selection Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Details Part Start
+  ============================================================================ */
+  .business--form--upload--container {
+    height: 140px;
+    border-width: 1px;
+  }
+  .business--form--upload--title {
+    font-size: 14px;
+  }
+  .business--form--upload--subtitle {
+    font-size: 11px;
+  }
+  .business--form--customer {
+    flex-direction: column;
+  }
+  .business--form--customer h3 {
+    font-size: 14px;
+    text-align: center;
+  }
+  .business--form--customer--count {
+    justify-content: center;
+    gap: 5px;
+  }
+  .business--form--customer--count input {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                            Business Details Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Layout Part Start
+  ============================================================================ */
+  .business_sidebar {
+    left: -100%;
+    transition: all ease-in-out 0.3s;
+  }
+  .business_sidebar.visible {
+    left: 0 !important;
+  }
+  .business_layout_body_wrapper {
+    margin-left: 0;
+    padding: 0 20px;
+  }
+  .business_layout_body_topbar {
+    padding: 20px 0px 18px;
+    margin-bottom: 0px;
+  }
+  .business_layout_body_topbar_left_title {
+    font-size: 18px;
+    line-height: 24px;
+    margin-right: 0px;
+  }
+  .business_layout_body_topbar_left {
+    align-items: start;
+    flex-direction: column;
+    min-width: fit-content;
+  }
+  .business_layout_body_topbar_left_icon {
+    display: none;
+  }
+  .business_layout_body_topbar_left_date {
+    font-size: 12px;
+    line-height: 24px;
+    margin-left: 0px;
+  }
+  .business_layout_body_topbar_right_search {
+    width: calc(100% - 40px);
+    display: flex;
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease-in-out;
+    z-index: 99;
+  }
+  .business_layout_body_topbar_right_search.active {
+    top: 20px;
+  }
+  .business_topbar_search_icon {
+    display: flex !important;
+  }
+  .business_layout_body_topbar_right_icon {
+    width: 45px;
+    height: 45px;
+  }
+  .business_layout_body_topbar_right_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right {
+    gap: 10px;
+  }
+  .business_layout_body_topbar_right_icon {
+    display: flex !important;
+  }
+  .business_sidebar {
+    width: 260px;
+    padding: 30px 20px;
+  }
+  .business_sidebar_menu_link {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .business_sidebar_menu_link svg {
+    width: 20px;
+  }
+  .business_sidebar_menu_list {
+    gap: 8px;
+  }
+  .business_sidebar_bottom_logout_btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_img {
+    width: 40px;
+    height: 40px;
+  }
+  .business_sidebar_bottom_user {
+    gap: 10px;
+  }
+  .business_sidebar_bottom_user_name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_info {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  /* ============================================================================
+                            Business Layout Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Home Part Start
+  ============================================================================ */
+  .business--home--header--wrapper {
+    gap: 10px;
+    flex-direction: column;
+  }
+  .business--home--header--column--row {
+    width: 100%;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .business--home--header--column {
+    padding: 20px;
+    gap: 10px;
+  }
+  .business--home--header--count h5 {
+    font-size: 18px;
+  }
+  .business--home--header--count--icon {
+    width: 35px;
+    height: 35px;
+  }
+  .business--home--header--count--icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .business--home--body--count h2 {
+    font-size: 35px;
+  }
+  .business--home--body--count h2 span {
+    font-size: 12px;
+  }
+  .business--home--report button {
+    min-width: 90px;
+    padding: 10px 10px;
+    font-size: 12px;
+  }
+  .business--home--report h4 {
+    font-size: 15px;
+  }
+  .business--home--header--report {
+    width: 100%;
+    gap: 10px;
+  }
+  .business--home--body--column--title {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .business--home--body--column {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  .business--home--body--column--title h4 {
+    font-size: 16px;
+  }
+  .business--home--body--column {
+    padding: 10px 10px;
+  }
+  .business--home--body--column--title h3 {
+    font-size: 16px;
+  }
+  .business--home--body--column--button {
+    font-size: 16px;
+    padding: 10px 30px;
+  }
+  .business--home--body--wrapper {
+    padding: 15px;
+  }
+  /* ============================================================================
+                              Business Home Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business QR Code Part Start
+  ============================================================================ */
+  .business--form--qr--code--body {
+    height: 250px;
+  }
+  .business--form--qr--code--row {
+    flex-shrink: 0;
+    scale: 0.45;
+  }
+  .business--form--qr--code--header button {
+    margin-top: 0;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 10px 20px;
+  }
+  .business--form--qr--code--header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .business--form--qr--code--header h3 {
+    font-size: 20px;
+  }
+  /* ============================================================================
+                            Business QR Code Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Current Menu Part Start
+  ============================================================================ */
+  .business--new--menu--header {
+    gap: 24px;
+    flex-direction: column;
+  }
+  #business-current-floating-menu-filter {
+    display: block !important;
+  }
+  .business-current-menu-sidebar-all-tab {
+    width: 100% !important;
+    position: fixed;
+    bottom: 88px;
+    right: 30px;
+    max-width: 280px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    border: 1px solid #dbdbdb;
+    transition: all linear 0.3s;
+  }
+  .business-current-menu-sidebar-all-tab.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .business--new--menu--header h4 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .business--new--menu--header h3 {
+    font-size: 20px;
+  }
+  .business-current-menu-sidebar {
+    flex-direction: column;
+  }
+  .business-current-menu-tab-content {
+    width: 100%;
+  }
+  .business-current-menu-sidebar button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .business-current-tab-heading {
+    font-size: 18px;
+  }
+  .business-current-menu-tab-wraper {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .business-current-menu-card-name {
+    font-size: 16px;
+  }
+  .business-current-menu-tab-card p {
+    font-size: 13px;
+  }
+  /* ============================================================================
+                            Business Current Menu Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business New Manu Part Start
+  ============================================================================ */
+  .business--new--menu--body--row h3 {
+    font-size: 20px;
+  }
+  .business--new--menu--body {
+    flex-direction: column;
+    padding: 10px;
+    gap: 20px;
+  }
+  .business--new--menu--item {
+    width: 100%;
+  }
+  .business--new--menu--body button {
+    font-size: 12px;
+    line-height: 24px;
+    padding: 8px 44px;
+  }
+  /* ============================================================================
+                            Business New Manu Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Payment Part Start
+  ============================================================================ */
+  .business--subscription {
+    flex-direction: column;
+  }
+  .business--subscription--card {
+    width: 100%;
+    padding: 15px;
+  }
+  .business--subscription--title h4 {
+    font-size: 20px;
+  }
+  /* ============================================================================
+                            Business Payment Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business View Profile Part Start
+  ============================================================================ */
+  .business--view--profile {
+    flex-direction: column;
+  }
+  .business--view--profile--header h3 {
+    font-size: 18px;
+  }
+  .business--view--profile--edit i,
+  .business--view--profile--edit p {
+    font-size: 12px;
+  }
+  .business--form--group--row {
+    flex-direction: column;
+  }
+  /* ============================================================================
+                        Business View Profile Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Extra Part Start
+  ============================================================================ */
+  .customer_success_bottom_extra_address_input input::placeholder {
+    font-size: 12px;
+  }
+  .customer_success_bottom_extra_address_input input {
+    font-size: 12px;
+  }
+  /* ============================================================================
+                                Extra Part End
+  ============================================================================ */
+}
+
+@media only screen and (min-width: 320px) and (max-width: 374px) {
+  /* ============================================================================
+                                Navbar Part Start
+  ============================================================================ */
+  .navbar_link {
+    font-size: 10px;
+    padding: 10px 15px;
+  }
+  .navbar_logo {
+    max-width: 95px;
+  }
+  .navbar_menu {
+    gap: 5px;
+  }
+  /* ============================================================================
+                                Navbar Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Hero Part Start
+  ============================================================================ */
+  .hero_section {
+    padding: 40px 0;
+  }
+  .hero_section_wrapper {
+    flex-direction: column-reverse;
+  }
+  .hero_right_shadow_top {
+    top: -2px;
+  }
+  .hero_right_shadow_bottom {
+    bottom: -2px;
+  }
+  .hero_section_left {
+    width: 100%;
+  }
+  .hero_section_title {
+    font-size: 26px;
+    line-height: 45px;
+    letter-spacing: 0px;
+    text-align: center;
+  }
+  .hero_section_text {
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+  }
+  .hero_left_rating {
+    justify-content: center;
+    margin-bottom: 35px;
+  }
+  .hero_left_btns {
+    justify-content: center;
+  }
+  .hero_left_join_btn {
+    font-size: 14px;
+  }
+  /* ============================================================================
+                                Hero Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                About Part Start
+  ============================================================================ */
+  .about_feedback_section {
+    padding: 60px 0;
+  }
+  .section_title {
+    font-size: 28px;
+    line-height: 50px;
+  }
+  .about_feedback_bottom {
+    max-width: 100%;
+  }
+  .about_feedback_item {
+    width: 100%;
+    padding: 20px;
+  }
+  .about_feedback_item_top h5 {
+    font-size: 35px;
+    text-align: center;
+  }
+  .about_feedback_item_top h5 span {
+    font-size: 16px;
+  }
+  .about_feedback_top {
+    margin-bottom: 25px;
+  }
+  .about_feedback_item_bottom_title {
+    font-size: 18px;
+    margin-top: 0;
+    text-align: center;
+  }
+  .about_feedback_item_bottom_text {
+    font-size: 13px;
+    line-height: 24px;
+    text-align: center;
+    margin-top: 0;
+  }
+  /* ============================================================================
+                                About Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Feedback Part Start
+  ============================================================================ */
+  .qna_wrapper {
+    gap: 40px;
+    flex-direction: column;
+  }
+  .qna_left {
+    width: 100%;
+  }
+  .qna_right {
+    width: 100%;
+  }
+  .qna_section {
+    padding: 50px 0;
+  }
+  .qna_left_title {
+    font-size: 22px;
+    line-height: 44px;
+    text-align: center;
+  }
+  .qna_left_text {
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+  }
+  .qna_left_join_btn {
+    width: 160px;
+    height: 50px;
+    font-size: 16px;
+    margin: 0 auto 40px;
+  }
+  .accordion-button {
+    padding: 10px !important;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .accordion_body_text {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .accordion-wrapper {
+    gap: 20px;
+  }
+  /* ============================================================================
+                            Feedback Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Our Team Part Start
+  ============================================================================ */
+  .our_team_section {
+    padding: 40px 0;
+  }
+  .our_team_section_text {
+    font-size: 14px;
+    line-height: 24px;
+    max-width: 100%;
+  }
+  .our_team_item {
+    width: 100%;
+  }
+  .our_team_bottom {
+    margin-top: 30px;
+    row-gap: 30px;
+  }
+  .our_team_item_text {
+    margin-top: 10px;
+  }
+  .our_team_item_title {
+    font-size: 20px;
+  }
+  .our_team_item_position {
+    font-size: 15px;
+  }
+  /* ============================================================================
+                                Our Team Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Contact Part Start
+  ============================================================================ */
+  .contact_us_section {
+    padding: 60px 0;
+  }
+  .contact_us_title {
+    font-size: 20px;
+    line-height: 30px;
+    max-width: 100%;
+  }
+  .contact_us_btns {
+    gap: 10px;
+    flex-direction: column;
+  }
+  .contact_btn {
+    width: 180px;
+    height: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  /* ============================================================================
+                                Contact Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Footer Part Start
+  ============================================================================ */
+  .footer_logo {
+    max-width: 180px;
+  }
+  .footer_text {
+    font-size: 15px;
+    line-height: 24px;
+    max-width: 100%;
+    margin: 30px auto 40px;
+  }
+  .footer_address_links {
+    gap: 15px;
+    flex-direction: column;
+  }
+  .footer_address_links li {
+    font-size: 16px;
+    line-height: 24px;
+    gap: 16px;
+  }
+  .footer_social_links li a i {
+    font-size: 20px;
+  }
+  .footer_copyright_area {
+    padding: 24px 0 0;
+    margin-top: 50px;
+    flex-direction: column;
+  }
+  .footer_copyright_text {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .footer_section {
+    padding: 50px 0 30px;
+  }
+  /* ============================================================================
+                                Footer Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Login Part Start
+  ============================================================================ */
+  .business--login--section {
+    height: 100%;
+    padding: 0 0;
+  }
+  .business--login--wrapper {
+    max-width: 100%;
+    padding: 20px;
+    gap: 30px;
+    background: none;
+    box-shadow: none;
+  }
+  .business--form--group label {
+    font-size: 14px;
+  }
+  .business--form--group input {
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  .business--form--forgot a {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .business--login--title {
+    text-align: center;
+    min-width: 145px;
+    text-wrap: nowrap;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--secondary-color);
+  }
+  .business--login--form {
+    gap: 15px;
+  }
+  .toggle-password i {
+    font-size: 12px;
+  }
+  .business--form--btn {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                              Business Login Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Registration Part Start
+  ============================================================================ */
+  .business--form--forgot span {
+    font-size: 10px !important;
+  }
+  .business--form--select {
+    font-size: 12px;
+    line-height: 24px;
+    border-radius: 5px;
+  }
+  .business--form--select--icon {
+    top: 58%;
+    font-size: 12px;
+  }
+  .form-check-label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .form-check-label a {
+    font-size: 12px;
+    text-transform: capitalize;
+  }
+  /* ============================================================================
+                              Registration Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Customer Scan Part Start
+  ============================================================================ */
+  .customer_scan_top_title {
+    font-size: 15px;
+    border-bottom: 1px solid #2e1a00;
+  }
+  .customer_scan_content_box {
+    padding: 50px 20px;
+    background: #fcfcfc;
+    box-shadow: none;
+  }
+  .customer_scan_qr_code {
+    margin-top: 30px;
+    width: 200px;
+    height: 200px;
+  }
+  /* ============================================================================
+                              Customer Scan Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Customer Information Part Start
+  ============================================================================ */
+  .customer_information_top_texts p {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_information_top_texts {
+    gap: 10px;
+  }
+  .customer_information_top_title {
+    font-size: 16px;
+    line-height: 25px;
+    border-bottom: 1px solid #2e1a00;
+    margin-top: 30px;
+  }
+  .full_name_inputs {
+    gap: 0px;
+    flex-direction: column;
+  }
+  .customer_information_bottom_btn {
+    width: 300px;
+    height: 45px;
+    font-size: 12px;
+    margin: 40px auto 0;
+  }
+  .customer_information_bottom_checkbox {
+    gap: 5px;
+  }
+  .customer_information_bottom_checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 15px;
+  }
+  .customer_information_bottom_checkbox label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_information_content_box {
+    width: 100%;
+    padding: 50px 20px;
+    gap: 30px;
+    background: transparent;
+    box-shadow: none;
+  }
+  .customer_information_bottom_inputs input {
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  .customer_information_bottom_inputs input::placeholder {
+    font-size: 12px;
+  }
+  .customer_information_bottom_inputs label {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                            Customer Information Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Customer Rating Part Start
+  ============================================================================ */
+  .customer_rating_inner {
+    flex-direction: column;
+  }
+  .customer_rating_inner_box {
+    width: 100%;
+    padding: 25px;
+  }
+  .customer_rating_list_item {
+    flex-direction: column;
+    gap: 0;
+  }
+  .customer_rating_list_item_title_box {
+    width: 100%;
+  }
+  .customer_rating_list_item_title {
+    font-size: 14px;
+  }
+  .customer_rating_list_item_checkbox input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+  .customer_rating_list {
+    gap: 20px;
+    margin-top: 25px;
+  }
+  .customer_rating_heading h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .ratings_stars {
+    margin-left: auto;
+  }
+  .customer_rating_submit_btn {
+    width: 300px;
+    height: 50px;
+    font-size: 16px;
+  }
+  .customer_rating_submit {
+    margin-top: 35px;
+  }
+  /* ============================================================================
+                            Customer Rating Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Customer Success Part Start
+  ============================================================================ */
+  .customer_success_content_box {
+    width: 100%;
+    padding: 50px 20px;
+  }
+  .customer_success_emoji {
+    width: 100px;
+  }
+  .customer_success_top_title {
+    font-size: 20px;
+  }
+  .feedback_item_name {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .stars label {
+    font-size: 25px;
+  }
+  .customer_success_bottom {
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .customer_success_bottom_text {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_success_bottom_textarea {
+    width: 100%;
+    height: 110px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--Blue-Grey-300, #dfe3e8);
+    background: #fff;
+    font-size: 12px;
+  }
+  .customer_success_bottom_textarea::placeholder {
+    font-size: 12px;
+  }
+  .customer_success_bottom_radio_input {
+    width: min-content;
+  }
+  .customer_success_bottom_radio {
+    gap: 15px;
+    justify-content: space-between;
+  }
+  .customer_success_bottom_radio_label {
+    width: max-content;
+  }
+  .customer_success_bottom_radio_label label {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .customer_success_bottom_btns {
+    margin-top: 10px;
+  }
+  .customer_success_feedback_bottom {
+    height: 45px;
+    font-size: 14px;
+  }
+  .customer_success_bottom_radio_input input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+  .customer_success_bottom_btn {
+    width: 200px;
+    height: 45px;
+    font-size: 16px;
+  }
+  /* ============================================================================
+                              Customer Success Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                          Business Subscription Part Start
+  ============================================================================ */
+  .business--login--title h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .business--form--radio--label h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--radio--label ul li i {
+    font-size: 10px;
+  }
+  .business--form--radio--label ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--radio--label {
+    padding: 20px 24px;
+  }
+  .business--form--btn-container {
+    margin-top: 10px;
+  }
+  .business--form--btn--gary {
+    font-size: 16px;
+  }
+  /* ============================================================================
+                          Business Subscription Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business Card Details Part Start
+  ============================================================================ */
+  .business--form--details h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--details ul li span {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .business--form--details ul li i {
+    font-size: 10px;
+  }
+  .business--form--details ul {
+    gap: 5px;
+    padding: 10px;
+  }
+  .business--form--payment h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .business--form--payment--method--btn img {
+    width: 60px;
+  }
+  .business--form--group--wrap input {
+    font-size: 12px;
+    line-height: 24px;
+    padding: 6px 20px;
+    border-radius: 5px;
+  }
+  /* ============================================================================
+                        Business Card Details Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business Outlet Selection Part Start
+  ============================================================================ */
+  .business--form--outlet--label {
+    padding: 10px 20px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                        Business Outlet Selection Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Details Part Start
+  ============================================================================ */
+  .business--form--upload--container {
+    height: 140px;
+    border-width: 1px;
+  }
+  .business--form--upload--title {
+    font-size: 14px;
+  }
+  .business--form--upload--subtitle {
+    font-size: 11px;
+  }
+  .business--form--customer {
+    flex-direction: column;
+  }
+  .business--form--customer h3 {
+    font-size: 14px;
+    text-align: center;
+  }
+  .business--form--customer--count {
+    justify-content: center;
+    gap: 5px;
+  }
+  .business--form--customer--count input {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    line-height: 24px;
+  }
+  /* ============================================================================
+                            Business Details Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Layout Part Start
+  ============================================================================ */
+  .business_sidebar {
+    left: -100%;
+    transition: all ease-in-out 0.3s;
+  }
+  .business_sidebar.visible {
+    left: 0 !important;
+  }
+  .business_layout_body_wrapper {
+    margin-left: 0;
+    padding: 0 20px;
+  }
+  .business_layout_body_topbar {
+    padding: 20px 0px 18px;
+    margin-bottom: 0px;
+  }
+  .business_layout_body_topbar_left_title {
+    font-size: 18px;
+    line-height: 24px;
+    margin-right: 0px;
+  }
+  .business_layout_body_topbar_left {
+    align-items: start;
+    flex-direction: column;
+    min-width: fit-content;
+  }
+  .business_layout_body_topbar_left_icon {
+    display: none;
+  }
+  .business_layout_body_topbar_left_date {
+    font-size: 12px;
+    line-height: 24px;
+    margin-left: 0px;
+  }
+  .business_layout_body_topbar_right_search {
+    width: calc(100% - 40px);
+    display: flex;
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease-in-out;
+    z-index: 99;
+  }
+  .business_layout_body_topbar_right_search.active {
+    top: 20px;
+  }
+  .business_topbar_search_icon {
+    display: flex !important;
+  }
+  .business_layout_body_topbar_right_icon {
+    width: 45px;
+    height: 45px;
+  }
+  .business_layout_body_topbar_right_icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .business_layout_body_topbar_right {
+    gap: 10px;
+  }
+  .business_layout_body_topbar_right_icon {
+    display: flex !important;
+  }
+  .business_sidebar {
+    width: 260px;
+    padding: 30px 20px;
+  }
+  .business_sidebar_menu_link {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+  .business_sidebar_menu_link svg {
+    width: 20px;
+  }
+  .business_sidebar_menu_list {
+    gap: 8px;
+  }
+  .business_sidebar_bottom_logout_btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_img {
+    width: 40px;
+    height: 40px;
+  }
+  .business_sidebar_bottom_user {
+    gap: 10px;
+  }
+  .business_sidebar_bottom_user_name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .business_sidebar_bottom_user_info {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  /* ============================================================================
+                              Business Layout Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                              Business Home Part Start
+  ============================================================================ */
+  .business--home--header--wrapper {
+    gap: 10px;
+    flex-direction: column;
+  }
+  .business--home--header--column--row {
+    width: 100%;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .business--home--header--column {
+    padding: 20px;
+    gap: 10px;
+  }
+  .business--home--header--count h5 {
+    font-size: 18px;
+  }
+  .business--home--header--count--icon {
+    width: 35px;
+    height: 35px;
+  }
+  .business--home--header--count--icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .business--home--body--count h2 {
+    font-size: 35px;
+  }
+  .business--home--body--count h2 span {
+    font-size: 12px;
+  }
+  .business--home--report button {
+    min-width: 90px;
+    padding: 10px 10px;
+    font-size: 12px;
+  }
+  .business--home--report h4 {
+    font-size: 15px;
+  }
+  .business--home--header--report {
+    width: 100%;
+    gap: 10px;
+  }
+  .business--home--body--column--title {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .business--home--body--column {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  .business--home--body--column--title h4 {
+    font-size: 16px;
+  }
+  .business--home--body--column {
+    padding: 10px 10px;
+  }
+  .business--home--body--column--title h3 {
+    font-size: 16px;
+  }
+  .business--home--body--column--button {
+    font-size: 16px;
+    padding: 10px 30px;
+  }
+  .business--home--body--wrapper {
+    padding: 15px;
+  }
+  /* ============================================================================
+                              Business Home Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business QR Code Part Start
+  ============================================================================ */
+  .business--form--qr--code--body {
+    height: 200px;
+  }
+  .business--form--qr--code--row {
+    flex-shrink: 0;
+    scale: 0.4;
+  }
+  .business--form--qr--code--header button {
+    margin-top: 0;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 10px 20px;
+  }
+  .business--form--qr--code--header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .business--form--qr--code--header h3 {
+    font-size: 20px;
+  }
+  /* ============================================================================
+                            Business QR Code Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Current Menu Part Start
+  ============================================================================ */
+  .business--new--menu--header {
+    gap: 24px;
+    flex-direction: column;
+  }
+  #business-current-floating-menu-filter {
+    display: block !important;
+  }
+  .business-current-menu-sidebar-all-tab {
+    width: 100% !important;
+    position: fixed;
+    bottom: 88px;
+    right: 30px;
+    max-width: 280px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    border: 1px solid #dbdbdb;
+    transition: all linear 0.3s;
+  }
+  .business-current-menu-sidebar-all-tab.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .business--new--menu--header h4 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .business--new--menu--header h3 {
+    font-size: 20px;
+  }
+  .business-current-menu-sidebar {
+    flex-direction: column;
+  }
+  .business-current-menu-tab-content {
+    width: 100%;
+  }
+  .business-current-menu-sidebar button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .business-current-tab-heading {
+    font-size: 18px;
+  }
+  .business-current-menu-tab-wraper {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .business-current-menu-card-name {
+    font-size: 16px;
+  }
+  .business-current-menu-tab-card p {
+    font-size: 13px;
+  }
+  /* ============================================================================
+                            Business Current Menu Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business New Manu Part Start
+  ============================================================================ */
+  .business--new--menu--body--row h3 {
+    font-size: 20px;
+  }
+  .business--new--menu--body {
+    flex-direction: column;
+    padding: 10px;
+    gap: 20px;
+  }
+  .business--new--menu--item {
+    width: 100%;
+  }
+  .business--new--menu--body button {
+    font-size: 12px;
+    line-height: 24px;
+    padding: 8px 44px;
+  }
+  /* ============================================================================
+                            Business New Manu Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                            Business Payment Part Start
+  ============================================================================ */
+  .business--subscription {
+    flex-direction: column;
+  }
+  .business--subscription--card {
+    width: 100%;
+    padding: 15px;
+  }
+  .business--subscription--title h4 {
+    font-size: 20px;
+  }
+  /* ============================================================================
+                            Business Payment Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                        Business View Profile Part Start
+  ============================================================================ */
+  .business--view--profile {
+    flex-direction: column;
+  }
+  .business--view--profile--header h3 {
+    font-size: 18px;
+  }
+  .business--view--profile--edit i,
+  .business--view--profile--edit p {
+    font-size: 12px;
+  }
+  .business--form--group--row {
+    flex-direction: column;
+  }
+  /* ============================================================================
+                        Business View Profile Part End
+  ============================================================================ */
+
+  /* ============================================================================
+                                Extra Part Start
+  ============================================================================ */
+  .customer_success_bottom_extra_address_input input::placeholder {
+    font-size: 12px;
+  }
+  .customer_success_bottom_extra_address_input input {
+    font-size: 12px;
+  }
+  /* ============================================================================
+                                Extra Part End
+  ============================================================================ */
+}
+
+/* Extra Small Devices */
+@media only screen and (max-width: 319px) {
+  /* ============================================================================
+                                Navbar Part Start
+  ============================================================================ */
+  /* ============================================================================
+                                Navbar Part End
+  ============================================================================ */
+}

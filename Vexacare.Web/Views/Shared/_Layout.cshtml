@@ -1,34 +1,148 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Vexacare.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Vexacare.Web.styles.css" asp-append-version="true" />
+    <title>VEXACARE - Feel Good Inside Out</title>
+
+    <!-- ==== Favicon ==== -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet" />
+
+    <!-- ==== Plugins CSS Links ==== -->
+    <link rel="stylesheet"
+          type="text/css"
+          href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+          integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <!-- ==== Custom CSS Links ==== -->
+    <link rel="stylesheet" type="text/css" href="assets/css/somor.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/jahirul.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Vexacare.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <!-- Navbar Section Start  -->
+        <nav class="navbar" id="site-navbar">
+            <div class="container">
+                <div class="nav-inner">
+                    <!-- Logo -->
+                    <a href="/" class="brand navbar_logo" aria-label="Home">
+                        <img src="assets/images/logo.png" alt="Logo" />
+                    </a>
+
+                    <!-- Nav Links -->
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="/" data-path="/" class="active">Home</a></li>
+                        <li><a href="/shop" data-path="/shop">Shop</a></li>
+                        <li>
+                            <a href="/about-the-test" data-path="/about-the-test">About the Test</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li>
+                            <a href="/consultations" data-path="/consultations">Consultations</a>
+                        </li>
+                        <li><a href="/blog" data-path="/blog">Blog</a></li>
+                        <li>
+                            <a href="/subscription" data-path="/subscription">Subscription</a>
                         </li>
                     </ul>
+
+                    <!-- Right side -->
+                    <div class="nav-actions">
+                        <div class="cart" title="Cart" id="cart-icon" aria-hidden="true">
+                            <!-- CardSVG placeholder -->
+                            <svg viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="1.6"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <path d="M6 6h15l-1.4 8.4A2 2 0 0 1 17.6 16H8.4a2 2 0 0 1-2-1.6L5 4H3"></path>
+                                <circle cx="10" cy="20" r="1"></circle>
+                                <circle cx="18" cy="20" r="1"></circle>
+                            </svg>
+                            <div class="cart-badge" id="cart-count">0</div>
+                        </div>
+
+                        <div class="dropdown" id="account-dropdown">
+                            <button class="account-btn"
+                                    id="account-toggle"
+                                    aria-expanded="false"
+                                    aria-haspopup="true">
+                                <!-- UserSVG placeholder -->
+                                <svg viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="1.6"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     aria-hidden="true">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <span>Account</span>
+                                <!-- small chevron -->
+                                <svg style="margin-left: 6px"
+                                     viewBox="0 0 24 24"
+                                     width="16"
+                                     height="16"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="1.6">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+
+                            <div class="dropdown-menu"
+                                 id="dropdown-menu"
+                                 role="menu"
+                                 aria-hidden="true">
+                                <div class="dropdown-item"
+                                     tabindex="0"
+                                     role="menuitem"
+                                     id="login-btn">
+                                    <!-- user circle icon -->
+                                    <svg viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor"
+                                         stroke-width="1.6">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    <span>Log In</span>
+                                </div>
+                                <div class="dropdown-item"
+                                     tabindex="0"
+                                     role="menuitem"
+                                     id="signup-btn">
+                                    <!-- plus user -->
+                                    <svg viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor"
+                                         stroke-width="1.6">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                        <path d="M19 8v6M22 11h-6" />
+                                    </svg>
+                                    <span>Sign Up</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
+        <!-- Navbar Section End  -->
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -36,14 +150,94 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Footer Section Start  -->
+    <footer id="footer_section" class="footer-bg">
         <div class="container">
-            &copy; 2025 - Vexacare.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="footer-grid">
+                <!-- Logo and Description -->
+                <div class="footer-logo-section">
+                    <div class="footer-logo-wrapper">
+                        <img src="assets/images/logo-white.png"
+                             alt="Logo"
+                             class="footer-logo" />
+                    </div>
+                    <p class="footer-description">
+                        Transforming gut health through science and technology
+                    </p>
+
+                    <!-- Social Icons -->
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" title="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="Twitter">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Footer Sections -->
+                <div class="footer-section">
+                    <h6>Products & Services</h6>
+                    <ul>
+                        <li><a href="#">Test Kits</a></li>
+                        <li><a href="#">Supplements</a></li>
+                        <li><a href="#">Consultations</a></li>
+                        <li><a href="#">Corporate Wellness</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h6>Resources</h6>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Partner Hub</a></li>
+                        <li><a href="#">Subscription</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h6>Policy</h6>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h6>Contact Us</h6>
+                    <ul>
+                        <li><a href="#">Dhaka, Bangladesh</a></li>
+                        <li><a href="#">asfafsafsadf@gmail.com</a></li>
+                        <li><a href="#">+880 145 8746 546</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="divider" />
+
+            <div class="footer-bottom">
+                <span>
+                    The contents of this website are &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                    Copyright
+                </span>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Footer Section End  -->
+    <!-- ==== All Js Links ==== -->
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/doctos.js"></script>
+    <script src="assets/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
