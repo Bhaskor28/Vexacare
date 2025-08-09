@@ -6,7 +6,7 @@
     <title>VEXACARE - Feel Good Inside Out</title>
 
     <!-- ==== Favicon ==== -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="~/assets/images/favicon.png" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,7 +17,7 @@
     <!-- ==== Plugins CSS Links ==== -->
     <link rel="stylesheet"
           type="text/css"
-          href="assets/css/bootstrap.min.css" />
+          href="~/assets/css/bootstrap.min.css" />
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
           integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
@@ -25,9 +25,9 @@
           referrerpolicy="no-referrer" />
 
     <!-- ==== Custom CSS Links ==== -->
-    <link rel="stylesheet" type="text/css" href="assets/css/somor.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/jahirul.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/somor.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/jahirul.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css" />
 </head>
 <body>
     <header>
@@ -37,13 +37,13 @@
                 <div class="nav-inner">
                     <!-- Logo -->
                     <a href="/" class="brand navbar_logo" aria-label="Home">
-                        <img src="assets/images/logo.png" alt="Logo" />
+                        <img src="~/assets/images/logo.png" alt="Logo" />
                     </a>
 
                     <!-- Nav Links -->
                     <ul class="nav-links" id="nav-links">
-                        <li><a href="/" data-path="/" class="active">Home</a></li>
-                        <li><a href="@Url.Action("Shop","Home")" data-path="/shop">Shop</a></li>
+                        <li><a href="/" data-path="/" class="selected">Home</a></li>
+                        <li><a href="@Url.Action("Shop", "Home")" data-path="/shop" class="selected">Shop</a></li>
                         <li>
                             <a href="/about-the-test" data-path="/about-the-test">About the Test</a>
                         </li>
@@ -235,9 +235,9 @@
     </footer>
     <!-- Footer Section End  -->
     <!-- ==== All Js Links ==== -->
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
-    <script src="assets/js/doctos.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="~/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="~/assets/js/doctos.js"></script>
+    <script src="~/assets/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
