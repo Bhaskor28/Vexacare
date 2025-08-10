@@ -2,7 +2,7 @@
   const grid = document.getElementById("doctors-grid");
 
   // Replace this image URL with your AllImages.MedicalExperts1 path
-  const placeholderImage = "assets/images/MedicalExperts1.png";
+  const placeholderImage = "~/assets/images/MedicalExperts1.png";
 
   // Sample doctors data (you can replace with dynamic data)
   const doctors = [
