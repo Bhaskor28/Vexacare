@@ -1,4 +1,8 @@
-﻿
+﻿@using Vexacare.Application.Patients.ViewModels
+
+@model RegisterVM
+
+
 <!-- Login Form Section Start  -->
 <section id="signup" class="login signup">
     <div class="login-from signup-form-left">
@@ -6,30 +10,32 @@
             <h1 class="login-title">Patient Register</h1>
         </div>
 
-        <form action="" class="login-form-input-wrapper">
+        <form asp-action = "Register" mathod="post" class="login-form-input-wrapper">
             <div class="input-wrapper-row">
                 <div class="input-wrapper">
-                    <label for="">Fast name</label>
-                    <input type="text" placeholder="" class="input" required />
+                    <label for="">First Name</label>
+                    <input asp-for="FirstName" type="text" placeholder="" class="input" required />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
 
                 <div class="input-wrapper">
                     <label for="">Last Name</label>
-                    <input type="text" placeholder="" class="input" required />
-
-                    <span></span>
+                    <input asp-for="LastName" type="text" placeholder="" class="input" required />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="input-wrapper-row">
                 <div class="input-wrapper">
                     <label for="">Email Address</label>
-                    <input type="email" placeholder="" class="input" required />
+                    <input asp-for="Email" type="email" placeholder="" class="input" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="input-wrapper">
                     <label for="">Phone Number</label>
-                    <input type="text" placeholder="" class="input" required />
+                    <input asp-for="PhoneNumber" type="text" placeholder="" class="input" required />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
 
                     <span></span>
                 </div>
@@ -38,12 +44,14 @@
             <div class="input-wrapper-row">
                 <div class="input-wrapper">
                     <label for="">Password</label>
-                    <input type="password" placeholder="" class="input" required />
+                    <input asp-for="Password" type="password" placeholder="" class="input" required />
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
                 <div class="input-wrapper">
                     <label for="">Confirm Password</label>
-                    <input type="password" placeholder="" class="input" required />
+                    <input asp-for="ConfirmPassword" type="password" placeholder="" class="input" required />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
             </div>
 
@@ -73,7 +81,7 @@
         </div>
 
         <div class="login-form-footer">
-            <h5>Don’t have and account? <a href="/signup.html">Log In</a></h5>
+            <h5>Don’t have and account? <a href="@Url.Action("Login", "Account")>Log In</a></h5>
         </div>
     </div>
 

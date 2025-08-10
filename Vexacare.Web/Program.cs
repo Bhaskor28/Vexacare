@@ -1,4 +1,37 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Vexacare.Domain.Entities;
+using Vexacare.Infrastructure.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+
+// Identity Configuration
+builder.Services.AddIdentity<Patient, IdentityRole>()
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+
+
+// Authentication services
+builder.Services.AddAuthentication()
+    .AddCookie()
+    .AddJwtBearer(cfg =>
+    {
+        cfg.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = builder.Configuration["Tokens:Issuer"],
+            ValidAudience = builder.Configuration["Tokens:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"]))
+        };
+    });
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
