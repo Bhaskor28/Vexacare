@@ -10,8 +10,18 @@ namespace Vexacare.Web.Controllers
     {
         private readonly UserManager<Patient> _userManager;
         private readonly SignInManager<Patient> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _context;
+
+        public AccountController(
+        UserManager<Patient> userManager,
+        SignInManager<Patient> signInManager,
+        ApplicationDbContext context)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _context = context;
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -37,9 +47,8 @@ namespace Vexacare.Web.Controllers
                 if (result.Succeeded)
                 {
                     // Assign Patient role
-                    await _userManager.AddToRoleAsync(user, "Patient");
+                    //await _userManager.AddToRoleAsync(user, "Patient");
                     await _context.SaveChangesAsync();
-
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -52,10 +61,42 @@ namespace Vexacare.Web.Controllers
 
             return View(model);
         }
-
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Find user by email (since we're using email as username)
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user != null)
+                {
+                    // Attempt to sign in
+                    var result = await _signInManager.PasswordSignInAsync(
+                        user.UserName,
+                        model.Password,
+                        model.RememberMe,
+                        lockoutOnFailure: false);
+
+                    if (result.Succeeded)
+                    {
+                        // Redirect to returnUrl if provided, otherwise to home
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+
+                // If we got this far, something failed
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            }
+
+            return View(model);
+        }
+
     }
 }

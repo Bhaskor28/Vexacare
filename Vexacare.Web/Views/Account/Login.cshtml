@@ -1,4 +1,6 @@
-﻿
+﻿@model LoginVM
+
+
 <!-- Login Form Section Start  -->
 <section class="login">
     <div class="login-from">
@@ -6,23 +8,23 @@
             <h1 class="login-title">Login to VexaLife</h1>
         </div>
 
-        <form action="" class="login-form-input-wrapper">
+        <form asp-action="Login" mathod="post" class="login-form-input-wrapper">
             <div class="input-wrapper">
                 <label for="">Email Address</label>
-                <input type="email"
+                <input asp-for="Email" type="email"
                        placeholder="Enter your email"
                        class="input"
                        required />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="input-wrapper">
                 <label for="">Passsword</label>
-                <input type="password"
+                <input asp-for="Password" type="password"
                        placeholder="Enter your password"
                        class="input"
                        required />
-
-                <span></span>
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
             <div>
@@ -51,7 +53,7 @@
         </div>
 
         <div class="login-form-footer">
-            <h5>Don’t have and account? <a href="/signup.html">Register</a></h5>
+            <h5>Don’t have and account? <a href="@Url.Action("Register", "Account")">Register</a></h5>
         </div>
     </div>
 </section>
