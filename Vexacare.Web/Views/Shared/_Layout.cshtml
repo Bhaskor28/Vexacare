@@ -42,8 +42,10 @@
 
                     <!-- Nav Links -->
                     <ul class="nav-links" id="nav-links">
+
                         <li><a href="@Url.Action("Index","Home")">Home</a></li>
                         <li><a href="@Url.Action("Index","Shop")">Shop</a></li>
+
                         <li>
                             <a href="#">About the Test</a>
                         </li>
@@ -106,7 +108,9 @@
                                  role="menu"
                                  aria-hidden="true">
                                 <!-- Login Link -->
+
                                 <a href="@Url.Action("login","Account")"
+
                                    class="dropdown-item"
                                    tabindex="0"
                                    role="menuitem"
@@ -122,7 +126,9 @@
                                 </a>
 
                                 <!-- Signup Link -->
+
                                 <a href="@Url.Action("Register","Account")"
+
                                    class="dropdown-item"
                                    tabindex="0"
                                    role="menuitem"
@@ -236,7 +242,9 @@
     </footer>
     <!-- Footer Section End  -->
     <!-- ==== All Js Links ==== -->
+
      <script src="~/assets/js/jquery-3.7.1.min.js"></script> 
+
     <script src="~/assets/js/doctos.js"></script>
     <script src="~/assets/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)

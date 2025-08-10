@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     // Navbar JS
     (function () {
         const navbar = document.getElementById("site-navbar");
@@ -114,3 +115,5 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Main.js initialized");
     console.log("Current path:", window.location.pathname);
 });
+
+
