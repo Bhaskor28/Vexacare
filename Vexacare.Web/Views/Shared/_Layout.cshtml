@@ -6,7 +6,7 @@
     <title>VEXACARE - Feel Good Inside Out</title>
 
     <!-- ==== Favicon ==== -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="~/assets/images/favicon.png" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,7 +17,7 @@
     <!-- ==== Plugins CSS Links ==== -->
     <link rel="stylesheet"
           type="text/css"
-          href="assets/css/bootstrap.min.css" />
+          href="~/assets/css/bootstrap.min.css" />
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
           integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
@@ -25,9 +25,9 @@
           referrerpolicy="no-referrer" />
 
     <!-- ==== Custom CSS Links ==== -->
-    <link rel="stylesheet" type="text/css" href="assets/css/somor.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/jahirul.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/somor.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/jahirul.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css" />
 </head>
 <body>
     <header>
@@ -37,22 +37,22 @@
                 <div class="nav-inner">
                     <!-- Logo -->
                     <a href="/" class="brand navbar_logo" aria-label="Home">
-                        <img src="assets/images/logo.png" alt="Logo" />
+                        <img src="~/assets/images/logo.png" alt="Logo" />
                     </a>
 
                     <!-- Nav Links -->
                     <ul class="nav-links" id="nav-links">
-                        <li><a href="/" data-path="/" class="active">Home</a></li>
-                        <li><a href="@Url.Action("Shop","Home")" data-path="/shop">Shop</a></li>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
                         <li>
-                            <a href="/about-the-test" data-path="/about-the-test">About the Test</a>
+                            <a href="#">About the Test</a>
                         </li>
                         <li>
-                            <a href="/consultations" data-path="/consultations">Consultations</a>
+                            <a href="#">Consultations</a>
                         </li>
-                        <li><a href="/blog" data-path="/blog">Blog</a></li>
+                        <li><a href="#">Blog</a></li>
                         <li>
-                            <a href="/subscription" data-path="/subscription">Subscription</a>
+                            <a href="#">Subscription</a>
                         </li>
                     </ul>
 
@@ -79,7 +79,6 @@
                                     id="account-toggle"
                                     aria-expanded="false"
                                     aria-haspopup="true">
-                                <!-- UserSVG placeholder -->
                                 <svg viewBox="0 0 24 24"
                                      fill="none"
                                      stroke="currentColor"
@@ -91,7 +90,6 @@
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
                                 <span>Account</span>
-                                <!-- small chevron -->
                                 <svg style="margin-left: 6px"
                                      viewBox="0 0 24 24"
                                      width="16"
@@ -107,11 +105,12 @@
                                  id="dropdown-menu"
                                  role="menu"
                                  aria-hidden="true">
-                                <div class="dropdown-item"
-                                     tabindex="0"
-                                     role="menuitem"
-                                     id="login-btn">
-                                    <!-- user circle icon -->
+                                <!-- Login Link -->
+                                <a href="/login.html"
+                                   class="dropdown-item"
+                                   tabindex="0"
+                                   role="menuitem"
+                                   id="login-btn">
                                     <svg viewBox="0 0 24 24"
                                          fill="none"
                                          stroke="currentColor"
@@ -120,12 +119,14 @@
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
                                     <span>Log In</span>
-                                </div>
-                                <div class="dropdown-item"
-                                     tabindex="0"
-                                     role="menuitem"
-                                     id="signup-btn">
-                                    <!-- plus user -->
+                                </a>
+
+                                <!-- Signup Link -->
+                                <a href="/signup.html"
+                                   class="dropdown-item"
+                                   tabindex="0"
+                                   role="menuitem"
+                                   id="signup-btn">
                                     <svg viewBox="0 0 24 24"
                                          fill="none"
                                          stroke="currentColor"
@@ -135,7 +136,7 @@
                                         <path d="M19 8v6M22 11h-6" />
                                     </svg>
                                     <span>Sign Up</span>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -157,7 +158,7 @@
                 <!-- Logo and Description -->
                 <div class="footer-logo-section">
                     <div class="footer-logo-wrapper">
-                        <img src="assets/images/logo-white.png"
+                        <img src="~/assets/images/logo-white.png"
                              alt="Logo"
                              class="footer-logo" />
                     </div>
@@ -235,9 +236,9 @@
     </footer>
     <!-- Footer Section End  -->
     <!-- ==== All Js Links ==== -->
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
-    <script src="assets/js/doctos.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="~/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="~/assets/js/doctos.js"></script>
+    <script src="~/assets/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
