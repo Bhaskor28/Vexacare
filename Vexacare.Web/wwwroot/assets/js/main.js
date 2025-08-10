@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const accountToggle = document.getElementById("account-toggle");
     const dropdownMenu = document.getElementById("dropdown-menu");
     const accountDropdown = document.getElementById("account-dropdown");
-    const navLinks = document.querySelectorAll("#nav-links a");
+    //const navLinks = document.querySelectorAll("#nav-links a");
     const cartCountEl = document.getElementById("cart-count");
 
     // Scroll shadow
