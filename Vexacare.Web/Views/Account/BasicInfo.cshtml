@@ -102,9 +102,10 @@
                     <label class="form-label">Gender</label>
                     <select asp-for="Gender" class="form-input">
                         <option>Select your gender</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Other</option>
+                        @foreach (var gender in Enum.GetValues(typeof(Vexacare.Domain.Enums.Gender)).Cast<Vexacare.Domain.Enums.Gender>())
+                        {
+                            <option value="@gender">@gender</option>
+                        }
                     </select>
                     <span asp-validation-for="Gender" class="text-danger"></span>
 

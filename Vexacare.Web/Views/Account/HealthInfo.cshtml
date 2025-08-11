@@ -1,4 +1,6 @@
-﻿<!-- Medical Profile Breadcrumb Start -->
+﻿@model HealthInfoVM
+
+<!-- Medical Profile Breadcrumb Start -->
 <section class="medical-profile-breadcrumb">
     <div class="container">
         <div class="medical-profile-breadcrumb-wrapper">
@@ -62,35 +64,40 @@
         <div class="medical-profile-form-wrapper">
             <div class="form-step">
                 <h2 class="form-title">Step 2: Health Info</h2>
+                
+                <form asp-action="HealthInfo" mathod="post" class="login-form-input-wrapper">
 
-                <!-- Form Fields -->
-                <form onsubmit="nextStep(event)">
+                    <!-- Form Fields -->
+                
                     <!-- Anthropometric Parameters Section -->
                     <div class="form-section">
                         <h3 class="section-title">Anthropometric Parameters</h3>
 
                         <label class="form-label">Height</label>
                         <div class="input-with-unit">
-                            <input type="number"
+                            <input asp-for="Height" type="number"
                                    class="form-input"
                                    placeholder="Enter your height"
-                                   id="height" />
+                                   id="height" oninput="calculateBMI()" />
+                            <span asp-validation-for="Height" class="text-danger"></span>
                         </div>
 
                         <label class="form-label">Weight</label>
                         <div class="input-with-unit">
-                            <input type="number"
+                            <input asp-for="Weight" type="number"
                                    class="form-input"
                                    placeholder="Enter your weight"
-                                   id="weight" />
+                                   id="weight" oninput="calculateBMI()" />
+                            <span asp-validation-for="Weight" class="text-danger"></span>
                         </div>
 
                         <label class="form-label">BMI</label>
-                        <input type="text"
+                        <input asp-for="BMI" type="text"
                                class="form-input"
                                placeholder="Automatically calculated from height and weight"
                                id="bmi"
                                readonly />
+                        
                     </div>
 
                     <!-- Current Medical Conditions Section -->
@@ -98,16 +105,18 @@
                         <h3 class="section-title">Current Medical Conditions</h3>
 
                         <label class="form-label">Main Diagnoses</label>
-                        <input type="text"
+                        <input asp-for="MainDiagnoses" type="text"
                                class="form-input"
                                placeholder="Enter your main diagnoses" />
+                        <span asp-validation-for="MainDiagnoses" class="text-danger"></span>
 
                         <label class="form-label">Diagnosis Date</label>
                         <div class="input-with-icon">
-                            <input type="text"
+                            <input asp-for="DiagnosisDate" type="text"
                                    class="form-input"
                                    placeholder="DD/MM/YYYY" />
                             <span class="calendar-icon">&#128197;</span>
+                            <span asp-validation-for="DiagnosisDate" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -116,31 +125,35 @@
                         <h3 class="section-title">Drug Therapy</h3>
 
                         <label class="form-label">Drug Name</label>
-                        <input type="text"
+                        <input asp-for="DrugName" type="text"
                                class="form-input"
                                placeholder="Enter drug name" />
+                        <span asp-validation-for="DrugName" class="text-danger"></span>
 
                         <div class="two-column-inputs">
                             <div>
                                 <label class="form-label">Dosage</label>
-                                <input type="text"
+                                <input asp-for="Dosage" type="text"
                                        class="form-input"
                                        placeholder="e.g., 10 mg" />
+                                <span asp-validation-for="Dosage" class="text-danger"></span>
                             </div>
                             <div>
                                 <label class="form-label">Frequency</label>
-                                <input type="text"
+                                <input asp-for="Frequency" type="text"
                                        class="form-input"
                                        placeholder="e.g., Once daily" />
+                                <span asp-validation-for="Frequency" class="text-danger"></span>
                             </div>
                         </div>
 
                         <label class="form-label">Start Date</label>
                         <div class="input-with-icon">
-                            <input type="text"
+                            <input asp-for="StartDate" type="text"
                                    class="form-input"
                                    placeholder="DD/MM/YYYY" />
                             <span class="calendar-icon">&#128197;</span>
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -159,3 +172,26 @@
     </div>
 </section>
 <!-- Medical Profile Form End -->
+
+
+
+
+
+
+@* Script added by sazib *@
+
+@section Scripts {
+    <script>
+        function calculateBMI() {
+            var height = parseFloat(document.getElementById('height').value);
+            var weight = parseFloat(document.getElementById('weight').value);
+            var bmiField = document.getElementById('bmi');
+            if (height > 0 && weight > 0) {
+                var bmi = weight / ((height / 100) * (height / 100));
+                bmiField.value = bmi.toFixed(2);
+            } else {
+                bmiField.value = '';
+            }
+        }
+    </script>
+}

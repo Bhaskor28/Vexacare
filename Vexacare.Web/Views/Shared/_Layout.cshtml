@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Vexacare.Domain.Entities.PatientEntities
+@using Microsoft.EntityFrameworkCore
+@inject Vexacare.Infrastructure.Data.ApplicationDbContext DbContext
+
+@inject SignInManager<Patient> SignInManager
+@inject UserManager<Patient> UserManager
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -58,94 +67,157 @@
                         </li>
                     </ul>
 
+                    @* <!-- Right side --> *@
+                    @* <div class="nav-actions"> *@
+                    @*     <div class="cart" title="Cart" id="cart-icon" aria-hidden="true"> *@
+                    @*         <!-- CardSVG placeholder --> *@
+                    @*         <svg viewBox="0 0 24 24" *@
+                    @*              fill="none" *@
+                    @*              stroke="currentColor" *@
+                    @*              stroke-width="1.6" *@
+                    @*              stroke-linecap="round" *@
+                    @*              stroke-linejoin="round" *@
+                    @*              aria-hidden="true"> *@
+                    @*             <path d="M6 6h15l-1.4 8.4A2 2 0 0 1 17.6 16H8.4a2 2 0 0 1-2-1.6L5 4H3"></path> *@
+                    @*             <circle cx="10" cy="20" r="1"></circle> *@
+                    @*             <circle cx="18" cy="20" r="1"></circle> *@
+                    @*         </svg> *@
+                    @*         <div class="cart-badge" id="cart-count">0</div> *@
+                    @*     </div> *@
+
+                    @*     <div class="dropdown" id="account-dropdown"> *@
+                    @*         <button class="account-btn" *@
+                    @*                 id="account-toggle" *@
+                    @*                 aria-expanded="false" *@
+                    @*                 aria-haspopup="true"> *@
+                    @*             <svg viewBox="0 0 24 24" *@
+                    @*                  fill="none" *@
+                    @*                  stroke="currentColor" *@
+                    @*                  stroke-width="1.6" *@
+                    @*                  stroke-linecap="round" *@
+                    @*                  stroke-linejoin="round" *@
+                    @*                  aria-hidden="true"> *@
+                    @*                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path> *@
+                    @*                 <circle cx="12" cy="7" r="4"></circle> *@
+                    @*             </svg> *@
+                    @*             <span>Account</span> *@
+                    @*             <svg style="margin-left: 6px" *@
+                    @*                  viewBox="0 0 24 24" *@
+                    @*                  width="16" *@
+                    @*                  height="16" *@
+                    @*                  fill="none" *@
+                    @*                  stroke="currentColor" *@
+                    @*                  stroke-width="1.6"> *@
+                    @*                 <polyline points="6 9 12 15 18 9"></polyline> *@
+                    @*             </svg> *@
+                    @*         </button> *@
+
+                    @*         <div class="dropdown-menu" *@
+                    @*              id="dropdown-menu" *@
+                    @*              role="menu" *@
+                    @*              aria-hidden="true"> *@
+                    @*             <!-- Login Link --> *@
+
+                    @*             <a href="@Url.Action("login","Account")" *@
+
+                    @*                class="dropdown-item" *@
+                    @*                tabindex="0" *@
+                    @*                role="menuitem" *@
+                    @*                id="login-btn"> *@
+                    @*                 <svg viewBox="0 0 24 24" *@
+                    @*                      fill="none" *@
+                    @*                      stroke="currentColor" *@
+                    @*                      stroke-width="1.6"> *@
+                    @*                     <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path> *@
+                    @*                     <circle cx="12" cy="7" r="4"></circle> *@
+                    @*                 </svg> *@
+                    @*                 <span>Log In</span> *@
+                    @*             </a> *@
+
+                    @*             <!-- Signup Link --> *@
+
+                    @*             <a href="@Url.Action("Register","Account")" *@
+
+                    @*                class="dropdown-item" *@
+                    @*                tabindex="0" *@
+                    @*                role="menuitem" *@
+                    @*                id="signup-btn"> *@
+                    @*                 <svg viewBox="0 0 24 24" *@
+                    @*                      fill="none" *@
+                    @*                      stroke="currentColor" *@
+                    @*                      stroke-width="1.6"> *@
+                    @*                     <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path> *@
+                    @*                     <circle cx="12" cy="7" r="4"></circle> *@
+                    @*                     <path d="M19 8v6M22 11h-6" /> *@
+                    @*                 </svg> *@
+                    @*                 <span>Sign Up</span> *@
+                    @*             </a> *@
+                    @*         </div> *@
+                    @*     </div> *@
+                    @* </div> *@
+                    @* added by sazib *@
+
+                    
                     <!-- Right side -->
                     <div class="nav-actions">
                         <div class="cart" title="Cart" id="cart-icon" aria-hidden="true">
-                            <!-- CardSVG placeholder -->
-                            <svg viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor"
-                                 stroke-width="1.6"
-                                 stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 aria-hidden="true">
-                                <path d="M6 6h15l-1.4 8.4A2 2 0 0 1 17.6 16H8.4a2 2 0 0 1-2-1.6L5 4H3"></path>
-                                <circle cx="10" cy="20" r="1"></circle>
-                                <circle cx="18" cy="20" r="1"></circle>
-                            </svg>
-                            <div class="cart-badge" id="cart-count">0</div>
+                            <!-- ...cart SVG and badge... -->
                         </div>
 
                         <div class="dropdown" id="account-dropdown">
-                            <button class="account-btn"
-                                    id="account-toggle"
-                                    aria-expanded="false"
-                                    aria-haspopup="true">
-                                <svg viewBox="0 0 24 24"
-                                     fill="none"
-                                     stroke="currentColor"
-                                     stroke-width="1.6"
-                                     stroke-linecap="round"
-                                     stroke-linejoin="round"
-                                     aria-hidden="true">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                                <span>Account</span>
-                                <svg style="margin-left: 6px"
-                                     viewBox="0 0 24 24"
-                                     width="16"
-                                     height="16"
-                                     fill="none"
-                                     stroke="currentColor"
-                                     stroke-width="1.6">
-                                    <polyline points="6 9 12 15 18 9"></polyline>
-                                </svg>
-                            </button>
-
-                            <div class="dropdown-menu"
-                                 id="dropdown-menu"
-                                 role="menu"
-                                 aria-hidden="true">
-                                <!-- Login Link -->
-
-                                <a href="@Url.Action("login","Account")"
-
-                                   class="dropdown-item"
-                                   tabindex="0"
-                                   role="menuitem"
-                                   id="login-btn">
-                                    <svg viewBox="0 0 24 24"
-                                         fill="none"
-                                         stroke="currentColor"
-                                         stroke-width="1.6">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                var user = await UserManager.GetUserAsync(User);
+                                // Get BasicInfo for the current user
+                                var basicInfo = await DbContext.BasicInfos
+                                .AsNoTracking()
+                                .FirstOrDefaultAsync(b => b.PatientId == user.Id);
+                                var profilePic = basicInfo?.ProfilePictureUrl ?? Url.Content("~/assets/images/default-user.png");
+                                <button class="account-btn" id="account-toggle" aria-expanded="false" aria-haspopup="true">
+                                    <img src="@profilePic"
+                                         alt="Profile" style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;" />
+                                    <span>@user?.FirstName @user?.LastName</span>
+                                    <svg style="margin-left: 6px" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu" id="dropdown-menu" role="menu" aria-hidden="true">
+                                    <a href="@Url.Action("BasicInfo", "Account")" class="dropdown-item" tabindex="0" role="menuitem">
+                                        <i class="fa fa-user"></i> <span>Profile</span>
+                                    </a>
+                                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" style="margin:0;">
+                                        <button type="submit" class="dropdown-item" style="width:100%;text-align:left;">
+                                            <i class="fa fa-sign-out-alt"></i> <span>Sign Out</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            }
+                            else
+                            {
+                                <button class="account-btn" id="account-toggle" aria-expanded="false" aria-haspopup="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
-                                    <span>Log In</span>
-                                </a>
-
-                                <!-- Signup Link -->
-
-                                <a href="@Url.Action("Register","Account")"
-
-                                   class="dropdown-item"
-                                   tabindex="0"
-                                   role="menuitem"
-                                   id="signup-btn">
-                                    <svg viewBox="0 0 24 24"
-                                         fill="none"
-                                         stroke="currentColor"
-                                         stroke-width="1.6">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="12" cy="7" r="4"></circle>
-                                        <path d="M19 8v6M22 11h-6" />
+                                    <span>Account</span>
+                                    <svg style="margin-left: 6px" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
                                     </svg>
-                                    <span>Sign Up</span>
-                                </a>
-                            </div>
+                                </button>
+                                <div class="dropdown-menu" id="dropdown-menu" role="menu" aria-hidden="true">
+                                    <a href="@Url.Action("Login","Account")" class="dropdown-item" tabindex="0" role="menuitem" id="login-btn">
+                                        <i class="fa fa-sign-in-alt"></i> <span>Log In</span>
+                                    </a>
+                                    <a href="@Url.Action("Register","Account")" class="dropdown-item" tabindex="0" role="menuitem" id="signup-btn">
+                                        <i class="fa fa-user-plus"></i> <span>Sign Up</span>
+                                    </a>
+                                </div>
+                            }
                         </div>
                     </div>
+
+
+
                 </div>
             </div>
         </nav>

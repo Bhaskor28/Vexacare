@@ -129,6 +129,40 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> HealthInfo(HealthInfoVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = _userManager.GetUserId(User);
+
+                var healthInfo = new HealthInfo
+                {
+                    PatientId = userId,
+                    Height = model.Height,
+                    Weight = model.Weight,
+                    BMI = model.BMI,
+                    MainDiagnoses = model.MainDiagnoses,
+                    DiagnosisDate = model.DiagnosisDate,
+                    DrugName = model.DrugName,
+                    Dosage = model.Dosage,
+                    Frequency = model.Frequency,
+                    StartDate = model.StartDate
+                };
+
+                // Calculate BMI
+                //healthInfo.CalculateBMI();
+
+                
+
+                _context.HealthInfos.Add(healthInfo);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("GastrointestinalInfo", "Account"); // Redirect to next step
+            }
+
+            return View("HealthInfo", model);
+        }
         //end of step 2
 
         //step 3: Gastrointestinal info
@@ -213,9 +247,13 @@ namespace Vexacare.Web.Controllers
 
             return View(model);
         }
-
-
-
-
+        //Sign Out
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
