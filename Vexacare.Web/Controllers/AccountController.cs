@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Vexacare.Application.Patients.ViewModels;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
@@ -68,8 +69,25 @@ namespace Vexacare.Web.Controllers
         //step 1: basic info
 
         [HttpGet]
-        public IActionResult BasicInfo()
+        public async Task<IActionResult> BasicInfo()
         {
+            var patientId = _userManager.GetUserId(User);
+            var basicInfo = await _context.BasicInfos
+                .FirstOrDefaultAsync(b => b.PatientId == patientId);
+
+            if (basicInfo != null)
+            {
+                var model = new BasicInfoVM
+                {
+                    DateOfBirth = basicInfo.DateOfBirth,
+                    Gender = basicInfo.Gender,
+                    Country = basicInfo.Country,
+                    City = basicInfo.City,
+                    Postcode = basicInfo.Postcode
+                    // ProfilePicture is not set here, as it's for uploads only
+                };
+                return View(model);
+            }
             return View();
         }
 
@@ -101,18 +119,39 @@ namespace Vexacare.Web.Controllers
                     profilePictureUrl = "/uploads/" + uniqueFileName;
                 }
 
-                var basicInfo = new BasicInfo
-                {
-                    PatientId = patientId,
-                    ProfilePictureUrl = profilePictureUrl,
-                    DateOfBirth = model.DateOfBirth,
-                    Gender = model.Gender,
-                    Country = model.Country,
-                    City = model.City,
-                    Postcode = model.Postcode
-                };
+                // Check if BasicInfo already exists for this patient
+                var existingInfo = await _context.BasicInfos
+                    .FirstOrDefaultAsync(b => b.PatientId == patientId);
 
-                _context.BasicInfos.Add(basicInfo);
+                if (existingInfo != null)
+                {
+                    // Update existing record
+                    existingInfo.ProfilePictureUrl = profilePictureUrl ?? existingInfo.ProfilePictureUrl;
+                    existingInfo.DateOfBirth = model.DateOfBirth;
+                    existingInfo.Gender = model.Gender;
+                    existingInfo.Country = model.Country;
+                    existingInfo.City = model.City;
+                    existingInfo.Postcode = model.Postcode;
+
+                    _context.BasicInfos.Update(existingInfo);
+                }
+                else
+                {
+                    // Create new record
+                    var basicInfo = new BasicInfo
+                    {
+                        PatientId = patientId,
+                        ProfilePictureUrl = profilePictureUrl,
+                        DateOfBirth = model.DateOfBirth,
+                        Gender = model.Gender,
+                        Country = model.Country,
+                        City = model.City,
+                        Postcode = model.Postcode
+                    };
+
+                    _context.BasicInfos.Add(basicInfo);
+                }
+
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("HealthInfo", "Account"); // Redirect to next step
@@ -124,11 +163,34 @@ namespace Vexacare.Web.Controllers
         //end of step 1
         //step 2: Health info
 
+             
         [HttpGet]
-        public IActionResult HealthInfo()
+        public async Task<IActionResult> HealthInfo()
         {
+            var patientId = _userManager.GetUserId(User);
+            var healthInfo = await _context.HealthInfos
+                .FirstOrDefaultAsync(b => b.PatientId == patientId);
+
+            if (healthInfo != null)
+            {
+                var model = new HealthInfoVM
+                {
+                    Height = healthInfo.Height,
+                    Weight = healthInfo.Weight,
+                    BMI = healthInfo.BMI,
+                    MainDiagnoses = healthInfo.MainDiagnoses,
+                    DiagnosisDate = healthInfo.DiagnosisDate,
+                    DrugName = healthInfo.DrugName,
+                    Dosage = healthInfo.Dosage,
+                    Frequency = healthInfo.Frequency,
+                    StartDate = healthInfo.StartDate
+                };
+                
+                return View(model);
+            }
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> HealthInfo(HealthInfoVM model)
         {
@@ -136,29 +198,47 @@ namespace Vexacare.Web.Controllers
             {
                 var userId = _userManager.GetUserId(User);
 
-                var healthInfo = new HealthInfo
+                // Check if HealthInfo already exists for this patient
+                var existingInfo = await _context.HealthInfos
+                    .FirstOrDefaultAsync(h => h.PatientId == userId);
+
+                if (existingInfo != null)
                 {
-                    PatientId = userId,
-                    Height = model.Height,
-                    Weight = model.Weight,
-                    BMI = model.BMI,
-                    MainDiagnoses = model.MainDiagnoses,
-                    DiagnosisDate = model.DiagnosisDate,
-                    DrugName = model.DrugName,
-                    Dosage = model.Dosage,
-                    Frequency = model.Frequency,
-                    StartDate = model.StartDate
-                };
+                    // Update existing record
+                    existingInfo.Height = model.Height;
+                    existingInfo.Weight = model.Weight;
+                    existingInfo.BMI = model.BMI; // Or calculate: (model.Weight / (model.Height * model.Height)) * 10000
+                    existingInfo.MainDiagnoses = model.MainDiagnoses;
+                    existingInfo.DiagnosisDate = model.DiagnosisDate;
+                    existingInfo.DrugName = model.DrugName;
+                    existingInfo.Dosage = model.Dosage;
+                    existingInfo.Frequency = model.Frequency;
+                    existingInfo.StartDate = model.StartDate;
 
-                // Calculate BMI
-                //healthInfo.CalculateBMI();
+                    _context.HealthInfos.Update(existingInfo);
+                }
+                else
+                {
+                    // Create new record
+                    var healthInfo = new HealthInfo
+                    {
+                        PatientId = userId,
+                        Height = model.Height,
+                        Weight = model.Weight,
+                        BMI = model.BMI, // Or calculate here
+                        MainDiagnoses = model.MainDiagnoses,
+                        DiagnosisDate = model.DiagnosisDate,
+                        DrugName = model.DrugName,
+                        Dosage = model.Dosage,
+                        Frequency = model.Frequency,
+                        StartDate = model.StartDate
+                    };
 
-                
+                    _context.HealthInfos.Add(healthInfo);
+                }
 
-                _context.HealthInfos.Add(healthInfo);
                 await _context.SaveChangesAsync();
-
-                return RedirectToAction("GastrointestinalInfo", "Account"); // Redirect to next step
+                return RedirectToAction("GastrointestinalInfo", "Account");
             }
 
             return View("HealthInfo", model);
