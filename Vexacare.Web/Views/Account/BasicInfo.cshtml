@@ -1,8 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model BasicInfoVM
+
+
 <!-- Medical Profile Breadcrumb Start -->
 <section class="medical-profile-breadcrumb">
     <div class="container">
@@ -68,58 +66,69 @@
             <div class="form-step">
                 <h2 class="form-title">Step 1: Basic Info</h2>
 
-                <!-- Profile Picture Upload -->
-                <div class="profile-upload">
-                    <div class="upload-circle">
-                        <span class="upload-icon">&#128247;</span>
+                <form asp-action="BasicInfo" mathod="post" class="login-form-input-wrapper">
+                    <!-- Profile Picture Upload -->
+                    <div class="profile-upload">
+                        <div class="upload-circle">
+                            <span class="upload-icon">&#128247;</span>
+                        </div>
+
+                        <p class="upload-title">Upload Profile Picture</p>
+
+                        <p class="upload-subtitle">
+                            Drag and drop or click to upload<br />PNG or JPG (max. 2MB)
+                        </p>
+
+                        <input asp-for="ProfilePicture" type="file"
+                               id="profilePic"
+                               accept="image/png, image/jpeg"
+                               hidden />
+                        <span asp-validation-for="ProfilePicture" class="text-danger"></span>
                     </div>
 
-                    <p class="upload-title">Upload Profile Picture</p>
-
-                    <p class="upload-subtitle">
-                        Drag and drop or click to upload<br />PNG or JPG (max. 2MB)
-                    </p>
-
-                    <input type="file"
-                           id="profilePic"
-                           accept="image/png, image/jpeg"
-                           hidden />
-                </div>
+                
 
                 <!-- Form Fields -->
-                <form onsubmit="nextStep(event)">
+                @* @* <form onsubmit="nextStep(event)">   Sazib change here *@
                     <label class="form-label">Date of Birth</label>
                     <div class="input-with-icon">
-                        <input type="text"
+                        <input asp-for="DateOfBirth" type="text"
                                class="form-input"
                                placeholder="DD/MM/YYYY" />
                         <span class="calendar-icon">&#128197;</span>
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                     </div>
 
                     <label class="form-label">Gender</label>
-                    <select class="form-input">
+                    <select asp-for="Gender" class="form-input">
                         <option>Select your gender</option>
                         <option>Male</option>
                         <option>Female</option>
                         <option>Other</option>
                     </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
 
                     <label class="form-label">Country</label>
-                    <select class="form-input">
-                        <option>England</option>
-                        <option>United States</option>
-                        <option>Bangladesh</option>
+                    <select asp-for="Country" class="form-input">
+                        <option value="">Select your country</option>
+                        @foreach (var country in Enum.GetValues(typeof(Vexacare.Domain.Enums.Country)).Cast<Vexacare.Domain.Enums.Country>())
+                        {
+                            <option value="@country">@country</option>
+                        }
                     </select>
+                    <span asp-validation-for="Country" class="text-danger"></span>
 
                     <label class="form-label">City</label>
-                    <input type="text"
+                    <input asp-for="City" type="text"
                            class="form-input"
                            placeholder="Enter your city" />
+                    <span asp-validation-for="City" class="text-danger"></span>
 
                     <label class="form-label">Postcode</label>
-                    <input type="text"
+                    <input asp-for="Postcode" type="text"
                            class="form-input"
                            placeholder="Enter your postcode" />
+                    <span asp-validation-for="Postcode" class="text-danger"></span>
 
                     <!-- Buttons -->
                     <div class="form-buttons">
@@ -129,6 +138,7 @@
                         <button type="submit" class="btn btn-next">Next</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

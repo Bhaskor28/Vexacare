@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Vexacare.Domain.Entities;
+using Vexacare.Domain.Entities.PatientEntities;
 
 namespace Vexacare.Infrastructure.Data
 {
@@ -10,5 +10,6 @@ namespace Vexacare.Infrastructure.Data
             : base(options)
         {
         }
+        public DbSet<BasicInfo> BasicInfos { get; set; }
     }
 }

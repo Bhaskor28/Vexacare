@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vexacare.Domain.Entities
+namespace Vexacare.Domain.Entities.PatientEntities
 {
     public class Patient : IdentityUser
     {

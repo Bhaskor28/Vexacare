@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Vexacare.Application.Patients.ViewModels;
-using Vexacare.Domain.Entities;
+using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
 
 namespace Vexacare.Web.Controllers
@@ -11,15 +12,18 @@ namespace Vexacare.Web.Controllers
         private readonly UserManager<Patient> _userManager;
         private readonly SignInManager<Patient> _signInManager;
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public AccountController(
         UserManager<Patient> userManager,
         SignInManager<Patient> signInManager,
-        ApplicationDbContext context)
+        ApplicationDbContext context,
+        IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -50,7 +54,7 @@ namespace Vexacare.Web.Controllers
                     //await _userManager.AddToRoleAsync(user, "Patient");
                     await _context.SaveChangesAsync();
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("BasicInfo", "Account");
                 }
 
                 foreach (var error in result.Errors)
@@ -68,6 +72,55 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> BasicInfo(BasicInfoVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var patientId = _userManager.GetUserId(User);
+
+                // Handle file upload
+                string profilePictureUrl = null;
+                if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfilePicture.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.ProfilePicture.CopyToAsync(fileStream);
+                    }
+
+                    profilePictureUrl = "/uploads/" + uniqueFileName;
+                }
+
+                var basicInfo = new BasicInfo
+                {
+                    PatientId = patientId,
+                    ProfilePictureUrl = profilePictureUrl,
+                    DateOfBirth = model.DateOfBirth,
+                    Gender = model.Gender,
+                    Country = model.Country,
+                    City = model.City,
+                    Postcode = model.Postcode
+                };
+
+                _context.BasicInfos.Add(basicInfo);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("HealthInfo", "Account"); // Redirect to next step
+            }
+
+            return View("BasicInfo", model);
+        }
+
         //end of step 1
         //step 2: Health info
 
@@ -154,11 +207,15 @@ namespace Vexacare.Web.Controllers
                 }
 
                 // If we got this far, something failed
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
 
             return View(model);
         }
+
+
+
 
     }
 }
