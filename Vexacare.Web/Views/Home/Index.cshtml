@@ -19,7 +19,26 @@
                         </p>
 
                         <div class="hero-actions" role="group" aria-label="Hero actions">
-                            <button class="btn btn-primary" id="buy-test-btn" type="button">
+                            @* <button class="btn btn-primary" id="buy-test-btn" type="button"> *@
+                            @*     <span>Buy Test Kit</span> *@
+                            @*     <!-- Inline arrow icon (GoArrowRight equivalent) --> *@
+                            @*     <svg class="arrow" *@
+                            @*          width="20" *@
+                            @*          height="20" *@
+                            @*          viewBox="0 0 24 24" *@
+                            @*          fill="none" *@
+                            @*          stroke="currentColor" *@
+                            @*          stroke-width="2" *@
+                            @*          stroke-linecap="round" *@
+                            @*          stroke-linejoin="round" *@
+                            @*          aria-hidden="true"> *@
+                            @*         <path d="M5 12h14"></path> *@
+                            @*         <path d="M12 5l7 7-7 7"></path> *@
+                            @*     </svg> *@
+                            @* </button> *@
+
+                            @*Sazib Change this button to a tag*@
+                            <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">
                                 <span>Buy Test Kit</span>
                                 <!-- Inline arrow icon (GoArrowRight equivalent) -->
                                 <svg class="arrow"
@@ -35,7 +54,7 @@
                                     <path d="M5 12h14"></path>
                                     <path d="M12 5l7 7-7 7"></path>
                                 </svg>
-                            </button>
+                            </a>
 
                             <button class="btn btn-outline"
                                     id="book-consult-btn"
