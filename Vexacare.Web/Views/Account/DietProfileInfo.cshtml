@@ -1,0 +1,256 @@
+﻿<!-- Medical Profile Breadcrumb Start -->
+<section class="medical-profile-breadcrumb">
+    <div class="container">
+        <div class="medical-profile-breadcrumb-wrapper">
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number compleate">1</div>
+                <p class="medical-profile-breadcrumb-title">Basic Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number compleate">2</div>
+                <p class="medical-profile-breadcrumb-title">Health Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number compleate">3</div>
+                <p class="medical-profile-breadcrumb-title">
+                    Gastrointestinal History
+                </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number compleate">4</div>
+                <p class="medical-profile-breadcrumb-title">
+                    Function & Symptoms
+                </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number active">5</div>
+                <p class="medical-profile-breadcrumb-title">Diet Profile</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">6</div>
+                <p class="medical-profile-breadcrumb-title">Lifestyle</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">7</div>
+                <p class="medical-profile-breadcrumb-title">Therapies & Goals</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Medical Profile Breadcrumb End -->
+<!-- Medical Profile Form Start -->
+<section class="medical-profile-form medical-profile-form-5">
+    <div class="container">
+        <div class="medical-profile-form-wrapper">
+            <div class="form-step">
+                <h2 class="form-title">Step 5: Diet Profile</h2>
+
+                <form onsubmit="nextStep(event)">
+                    <!-- Diet Type Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Diet Food</h3>
+
+                        <div class="diet-options">
+                            <label class="diet-option">
+                                <input type="radio"
+                                       name="diet-type"
+                                       value="omnivore"
+                                       checked />
+                                <span class="diet-option-label">Omnivore</span>
+                            </label>
+
+                            <label class="diet-option">
+                                <input type="radio" name="diet-type" value="vegetarian" />
+                                <span class="diet-option-label">Vegetarian</span>
+                            </label>
+
+                            <label class="diet-option">
+                                <input type="radio" name="diet-type" value="vegan" />
+                                <span class="diet-option-label">Vegan</span>
+                            </label>
+
+                            <label class="diet-option">
+                                <input type="radio" name="diet-type" value="other" />
+                                <span class="diet-option-label">Other</span>
+                            </label>
+                        </div>
+
+                        <input type="text"
+                               class="form-input"
+                               placeholder="Please specify your dietary preference" />
+                    </div>
+
+                    <!-- Weekly Food Intake Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Weekly Food Intake (Servings)</h3>
+
+                        <div class="food-categories">
+                            <div class="food-category">
+                                <label class="form-label">Vegetables</label>
+                                <div class="range-input-container">
+                                    <input type="text"
+                                           class="form-input"
+                                           min="0"
+                                           max="20"
+                                           value="0" />
+                                    <div class="range-value">servings</div>
+                                </div>
+                            </div>
+
+                            <div class="food-category">
+                                <label class="form-label">Fruits</label>
+                                <div class="range-input-container">
+                                    <input type="text"
+                                           class="form-input"
+                                           min="0"
+                                           max="20"
+                                           value="0" />
+                                    <div class="range-value">servings</div>
+                                </div>
+                            </div>
+
+                            <div class="food-category">
+                                <label class="form-label">Whole Grains</label>
+                                <div class="range-input-container">
+                                    <input type="text"
+                                           class="form-input"
+                                           min="0"
+                                           max="20"
+                                           value="0" />
+                                    <div class="range-value">servings</div>
+                                </div>
+                            </div>
+
+                            <div class="food-category">
+                                <label class="form-label">Animal Proteins</label>
+                                <div class="range-input-container">
+                                    <input type="text"
+                                           class="form-input"
+                                           min="0"
+                                           max="20"
+                                           value="0" />
+                                    <div class="range-value">servings</div>
+                                </div>
+                            </div>
+
+                            <div class="food-category">
+                                <label class="form-label">Plant Proteins</label>
+                                <div class="range-input-container">
+                                    <input type="text"
+                                           class="form-input"
+                                           min="0"
+                                           max="20"
+                                           value="0" />
+                                    <div class="range-value">servings</div>
+                                </div>
+                            </div>
+
+                            <div class="food-category">
+                                <label class="form-label">Dairy Products</label>
+                                <div class="range-input-container">
+                                    <input type="text"
+                                           class="form-input"
+                                           min="0"
+                                           max="20"
+                                           value="0" />
+                                    <div class="range-value">servings</div>
+                                </div>
+                            </div>
+
+                            <div class="food-category">
+                                <label class="form-label">Fermented Foods</label>
+                                <div class="range-input-container">
+                                    <input type="text"
+                                           class="form-input"
+                                           min="0"
+                                           max="20"
+                                           value="0" />
+                                    <div class="range-value">servings</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hydration and Alcohol Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Hydration and Alcohol</h3>
+
+                        <div class="two-column-inputs">
+                            <div>
+                                <label class="form-label">Water (Liters per day)</label>
+                                <input type="number"
+                                       class="form-input"
+                                       placeholder="e.g., 2"
+                                       min="0"
+                                       step="0.1" />
+                            </div>
+                            <div>
+                                <label class="form-label">Alcohol (units per week)</label>
+                                <input type="number"
+                                       class="form-input"
+                                       placeholder="e.g., 1"
+                                       min="0" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Typical Meal Times Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Typical Meal Times</h3>
+
+                        <div class="time-input-container">
+                            <div class="time-input-group">
+                                <label class="form-label">Breakfast</label>
+                                <input type="time" class="form-input time-input" />
+                            </div>
+
+                            <div class="time-input-group">
+                                <label class="form-label">Lunch</label>
+                                <input type="time" class="form-input time-input" />
+                            </div>
+
+                            <div class="time-input-group">
+                                <label class="form-label">Dinner</label>
+                                <input type="time" class="form-input time-input" />
+                            </div>
+
+                            <div class="time-input-group">
+                                <label class="form-label">Snacks</label>
+                                <input type="time" class="form-input time-input" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="form-buttons">
+                        <button type="button"
+                                class="btn btn-prev"
+                                onclick="prevStep()">
+                            Previous
+                        </button>
+                        <button type="submit" class="btn btn-next">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Medical Profile Form End -->

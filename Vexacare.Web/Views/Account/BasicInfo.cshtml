@@ -1,0 +1,136 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!-- Medical Profile Breadcrumb Start -->
+<section class="medical-profile-breadcrumb">
+    <div class="container">
+        <div class="medical-profile-breadcrumb-wrapper">
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number active">1</div>
+                <p class="medical-profile-breadcrumb-title">Basic Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">2</div>
+                <p class="medical-profile-breadcrumb-title">Health Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">3</div>
+                <p class="medical-profile-breadcrumb-title">
+                    Gastrointestinal History
+                </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">4</div>
+                <p class="medical-profile-breadcrumb-title">
+                    Function & Symptoms
+                </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">5</div>
+                <p class="medical-profile-breadcrumb-title">Diet Profile</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">6</div>
+                <p class="medical-profile-breadcrumb-title">Lifestyle</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">7</div>
+                <p class="medical-profile-breadcrumb-title">Therapies & Goals</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Medical Profile Breadcrumb End -->
+<!-- Medical Profile Form Start -->
+<section class="medical-profile-form">
+    <div class="container">
+        <div class="medical-profile-form-wrapper">
+            <div class="form-step">
+                <h2 class="form-title">Step 1: Basic Info</h2>
+
+                <!-- Profile Picture Upload -->
+                <div class="profile-upload">
+                    <div class="upload-circle">
+                        <span class="upload-icon">&#128247;</span>
+                    </div>
+
+                    <p class="upload-title">Upload Profile Picture</p>
+
+                    <p class="upload-subtitle">
+                        Drag and drop or click to upload<br />PNG or JPG (max. 2MB)
+                    </p>
+
+                    <input type="file"
+                           id="profilePic"
+                           accept="image/png, image/jpeg"
+                           hidden />
+                </div>
+
+                <!-- Form Fields -->
+                <form onsubmit="nextStep(event)">
+                    <label class="form-label">Date of Birth</label>
+                    <div class="input-with-icon">
+                        <input type="text"
+                               class="form-input"
+                               placeholder="DD/MM/YYYY" />
+                        <span class="calendar-icon">&#128197;</span>
+                    </div>
+
+                    <label class="form-label">Gender</label>
+                    <select class="form-input">
+                        <option>Select your gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+
+                    <label class="form-label">Country</label>
+                    <select class="form-input">
+                        <option>England</option>
+                        <option>United States</option>
+                        <option>Bangladesh</option>
+                    </select>
+
+                    <label class="form-label">City</label>
+                    <input type="text"
+                           class="form-input"
+                           placeholder="Enter your city" />
+
+                    <label class="form-label">Postcode</label>
+                    <input type="text"
+                           class="form-input"
+                           placeholder="Enter your postcode" />
+
+                    <!-- Buttons -->
+                    <div class="form-buttons">
+                        <button type="button" class="btn btn-prev" disabled>
+                            Previous
+                        </button>
+                        <button type="submit" class="btn btn-next">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Medical Profile Form End -->

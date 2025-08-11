@@ -1,0 +1,153 @@
+﻿<!-- Medical Profile Breadcrumb Start -->
+<section class="medical-profile-breadcrumb">
+    <div class="container">
+        <div class="medical-profile-breadcrumb-wrapper">
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number compleate">1</div>
+                <p class="medical-profile-breadcrumb-title">Basic Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number compleate">2</div>
+                <p class="medical-profile-breadcrumb-title">Health Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number active">3</div>
+                <p class="medical-profile-breadcrumb-title">
+                    Gastrointestinal History
+                </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">4</div>
+                <p class="medical-profile-breadcrumb-title">
+                    Function & Symptoms
+                </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">5</div>
+                <p class="medical-profile-breadcrumb-title">Diet Profile</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">6</div>
+                <p class="medical-profile-breadcrumb-title">Lifestyle</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">7</div>
+                <p class="medical-profile-breadcrumb-title">Therapies & Goals</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Medical Profile Breadcrumb End -->
+<!-- Medical Profile Form Start -->
+<section class="medical-profile-form medical-profile-form-3">
+    <div class="container">
+        <div class="medical-profile-form-wrapper">
+            <div class="form-step">
+                <h2 class="form-title">Step 3: Gastrointestinal History</h2>
+
+                <form onsubmit="nextStep(event)">
+                    <!-- GI Clinical History Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">GI Clinical History</h3>
+
+                        <label class="form-label">Previous GI Problems</label>
+                        <textarea class="form-input"
+                                  placeholder="Describe any past gastrointestinal issues"
+                                  rows="3"></textarea>
+
+                        <div class="form-subsection">
+                            <label class="form-label">Onset Date of First Symptoms</label>
+                            <div class="input-with-icon">
+                                <input type="text"
+                                       class="form-input"
+                                       placeholder="DD/MM/YYYY" />
+                                <span class="calendar-icon">&#128197;</span>
+                            </div>
+
+                            <label class="form-label">Treatments Performed</label>
+                            <textarea class="form-input"
+                                      placeholder="List any treatments you have received"
+                                      rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Family History Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Family History</h3>
+
+                        <label class="form-label">GI Pathologies</label>
+                        <input type="text"
+                               class="form-input"
+                               placeholder="e.g., Crohn's disease, IBS" />
+
+                        <label class="form-label">Other Relevant Medical Conditions</label>
+                        <textarea class="form-input"
+                                  placeholder="List any other relevant health issues"
+                                  rows="3"></textarea>
+                    </div>
+
+                    <!-- Surgical History Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Degree of Relationship</h3>
+                        <select class="form-input">
+                            <option value="">Select relationship</option>
+                            <option value="parent">Parent</option>
+                            <option value="sibling">Sibling</option>
+                            <option value="grandparent">Grandparent</option>
+                            <option value="other">Other</option>
+                        </select>
+
+                        <div class="form-subsection">
+                            <label class="form-label">Surgical History (if any)</label>
+                            <input type="text"
+                                   class="form-input"
+                                   placeholder="Type of Surgery" />
+
+                            <label class="form-label">Date of Surgery</label>
+                            <div class="input-with-icon">
+                                <input type="text"
+                                       class="form-input"
+                                       placeholder="DD/MM/YYYY" />
+                                <span class="calendar-icon">&#128197;</span>
+                            </div>
+
+                            <label class="form-label">Outcome</label>
+                            <textarea class="form-input"
+                                      placeholder="Describe the outcome of the surgery"
+                                      rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="form-buttons">
+                        <button type="button"
+                                class="btn btn-prev"
+                                onclick="prevStep()">
+                            Previous
+                        </button>
+                        <button type="submit" class="btn btn-next">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Medical Profile Form End -->

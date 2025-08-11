@@ -1,0 +1,213 @@
+﻿<!-- Medical Profile Breadcrumb Start -->
+<section class="medical-profile-breadcrumb">
+    <div class="container">
+        <div class="medical-profile-breadcrumb-wrapper">
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number compleate">1</div>
+                <p class="medical-profile-breadcrumb-title">Basic Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number compleate">2</div>
+                <p class="medical-profile-breadcrumb-title">Health Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number compleate">3</div>
+                <p class="medical-profile-breadcrumb-title">
+                    Gastrointestinal History
+                </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number active">4</div>
+                <p class="medical-profile-breadcrumb-title">
+                    Function & Symptoms
+                </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">5</div>
+                <p class="medical-profile-breadcrumb-title">Diet Profile</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">6</div>
+                <p class="medical-profile-breadcrumb-title">Lifestyle</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+                <div class="medical-profile-breadcrumb-number">7</div>
+                <p class="medical-profile-breadcrumb-title">Therapies & Goals</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Medical Profile Breadcrumb End -->
+<!-- Medical Profile Form Start -->
+<section class="medical-profile-form medical-profile-form-4">
+    <div class="container">
+        <div class="medical-profile-form-wrapper">
+            <div class="form-step">
+                <h2 class="form-title">Step 4: Function & Symptoms</h2>
+
+                <form onsubmit="nextStep(event)">
+                    <!-- Intestinal Function Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Intestinal Function</h3>
+
+                        <div class="symptom-scale-custom">
+                            <div class="symptom-scale-custom-item">
+                                <label class="form-label">Frequency of evacuations</label>
+                                <div class="range-input-container">
+                                    <input type="text"
+                                           class="form-input"
+                                           min="0"
+                                           max="10"
+                                           value="0" />
+                                    <div class="range-value evacuation-range-value">
+                                        /day
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="symptom-scale-custom-item">
+                                <label class="form-label">Bristol Scale</label>
+                                <div class="custom-select-wrapper">
+                                    <select class="form-input custom-select">
+                                        <option value="1">1 - Separate hard lumps</option>
+                                        <option value="2">2 - Lumpy and sausage-like</option>
+                                        <option value="3">
+                                            3 - Sausage-shaped with cracks
+                                        </option>
+                                        <option value="4">4 - Smooth, soft sausage</option>
+                                        <option value="5">
+                                            5 - Soft blobs with clear edges
+                                        </option>
+                                        <option value="6">
+                                            6 - Fluffy pieces with ragged edges
+                                        </option>
+                                        <option value="7">7 - Watery, no solid pieces</option>
+                                    </select>
+                                    <div class="custom-select-arrow">▼</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Symptoms Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Current Symptoms</h3>
+
+                        <div class="symptom-scale">
+                            <label class="form-label">Bloating Severity</label>
+                            <div class="range-input-container">
+                                <input type="range"
+                                       class="form-range-input"
+                                       min="0"
+                                       max="10"
+                                       value="6" />
+                                <div class="range-value">6</div>
+                            </div>
+                            <div class="scale-labels">
+                                <span>0 = None</span>
+                                <span>10 = Severe</span>
+                            </div>
+                        </div>
+
+                        <div class="symptom-scale">
+                            <label class="form-label">Intestinal Gas</label>
+                            <div class="range-input-container">
+                                <input type="range"
+                                       class="form-range-input"
+                                       min="0"
+                                       max="10"
+                                       value="4" />
+                                <div class="range-value">4</div>
+                            </div>
+                            <div class="scale-labels">
+                                <span>0 = None</span>
+                                <span>10 = Severe</span>
+                            </div>
+                        </div>
+
+                        <div class="symptom-scale">
+                            <label class="form-label">Abdominal Pain</label>
+                            <div class="range-input-container">
+                                <input type="range"
+                                       class="form-range-input"
+                                       min="0"
+                                       max="10"
+                                       value="7" />
+                                <div class="range-value">7</div>
+                            </div>
+                            <div class="scale-labels">
+                                <span>0 = None</span>
+                                <span>10 = Severe</span>
+                            </div>
+                        </div>
+
+                        <div class="symptom-scale">
+                            <label class="form-label">Digestive Difficulties</label>
+                            <div class="range-input-container">
+                                <input type="range"
+                                       class="form-range-input"
+                                       min="0"
+                                       max="10"
+                                       value="5" />
+                                <div class="range-value">5</div>
+                            </div>
+                            <div class="scale-labels">
+                                <span>0 = None</span>
+                                <span>10 = Severe</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Food Sensitivities Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Food Sensitivities</h3>
+
+                        <label class="form-label">Diagnosed intolerances</label>
+                        <input type="text"
+                               class="form-input"
+                               placeholder="e.g., Lactose, Gluten" />
+
+                        <label class="form-label">Certified allergies</label>
+                        <input type="text"
+                               class="form-input"
+                               placeholder="e.g., Peanuts, Shellfish" />
+
+                        <label class="form-label">Tests performed</label>
+                        <input type="text"
+                               class="form-input"
+                               placeholder="e.g., IgG test, Skin prick test" />
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="form-buttons">
+                        <button type="button"
+                                class="btn btn-prev"
+                                onclick="prevStep()">
+                            Previous
+                        </button>
+                        <button type="submit" class="btn btn-next">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Medical Profile Form End -->

@@ -1,0 +1,207 @@
+﻿<!-- Medical Profile Breadcrumb Start -->
+      <section class="medical-profile-breadcrumb">
+        <div class="container">
+          <div class="medical-profile-breadcrumb-wrapper">
+            <div class="medical-profile-breadcrumb-content">
+              <div class="medical-profile-breadcrumb-number compleate">1</div>
+              <p class="medical-profile-breadcrumb-title">Basic Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+              <div class="medical-profile-breadcrumb-number compleate">2</div>
+              <p class="medical-profile-breadcrumb-title">Health Info</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+              <div class="medical-profile-breadcrumb-number compleate">3</div>
+              <p class="medical-profile-breadcrumb-title">
+                Gastrointestinal History
+              </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+              <div class="medical-profile-breadcrumb-number compleate">4</div>
+              <p class="medical-profile-breadcrumb-title">
+                Function & Symptoms
+              </p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+              <div class="medical-profile-breadcrumb-number compleate">5</div>
+              <p class="medical-profile-breadcrumb-title">Diet Profile</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+              <div class="medical-profile-breadcrumb-number active">6</div>
+              <p class="medical-profile-breadcrumb-title">Lifestyle</p>
+            </div>
+
+            <div class="medical-profile-breadcrumb-line"></div>
+
+            <div class="medical-profile-breadcrumb-content">
+              <div class="medical-profile-breadcrumb-number">7</div>
+              <p class="medical-profile-breadcrumb-title">Therapies & Goals</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Medical Profile Breadcrumb End -->
+
+      <!-- Medical Profile Form Start -->
+      <section class="medical-profile-form medical-profile-form-6">
+        <div class="container">
+          <div class="medical-profile-form-wrapper">
+            <div class="form-step">
+              <h2 class="form-title">Step 6: Lifestyle</h2>
+
+              <form onsubmit="nextStep(event)">
+                <!-- Physical Activity Section -->
+                <div class="form-section">
+                  <h3 class="section-title">Physical Activity</h3>
+
+                  <label class="form-label">Type of Activity</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    placeholder="e.g., Yoga, Running, Gym"
+                  />
+
+                  <div class="two-column-inputs">
+                    <div>
+                      <label class="form-label">Sessions per week</label>
+                      <input
+                        type="number"
+                        class="form-input"
+                        placeholder="0"
+                        min="0"
+                      />
+                    </div>
+                    <div>
+                      <label class="form-label"
+                        >Average duration (in minutes)</label
+                      >
+                      <input
+                        type="number"
+                        class="form-input"
+                        placeholder="0"
+                        min="0"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Sleep Quality Section -->
+                <div class="form-section">
+                  <h3 class="section-title">Sleep Quality</h3>
+
+                  <label class="form-label">Average Hours of Sleep/Night</label>
+                  <input
+                    type="number"
+                    class="form-input"
+                    placeholder="e.g., 7.5"
+                    min="0"
+                    step="0.1"
+                  />
+
+                  <div class="sleep-quality-rating">
+                    <label class="form-label">Sleep Quality Rating</label>
+                    <div class="range-input-container">
+                      <input
+                        type="range"
+                        class="form-range-input"
+                        min="0"
+                        max="10"
+                        value="5"
+                      />
+                      <div class="range-labels">
+                        <span>0</span>
+                        <span>10</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <label class="form-label">Specific Problems</label>
+                  <textarea
+                    class="form-input"
+                    placeholder="Trouble falling asleep, waking up early..."
+                    rows="3"
+                  ></textarea>
+                </div>
+
+                <!-- Stress and Habits Section -->
+                <div class="form-section">
+                  <h3 class="section-title">Stress and Habits</h3>
+
+                  <div class="stress-level">
+                    <label class="form-label">Stress Level</label>
+                    <div class="range-input-container">
+                      <input
+                        type="range"
+                        class="form-range-input"
+                        min="0"
+                        max="10"
+                        value="5"
+                      />
+                      <div class="range-labels">
+                        <span>0</span>
+                        <span>10</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="smoking-habit">
+                    <label class="form-label">Smoking Habit</label>
+                    <div class="diet-options">
+                      <label class="diet-option">
+                        <input type="radio" name="smoking" value="yes" />
+                        <span class="diet-option-label">Yes</span>
+                      </label>
+                      <label class="diet-option">
+                        <input type="radio" name="smoking" value="no" checked />
+                        <span class="diet-option-label">No</span>
+                      </label>
+                    </div>
+
+                    <div class="conditional-field" id="smoking-details">
+                      <label class="form-label"
+                        >Cigarettes per day (If Yes)</label
+                      >
+                      <input
+                        type="number"
+                        class="form-input"
+                        placeholder="0"
+                        min="0"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-buttons">
+                  <button
+                    type="button"
+                    class="btn btn-prev"
+                    onclick="prevStep()"
+                  >
+                    Previous
+                  </button>
+                  <button type="submit" class="btn btn-next">Next</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Medical Profile Form End -->
+
+

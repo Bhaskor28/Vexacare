@@ -61,6 +61,68 @@ namespace Vexacare.Web.Controllers
 
             return View(model);
         }
+        //step 1: basic info
+
+        [HttpGet]
+        public IActionResult BasicInfo()
+        {
+            return View();
+        }
+        //end of step 1
+        //step 2: Health info
+
+        [HttpGet]
+        public IActionResult HealthInfo()
+        {
+            return View();
+        }
+        //end of step 2
+
+        //step 3: Gastrointestinal info
+
+        [HttpGet]
+        public IActionResult GastrointestinalInfo()
+        {
+            return View();
+        }
+        //end of step 3
+
+        //step 4: Symtoms info
+
+        [HttpGet]
+        public IActionResult SymtomsInfo()
+        {
+            return View();
+        }
+        //end of step 4
+
+        //step 5: DietProfile info
+
+        [HttpGet]
+        public IActionResult DietProfileInfo()
+        {
+            return View();
+        }
+        //end of step 5
+
+        //step 6: Lifestyle info
+
+        [HttpGet]
+        public IActionResult LifestyleInfo()
+        {
+            return View();
+        }
+        //end of step 6
+
+        //step 7: Symtoms info
+
+        [HttpGet]
+        public IActionResult TherapiesInfo()
+        {
+            return View();
+        }
+        //end of step 7
+
         [HttpGet]
         public IActionResult Login()
         {
