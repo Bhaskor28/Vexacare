@@ -82,21 +82,21 @@ namespace Vexacare.Web.Controllers
             var basicInfo = await _context.BasicInfos
                 .FirstOrDefaultAsync(b => b.PatientId == patientId);
 
+            var model = new BasicInfoVM();
+
             if (basicInfo != null)
             {
-                var model = new BasicInfoVM
-                {
-                    DateOfBirth = basicInfo.DateOfBirth,
-                    Gender = basicInfo.Gender,
-                    Country = basicInfo.Country,
-                    City = basicInfo.City,
-                    Postcode = basicInfo.Postcode,
-                    ProfilePictureUrl = basicInfo.ProfilePictureUrl
-                };
-                return View(model);
+                model.DateOfBirth = basicInfo.DateOfBirth;
+                model.Gender = basicInfo.Gender;
+                model.Country = basicInfo.Country;
+                model.City = basicInfo.City;
+                model.Postcode = basicInfo.Postcode;
+                model.ProfilePictureUrl = basicInfo.ProfilePictureUrl;
             }
-            return View();
+
+            return View(model); // ✅ always returns non-null model
         }
+
 
         [HttpPost]
         public async Task<IActionResult> BasicInfo(BasicInfoVM model)
