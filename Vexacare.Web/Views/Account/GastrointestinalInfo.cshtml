@@ -1,4 +1,6 @@
-﻿<!-- Medical Profile Breadcrumb Start -->
+﻿@model GastrointestinalInfoVM
+
+<!-- Medical Profile Breadcrumb Start -->
 <section class="medical-profile-breadcrumb">
     <div class="container">
         <div class="medical-profile-breadcrumb-wrapper">
@@ -63,29 +65,30 @@
             <div class="form-step">
                 <h2 class="form-title">Step 3: Gastrointestinal History</h2>
 
-                <form onsubmit="nextStep(event)">
+                <form asp-action="GastrointestinalInfo" method="post">
                     <!-- GI Clinical History Section -->
                     <div class="form-section">
                         <h3 class="section-title">GI Clinical History</h3>
 
                         <label class="form-label">Previous GI Problems</label>
-                        <textarea class="form-input"
+                        <textarea asp-for="PreviousGIProblems" class="form-input"
                                   placeholder="Describe any past gastrointestinal issues"
                                   rows="3"></textarea>
-
+                        <span asp-validation-for="PreviousGIProblems" class="text-danger"></span>
                         <div class="form-subsection">
                             <label class="form-label">Onset Date of First Symptoms</label>
                             <div class="input-with-icon">
-                                <input type="date"
+                                <input asp-for="OnsetDateOfFirstSymptoms" type="date"
                                        class="form-input"
                                        placeholder="DD/MM/YYYY" />
-                                
+                            <span asp-validation-for="OnsetDateOfFirstSymptoms" class="text-danger"></span>
                             </div>
 
                             <label class="form-label">Treatments Performed</label>
-                            <textarea class="form-input"
+                            <textarea asp-for="TreatmentsPerformed" class="form-input"
                                       placeholder="List any treatments you have received"
                                       rows="3"></textarea>
+                            <span asp-validation-for="TreatmentsPerformed" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -94,56 +97,55 @@
                         <h3 class="section-title">Family History</h3>
 
                         <label class="form-label">GI Pathologies</label>
-                        <input type="text"
+                        <input asp-for="GIPathology" type="text"
                                class="form-input"
                                placeholder="e.g., Crohn's disease, IBS" />
+                        <span asp-validation-for="GIPathology" class="text-danger"></span>
 
                         <label class="form-label">Other Relevant Medical Conditions</label>
-                        <textarea class="form-input"
+                        <textarea asp-for="OtherRelevantMedicalConditions" class="form-input"
                                   placeholder="List any other relevant health issues"
                                   rows="3"></textarea>
+                        <span asp-validation-for="OtherRelevantMedicalConditions" class="text-danger"></span>
                     </div>
 
                     <!-- Surgical History Section -->
                     <div class="form-section">
                         <h3 class="section-title">Degree of Relationship</h3>
-                        <select class="form-input">
+                        <select asp-for="DegreeOfRelationship" class="form-input">
                             <option value="">Select relationship</option>
                             <option value="parent">Parent</option>
                             <option value="sibling">Sibling</option>
                             <option value="grandparent">Grandparent</option>
                             <option value="other">Other</option>
                         </select>
+                        <span asp-validation-for="DegreeOfRelationship" class="text-danger"></span>
 
                         <div class="form-subsection">
                             <label class="form-label">Surgical History (if any)</label>
-                            <input type="text"
+                            <input asp-for="TypeOfSurgery" type="text"
                                    class="form-input"
                                    placeholder="Type of Surgery" />
-
+                            <span asp-validation-for="TypeOfSurgery" class="text-danger"></span>
                             <label class="form-label">Date of Surgery</label>
                             <div class="input-with-icon">
-                                <input type="date"
+                                <input asp-for="DateOfSurgery" type="date"
                                        class="form-input"
                                        placeholder="DD/MM/YYYY" />
                                 
                             </div>
-
+                            <span asp-validation-for="DateOfSurgery" class="text-danger"></span>
                             <label class="form-label">Outcome</label>
-                            <textarea class="form-input"
+                            <textarea asp-for="Outcome" class="form-input"
                                       placeholder="Describe the outcome of the surgery"
                                       rows="3"></textarea>
+                            <span asp-validation-for="Outcome" class="text-danger"></span>
                         </div>
                     </div>
 
                     <!-- Buttons -->
                     <div class="form-buttons">
-                        @* <button type="button" *@
-                        @*         class="btn btn-prev" *@
-                        @*         onclick="prevStep()"> *@
-                        @*     Previous *@
-                        @* </button> *@
-                        <a asp-controller="Account" asp-action="HealthInfo" type="button" class="btn btn-prev">Previous</a>
+                        <a asp-controller="Account" asp-action="HealthInfo" class="btn btn-prev">Previous</a>
                         <button type="submit" class="btn btn-next">Next</button>
                     </div>
                 </form>

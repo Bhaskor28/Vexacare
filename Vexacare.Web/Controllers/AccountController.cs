@@ -72,7 +72,7 @@ namespace Vexacare.Web.Controllers
             return View(model);
         }
         #endregion
-
+        //end of step 1
         #region BasicInfo
         //step 1: basic info
         [HttpGet]
@@ -169,8 +169,9 @@ namespace Vexacare.Web.Controllers
 
         //end of step 1
         #endregion
-        #region HealthInfo
         //step 2: Health info
+        #region HealthInfo
+
 
         [HttpGet]
         public async Task<IActionResult> HealthInfo()
@@ -253,12 +254,34 @@ namespace Vexacare.Web.Controllers
         }
         //end of step 2
         #endregion
-
+        //end of step 2
         //step 3: Gastrointestinal info
-
+        #region GastrointestinalInfo
         [HttpGet]
-        public IActionResult GastrointestinalInfo()
+        public async Task<IActionResult> GastrointestinalInfo()
         {
+            var patientId = _userManager.GetUserId(User);
+            var giInfo = await _context.GastrointestinalInfos
+                .FirstOrDefaultAsync(g => g.PatientId == patientId);
+
+            if (giInfo != null)
+            {
+                var model = new GastrointestinalInfoVM
+                {
+                    Id = giInfo.Id,
+                    PreviousGIProblems = giInfo.PreviousGIProblems,
+                    OnsetDateOfFirstSymptoms = giInfo.OnsetDateOfFirstSymptoms,
+                    TreatmentsPerformed = giInfo.TreatmentsPerformed,
+                    GIPathology = giInfo.GIPathology,
+                    OtherRelevantMedicalConditions = giInfo.OtherRelevantMedicalConditions,
+                    DegreeOfRelationship = giInfo.DegreeOfRelationship,
+                    TypeOfSurgery = giInfo.TypeOfSurgery,
+                    DateOfSurgery = giInfo.DateOfSurgery,
+                    Outcome = giInfo.Outcome
+                };
+                return View(model);
+            }
+
             return View();
         }
 
@@ -269,34 +292,60 @@ namespace Vexacare.Web.Controllers
             {
                 var userId = _userManager.GetUserId(User);
 
-                var gastrointestinalInfo = new GastrointestinalInfo
+                // Check if GastrointestinalInfo already exists for this patient
+                var existingInfo = await _context.GastrointestinalInfos
+                    .FirstOrDefaultAsync(g => g.PatientId == userId);
+
+                if (existingInfo != null)
                 {
-                    PatientId = userId,
-                    PreviousGIProblems = model.PreviousGIProblems,
-                    OnsetDateOfFirstSymptoms = model.OnsetDateOfFirstSymptoms,
-                    TreatmentsPerformed = model.TreatmentsPerformed,
-                    GIPathology = model.GIPathology,
-                    DegreeOfRelationship = model.DegreeOfRelationship,
-                    OtherRelevantMedicalConditions = model.OtherRelevantMedicalConditions,
-                    TypeOfSurgery = model.TypeOfSurgery,
-                    DateOfSurgery = model.DateOfSurgery,
-                    Outcome = model.Outcome
-                };
+                    // Update existing record
+                    existingInfo.PreviousGIProblems = model.PreviousGIProblems;
+                    existingInfo.OnsetDateOfFirstSymptoms = model.OnsetDateOfFirstSymptoms;
+                    existingInfo.TreatmentsPerformed = model.TreatmentsPerformed;
+                    existingInfo.GIPathology = model.GIPathology;
+                    existingInfo.OtherRelevantMedicalConditions = model.OtherRelevantMedicalConditions;
+                    existingInfo.DegreeOfRelationship = model.DegreeOfRelationship;
+                    existingInfo.TypeOfSurgery = model.TypeOfSurgery;
+                    existingInfo.DateOfSurgery = model.DateOfSurgery;
+                    existingInfo.Outcome = model.Outcome;
 
-                _context.GastrointestinalInfos.Add(gastrointestinalInfo);
+                    _context.GastrointestinalInfos.Update(existingInfo);
+                }
+                else
+                {
+                    // Create new record
+                    var gastrointestinalInfo = new GastrointestinalInfo
+                    {
+                        PatientId = userId,
+                        PreviousGIProblems = model.PreviousGIProblems,
+                        OnsetDateOfFirstSymptoms = model.OnsetDateOfFirstSymptoms,
+                        TreatmentsPerformed = model.TreatmentsPerformed,
+                        GIPathology = model.GIPathology,
+                        OtherRelevantMedicalConditions = model.OtherRelevantMedicalConditions,
+                        DegreeOfRelationship = model.DegreeOfRelationship,
+                        TypeOfSurgery = model.TypeOfSurgery,
+                        DateOfSurgery = model.DateOfSurgery,
+                        Outcome = model.Outcome
+                    };
+
+                    _context.GastrointestinalInfos.Add(gastrointestinalInfo);
+                }
+
                 await _context.SaveChangesAsync();
-
-                return RedirectToAction("SymtomsInfo", "Account"); // Redirect to next step
+                return RedirectToAction("SymtomsInfo", "Account");
             }
 
-            return View(model);
+            // If model state is invalid, return to view with validation messages
+            return View("GastrointestinalInfo", model);
         }
 
+        #endregion
         //end of step 3
 
+        //step 4: Symtoms info
         #region SymptomsInfo
 
-        //step 4: Symtoms info
+
 
         [HttpGet]
         public async Task<IActionResult> SymtomsInfo()
@@ -373,10 +422,10 @@ namespace Vexacare.Web.Controllers
         //end of step 4
 
         #endregion
+        //end of step 4
 
-        #region DietProfileInfo
         //step 5: DietProfile info
-
+        #region DietProfileInfo
         [HttpGet]
         public async Task<IActionResult> DietProfileInfo()
         {
@@ -477,99 +526,178 @@ namespace Vexacare.Web.Controllers
         }
         //end of step 5
         #endregion
+        //end of step 4
 
         //step 6: Lifestyle info
-
+        #region LifestyleInfo
         [HttpGet]
         public async Task<IActionResult> LifestyleInfo()
         {
-            //var patientId = _userManager.GetUserId(User);
-            //var lifestyleInfo = await _context.LifestyleInfos
-            //    .FirstOrDefaultAsync(l => l.PatientId == patientId);
+            var patientId = _userManager.GetUserId(User);
+            var lifestyleInfo = await _context.LifestyleInfos
+                .FirstOrDefaultAsync(l => l.PatientId == patientId);
 
-            //if (lifestyleInfo != null)
-            //{
-            //    var model = new LifestyleInfoVM
-            //    {
-            //        //Id = lifestyleInfo.Id,
-            //        ActivityType = lifestyleInfo.ActivityType,
-            //        SessionsPerWeek = lifestyleInfo.SessionsPerWeek,
-            //        AverageDurationMinutes = lifestyleInfo.AverageDurationMinutes,
-            //        AverageHoursOfSleep = lifestyleInfo.AverageHoursOfSleep,
-            //        SleepQualityRating = lifestyleInfo.SleepQualityRating,
-            //        SleepProblems = lifestyleInfo.SleepProblems,
-            //        StressLevel = lifestyleInfo.StressLevel,
-            //        HasBreakfast = lifestyleInfo.HasBreakfast,
-            //        CigarettesPerDay = lifestyleInfo.CigarettesPerDay
-            //    };
-            //    return View(model);
-            //}
+            if (lifestyleInfo != null)
+            {
+                // Map existing info to view model
+                var model = new LifestyleInfoVM
+                {
+                    Id = lifestyleInfo.Id,
+                    ActivityType = lifestyleInfo.ActivityType,
+                    SessionsPerWeek = lifestyleInfo.SessionsPerWeek,
+                    AverageDurationMinutes = lifestyleInfo.AverageDurationMinutes,
+                    AverageHoursOfSleep = lifestyleInfo.AverageHoursOfSleep,
+                    SleepQualityRating = lifestyleInfo.SleepQualityRating,
+                    SpecificProblems = lifestyleInfo.SpecificProblems,
+                    StressLevel = lifestyleInfo.StressLevel,
+                    IsSmoker = lifestyleInfo.IsSmoker,
+                    CigarettesPerDay = lifestyleInfo.CigarettesPerDay
+                };
+                return View(model);
+            }
 
-            //return View(new LifestyleInfoVM());
-            return View();
+            // Return view with new model with default values
+            return View(new LifestyleInfoVM
+            {
+                SleepQualityRating = 5,
+                StressLevel = 5
+            });
         }
-        //[HttpPost]
-        //public async Task<IActionResult> LifestyleInfo(LifestyleInfoVM model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var patientId = _userManager.GetUserId(User);
 
-        //        if (model.Id > 0)
-        //        {
-        //            // Update existing record
-        //            var existingInfo = await _context.LifestyleInfos.FindAsync(model.Id);
-        //            if (existingInfo != null)
-        //            {
-        //                existingInfo.ActivityType = model.ActivityType;
-        //                existingInfo.SessionsPerWeek = model.SessionsPerWeek;
-        //                existingInfo.AverageDurationMinutes = model.AverageDurationMinutes;
-        //                existingInfo.AverageHoursOfSleep = model.AverageHoursOfSleep;
-        //                existingInfo.SleepQualityRating = model.SleepQualityRating;
-        //                existingInfo.SleepProblems = model.SleepProblems;
-        //                existingInfo.StressLevel = model.StressLevel;
-        //                existingInfo.HasBreakfast = model.HasBreakfast;
-        //                existingInfo.CigarettesPerDay = model.HasBreakfast == true ? model.CigarettesPerDay : null;
+        [HttpPost]
+        public async Task<IActionResult> LifestyleInfo(LifestyleInfoVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = _userManager.GetUserId(User);
 
-        //                _context.LifestyleInfos.Update(existingInfo);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            // Create new record
-        //            var lifestyleInfo = new LifestyleInfo
-        //            {
-        //                PatientId = patientId,
-        //                ActivityType = model.ActivityType,
-        //                SessionsPerWeek = model.SessionsPerWeek,
-        //                AverageDurationMinutes = model.AverageDurationMinutes,
-        //                AverageHoursOfSleep = model.AverageHoursOfSleep,
-        //                SleepQualityRating = model.SleepQualityRating,
-        //                SleepProblems = model.SleepProblems,
-        //                StressLevel = model.StressLevel,
-        //                HasBreakfast = model.HasBreakfast,
-        //                CigarettesPerDay = model.HasBreakfast == true ? model.CigarettesPerDay : null
-        //            };
+                // Check if LifestyleInfo already exists for this patient
+                var existingInfo = await _context.LifestyleInfos
+                    .FirstOrDefaultAsync(l => l.PatientId == userId);
 
-        //            _context.LifestyleInfos.Add(lifestyleInfo);
-        //        }
+                if (existingInfo != null)
+                {
+                    // Update existing record
+                    existingInfo.ActivityType = model.ActivityType;
+                    existingInfo.SessionsPerWeek = model.SessionsPerWeek;
+                    existingInfo.AverageDurationMinutes = model.AverageDurationMinutes;
+                    existingInfo.AverageHoursOfSleep = model.AverageHoursOfSleep;
+                    existingInfo.SleepQualityRating = model.SleepQualityRating;
+                    existingInfo.SpecificProblems = model.SpecificProblems;
+                    existingInfo.StressLevel = model.StressLevel;
+                    existingInfo.IsSmoker = model.IsSmoker;
+                    existingInfo.CigarettesPerDay = model.IsSmoker == true ? model.CigarettesPerDay : null;
 
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction("TherapiesInfo", "Account"); // Proceed to next step
-        //    }
+                    _context.LifestyleInfos.Update(existingInfo);
+                }
+                else
+                {
+                    // Create new record
+                    var lifestyleInfo = new LifestyleInfo
+                    {
+                        PatientId = userId,
+                        ActivityType = model.ActivityType,
+                        SessionsPerWeek = model.SessionsPerWeek,
+                        AverageDurationMinutes = model.AverageDurationMinutes,
+                        AverageHoursOfSleep = model.AverageHoursOfSleep,
+                        SleepQualityRating = model.SleepQualityRating,
+                        SpecificProblems = model.SpecificProblems,
+                        StressLevel = model.StressLevel,
+                        IsSmoker = model.IsSmoker,
+                        CigarettesPerDay = model.IsSmoker == true ? model.CigarettesPerDay : null
+                    };
 
-        //    // If we got here, something went wrong
-        //    return View(model);
-        //}
+                    _context.LifestyleInfos.Add(lifestyleInfo);
+                }
 
+                await _context.SaveChangesAsync();
+                return RedirectToAction("TherapiesInfo", "Account");
+            }
+
+            // If model state is invalid, return to view with validation messages
+            return View("LifestyleInfo", model);
+        }
+
+        #endregion
         //end of step 6
 
         //step 7: Symtoms info
 
+        // AccountController.cs
         [HttpGet]
-        public IActionResult TherapiesInfo()
+        public async Task<IActionResult> TherapiesInfo()
         {
-            return View();
+            var patientId = _userManager.GetUserId(User);
+            var therapiesInfo = await _context.TherapiesInfos
+                .FirstOrDefaultAsync(t => t.PatientId == patientId);
+
+            var model = new TherapiesInfoVM();
+
+            if (therapiesInfo != null)
+            {
+                model.UsedAntibioticsRecently = therapiesInfo.UsedAntibioticsRecently;
+                model.AntibioticName = therapiesInfo.AntibioticName;
+                model.EndOfTherapyDate = therapiesInfo.EndOfTherapyDate;
+                model.UsesProbiotics = therapiesInfo.UsesProbiotics;
+                model.UsesPrebiotics = therapiesInfo.UsesPrebiotics;
+                model.UsesMinerals = therapiesInfo.UsesMinerals;
+                model.UsesVitamins = therapiesInfo.UsesVitamins;
+                model.UsesOtherSupplements = therapiesInfo.UsesOtherSupplements;
+                model.OtherSupplementsDescription = therapiesInfo.OtherSupplementsDescription;
+
+                if (therapiesInfo.PrimaryObjective.HasValue)
+                {
+                    model.PrimaryObjective = (PrimaryHealthObjective)therapiesInfo.PrimaryObjective.Value;
+                }
+
+                if (!string.IsNullOrEmpty(therapiesInfo.SecondaryObjectives))
+                {
+                    model.SecondaryObjectives = therapiesInfo.SecondaryObjectives
+                        .Split(',')
+                        .Select(o => (SecondaryObjective)Enum.Parse(typeof(SecondaryObjective), o))
+                        .ToList();
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TherapiesInfo(TherapiesInfoVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = _userManager.GetUserId(User);
+                var therapiesInfo = await _context.TherapiesInfos
+                    .FirstOrDefaultAsync(t => t.PatientId == userId) ?? new TherapiesInfo { PatientId = userId };
+
+                therapiesInfo.UsedAntibioticsRecently = model.UsedAntibioticsRecently;
+                therapiesInfo.AntibioticName = model.UsedAntibioticsRecently == true ? model.AntibioticName : null;
+                therapiesInfo.EndOfTherapyDate = model.UsedAntibioticsRecently == true ? model.EndOfTherapyDate : null;
+                therapiesInfo.UsesProbiotics = model.UsesProbiotics;
+                therapiesInfo.UsesPrebiotics = model.UsesPrebiotics;
+                therapiesInfo.UsesMinerals = model.UsesMinerals;
+                therapiesInfo.UsesVitamins = model.UsesVitamins;
+                therapiesInfo.UsesOtherSupplements = model.UsesOtherSupplements;
+                therapiesInfo.OtherSupplementsDescription = model.UsesOtherSupplements ? model.OtherSupplementsDescription : null;
+                therapiesInfo.PrimaryObjective = (int?)model.PrimaryObjective;
+                therapiesInfo.SecondaryObjectives = model.SecondaryObjectives.Any() ?
+                    string.Join(",", model.SecondaryObjectives.Select(o => o.ToString())) : null;
+
+                if (therapiesInfo.Id == 0)
+                {
+                    _context.TherapiesInfos.Add(therapiesInfo);
+                }
+                else
+                {
+                    _context.TherapiesInfos.Update(therapiesInfo);
+                }
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
         }
         //end of step 7
 

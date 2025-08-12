@@ -9,10 +9,10 @@ using Vexacare.Domain.Entities.PatientEntities;
 
 namespace Vexacare.Infrastructure.Data.Configurations
 {
-    public class TherapyAndGoalsConfiguration : IEntityTypeConfiguration<TherapyAndGoals>
+    public class TherapyAndGoalsConfiguration : IEntityTypeConfiguration<TherapiesInfo>
     {
         
-        public void Configure(EntityTypeBuilder<TherapyAndGoals> builder)
+        public void Configure(EntityTypeBuilder<TherapiesInfo> builder)
         {
             
 

@@ -9,43 +9,70 @@ namespace Vexacare.Application.Patients.ViewModels
 {
     public class TherapiesInfoVM
     {
-        public int Id { get; set; }
-
-        [Display(Name = "Has Recent Antibiotic Use?")]
-        public bool? HasRecentAntibioticUse { get; set; }
-
-        [Display(Name = "Antibiotic Name")]
-        public string AntibioticName { get; set; }
-
-        [Display(Name = "End of Therapy Date")]
-        [DataType(DataType.Date)]
+        public bool? UsedAntibioticsRecently { get; set; }
+        public string? AntibioticName { get; set; }
         public DateTime? EndOfTherapyDate { get; set; }
 
-        [Display(Name = "Supplementation")]
-        public List<int> SupplementationIds { get; set; } = new List<int>();
+        // Supplementation
+        public bool UsesProbiotics { get; set; }
+        public bool UsesPrebiotics { get; set; }
+        public bool UsesMinerals { get; set; }
+        public bool UsesVitamins { get; set; }
+        public bool UsesOtherSupplements { get; set; }
+        public string? OtherSupplementsDescription { get; set; }
 
-        [Display(Name = "Primary Health Objective")]
-        public string PrimaryHealthObjective { get; set; }
+        // Primary Health Objective
+        public PrimaryHealthObjective? PrimaryObjective { get; set; }
 
-        [Display(Name = "Secondary Objectives")]
-        public List<int> SecondaryObjectiveIds { get; set; } = new List<int>();
+        // Secondary Objectives
+        public List<SecondaryObjective> SecondaryObjectives { get; set; } = new List<SecondaryObjective>();
+    }
 
-        // For selecting in dropdowns/multi-selects
-        public List<SupplementViewModel> AvailableSupplements { get; set; } = new List<SupplementViewModel>();
-        public List<SecondaryObjectiveViewModel> AvailableSecondaryObjectives { get; set; } = new List<SecondaryObjectiveViewModel>();
+    public enum PrimaryHealthObjective
+    {
+        [Display(Name = "Preventive Wellbeing")]
+        PreventiveWellbeing,
 
-        // Patient info
-        public string PatientId { get; set; }
-        public class SupplementViewModel
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-        }
+        [Display(Name = "Digestive Optimization")]
+        DigestiveOptimization,
 
-        public class SecondaryObjectiveViewModel
-        {
-            public int Id { get; set; }
-            public string Objective { get; set; }
-        }
+        [Display(Name = "Weight Management")]
+        WeightManagement,
+
+        [Display(Name = "Sports Performance")]
+        SportsPerformance
+    }
+
+    public enum SecondaryObjective
+    {
+        [Display(Name = "Increased Energy")]
+        IncreasedEnergy,
+
+        [Display(Name = "Improved Sleep")]
+        ImprovedSleep,
+
+        [Display(Name = "Stress Reduction")]
+        StressReduction,
+
+        [Display(Name = "Hunger Control")]
+        HungerControl,
+
+        [Display(Name = "Muscle Recovery")]
+        MuscleRecovery,
+
+        [Display(Name = "Inflammation Reduction")]
+        InflammationReduction,
+
+        [Display(Name = "Hormone Balance")]
+        HormoneBalance,
+
+        [Display(Name = "Detoxification")]
+        Detoxification,
+
+        [Display(Name = "Skin Health")]
+        SkinHealth,
+
+        [Display(Name = "Other")]
+        Other
     }
 }

@@ -9,18 +9,29 @@ using Vexacare.Domain.Entities.Supliments;
 
 namespace Vexacare.Domain.Entities.PatientEntities
 {
-    public class TherapyAndGoals
+    public class TherapiesInfo
     {
         public int Id { get; set; }
-        public bool? HasRecentAntibioticUse { get; set; }
-        public string AntibioticName { get; set; }
-        public DateTime? EndOfTherapyDate { get; set; }
-        public ICollection<Supliment> Supplementation { get; set; }
-        public string PrimaryHealthObjective { get; set; }
-        public ICollection<SecondaryObjective> SecondaryObjectives { get; set; }
+        public string PatientId { get; set; }
 
-        // Navigation property
-        public string PatientId { get; set; } // Foreign key to Patient/IdentityUser
+        // Antibiotic Use
+        public bool? UsedAntibioticsRecently { get; set; }
+        public string? AntibioticName { get; set; }
+        public DateTime? EndOfTherapyDate { get; set; }
+
+        // Supplementation
+        public bool UsesProbiotics { get; set; }
+        public bool UsesPrebiotics { get; set; }
+        public bool UsesMinerals { get; set; }
+        public bool UsesVitamins { get; set; }
+        public bool UsesOtherSupplements { get; set; }
+        public string? OtherSupplementsDescription { get; set; }
+
+        // Health Objectives
+        public int? PrimaryObjective { get; set; }
+        public string SecondaryObjectives { get; set; }
+
+        // Navigation
         public Patient Patient { get; set; }
 
     }
