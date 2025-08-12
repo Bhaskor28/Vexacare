@@ -10,11 +10,14 @@ namespace Vexacare.Web.Controllers
 {
     public class AccountController : Controller
     {
+        #region Fields
         private readonly UserManager<Patient> _userManager;
         private readonly SignInManager<Patient> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        #endregion
 
+        #region Constructor
         public AccountController(
         UserManager<Patient> userManager,
         SignInManager<Patient> signInManager,
@@ -26,7 +29,9 @@ namespace Vexacare.Web.Controllers
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
+        #endregion
 
+        #region register
         [HttpGet]
         public IActionResult Register()
         {
@@ -66,8 +71,10 @@ namespace Vexacare.Web.Controllers
 
             return View(model);
         }
-        //step 1: basic info
+        #endregion
 
+        #region BasicInfo
+        //step 1: basic info
         [HttpGet]
         public async Task<IActionResult> BasicInfo()
         {
@@ -161,9 +168,10 @@ namespace Vexacare.Web.Controllers
         }
 
         //end of step 1
+        #endregion
+        #region HealthInfo
         //step 2: Health info
 
-             
         [HttpGet]
         public async Task<IActionResult> HealthInfo()
         {
@@ -244,6 +252,7 @@ namespace Vexacare.Web.Controllers
             return View("HealthInfo", model);
         }
         //end of step 2
+        #endregion
 
         //step 3: Gastrointestinal info
 
@@ -285,23 +294,189 @@ namespace Vexacare.Web.Controllers
 
         //end of step 3
 
+        #region SymptomsInfo
+
         //step 4: Symtoms info
 
         [HttpGet]
-        public IActionResult SymtomsInfo()
+        public async Task<IActionResult> SymtomsInfo()
         {
+            var patientId = _userManager.GetUserId(User);
+            var symptomsInfo = await _context.SymptomsInfos
+                .FirstOrDefaultAsync(s => s.PatientId == patientId);
+            if (symptomsInfo != null)
+            {
+                var model = new SymptomsInfoVM
+                {
+                    FrequencyOfEvaluations = symptomsInfo.FrequencyOfEvaluations,
+                    BristolScale = symptomsInfo.BristolScale,
+                    BloatingSeverity = symptomsInfo.BloatingSeverity,
+                    IntestinalGas = symptomsInfo.IntestinalGas,
+                    AbdominalPain = symptomsInfo.AbdominalPain,
+                    DigestiveDifficulties = symptomsInfo.DigestiveDifficulties,
+                    DiagnosedIntolerances = symptomsInfo.DiagnosedIntolerances,
+                    CertifiedAllergies = symptomsInfo.CertifiedAllergies,
+                    TestsPerformed = symptomsInfo.TestsPerformed
+                };
+                return View(model);
+            }
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SymtomsInfo(SymptomsInfoVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var patientId = _userManager.GetUserId(User);
+                // Check if SymptomsInfo already exists for this patient
+                var existingInfo = await _context.SymptomsInfos
+                    .FirstOrDefaultAsync(s => s.PatientId == patientId);
+
+                if (existingInfo != null)
+                {
+                    // Update existing record
+                    existingInfo.FrequencyOfEvaluations = model.FrequencyOfEvaluations;
+                    existingInfo.BristolScale = model.BristolScale;
+                    existingInfo.BloatingSeverity = model.BloatingSeverity;
+                    existingInfo.IntestinalGas = model.IntestinalGas;
+                    existingInfo.AbdominalPain = model.AbdominalPain;
+                    existingInfo.DigestiveDifficulties = model.DigestiveDifficulties;
+                    existingInfo.DiagnosedIntolerances = model.DiagnosedIntolerances;
+                    existingInfo.CertifiedAllergies = model.CertifiedAllergies;
+                    existingInfo.TestsPerformed = model.TestsPerformed;
+
+                    _context.SymptomsInfos.Update(existingInfo);
+                }
+                else
+                {
+                    // Create new record
+                    var symptomsInfo = new SymptomsInfo
+                    {
+                        PatientId = patientId,
+                        FrequencyOfEvaluations = model.FrequencyOfEvaluations,
+                        BristolScale = model.BristolScale,
+                        BloatingSeverity = model.BloatingSeverity,
+                        IntestinalGas = model.IntestinalGas,
+                        AbdominalPain = model.AbdominalPain,
+                        DigestiveDifficulties = model.DigestiveDifficulties,
+                        DiagnosedIntolerances = model.DiagnosedIntolerances,
+                        CertifiedAllergies = model.CertifiedAllergies,
+                        TestsPerformed = model.TestsPerformed
+                    };
+                    _context.SymptomsInfos.Add(symptomsInfo);
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("DietProfileInfo", "Account");
+            }
+            return View("SymtomsInfo", model);
         }
         //end of step 4
 
+        #endregion
+
+        #region DietProfileInfo
         //step 5: DietProfile info
 
         [HttpGet]
-        public IActionResult DietProfileInfo()
+        public async Task<IActionResult> DietProfileInfo()
         {
+            var patientId = _userManager.GetUserId(User);
+            var dietInfo = await _context.DietProfileInfos
+                .FirstOrDefaultAsync(d => d.PatientId == patientId);
+
+            if (dietInfo != null)
+            {
+                var model = new DietProfileInfoVM
+                {
+                    DietFood = dietInfo.DietFood,
+                    DietTypeOther = dietInfo.DietTypeOther,
+                    Vegetables = dietInfo.Vegetables,
+                    Fruits = dietInfo.Fruits,
+                    WholeGrains = dietInfo.WholeGrains,
+                    AnimalProteins = dietInfo.AnimalProteins,
+                    PlantProteins = dietInfo.PlantProteins,
+                    DairyProducts = dietInfo.DairyProducts,
+                    FermentedFoods = dietInfo.FermentedFoods,
+                    Water = dietInfo.Water,
+                    Alcohol = dietInfo.Alcohol,
+                    BreakfastTime = dietInfo.BreakfastTime,
+                    LunchTime = dietInfo.LunchTime,
+                    DinnerTime = dietInfo.DinnerTime,
+                    SnacksTime = dietInfo.SnacksTime
+
+                };
+                return View(model);
+
+            }
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DietProfileInfo(DietProfileInfoVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var patientId = _userManager.GetUserId(User);
+
+                // Check if DietProfileInfo already exists for this patient
+                var existingInfo = await _context.DietProfileInfos
+                    .FirstOrDefaultAsync(d => d.PatientId == patientId);
+
+                if (existingInfo != null)
+                {
+                    // Update existing record
+                    existingInfo.DietFood = model.DietFood;
+                    existingInfo.DietTypeOther = model.DietTypeOther;
+                    existingInfo.Vegetables = model.Vegetables;
+                    existingInfo.Fruits = model.Fruits;
+                    existingInfo.WholeGrains = model.WholeGrains;
+                    existingInfo.AnimalProteins = model.AnimalProteins;
+                    existingInfo.PlantProteins = model.PlantProteins;
+                    existingInfo.DairyProducts = model.DairyProducts;
+                    existingInfo.FermentedFoods = model.FermentedFoods;
+                    existingInfo.Water = model.Water;
+                    existingInfo.Alcohol = model.Alcohol;
+                    existingInfo.BreakfastTime = model.BreakfastTime;
+                    existingInfo.LunchTime = model.LunchTime;
+                    existingInfo.SnacksTime = model.SnacksTime;
+                    existingInfo.DinnerTime = model.DinnerTime;
+
+                    _context.DietProfileInfos.Update(existingInfo);
+                }
+                else
+                {
+                    // Create new record
+                    var dietInfo = new DietProfileInfo
+                    {
+                        PatientId = patientId,
+                        DietFood = model.DietFood,
+                        DietTypeOther = model.DietTypeOther,
+                        Vegetables = model.Vegetables,
+                        Fruits = model.Fruits,
+                        WholeGrains = model.WholeGrains,
+                        AnimalProteins = model.AnimalProteins,
+                        PlantProteins = model.PlantProteins,
+                        DairyProducts = model.DairyProducts,
+                        FermentedFoods = model.FermentedFoods,
+                        Water = model.Water,
+                        Alcohol = model.Alcohol,
+                        BreakfastTime = model.BreakfastTime,
+                        LunchTime = model.LunchTime,
+                        SnacksTime = model.SnacksTime,
+                        DinnerTime = model.DinnerTime
+                    };
+
+                    _context.DietProfileInfos.Add(dietInfo);
+                }
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("LifestyleInfo", "Account"); // Update with your next step
+            }
+
+            return View("DietProfileInfo", model);
+        }
         //end of step 5
+        #endregion
 
         //step 6: Lifestyle info
 
@@ -398,6 +573,8 @@ namespace Vexacare.Web.Controllers
         }
         //end of step 7
 
+        #region Login
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -435,6 +612,8 @@ namespace Vexacare.Web.Controllers
 
             return View(model);
         }
+        #endregion
+        #region SignOut
         //Sign Out
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -443,5 +622,6 @@ namespace Vexacare.Web.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        #endregion
     }
 }
