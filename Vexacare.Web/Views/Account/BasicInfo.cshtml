@@ -70,8 +70,16 @@
                     @* Display all model-level errors *@
                     <!-- Profile Picture Upload -->
                     <div class="profile-upload">
-                        <div class="upload-circle">
-                            <span class="upload-icon">&#128247;</span>
+                        <div class="upload-circle"
+                             id="uploadCircle"
+                             role="button"
+                             tabindex="0"
+                             aria-label="Upload profile picture">
+                            <img id="previewImage"
+                                 alt="Profile preview"
+                                 style="display: none" />
+                            <div id="loader" class="loader" style="display: none"></div>
+                            <span class="upload-icon" id="uploadIcon">&#128247;</span>
                         </div>
 
                         <p class="upload-title">Upload Profile Picture</p>
@@ -93,13 +101,11 @@
                 @* @* <form onsubmit="nextStep(event)">   Sazib change here *@
                     <label class="form-label">Date of Birth</label>
                     <div class="input-with-icon">
-                        <input asp-for="DateOfBirth" type="text"
+                        <input asp-for="DateOfBirth" type="date"
                                class="form-input"
                                placeholder="DD/MM/YYYY" />
-                        <span class="calendar-icon">&#128197;</span>
                         <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                     </div>
-
                     <label class="form-label">Gender</label>
                     <select asp-for="Gender" class="form-input">
                         <option>Select your gender</option>
@@ -146,3 +152,20 @@
     </div>
 </section>
 <!-- Medical Profile Form End -->
+
+<script>
+    const profilePicInput = document.getElementById("profilePic");
+    const previewImage = document.getElementById("previewImage");
+
+    profilePicInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImage.src = e.target.result;
+          previewImage.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+</script>
