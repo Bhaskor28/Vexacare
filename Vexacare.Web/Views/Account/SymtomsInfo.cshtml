@@ -198,12 +198,15 @@
 
                     <!-- Buttons -->
                     <div class="form-buttons">
-                        <button type="button"
+                        @* <button type="button"
                                 class="btn btn-prev"
                                 onclick="prevStep()">
                             Previous
                         </button>
-                        <button type="submit" class="btn btn-next">Next</button>
+                        <button type="submit" class="btn btn-next">Next</button> *@
+                        <a asp-controller="Account" asp-action="GastrointestinalInfo" type="button" class="btn btn-prev">Previous</a>
+                        @* <button type="submit" class="btn btn-next">Next</button> *@
+                        <a asp-controller="Account" asp-action="DietProfileInfo" type="button" class="btn btn-next">Next</a>
                     </div>
                 </form>
             </div>
