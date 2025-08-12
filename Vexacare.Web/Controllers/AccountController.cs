@@ -332,7 +332,7 @@ namespace Vexacare.Web.Controllers
                 }
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction("SymtomsInfo", "Account");
+                return RedirectToAction("SymptomsInfo", "Account");
             }
 
             // If model state is invalid, return to view with validation messages
