@@ -1,4 +1,6 @@
-﻿<!-- Medical Profile Breadcrumb Start -->
+﻿@model DietProfileInfoVM
+
+<!-- Medical Profile Breadcrumb Start -->
 <section class="medical-profile-breadcrumb">
     <div class="container">
         <div class="medical-profile-breadcrumb-wrapper">
@@ -63,41 +65,40 @@
             <div class="form-step">
                 <h2 class="form-title">Step 5: Diet Profile</h2>
 
-                <form onsubmit="nextStep(event)">
+                <form asp-action="DietProfileInfo" method="post" ">
                     <!-- Diet Type Section -->
                     <div class="form-section">
                         <h3 class="section-title">Diet Food</h3>
 
                         <div class="diet-options">
                             <label class="diet-option">
-                                <input type="radio"
-                                       name="diet-type"
-                                       value="omnivore"
-                                       checked />
+                                <input asp-for="DietFood" type="radio" value="omnivore" checked />
                                 <span class="diet-option-label">Omnivore</span>
                             </label>
 
                             <label class="diet-option">
-                                <input type="radio" name="diet-type" value="vegetarian" />
+                                <input asp-for="DietFood" type="radio" value="vegetarian" />
                                 <span class="diet-option-label">Vegetarian</span>
                             </label>
 
                             <label class="diet-option">
-                                <input type="radio" name="diet-type" value="vegan" />
+                                <input asp-for="DietFood" type="radio" value="vegan" />
                                 <span class="diet-option-label">Vegan</span>
                             </label>
 
                             <label class="diet-option">
-                                <input type="radio" name="diet-type" value="other" />
+                                <input asp-for="DietFood" type="radio" value="other" />
                                 <span class="diet-option-label">Other</span>
                             </label>
+
                         </div>
 
-                        <input type="text"
+                        <input asp-for="DietTypeOther" type="text"
                                class="form-input"
                                id="other-diet-input"
                                placeholder="Please specify your dietary preference"
                                style="display: none" />
+                        <span asp-validation-for="DietTypeOther" class="text-danger"></span>
                     </div>
 
                     <!-- Weekly Food Intake Section -->
@@ -108,11 +109,12 @@
                             <div class="food-category">
                                 <label class="form-label">Vegetables</label>
                                 <div class="range-input-container">
-                                    <input type="text"
+                                    <input asp-for="Vegetables" type="text"
                                            class="form-input"
                                            min="0"
                                            max="20"
-                                           value="0" />
+                                            />
+                                    <span asp-validation-for="Vegetables" class="text-danger"></span>
                                     <div class="range-value">servings</div>
                                 </div>
                             </div>
@@ -120,11 +122,12 @@
                             <div class="food-category">
                                 <label class="form-label">Fruits</label>
                                 <div class="range-input-container">
-                                    <input type="text"
+                                    <input asp-for="Fruits" type="text"
                                            class="form-input"
                                            min="0"
                                            max="20"
-                                           value="0" />
+                                           />
+                                    <span asp-validation-for="Fruits" class="text-danger"></span>
                                     <div class="range-value">servings</div>
                                 </div>
                             </div>
@@ -132,11 +135,12 @@
                             <div class="food-category">
                                 <label class="form-label">Whole Grains</label>
                                 <div class="range-input-container">
-                                    <input type="text"
+                                    <input asp-for="WholeGrains" type="text"
                                            class="form-input"
                                            min="0"
                                            max="20"
-                                           value="0" />
+                                           />
+                                    <span asp-validation-for="WholeGrains" class="text-danger"></span>
                                     <div class="range-value">servings</div>
                                 </div>
                             </div>
@@ -144,11 +148,12 @@
                             <div class="food-category">
                                 <label class="form-label">Animal Proteins</label>
                                 <div class="range-input-container">
-                                    <input type="text"
+                                    <input asp-for="AnimalProteins" type="text"
                                            class="form-input"
                                            min="0"
                                            max="20"
-                                           value="0" />
+                                           />
+                                    <span asp-validation-for="AnimalProteins" class="text-danger"></span>
                                     <div class="range-value">servings</div>
                                 </div>
                             </div>
@@ -156,11 +161,12 @@
                             <div class="food-category">
                                 <label class="form-label">Plant Proteins</label>
                                 <div class="range-input-container">
-                                    <input type="text"
+                                    <input asp-for="PlantProteins" type="text"
                                            class="form-input"
                                            min="0"
                                            max="20"
-                                           value="0" />
+                                           />
+                                    <span asp-validation-for="PlantProteins" class="text-danger"></span>
                                     <div class="range-value">servings</div>
                                 </div>
                             </div>
@@ -168,11 +174,12 @@
                             <div class="food-category">
                                 <label class="form-label">Dairy Products</label>
                                 <div class="range-input-container">
-                                    <input type="text"
+                                    <input asp-for="DairyProducts" type="text"
                                            class="form-input"
                                            min="0"
                                            max="20"
-                                           value="0" />
+                                           />
+                                    <span asp-validation-for="DairyProducts" class="text-danger"></span>
                                     <div class="range-value">servings</div>
                                 </div>
                             </div>
@@ -180,11 +187,12 @@
                             <div class="food-category">
                                 <label class="form-label">Fermented Foods</label>
                                 <div class="range-input-container">
-                                    <input type="text"
+                                    <input asp-for="FermentedFoods" type="text"
                                            class="form-input"
                                            min="0"
                                            max="20"
-                                           value="0" />
+                                           />
+                                    <span asp-validation-for="FermentedFoods" class="text-danger"></span>
                                     <div class="range-value">servings</div>
                                 </div>
                             </div>
@@ -198,18 +206,20 @@
                         <div class="two-column-inputs">
                             <div>
                                 <label class="form-label">Water (Liters per day)</label>
-                                <input type="number"
+                                <input asp-for="Water" type="number"
                                        class="form-input"
                                        placeholder="e.g., 2"
                                        min="0"
                                        step="0.1" />
+                                <span asp-validation-for="Water" class="text-danger"></span>
                             </div>
                             <div>
                                 <label class="form-label">Alcohol (units per week)</label>
-                                <input type="number"
+                                <input asp-for="Alcohol" type="number"
                                        class="form-input"
                                        placeholder="e.g., 1"
                                        min="0" />
+                                <span asp-validation-for="Alcohol" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -221,27 +231,31 @@
                         <div class="time-input-container">
                             <div class="time-input-group">
                                 <label class="form-label">Breakfast</label>
-                                <input type="time" class="form-input time-input" />
+                                <input asp-for="BreakfastTime" type="time" class="form-input time-input" />
+                                <span asp-validation-for="BreakfastTime" class="text-danger"></span>
                             </div>
 
                             <div class="time-input-group">
                                 <label class="form-label">Lunch</label>
-                                <input type="time" class="form-input time-input" />
+                                <input asp-for="LunchTime" type="time" class="form-input time-input" />
+                                <span asp-validation-for="LunchTime" class="text-danger"></span>
                             </div>
 
                             <div class="time-input-group">
                                 <label class="form-label">Dinner</label>
-                                <input type="time" class="form-input time-input" />
+                                <input asp-for="DinnerTime" type="time" class="form-input time-input" />
+                                <span asp-validation-for="DinnerTime" class="text-danger"></span>
                             </div>
 
                             <div class="time-input-group">
                                 <label class="form-label">Snacks</label>
-                                <input type="time" class="form-input time-input" />
+                                <input asp-for="SnacksTime" type="time" class="form-input time-input" />
+                                <span asp-validation-for="SnacksTime" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Buttons -->
+                    @* <!-- Buttons -->
                     <div class="form-buttons">
                         <button type="button"
                                 class="btn btn-prev"
@@ -249,14 +263,21 @@
                             Previous
                         </button>
                         <button type="submit" class="btn btn-next">Next</button>
+                    </div> *@
+
+                    <div class="form-buttons">
+                        <a asp-controller="Account" asp-action="SymptomsInfo" type="button" class="btn btn-prev">Previous</a>
+                        <button type="submit" class="btn btn-next">Next</button>
                     </div>
+                    
+                    
                 </form>
             </div>
         </div>
     </div>
 </section>
 <!-- Medical Profile Form End -->
-<script>
+@* <script>
     document.addEventListener("DOMContentLoaded", function () {
       const dietOptions = document.querySelectorAll(
         'input[name="diet-type"]'
@@ -273,5 +294,27 @@
           }
         });
       });
+    });
+</script> *@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dietOptions = document.querySelectorAll('input[name="DietFood"]');
+        const otherInput = document.getElementById("other-diet-input");
+
+        dietOptions.forEach((option) => {
+            option.addEventListener("change", function () {
+                if (this.value === "other") {
+                    otherInput.style.display = "block";
+                } else {
+                    otherInput.style.display = "none";
+                    otherInput.value = "";
+                }
+            });
+
+            // Show the input on page load if "other" is already selected
+            if (option.checked && option.value === "other") {
+                otherInput.style.display = "block";
+            }
+        });
     });
 </script>

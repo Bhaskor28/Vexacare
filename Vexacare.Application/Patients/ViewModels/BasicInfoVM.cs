@@ -14,6 +14,9 @@ namespace Vexacare.Application.Patients.ViewModels
         [Display(Name = "Profile Picture")]
         public IFormFile? ProfilePicture { get; set; }
 
+        //added by sazib
+        public string? ProfilePictureUrl { get; set; }
+
         [Required]
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]

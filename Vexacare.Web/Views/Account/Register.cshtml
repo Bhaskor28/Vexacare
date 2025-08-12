@@ -9,7 +9,7 @@
             <h1 class="login-title">Patient Register</h1>
         </div>
 
-        <form asp-action = "Register" mathod="post" class="login-form-input-wrapper">
+        <form asp-action="Register" method="post" class="login-form-input-wrapper">
             @* Display all model-level errors *@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="input-wrapper-row">

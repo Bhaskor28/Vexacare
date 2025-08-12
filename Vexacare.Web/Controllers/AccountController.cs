@@ -90,8 +90,8 @@ namespace Vexacare.Web.Controllers
                     Gender = basicInfo.Gender,
                     Country = basicInfo.Country,
                     City = basicInfo.City,
-                    Postcode = basicInfo.Postcode
-                    // ProfilePicture is not set here, as it's for uploads only
+                    Postcode = basicInfo.Postcode,
+                    ProfilePictureUrl = basicInfo.ProfilePictureUrl
                 };
                 return View(model);
             }
@@ -254,6 +254,7 @@ namespace Vexacare.Web.Controllers
         //end of step 2
         #endregion
 
+
         //step 3: Gastrointestinal info
 
         [HttpGet]
@@ -299,7 +300,7 @@ namespace Vexacare.Web.Controllers
         //step 4: Symtoms info
 
         [HttpGet]
-        public async Task<IActionResult> SymtomsInfo()
+        public async Task<IActionResult> SymptomsInfo()
         {
             var patientId = _userManager.GetUserId(User);
             var symptomsInfo = await _context.SymptomsInfos
@@ -323,7 +324,7 @@ namespace Vexacare.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SymtomsInfo(SymptomsInfoVM model)
+        public async Task<IActionResult> SymptomsInfo(SymptomsInfoVM model)
         {
             if (ModelState.IsValid)
             {
