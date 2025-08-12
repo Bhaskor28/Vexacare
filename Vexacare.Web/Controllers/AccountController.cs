@@ -82,21 +82,21 @@ namespace Vexacare.Web.Controllers
             var basicInfo = await _context.BasicInfos
                 .FirstOrDefaultAsync(b => b.PatientId == patientId);
 
+            var model = new BasicInfoVM();
+
             if (basicInfo != null)
             {
-                var model = new BasicInfoVM
-                {
-                    DateOfBirth = basicInfo.DateOfBirth,
-                    Gender = basicInfo.Gender,
-                    Country = basicInfo.Country,
-                    City = basicInfo.City,
-                    Postcode = basicInfo.Postcode
-                    // ProfilePicture is not set here, as it's for uploads only
-                };
-                return View(model);
+                model.DateOfBirth = basicInfo.DateOfBirth;
+                model.Gender = basicInfo.Gender;
+                model.Country = basicInfo.Country;
+                model.City = basicInfo.City;
+                model.Postcode = basicInfo.Postcode;
+                model.ProfilePictureUrl = basicInfo.ProfilePictureUrl;
             }
-            return View();
+
+            return View(model); // ✅ always returns non-null model
         }
+
 
         [HttpPost]
         public async Task<IActionResult> BasicInfo(BasicInfoVM model)
@@ -254,7 +254,7 @@ namespace Vexacare.Web.Controllers
         }
         //end of step 2
         #endregion
-        //end of step 2
+
         //step 3: Gastrointestinal info
         #region GastrointestinalInfo
         [HttpGet]
@@ -348,7 +348,7 @@ namespace Vexacare.Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> SymtomsInfo()
+        public async Task<IActionResult> SymptomsInfo()
         {
             var patientId = _userManager.GetUserId(User);
             var symptomsInfo = await _context.SymptomsInfos
@@ -372,7 +372,7 @@ namespace Vexacare.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SymtomsInfo(SymptomsInfoVM model)
+        public async Task<IActionResult> SymptomsInfo(SymptomsInfoVM model)
         {
             if (ModelState.IsValid)
             {

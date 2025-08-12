@@ -66,7 +66,10 @@
             <div class="form-step">
                 <h2 class="form-title">Step 1: Basic Info</h2>
 
-                <form asp-action="BasicInfo" mathod="post" class="login-form-input-wrapper">
+                @* <form asp-action="BasicInfo" mathod="post" class="login-form-input-wrapper"> *@
+                    @* change this sazib *@
+                <form asp-action="BasicInfo" method="post" enctype="multipart/form-data" class="login-form-input-wrapper">
+
                     @* Display all model-level errors *@
                     <!-- Profile Picture Upload -->
                     <div class="profile-upload">
@@ -75,12 +78,21 @@
                              role="button"
                              tabindex="0"
                              aria-label="Upload profile picture">
+
                             <img id="previewImage"
                                  alt="Profile preview"
-                                 style="display: none" />
+                                 src="@Model.ProfilePictureUrl"
+                                 style="@(string.IsNullOrEmpty(Model.ProfilePictureUrl) ? "display: none;" : "display: block;")" />
+
                             <div id="loader" class="loader" style="display: none"></div>
-                            <span class="upload-icon" id="uploadIcon">&#128247;</span>
+
+                            @* ⬇️ Only show upload icon when no image exists *@
+                            <span class="upload-icon" id="uploadIcon"
+                                  style="@(string.IsNullOrEmpty(Model.ProfilePictureUrl) ? "display: inline;" : "display: none;")">
+                                &#128247;
+                            </span>
                         </div>
+
 
                         <p class="upload-title">Upload Profile Picture</p>
 
@@ -153,7 +165,7 @@
 </section>
 <!-- Medical Profile Form End -->
 
-<script>
+@* <script>
     const profilePicInput = document.getElementById("profilePic");
     const previewImage = document.getElementById("previewImage");
 
@@ -168,4 +180,24 @@
         reader.readAsDataURL(file);
       }
     });
+</script> *@
+
+<script>
+    const profilePicInput = document.getElementById("profilePic");
+    const previewImage = document.getElementById("previewImage");
+    const uploadIcon = document.getElementById("uploadIcon");
+
+    profilePicInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                previewImage.style.display = "block";
+                uploadIcon.style.display = "none"; // ⬅️ Hide icon when preview is shown
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 </script>
+

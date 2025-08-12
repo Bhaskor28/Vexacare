@@ -1,4 +1,6 @@
-﻿<!-- Medical Profile Breadcrumb Start -->
+﻿@model SymptomsInfoVM
+
+<!-- Medical Profile Breadcrumb Start -->
 <section class="medical-profile-breadcrumb">
     <div class="container">
         <div class="medical-profile-breadcrumb-wrapper">
@@ -63,7 +65,7 @@
             <div class="form-step">
                 <h2 class="form-title">Step 4: Function & Symptoms</h2>
 
-                <form onsubmit="nextStep(event)">
+                <form asp-action="SymptomsInfo" method="post">
                     <!-- Intestinal Function Section -->
                     <div class="form-section">
                         <h3 class="section-title">Intestinal Function</h3>
@@ -72,35 +74,32 @@
                             <div class="symptom-scale-custom-item">
                                 <label class="form-label">Frequency of evacuations</label>
                                 <div class="range-input-container">
-                                    <input type="text"
+                                    <input asp-for = "FrequencyOfEvaluations" type="text"
                                            class="form-input"
                                            min="0"
                                            max="10"
-                                           value="0" />
+                                           />
+                                    <span asp-validation-for="FrequencyOfEvaluations" class="text-danger"></span>
                                     <div class="range-value evacuation-range-value">
                                         /day
                                     </div>
+                                    
                                 </div>
                             </div>
 
                             <div class="symptom-scale-custom-item">
                                 <label class="form-label">Bristol Scale</label>
                                 <div class="custom-select-wrapper">
-                                    <select class="form-input custom-select">
+                                    <select asp-for="BristolScale" class="form-input custom-select">
                                         <option value="1">Separate hard lumps</option>
                                         <option value="2">Lumpy and sausage-like</option>
-                                        <option value="3">
-                                            Sausage-shaped with cracks
-                                        </option>
+                                        <option value="3">Sausage-shaped with cracks</option>
                                         <option value="4">Smooth, soft sausage</option>
-                                        <option value="5">
-                                            Soft blobs with clear edges
-                                        </option>
-                                        <option value="6">
-                                            Fluffy pieces with ragged edges
-                                        </option>
+                                        <option value="5"> Soft blobs with clear edges</option>
+                                        <option value="6"> Fluffy pieces with ragged edges</option>
                                         <option value="7">Watery, no solid pieces</option>
                                     </select>
+                                    <span asp-validation-for="BristolScale" class="text-danger"></span>
                                     <div class="custom-select-arrow">▼</div>
                                 </div>
                             </div>
@@ -114,11 +113,12 @@
                         <div class="symptom-scale">
                             <label class="form-label">Bloating Severity</label>
                             <div class="range-input-container">
-                                <input type="range"
+                                <input asp-for="BloatingSeverity" type="range"
                                        class="form-range-input"
                                        min="0"
                                        max="10"
-                                       value="6" />
+                                       />
+                                <span asp-validation-for="BloatingSeverity" class="text-danger"></span>
                                 <div class="range-value">6</div>
                             </div>
                             <div class="scale-labels">
@@ -130,11 +130,12 @@
                         <div class="symptom-scale">
                             <label class="form-label">Intestinal Gas</label>
                             <div class="range-input-container">
-                                <input type="range"
+                                <input asp-for="IntestinalGas" type="range"
                                        class="form-range-input"
                                        min="0"
                                        max="10"
-                                       value="4" />
+                                       />
+                                <span asp-validation-for="IntestinalGas" class="text-danger"></span>
                                 <div class="range-value">4</div>
                             </div>
                             <div class="scale-labels">
@@ -146,11 +147,12 @@
                         <div class="symptom-scale">
                             <label class="form-label">Abdominal Pain</label>
                             <div class="range-input-container">
-                                <input type="range"
+                                <input asp-for="AbdominalPain" type="range"
                                        class="form-range-input"
                                        min="0"
                                        max="10"
-                                       value="7" />
+                                       />
+                                <span asp-validation-for="AbdominalPain" class="text-danger"></span>
                                 <div class="range-value">7</div>
                             </div>
                             <div class="scale-labels">
@@ -162,11 +164,12 @@
                         <div class="symptom-scale">
                             <label class="form-label">Digestive Difficulties</label>
                             <div class="range-input-container">
-                                <input type="range"
+                                <input asp-for="DigestiveDifficulties" type="range"
                                        class="form-range-input"
                                        min="0"
                                        max="10"
-                                       value="5" />
+                                       />
+                                <span asp-validation-for="DigestiveDifficulties" class="text-danger"></span>
                                 <div class="range-value">5</div>
                             </div>
                             <div class="scale-labels">
@@ -181,19 +184,22 @@
                         <h3 class="section-title">Food Sensitivities</h3>
 
                         <label class="form-label">Diagnosed intolerances</label>
-                        <input type="text"
+                        <input asp-for="DiagnosedIntolerances" type="text"
                                class="form-input"
                                placeholder="e.g., Lactose, Gluten" />
+                        <span asp-validation-for="DiagnosedIntolerances" class="text-danger"></span>
 
                         <label class="form-label">Certified allergies</label>
-                        <input type="text"
+                        <input asp-for="CertifiedAllergies" type="text"
                                class="form-input"
                                placeholder="e.g., Peanuts, Shellfish" />
+                        <span asp-validation-for="CertifiedAllergies" class="text-danger"></span>
 
                         <label class="form-label">Tests performed</label>
-                        <input type="text"
+                        <input asp-for="TestsPerformed" type="text"
                                class="form-input"
                                placeholder="e.g., IgG test, Skin prick test" />
+                        <span asp-validation-for="TestsPerformed" class="text-danger"></span>
                     </div>
 
                     <!-- Buttons -->
@@ -205,8 +211,7 @@
                         </button>
                         <button type="submit" class="btn btn-next">Next</button> *@
                         <a asp-controller="Account" asp-action="GastrointestinalInfo" type="button" class="btn btn-prev">Previous</a>
-                        @* <button type="submit" class="btn btn-next">Next</button> *@
-                        <a asp-controller="Account" asp-action="DietProfileInfo" type="button" class="btn btn-next">Next</a>
+                        <button asp-controller="Account" asp-action="SymptomsInfo" type="submit" class="btn btn-next">Next</button>
                     </div>
                 </form>
             </div>
@@ -215,7 +220,7 @@
 </section>
 <!-- Medical Profile Form End -->
 
-<script>
+@* <script>
     // Range slider
     document.querySelectorAll(".form-range-input").forEach((slider) => {
       const valueDisplay = slider.nextElementSibling;
@@ -231,5 +236,26 @@
 
       slider.addEventListener("input", updateSlider);
       updateSlider();
+    });
+</script> *@
+
+<script>
+    document.querySelectorAll(".range-input-container").forEach((container) => {
+        const slider = container.querySelector(".form-range-input");
+        const valueDisplay = container.querySelector(".range-value");
+
+        if (!slider || !valueDisplay) return; // Skip if any element is missing
+
+        function updateSlider() {
+            const val = slider.value;
+            const min = slider.min || 0;
+            const max = slider.max || 10;
+            const percent = ((val - min) * 100) / (max - min);
+            slider.style.setProperty("--value", `${percent}%`);
+            valueDisplay.textContent = val;
+        }
+
+        slider.addEventListener("input", updateSlider);
+        updateSlider(); // Initialize on page load
     });
 </script>
