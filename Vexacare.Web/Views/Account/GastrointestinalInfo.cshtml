@@ -1,4 +1,5 @@
-﻿<!-- Medical Profile Breadcrumb Start -->
+﻿@model GastrointestinalInfoVM
+<!-- Medical Profile Breadcrumb Start -->
 <section class="medical-profile-breadcrumb">
     <div class="container">
         <div class="medical-profile-breadcrumb-wrapper">
@@ -63,27 +64,28 @@
             <div class="form-step">
                 <h2 class="form-title">Step 3: Gastrointestinal History</h2>
 
-                <form onsubmit="nextStep(event)">
+                <form asp-action="GastrointestinalInfo" method="post">
                     <!-- GI Clinical History Section -->
                     <div class="form-section">
                         <h3 class="section-title">GI Clinical History</h3>
 
                         <label class="form-label">Previous GI Problems</label>
-                        <textarea class="form-input"
+                        <textarea asp-for="PreviousGIProblems" class="form-input"
                                   placeholder="Describe any past gastrointestinal issues"
                                   rows="3"></textarea>
-
+                        <span asp-validation-for="PreviousGIProblems" class="text-danger"></span>
                         <div class="form-subsection">
                             <label class="form-label">Onset Date of First Symptoms</label>
                             <div class="input-with-icon">
-                                <input type="text"
+                                <input asp-for="OnsetDateOfFirstSymptoms"  type="text"
                                        class="form-input"
                                        placeholder="DD/MM/YYYY" />
                                 <span class="calendar-icon">&#128197;</span>
+                                <span asp-validation-for="OnsetDateOfFirstSymptoms" class="text-danger"></span>
                             </div>
 
                             <label class="form-label">Treatments Performed</label>
-                            <textarea class="form-input"
+                            <textarea asp-for="TreatmentsPerformed" class="form-input"
                                       placeholder="List any treatments you have received"
                                       rows="3"></textarea>
                         </div>

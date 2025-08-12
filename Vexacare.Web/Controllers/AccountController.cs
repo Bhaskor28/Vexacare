@@ -172,6 +172,37 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> GastrointestinalInfo(GastrointestinalInfoVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = _userManager.GetUserId(User);
+
+                var gastrointestinalInfo = new GastrointestinalInfo
+                {
+                    PatientId = userId,
+                    PreviousGIProblems = model.PreviousGIProblems,
+                    OnsetDateOfFirstSymptoms = model.OnsetDateOfFirstSymptoms,
+                    TreatmentsPerformed = model.TreatmentsPerformed,
+                    GIPathology = model.GIPathology,
+                    DegreeOfRelationship = model.DegreeOfRelationship,
+                    OtherRelevantMedicalConditions = model.OtherRelevantMedicalConditions,
+                    TypeOfSurgery = model.TypeOfSurgery,
+                    DateOfSurgery = model.DateOfSurgery,
+                    Outcome = model.Outcome
+                };
+
+                _context.GastrointestinalInfos.Add(gastrointestinalInfo);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("SymtomsInfo", "Account"); // Redirect to next step
+            }
+
+            return View(model);
+        }
+
         //end of step 3
 
         //step 4: Symtoms info
