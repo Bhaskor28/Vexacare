@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexacare.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Vexacare.Infrastructure.Data;
 namespace Vexacare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250812082311_Gastrointestinal")]
+    partial class Gastrointestinal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -382,56 +385,6 @@ namespace Vexacare.Infrastructure.Migrations
                     b.ToTable("HealthInfos");
                 });
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.LifestyleInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ActivityType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("AverageDurationMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("AverageHoursOfSleep")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("CigarettesPerDay")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsSmoker")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PatientId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("SessionsPerWeek")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SleepQualityRating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SpecificProblems")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int?>("StressLevel")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("LifestyleInfos");
-                });
-
             modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.Patient", b =>
                 {
                     b.Property<string>("Id")
@@ -559,59 +512,6 @@ namespace Vexacare.Infrastructure.Migrations
                     b.ToTable("SymptomsInfos");
                 });
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.TherapiesInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AntibioticName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("EndOfTherapyDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OtherSupplementsDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PatientId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("PrimaryObjective")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecondaryObjectives")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("UsedAntibioticsRecently")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("UsesMinerals")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("UsesOtherSupplements")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("UsesPrebiotics")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("UsesProbiotics")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("UsesVitamins")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("TherapiesInfos");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -707,29 +607,7 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.LifestyleInfo", b =>
-                {
-                    b.HasOne("Vexacare.Domain.Entities.PatientEntities.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.SymptomsInfo", b =>
-                {
-                    b.HasOne("Vexacare.Domain.Entities.PatientEntities.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.TherapiesInfo", b =>
                 {
                     b.HasOne("Vexacare.Domain.Entities.PatientEntities.Patient", "Patient")
                         .WithMany()

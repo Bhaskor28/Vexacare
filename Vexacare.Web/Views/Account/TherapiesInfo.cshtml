@@ -1,4 +1,6 @@
-﻿<!-- Medical Profile Breadcrumb Start -->
+﻿@using Vexacare.Domain.Entities.Extension
+@model TherapiesInfoVM
+<!-- Medical Profile Breadcrumb Start -->
 <section class="medical-profile-breadcrumb">
     <div class="container">
         <div class="medical-profile-breadcrumb-wrapper">
@@ -64,7 +66,7 @@
             <div class="form-step">
                 <h2 class="form-title">Step 7: Therapies & Goals</h2>
 
-                <form>
+                <form asp-action="TherapiesInfo" method="post">
                     <!-- Recent Antibiotic Use Section -->
                     <div class="form-section">
                         <h3 class="section-title">Recent Antibiotic Use</h3>
@@ -74,40 +76,47 @@
 
                             <div class="radio-options">
                                 <label class="radio-option-pill">
-                                    <input type="radio" name="antibiotic-use" value="yes" />
+                                    <input asp-for="UsedAntibioticsRecently"
+                                           type="radio"
+                                           value="true"
+                                           id="antibiotic-yes" />
                                     <span class="radio-pill-label">Yes</span>
                                 </label>
                                 <label class="radio-option-pill">
-                                    <input type="radio"
-                                           name="antibiotic-use"
-                                           value="no"
+                                    <input asp-for="UsedAntibioticsRecently"
+                                           type="radio"
+                                           value="false"
+                                           id="antibiotic-no"
                                            checked />
                                     <span class="radio-pill-label">No</span>
                                 </label>
                             </div>
+                            <span asp-validation-for="UsedAntibioticsRecently" class="text-danger"></span>
                         </div>
 
-                        <div class="conditional-field antibiotic-conditional-field"
+                        <div class="conditional-field antibiotic-conditional-field @(Model.UsedAntibioticsRecently == true ? "visible" : "")"
                              id="antibiotic-details">
                             <div class="antibiotic-info-input">
-                                <label class="form-label">Antibiotic Name</label>
+                                <label class="form-label" asp-for="AntibioticName"></label>
                                 <input type="text"
+                                       asp-for="AntibioticName"
                                        class="form-input"
                                        placeholder="Enter antibiotic name" />
+                                <span asp-validation-for="AntibioticName" class="text-danger"></span>
                             </div>
 
                             <div class="antibiotic-info-input">
-                                <label class="form-label">End of Therapy Date</label>
+                                <label class="form-label" asp-for="EndOfTherapyDate"></label>
                                 <div class="input-with-icon">
                                     <input type="date"
+                                           asp-for="EndOfTherapyDate"
                                            class="form-input"
                                            placeholder="DD/MM/YYYY" />
-                                    
+                                    <span asp-validation-for="EndOfTherapyDate" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- Supplementation Section -->
                     <div class="form-section">
                         <h3 class="section-title">Supplementation</h3>
@@ -115,44 +124,44 @@
                         <div class="checkbox-grid">
                             <label class="checkbox-option">
                                 <input type="checkbox"
-                                       name="supplements"
-                                       value="probiotics" />
+                                       asp-for="UsesProbiotics" />
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-label">Probiotics</span>
                             </label>
                             <label class="checkbox-option">
                                 <input type="checkbox"
-                                       name="supplements"
-                                       value="prebiotics" />
+                                       asp-for="UsesPrebiotics" />
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-label">Prebiotics</span>
                             </label>
                             <label class="checkbox-option">
                                 <input type="checkbox"
-                                       name="supplements"
-                                       value="minerals" />
+                                       asp-for="UsesMinerals" />
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-label">Minerals</span>
                             </label>
                             <label class="checkbox-option">
                                 <input type="checkbox"
-                                       name="supplements"
-                                       value="vitamins" />
+                                       asp-for="UsesVitamins" />
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-label">Vitamins</span>
                             </label>
                             <label class="checkbox-option">
-                                <input type="checkbox" name="supplements" value="other" />
+                                <input type="checkbox"
+                                       asp-for="UsesOtherSupplements" />
                                 <span class="checkbox-custom"></span>
                                 <span class="checkbox-label">Other</span>
                             </label>
                         </div>
 
-                        <div class="conditional-field" id="other-supplements">
-                            <label class="form-label">Other supplements name</label>
+                        <div class="conditional-field @(Model.UsesOtherSupplements ? "visible" : "")"
+                             id="other-supplements">
+                            <label class="form-label" asp-for="OtherSupplementsDescription"></label>
                             <input type="text"
+                                   asp-for="OtherSupplementsDescription"
                                    class="form-input"
                                    placeholder="Enter other supplements" />
+                            <span asp-validation-for="OtherSupplementsDescription" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -161,70 +170,55 @@
                         <h3 class="section-title">
                             Select Your Primary Health Objective
                         </h3>
+                        <span asp-validation-for="PrimaryObjective" class="text-danger"></span>
 
                         <div class="objective-cards">
-                            <label class="objective-card">
-                                <input type="radio"
-                                       name="primary-objective"
-                                       value="preventive-wellbeing" />
-                                <div class="card-content">
-                                    <h4>Preventive Wellbeing</h4>
-                                    <p>Measuring optimal health</p>
-                                    <ul>
-                                        <li>Active processes</li>
-                                        <li>Healthy, friendly</li>
-                                        <li>General microbiota check</li>
-                                    </ul>
-                                </div>
-                            </label>
-
-                            <label class="objective-card">
-                                <input type="radio"
-                                       name="primary-objective"
-                                       value="digestive-optimization" />
-                                <div class="card-content">
-                                    <h4>Digestive Optimization</h4>
-                                    <p>Improving digestive function</p>
-                                    <ul>
-                                        <li>GI disorders</li>
-                                        <li>Dieting</li>
-                                        <li>IBS</li>
-                                    </ul>
-                                </div>
-                            </label>
-
-                            <!-- Additional objective cards would follow the same pattern -->
-                            <!-- Weight Management -->
-                            <label class="objective-card">
-                                <input type="radio"
-                                       name="primary-objective"
-                                       value="weight-management" />
-                                <div class="card-content">
-                                    <h4>Weight Management</h4>
-                                    <p>Measured optimization</p>
-                                    <ul>
-                                        <li>Weight loss</li>
-                                        <li>Insulin resistance</li>
-                                        <li>Dysmetabolism</li>
-                                    </ul>
-                                </div>
-                            </label>
-
-                            <!-- Sports Performance -->
-                            <label class="objective-card">
-                                <input type="radio"
-                                       name="primary-objective"
-                                       value="sports-performance" />
-                                <div class="card-content">
-                                    <h4>Sports Performance</h4>
-                                    <p>Performance improvement</p>
-                                    <ul>
-                                        <li>Athletes</li>
-                                        <li>Recovery</li>
-                                        <li>Energy support</li>
-                                    </ul>
-                                </div>
-                            </label>
+                            @foreach (var objective in Enum.GetValues(typeof(PrimaryHealthObjective)).Cast<PrimaryHealthObjective>())
+                            {
+                                <label class="objective-card">
+                                    <input type="radio"
+                                           asp-for="PrimaryObjective"
+                                           value="@objective" />
+                                    <div class="card-content">
+                                        <h4>@objective.GetDisplayName()</h4>
+                                        @switch (objective)
+                                        {
+                                            case PrimaryHealthObjective.PreventiveWellbeing:
+                                                <p>Measuring optimal health</p>
+                                                <ul>
+                                                    <li>Active processes</li>
+                                                    <li>Healthy, friendly</li>
+                                                    <li>General microbiota check</li>
+                                                </ul>
+                                                break;
+                                            case PrimaryHealthObjective.DigestiveOptimization:
+                                                <p>Improving digestive function</p>
+                                                <ul>
+                                                    <li>GI disorders</li>
+                                                    <li>Dieting</li>
+                                                    <li>IBS</li>
+                                                </ul>
+                                                break;
+                                            case PrimaryHealthObjective.WeightManagement:
+                                                <p>Measured optimization</p>
+                                                <ul>
+                                                    <li>Weight loss</li>
+                                                    <li>Insulin resistance</li>
+                                                    <li>Dysmetabolism</li>
+                                                </ul>
+                                                break;
+                                            case PrimaryHealthObjective.SportsPerformance:
+                                                <p>Performance improvement</p>
+                                                <ul>
+                                                    <li>Athletes</li>
+                                                    <li>Recovery</li>
+                                                    <li>Energy support</li>
+                                                </ul>
+                                                break;
+                                        }
+                                    </div>
+                                </label>
+                            }
                         </div>
                     </div>
 
@@ -235,85 +229,24 @@
                         </h3>
 
                         <div class="secondary-objectives-grid">
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="increased-energy" />
-                                <span class="objective-label">Increased Energy</span>
-                            </label>
-
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="improved-sleep" />
-                                <span class="objective-label">Improved Sleep</span>
-                            </label>
-
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="stress-reduction" />
-                                <span class="objective-label">Stress Reduction</span>
-                            </label>
-
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="hunger-control" />
-                                <span class="objective-label">Hunger Control</span>
-                            </label>
-
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="muscle-recovery" />
-                                <span class="objective-label">Muscle Recovery</span>
-                            </label>
-
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="inflammation-reduction" />
-                                <span class="objective-label">Inflammation Reduction</span>
-                            </label>
-
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="hormone-balance" />
-                                <span class="objective-label">Hormone Balance</span>
-                            </label>
-
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="detoxification" />
-                                <span class="objective-label">Detoxification</span>
-                            </label>
-
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="skin-health" />
-                                <span class="objective-label">Skin Health</span>
-                            </label>
-
-                            <label class="secondary-objective">
-                                <input type="checkbox"
-                                       name="secondary-objectives"
-                                       value="other" />
-                                <span class="objective-label">Other</span>
-                            </label>
+                            @foreach (var objective in Enum.GetValues(typeof(SecondaryObjective)).Cast<SecondaryObjective>())
+                            {
+                                <label class="secondary-objective">
+                                    <input type="checkbox"
+                                           name="SecondaryObjectives"
+                                           value="@objective"
+                                           @(Model.SecondaryObjectives.Contains(objective) ? "checked" : "") />
+                                    <span class="objective-label">@objective.GetDisplayName()</span>
+                                </label>
+                            }
                         </div>
                     </div>
 
                     <!-- Buttons -->
                     <div class="form-buttons">
-                        <button type="button"
-                                class="btn btn-prev"
-                                onclick="prevStep()">
+                        <a asp-action="LifestyleInfo" class="btn btn-prev">
                             Previous
-                        </button>
+                        </a>
                         <button type="submit" class="btn btn-submit">
                             Submit & Finish
                         </button>
@@ -323,30 +256,31 @@
         </div>
     </div>
 </section>
-<!-- Medical Profile Form End -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // Antibiotic use toggle
-      const antibioticRadios = document.querySelectorAll(
-        'input[name="antibiotic-use"]'
-      );
-      const antibioticDetails = document.querySelector("#antibiotic-details");
 
-      antibioticRadios.forEach((radio) => {
-        radio.addEventListener("change", function () {
-          antibioticDetails.classList.toggle("visible", this.value === "yes");
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Antibiotic use toggle
+            const antibioticRadios = document.querySelectorAll(
+                'input[name="@Html.NameFor(m => m.UsedAntibioticsRecently)"]'
+            );
+            const antibioticDetails = document.querySelector("#antibiotic-details");
+
+            antibioticRadios.forEach((radio) => {
+                radio.addEventListener("change", function () {
+                    antibioticDetails.classList.toggle("visible", this.value === "true");
+                });
+            });
+
+            // Other supplements toggle
+            const otherSupplements = document.querySelector(
+                'input[name="@Html.NameFor(m => m.UsesOtherSupplements)"]'
+            );
+            const otherSupplementsField = document.querySelector("#other-supplements");
+
+            otherSupplements.addEventListener("change", function () {
+                otherSupplementsField.classList.toggle("visible", this.checked);
+            });
         });
-      });
-
-      // Other supplements toggle
-      const otherSupplements = document.querySelector(
-        'input[name="supplements"][value="other"]'
-      );
-      const otherSupplementsField =
-        document.querySelector("#other-supplements");
-
-      otherSupplements.addEventListener("change", function () {
-        otherSupplementsField.classList.toggle("visible", this.checked);
-      });
-    });
-</script>
+    </script>
+}

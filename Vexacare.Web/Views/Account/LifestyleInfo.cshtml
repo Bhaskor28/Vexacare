@@ -1,4 +1,5 @@
-﻿<!-- Medical Profile Breadcrumb Start -->
+﻿@model LifestyleInfoVM
+<!-- Medical Profile Breadcrumb Start -->
       <section class="medical-profile-breadcrumb">
         <div class="container">
           <div class="medical-profile-breadcrumb-wrapper">
@@ -58,178 +59,196 @@
       <!-- Medical Profile Breadcrumb End -->
 
       <!-- Medical Profile Form Start -->
-      <section class="medical-profile-form medical-profile-form-6">
-        <div class="container">
-          <div class="medical-profile-form-wrapper">
+<!-- Medical Profile Form Start -->
+<section class="medical-profile-form medical-profile-form-6">
+    <div class="container">
+        <div class="medical-profile-form-wrapper">
             <div class="form-step">
-              <h2 class="form-title">Step 6: Lifestyle</h2>
+                <h2 class="form-title">Step 6: Lifestyle</h2>
 
-              <form onsubmit="nextStep(event)">
-                <!-- Physical Activity Section -->
-                <div class="form-section">
-                  <h3 class="section-title">Physical Activity</h3>
+                <form asp-action="LifestyleInfo" method="post">
+                    <!-- Physical Activity Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Physical Activity</h3>
 
-                  <label class="form-label">Type of Activity</label>
-                  <input
-                    type="text"
-                    class="form-input"
-                    placeholder="e.g., Yoga, Running, Gym"
-                  />
+                        <label asp-for="ActivityType" class="form-label"></label>
+                        <input asp-for="ActivityType"
+                               type="text"
+                               class="form-input"
+                               placeholder="e.g., Yoga, Running, Gym" />
+                        <span asp-validation-for="ActivityType" class="text-danger"></span>
 
-                  <div class="two-column-inputs">
-                    <div>
-                      <label class="form-label">Sessions per week</label>
-                      <input
-                        type="number"
-                        class="form-input"
-                        placeholder="0"
-                        min="0"
-                      />
-                    </div>
-                    <div>
-                      <label class="form-label"
-                        >Average duration (in minutes)</label
-                      >
-                      <input
-                        type="number"
-                        class="form-input"
-                        placeholder="0"
-                        min="0"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Sleep Quality Section -->
-                <div class="form-section">
-                  <h3 class="section-title">Sleep Quality</h3>
-
-                  <label class="form-label">Average Hours of Sleep/Night</label>
-                  <input
-                    type="number"
-                    class="form-input"
-                    placeholder="e.g., 7.5"
-                    min="0"
-                    step="0.1"
-                  />
-
-                        <div class="sleep-quality-rating">
-                            <label class="form-label">Sleep Quality Rating</label>
-                            <div class="range-input-container">
-                                <input type="range"
-                                       class="form-range-input"
+                        <div class="two-column-inputs">
+                            <div>
+                                <label asp-for="SessionsPerWeek" class="form-label"></label>
+                                <input asp-for="SessionsPerWeek"
+                                       type="number"
+                                       class="form-input"
+                                       placeholder="0"
                                        min="0"
-                                       max="10"
-                                       value="5" />
-                                <div class="range-labels">
-                                    <span>0</span>
-                                    <span>10</span>
-                                </div>
+                                       max="20" />
+                                <span asp-validation-for="SessionsPerWeek" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <label asp-for="AverageDurationMinutes" class="form-label"></label>
+                                <input asp-for="AverageDurationMinutes"
+                                       type="number"
+                                       class="form-input"
+                                       placeholder="0"
+                                       min="0"
+                                       max="300" />
+                                <span asp-validation-for="AverageDurationMinutes" class="text-danger"></span>
                             </div>
                         </div>
-
-                  <label class="form-label">Specific Problems</label>
-                  <textarea
-                    class="form-input"
-                    placeholder="Trouble falling asleep, waking up early..."
-                    rows="3"
-                  ></textarea>
-                </div>
-
-                <!-- Stress and Habits Section -->
-                <div class="form-section">
-                  <h3 class="section-title">Stress and Habits</h3>
-
-                  <div class="stress-level">
-                    <label class="form-label">Stress Level</label>
-                    <div class="range-input-container">
-                      <input
-                        type="range"
-                        class="form-range-input"
-                        min="0"
-                        max="10"
-                        value="5"
-                      />
-                      <div class="range-labels">
-                        <span>0</span>
-                        <span>10</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="smoking-habit">
-                    <label class="form-label">Smoking Habit</label>
-                    <div class="diet-options">
-                      <label class="diet-option">
-                        <input type="radio" name="smoking" value="yes" />
-                        <span class="diet-option-label">Yes</span>
-                      </label>
-                      <label class="diet-option">
-                        <input type="radio" name="smoking" value="no" checked />
-                        <span class="diet-option-label">No</span>
-                      </label>
                     </div>
 
-                    <div class="conditional-field" id="smoking-details">
-                      <label class="form-label"
-                        >Cigarettes per day (If Yes)</label
-                      >
-                      <input
-                        type="number"
-                        class="form-input"
-                        placeholder="0"
-                        min="0"
-                      />
-                    </div>
-                  </div>
-                </div>
+                    <!-- Sleep Quality Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Sleep Quality</h3>
 
-                <!-- Buttons -->
-                <div class="form-buttons">
-                  <button
-                    type="button"
-                    class="btn btn-prev"
-                    onclick="prevStep()"
-                  >
-                    Previous
-                  </button>
-                  <button type="submit" class="btn btn-next">Next</button>
-                </div>
-              </form>
+                        <label asp-for="AverageHoursOfSleep" class="form-label"></label>
+                        <input asp-for="AverageHoursOfSleep"
+                               type="number"
+                               class="form-input"
+                               placeholder="e.g., 7.5"
+                               min="0"
+                               max="24"
+                               step="0.1" />
+                        <span asp-validation-for="AverageHoursOfSleep" class="text-danger"></span>
+
+                        <div class="sleep-quality-rating">
+                            <label asp-for="SleepQualityRating" class="form-label"></label>
+                            <div class="range-input-container">
+                                <input asp-for="SleepQualityRating"
+                                       type="range"
+                                       class="form-range-input"
+                                       min="1"
+                                       max="10"
+                                       value="@(Model.SleepQualityRating ?? 5)" />
+                                <div class="range-labels">
+                                    <span>1</span>
+                                    <span>10</span>
+                                </div>
+                                <span class="range-value">@(Model.SleepQualityRating ?? 5)</span>
+                            </div>
+                            <span asp-validation-for="SleepQualityRating" class="text-danger"></span>
+                        </div>
+
+                        <label asp-for="SpecificProblems" class="form-label"></label>
+                        <textarea asp-for="SpecificProblems"
+                                  class="form-input"
+                                  placeholder="Trouble falling asleep, waking up early..."
+                                  rows="3"></textarea>
+                        <span asp-validation-for="SpecificProblems" class="text-danger"></span>
+                    </div>
+
+                    <!-- Stress and Habits Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">Stress and Habits</h3>
+
+                        <div class="stress-level">
+                            <label asp-for="StressLevel" class="form-label"></label>
+                            <div class="range-input-container">
+                                <input asp-for="StressLevel"
+                                       type="range"
+                                       class="form-range-input"
+                                       min="1"
+                                       max="10"
+                                       value="@(Model.StressLevel ?? 5)" />
+                                <div class="range-labels">
+                                    <span>1</span>
+                                    <span>10</span>
+                                </div>
+                                <span class="range-value">@(Model.StressLevel ?? 5)</span>
+                            </div>
+                            <span asp-validation-for="StressLevel" class="text-danger"></span>
+                        </div>
+
+                        <div class="smoking-habit">
+                            <label class="form-label">Smoking Habit</label>
+                            <div class="diet-options">
+                                <label class="diet-option">
+                                    <input type="radio"
+                                           asp-for="IsSmoker"
+                                           value="true"
+                                           id="smokerYes" />
+                                    <span class="diet-option-label">Yes</span>
+                                </label>
+                                <label class="diet-option">
+                                    <input type="radio"
+                                           asp-for="IsSmoker"
+                                           value="false"
+                                           id="smokerNo"
+                                           checked="@(Model.IsSmoker == false)" />
+                                    <span class="diet-option-label">No</span>
+                                </label>
+                            </div>
+                            <span asp-validation-for="IsSmoker" class="text-danger"></span>
+
+                            <div class="conditional-field" id="smoking-details"
+                                 style="@(Model.IsSmoker == true ? "display: block;" : "display: none;")">
+                                <label asp-for="CigarettesPerDay" class="form-label"></label>
+                                <input asp-for="CigarettesPerDay"
+                                       type="number"
+                                       class="form-input"
+                                       placeholder="0"
+                                       min="0"
+                                       max="100" />
+                                <span asp-validation-for="CigarettesPerDay" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="form-buttons">
+                        <a asp-controller="Account" asp-action="DietProfileInfo" class="btn btn-prev">Previous</a>
+                        <button type="submit" class="btn btn-next">Next</button>
+                    </div>
+                </form>
             </div>
-          </div>
         </div>
-      </section>
-      <!-- Medical Profile Form End -->
-<script>
-    document.querySelectorAll(".form-range-input").forEach((slider) => {
-      const valueDisplay = slider.nextElementSibling;
+    </div>
+</section>
 
-      function updateSlider() {
-        const val = slider.value;
-        const min = slider.min || 0;
-        const max = slider.max || 10;
-        const percent = ((val - min) * 100) / (max - min);
-        slider.style.setProperty("--value", `${percent}%`);
-        valueDisplay.textContent = val;
-      }
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 
-      slider.addEventListener("input", updateSlider);
-      updateSlider();
-    });
-</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize all range sliders
+            document.querySelectorAll(".form-range-input").forEach((slider) => {
+                const container = slider.closest('.range-input-container');
+                if (container) {
+                    const valueDisplay = container.querySelector('.range-value');
+                    if (valueDisplay) {
+                        function updateSlider() {
+                            const val = slider.value;
+                            const min = slider.min || 1;
+                            const max = slider.max || 10;
+                            const percent = ((val - min) * 100) / (max - min);
+                            slider.style.setProperty("--value", `${percent}%`);
+                            valueDisplay.textContent = val;
+                        }
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const smokingRadios = document.querySelectorAll(
-        'input[name="smoking"]'
-      );
-      const smokingDetails = document.querySelector("#smoking-details");
+                        slider.addEventListener("input", updateSlider);
+                        updateSlider();
+                    }
+                }
+            });
 
-      smokingRadios.forEach((radio) => {
-        radio.addEventListener("change", function () {
-          smokingDetails.classList.toggle("visible", this.value === "yes");
+            // Handle smoking habit toggle
+            const smokingRadios = document.querySelectorAll('input[name="IsSmoker"]');
+            const smokingDetails = document.getElementById("smoking-details");
+
+            if (smokingRadios && smokingDetails) {
+                smokingRadios.forEach((radio) => {
+                    radio.addEventListener("change", function () {
+                        smokingDetails.style.display = this.value === 'true' ? 'block' : 'none';
+                    });
+                });
+            }
         });
-      });
-    });
-</script>
+    </script>
+}

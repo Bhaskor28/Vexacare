@@ -11,7 +11,7 @@ namespace Vexacare.Domain.Entities.Supliments
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int TherapyandGoalId { get; set; }
-        public TherapyAndGoals TherapyAndGoals { get; set; }
+        public int TherapiesInfoId { get; set; }
+        public TherapiesInfo TherapiesInfo { get; set; }
     }
 }
