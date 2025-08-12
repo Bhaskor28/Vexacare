@@ -99,10 +99,10 @@
                             <div class="antibiotic-info-input">
                                 <label class="form-label">End of Therapy Date</label>
                                 <div class="input-with-icon">
-                                    <input type="text"
+                                    <input type="date"
                                            class="form-input"
                                            placeholder="DD/MM/YYYY" />
-                                    <span class="calendar-icon">&#128197;</span>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -324,3 +324,29 @@
     </div>
 </section>
 <!-- Medical Profile Form End -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Antibiotic use toggle
+      const antibioticRadios = document.querySelectorAll(
+        'input[name="antibiotic-use"]'
+      );
+      const antibioticDetails = document.querySelector("#antibiotic-details");
+
+      antibioticRadios.forEach((radio) => {
+        radio.addEventListener("change", function () {
+          antibioticDetails.classList.toggle("visible", this.value === "yes");
+        });
+      });
+
+      // Other supplements toggle
+      const otherSupplements = document.querySelector(
+        'input[name="supplements"][value="other"]'
+      );
+      const otherSupplementsField =
+        document.querySelector("#other-supplements");
+
+      otherSupplements.addEventListener("change", function () {
+        otherSupplementsField.classList.toggle("visible", this.checked);
+      });
+    });
+</script>

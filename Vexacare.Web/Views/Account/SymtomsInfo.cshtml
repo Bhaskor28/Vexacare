@@ -87,19 +87,19 @@
                                 <label class="form-label">Bristol Scale</label>
                                 <div class="custom-select-wrapper">
                                     <select class="form-input custom-select">
-                                        <option value="1">1 - Separate hard lumps</option>
-                                        <option value="2">2 - Lumpy and sausage-like</option>
+                                        <option value="1">Separate hard lumps</option>
+                                        <option value="2">Lumpy and sausage-like</option>
                                         <option value="3">
-                                            3 - Sausage-shaped with cracks
+                                            Sausage-shaped with cracks
                                         </option>
-                                        <option value="4">4 - Smooth, soft sausage</option>
+                                        <option value="4">Smooth, soft sausage</option>
                                         <option value="5">
-                                            5 - Soft blobs with clear edges
+                                            Soft blobs with clear edges
                                         </option>
                                         <option value="6">
-                                            6 - Fluffy pieces with ragged edges
+                                            Fluffy pieces with ragged edges
                                         </option>
-                                        <option value="7">7 - Watery, no solid pieces</option>
+                                        <option value="7">Watery, no solid pieces</option>
                                     </select>
                                     <div class="custom-select-arrow">▼</div>
                                 </div>
@@ -211,3 +211,22 @@
     </div>
 </section>
 <!-- Medical Profile Form End -->
+
+<script>
+    // Range slider
+    document.querySelectorAll(".form-range-input").forEach((slider) => {
+      const valueDisplay = slider.nextElementSibling;
+
+      function updateSlider() {
+        const val = slider.value;
+        const min = slider.min || 0;
+        const max = slider.max || 10;
+        const percent = ((val - min) * 100) / (max - min);
+        slider.style.setProperty("--value", `${percent}%`);
+        valueDisplay.textContent = val;
+      }
+
+      slider.addEventListener("input", updateSlider);
+      updateSlider();
+    });
+</script>

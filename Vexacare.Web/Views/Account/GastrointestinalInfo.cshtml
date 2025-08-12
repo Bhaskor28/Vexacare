@@ -1,5 +1,4 @@
-﻿@model GastrointestinalInfoVM
-<!-- Medical Profile Breadcrumb Start -->
+﻿<!-- Medical Profile Breadcrumb Start -->
 <section class="medical-profile-breadcrumb">
     <div class="container">
         <div class="medical-profile-breadcrumb-wrapper">
@@ -64,28 +63,27 @@
             <div class="form-step">
                 <h2 class="form-title">Step 3: Gastrointestinal History</h2>
 
-                <form asp-action="GastrointestinalInfo" method="post">
+                <form onsubmit="nextStep(event)">
                     <!-- GI Clinical History Section -->
                     <div class="form-section">
                         <h3 class="section-title">GI Clinical History</h3>
 
                         <label class="form-label">Previous GI Problems</label>
-                        <textarea asp-for="PreviousGIProblems" class="form-input"
+                        <textarea class="form-input"
                                   placeholder="Describe any past gastrointestinal issues"
                                   rows="3"></textarea>
-                        <span asp-validation-for="PreviousGIProblems" class="text-danger"></span>
+
                         <div class="form-subsection">
                             <label class="form-label">Onset Date of First Symptoms</label>
                             <div class="input-with-icon">
-                                <input asp-for="OnsetDateOfFirstSymptoms"  type="text"
+                                <input type="date"
                                        class="form-input"
                                        placeholder="DD/MM/YYYY" />
-                                <span class="calendar-icon">&#128197;</span>
-                                <span asp-validation-for="OnsetDateOfFirstSymptoms" class="text-danger"></span>
+                                
                             </div>
 
                             <label class="form-label">Treatments Performed</label>
-                            <textarea asp-for="TreatmentsPerformed" class="form-input"
+                            <textarea class="form-input"
                                       placeholder="List any treatments you have received"
                                       rows="3"></textarea>
                         </div>
@@ -125,10 +123,10 @@
 
                             <label class="form-label">Date of Surgery</label>
                             <div class="input-with-icon">
-                                <input type="text"
+                                <input type="date"
                                        class="form-input"
                                        placeholder="DD/MM/YYYY" />
-                                <span class="calendar-icon">&#128197;</span>
+                                
                             </div>
 
                             <label class="form-label">Outcome</label>
@@ -140,12 +138,11 @@
 
                     <!-- Buttons -->
                     <div class="form-buttons">
-                        @* <button type="button" *@
-                        @*         class="btn btn-prev" *@
-                        @*         onclick="prevStep()"> *@
-                        @*     Previous *@
-                        @* </button> *@
-                        <a asp-controller="Account" asp-action="HealthInfo" type="button" class="btn btn-prev">Previous</a>
+                        <button type="button"
+                                class="btn btn-prev"
+                                onclick="prevStep()">
+                            Previous
+                        </button>
                         <button type="submit" class="btn btn-next">Next</button>
                     </div>
                 </form>

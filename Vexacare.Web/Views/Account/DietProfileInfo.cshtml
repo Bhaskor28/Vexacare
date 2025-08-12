@@ -95,7 +95,9 @@
 
                         <input type="text"
                                class="form-input"
-                               placeholder="Please specify your dietary preference" />
+                               id="other-diet-input"
+                               placeholder="Please specify your dietary preference"
+                               style="display: none" />
                     </div>
 
                     <!-- Weekly Food Intake Section -->
@@ -254,3 +256,22 @@
     </div>
 </section>
 <!-- Medical Profile Form End -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const dietOptions = document.querySelectorAll(
+        'input[name="diet-type"]'
+      );
+      const otherInput = document.getElementById("other-diet-input");
+
+      dietOptions.forEach((option) => {
+        option.addEventListener("change", function () {
+          if (this.value === "other") {
+            otherInput.style.display = "block";
+          } else {
+            otherInput.style.display = "none";
+            otherInput.value = "";
+          }
+        });
+      });
+    });
+</script>

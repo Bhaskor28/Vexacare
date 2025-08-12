@@ -306,10 +306,87 @@ namespace Vexacare.Web.Controllers
         //step 6: Lifestyle info
 
         [HttpGet]
-        public IActionResult LifestyleInfo()
+        public async Task<IActionResult> LifestyleInfo()
         {
+            //var patientId = _userManager.GetUserId(User);
+            //var lifestyleInfo = await _context.LifestyleInfos
+            //    .FirstOrDefaultAsync(l => l.PatientId == patientId);
+
+            //if (lifestyleInfo != null)
+            //{
+            //    var model = new LifestyleInfoVM
+            //    {
+            //        //Id = lifestyleInfo.Id,
+            //        ActivityType = lifestyleInfo.ActivityType,
+            //        SessionsPerWeek = lifestyleInfo.SessionsPerWeek,
+            //        AverageDurationMinutes = lifestyleInfo.AverageDurationMinutes,
+            //        AverageHoursOfSleep = lifestyleInfo.AverageHoursOfSleep,
+            //        SleepQualityRating = lifestyleInfo.SleepQualityRating,
+            //        SleepProblems = lifestyleInfo.SleepProblems,
+            //        StressLevel = lifestyleInfo.StressLevel,
+            //        HasBreakfast = lifestyleInfo.HasBreakfast,
+            //        CigarettesPerDay = lifestyleInfo.CigarettesPerDay
+            //    };
+            //    return View(model);
+            //}
+
+            //return View(new LifestyleInfoVM());
             return View();
         }
+        //[HttpPost]
+        //public async Task<IActionResult> LifestyleInfo(LifestyleInfoVM model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var patientId = _userManager.GetUserId(User);
+
+        //        if (model.Id > 0)
+        //        {
+        //            // Update existing record
+        //            var existingInfo = await _context.LifestyleInfos.FindAsync(model.Id);
+        //            if (existingInfo != null)
+        //            {
+        //                existingInfo.ActivityType = model.ActivityType;
+        //                existingInfo.SessionsPerWeek = model.SessionsPerWeek;
+        //                existingInfo.AverageDurationMinutes = model.AverageDurationMinutes;
+        //                existingInfo.AverageHoursOfSleep = model.AverageHoursOfSleep;
+        //                existingInfo.SleepQualityRating = model.SleepQualityRating;
+        //                existingInfo.SleepProblems = model.SleepProblems;
+        //                existingInfo.StressLevel = model.StressLevel;
+        //                existingInfo.HasBreakfast = model.HasBreakfast;
+        //                existingInfo.CigarettesPerDay = model.HasBreakfast == true ? model.CigarettesPerDay : null;
+
+        //                _context.LifestyleInfos.Update(existingInfo);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // Create new record
+        //            var lifestyleInfo = new LifestyleInfo
+        //            {
+        //                PatientId = patientId,
+        //                ActivityType = model.ActivityType,
+        //                SessionsPerWeek = model.SessionsPerWeek,
+        //                AverageDurationMinutes = model.AverageDurationMinutes,
+        //                AverageHoursOfSleep = model.AverageHoursOfSleep,
+        //                SleepQualityRating = model.SleepQualityRating,
+        //                SleepProblems = model.SleepProblems,
+        //                StressLevel = model.StressLevel,
+        //                HasBreakfast = model.HasBreakfast,
+        //                CigarettesPerDay = model.HasBreakfast == true ? model.CigarettesPerDay : null
+        //            };
+
+        //            _context.LifestyleInfos.Add(lifestyleInfo);
+        //        }
+
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("TherapiesInfo", "Account"); // Proceed to next step
+        //    }
+
+        //    // If we got here, something went wrong
+        //    return View(model);
+        //}
+
         //end of step 6
 
         //step 7: Symtoms info
