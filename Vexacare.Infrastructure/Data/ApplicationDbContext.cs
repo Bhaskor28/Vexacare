@@ -21,6 +21,7 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<SymptomsInfo> SymptomsInfos { get; set; }
         public DbSet<LifestyleInfo> LifestyleInfos { get; set; }
         public DbSet<TherapiesInfo> TherapiesInfos { get; set; }
+        
 
         //product Tables
         public DbSet<Product> Products { get; set; }

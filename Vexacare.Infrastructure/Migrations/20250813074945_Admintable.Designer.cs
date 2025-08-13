@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexacare.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Vexacare.Infrastructure.Data;
 namespace Vexacare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250813074945_Admintable")]
+    partial class Admintable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -674,73 +677,6 @@ namespace Vexacare.Infrastructure.Migrations
                     b.ToTable("TherapiesInfos");
                 });
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.ProductEntities.Benefit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BenefitName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Benefits");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.ProductEntities.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ProductImages")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.ProductEntities.ProductBenefit", b =>
-                {
-                    b.Property<int>("productId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BenefitId")
-                        .HasColumnType("int");
-
-                    b.HasKey("productId", "BenefitId");
-
-                    b.HasIndex("BenefitId");
-
-                    b.ToTable("ProductBenefits");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -867,35 +803,6 @@ namespace Vexacare.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.ProductEntities.ProductBenefit", b =>
-                {
-                    b.HasOne("Vexacare.Domain.Entities.ProductEntities.Benefit", "Benefit")
-                        .WithMany("ProductBenefits")
-                        .HasForeignKey("BenefitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Vexacare.Domain.Entities.ProductEntities.Product", "Product")
-                        .WithMany("ProductBenefits")
-                        .HasForeignKey("productId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Benefit");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.ProductEntities.Benefit", b =>
-                {
-                    b.Navigation("ProductBenefits");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.ProductEntities.Product", b =>
-                {
-                    b.Navigation("ProductBenefits");
                 });
 #pragma warning restore 612, 618
         }
