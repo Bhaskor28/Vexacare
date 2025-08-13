@@ -1617,7 +1617,7 @@ nav.navbar.shadow {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    gap: 30px 10px;
+    gap: 30px 7px;    /*change by Sazib*/
     align-items: center;
 
     .medical-profile-breadcrumb-content {

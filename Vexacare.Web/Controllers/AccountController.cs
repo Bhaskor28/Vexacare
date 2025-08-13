@@ -417,7 +417,7 @@ namespace Vexacare.Web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("DietProfileInfo", "Account");
             }
-            return View("SymtomsInfo", model);
+            return View("SymptomsInfo", model);
         }
         //end of step 4
 
