@@ -1,80 +1,129 @@
-﻿@model AddProductVM
+﻿@model Vexacare.Application.Products.ViewModels.AddProductVM
 @{
-    ViewData["Title"] = "Create Product";
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Create Product";
 }
 
-<div class="container shadow-lg col-md-6 p-5">
-    <form asp-action="Create" method="post" enctype="multipart/form-data">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+@section Styles {
+    <style>
+        .file-upload-container {
+            border: 2px dashed #dee2e6;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
 
-        <div class="form-group p-1 text-center mb-4">
-            <h2 class="bordered">Add New Product</h2>
+        .preview-image {
+            max-height: 200px;
+            margin-top: 10px;
+        }
+    </style>
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Create Product</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Products</a></li>
+        <li class="breadcrumb-item active">Create</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-plus-circle me-1"></i>
+            Product Details
         </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="form-group mb-3">
-            <label asp-for="Name" class="control-label"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-
-        <div class="form-group mb-3">
-            <label asp-for="Description" class="control-label"></label>
-            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-
-        <div class="form-group mb-3">
-            <label asp-for="Price" class="control-label"></label>
-            <input asp-for="Price" class="form-control" type="number" step="0.01" />
-            <span asp-validation-for="Price" class="text-danger"></span>
-        </div>
-
-        <div class="form-group mb-3">
-            <label asp-for="ProductImage" class="control-label"></label>
-            <input asp-for="ProductImage" class="form-control-file" type="file" accept="image/*" />
-            <span asp-validation-for="ProductImage" class="text-danger"></span>
-            @if (!string.IsNullOrEmpty(Model.ProductImagePath))
-            {
-                <div class="mt-2">
-                    <img src="@Model.ProductImagePath" alt="Current product image" style="max-height: 100px;" />
-                </div>
-            }
-        </div>
-
-        <div class="form-group mb-4">
-            <h4 class="mb-3">Product Benefits</h4>
-            @if (Model.AvailableBenefits.Any())
-            {
-                @for (int i = 0; i < Model.AvailableBenefits.Count; i++)
-                {
-                    <div class="form-check mb-2">
-                        <input type="checkbox"
-                               id="benefit_@Model.AvailableBenefits[i].Id"
-                               name="SelectedBenefitIds"
-                               value="@Model.AvailableBenefits[i].Id"
-                        @(Model.SelectedBenefitIds.Contains(Model.AvailableBenefits[i].Id) ? "checked" : "")
-                               class="form-check-input" />
-                        <label class="form-check-label" for="benefit_@Model.AvailableBenefits[i].Id">
-                            @Model.AvailableBenefits[i].BenefitName
-                        </label>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="Name" class="form-control" placeholder="Product name" />
+                            <label asp-for="Name"></label>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
                     </div>
-                }
-            }
-            else
-            {
-                <p>No benefits available</p>
-            }
-        </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="Price" class="form-control" placeholder="Price" />
+                            <label asp-for="Price"></label>
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="form-group mt-4">
-            <input type="submit" value="Create" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <textarea asp-for="Description" class="form-control" placeholder="Description" style="height: 100px"></textarea>
+                        <label asp-for="Description"></label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Product Image</label>
+                    <div class="file-upload-container">
+                        <input asp-for="ProductImage" type="file" class="form-control-file" id="imageUpload" accept="image/*" />
+                        <div id="imagePreviewContainer" class="mt-2" style="display:none;">
+                            <img id="imagePreview" class="preview-image" />
+                        </div>
+                        <span asp-validation-for="ProductImage" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Product Benefits</label>
+                    <div class="card">
+                        <div class="card-body" style="max-height: 200px; overflow-y: auto;">
+                            @for (int i = 0; i < Model.AvailableBenefits.Count; i++)
+                            {
+                                <div class="form-check">
+                                    <input type="checkbox"
+                                           id="benefit_@Model.AvailableBenefits[i].Id"
+                                           name="SelectedBenefitIds"
+                                           value="@Model.AvailableBenefits[i].Id"
+                                           class="form-check-input" />
+                                    <label class="form-check-label" for="benefit_@Model.AvailableBenefits[i].Id">
+                                        @Model.AvailableBenefits[i].BenefitName
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i> Create Product
+                    </button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script>
+        $(document).ready(function() {
+            // Image preview functionality
+            $('#imageUpload').change(function() {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#imagePreview').attr('src', e.target.result);
+                        $('#imagePreviewContainer').show();
+                    }
+
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+    </script>
 }

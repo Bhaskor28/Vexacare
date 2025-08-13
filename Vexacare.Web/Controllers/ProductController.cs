@@ -124,7 +124,7 @@ namespace Vexacare.Web.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Product");
             }
             catch (Exception ex)
             {
@@ -143,6 +143,135 @@ namespace Vexacare.Web.Controllers
                 return View(model);
             }
         }
-        // Add Edit, Details, Delete actions as needed...
+
+        // GET: Product/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.ProductBenefits)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var model = new EditProductVM
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                ProductImagePath = !string.IsNullOrEmpty(product.ProductImages)
+                    ? $"/images/products/{product.ProductImages}"
+                    : null,
+                SelectedBenefitIds = product.ProductBenefits.Select(pb => pb.BenefitId).ToList(),
+                AvailableBenefits = await _context.Benefits
+                    .Select(b => new BenefitVM
+                    {
+                        Id = b.Id,
+                        BenefitName = b.BenefitName
+                    })
+                    .ToListAsync()
+            };
+
+            return View(model);
+        }
+
+        // POST: Product/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(EditProductVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.AvailableBenefits = await _context.Benefits
+                    .Select(b => new BenefitVM
+                    {
+                        Id = b.Id,
+                        BenefitName = b.BenefitName,
+                        IsSelected = model.SelectedBenefitIds.Contains(b.Id)
+                    })
+                    .ToListAsync();
+                return View(model);
+            }
+
+            // Similar to Create but with update logic
+            // Handle file upload
+            string uniqueFileName = null;
+            if (model.ProductImage != null && model.ProductImage.Length > 0)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images/products");
+
+                // Create directory if it doesn't exist
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProductImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                await using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.ProductImage.CopyToAsync(fileStream);
+                }
+            }
+
+            var product = new Product
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Price = model.Price,
+                ProductImages = uniqueFileName,  // Store just the filename/path
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+
+            if (model.SelectedBenefitIds != null && model.SelectedBenefitIds.Any())
+            {
+                var productBenefits = model.SelectedBenefitIds.Select(benefitId => new ProductBenefit
+                {
+                    ProductId = product.Id,
+                    BenefitId = benefitId
+                });
+
+                await _context.ProductBenefits.AddRangeAsync(productBenefits);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index", "Product");
+        }
+
+        // POST: Product/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }
