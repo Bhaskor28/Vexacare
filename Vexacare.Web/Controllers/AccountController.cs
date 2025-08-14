@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vexacare.Application.Patients.ViewModels;
+using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
 
 namespace Vexacare.Web.Controllers
 {
+    
     public class AccountController : Controller
     {
         #region Fields
@@ -57,10 +60,10 @@ namespace Vexacare.Web.Controllers
                 if (result.Succeeded)
                 {
                     // Assign Patient role
-                    //await _userManager.AddToRoleAsync(user, "Patient");
+                    await _userManager.AddToRoleAsync(user, "Patient");
                     await _context.SaveChangesAsync();
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("BasicInfo", "Account");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 foreach (var error in result.Errors)
@@ -75,7 +78,7 @@ namespace Vexacare.Web.Controllers
         //end of step 1
         #region BasicInfo
         //step 1: basic info
-        [HttpGet]
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> BasicInfo()
         {
             var patientId = _userManager.GetUserId(User);
@@ -172,8 +175,8 @@ namespace Vexacare.Web.Controllers
         //step 2: Health info
         #region HealthInfo
 
+        [Authorize(Roles = "Patient")]
 
-        [HttpGet]
         public async Task<IActionResult> HealthInfo()
         {
             var patientId = _userManager.GetUserId(User);
@@ -257,7 +260,7 @@ namespace Vexacare.Web.Controllers
 
         //step 3: Gastrointestinal info
         #region GastrointestinalInfo
-        [HttpGet]
+        
         public async Task<IActionResult> GastrointestinalInfo()
         {
             var patientId = _userManager.GetUserId(User);
@@ -426,7 +429,7 @@ namespace Vexacare.Web.Controllers
 
         //step 5: DietProfile info
         #region DietProfileInfo
-        [HttpGet]
+        
         public async Task<IActionResult> DietProfileInfo()
         {
             var patientId = _userManager.GetUserId(User);
@@ -530,7 +533,7 @@ namespace Vexacare.Web.Controllers
 
         //step 6: Lifestyle info
         #region LifestyleInfo
-        [HttpGet]
+        
         public async Task<IActionResult> LifestyleInfo()
         {
             var patientId = _userManager.GetUserId(User);
@@ -624,7 +627,7 @@ namespace Vexacare.Web.Controllers
         //step 7: Symtoms info
 
         // AccountController.cs
-        [HttpGet]
+        
         public async Task<IActionResult> TherapiesInfo()
         {
             var patientId = _userManager.GetUserId(User);
@@ -662,7 +665,7 @@ namespace Vexacare.Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        
         public async Task<IActionResult> TherapiesInfo(TherapiesInfoVM model)
         {
             if (ModelState.IsValid)
@@ -710,6 +713,7 @@ namespace Vexacare.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM model)
         {
             if (ModelState.IsValid)

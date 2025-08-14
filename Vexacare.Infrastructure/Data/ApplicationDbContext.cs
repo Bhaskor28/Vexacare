@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
 using Vexacare.Infrastructure.Data.Configurations.Product;
@@ -33,6 +34,7 @@ namespace Vexacare.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new ProductBenefitConfiguration());
         }
+
 
     }
 }
