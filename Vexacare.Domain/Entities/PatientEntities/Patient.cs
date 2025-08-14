@@ -17,6 +17,7 @@ namespace Vexacare.Domain.Entities.PatientEntities
         [Required]
         [MaxLength(100)]
         public string LastName { get; set; }
+        public string Role { get; set; } = "Patient";
 
         // Navigation property for patient profile
         //public PatientProfile PatientProfile { get; set; }

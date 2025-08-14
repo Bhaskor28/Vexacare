@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 
 namespace Vexacare.Infrastructure.Data
@@ -17,7 +18,7 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<SymptomsInfo> SymptomsInfos { get; set; }
         public DbSet<LifestyleInfo> LifestyleInfos { get; set; }
         public DbSet<TherapiesInfo> TherapiesInfos { get; set; }
-        
+
 
     }
 }
