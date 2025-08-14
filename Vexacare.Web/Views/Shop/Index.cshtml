@@ -1,4 +1,6 @@
-﻿<!-- Banner Section Start  -->
+﻿@model IEnumerable<ProductListVM>
+
+<!-- Banner Section Start  -->
 <section id="shop_banner" class="shop-section">
     <div class="shop-container">
         <div class="shop-content">
@@ -13,66 +15,70 @@
 </section>
 <!-- Banner Section End  -->
 <!-- Test Kit Details Section Start  -->
-<section id="kit_details" class="container">
-    <div class="kit-container">
-        <!-- Image Section -->
-        <div class="kit-image-wrapper">
-            <img src="~/assets/images/kit.png"
-                 alt="kit image"
-                 class="kit-image" />
-        </div>
+@foreach(var product in Model)
+{
 
-        <!-- Details Section -->
-        <div class="kit-details">
-            <h4 class="kit-title">Microbiota Test Kit</h4>
-            <p class="kit-description">
-                Get a comprehensive analysis of your gut microbiome with our
-                at-home testing kit. Receive personalized recommendations for diet
-                and supplements based on your unique gut profile.
-            </p>
-            <p class="kit-price">$199.00</p>
+    if (product.ProductType == Vexacare.Domain.Enums.ProductType.TestKit)
+    {
+        <section id="kit_details" class="container">
+            <div class="kit-container">
+                <!-- Image Section -->
+                <div class="kit-image-wrapper">
+                    @if (!string.IsNullOrEmpty(product.ProductImages))
+                    {
+                        <img src="~/images/products/@product.ProductImages" alt="kit image" class="kit-image" />
+                    }
+                    else
+                    {
+                        <i class="fas fa-box-open fa-4x text-muted"></i>
+                    }
+                </div>
 
-            <!-- Features List -->
-            <div class="kit-features">
-                <div class="kit-feature-item">
-                    <span class="kit-check">✔</span>
-                    <p class="kit-feature-text">Free Home Delivery</p>
-                </div>
-                <div class="kit-feature-item">
-                    <span class="kit-check">✔</span>
-                    <p class="kit-feature-text">AI-Powered Analysis</p>
-                </div>
-                <div class="kit-feature-item">
-                    <span class="kit-check">✔</span>
-                    <p class="kit-feature-text">Comprehensive Lab Report</p>
-                </div>
-                <div class="kit-feature-item">
-                    <span class="kit-check">✔</span>
-                    <p class="kit-feature-text">Expert Consultation</p>
-                </div>
-            </div>
+                <!-- Details Section -->
+                <div class="kit-details">
+                    <h4 class="kit-title">@product.Name</h4>
+                    <p class="kit-description">@product.Description</p>
+                    <p class="kit-price">$@product.Price</p>
 
-            <!-- Quantity Section -->
-            <div class="kit-quantity-section">
-                <h4 class="kit-quantity-label">Quantity</h4>
-                <div class="kit-quantity-controls">
-                    <div class="kit-quantity-box">
-                        <button class="kit-btn-minus" onclick="decreaseQty()">
-                            -
-                        </button>
-                        <p id="kit-quantity-value">1</p>
-                        <button class="kit-btn-plus" onclick="increaseQty()">
-                            +
-                        </button>
+                    <!-- Features List -->
+                    <div class="kit-features">
+                        @foreach (var benefit in product.ProductBenefits)
+                        {
+                            <div class="kit-feature-item">
+                                <span class="kit-check">✔</span>
+                                <p class="kit-feature-text">@benefit.BenefitName</p>
+                            </div>                    
+                        }
                     </div>
-                    <button class="kit-add-to-cart">Add to Cart</button>
+
+                    <!-- Quantity Section -->
+                    <div class="kit-quantity-section">
+                        <h4 class="kit-quantity-label">Quantity</h4>
+                        <div class="kit-quantity-controls">
+                            <div class="kit-quantity-box">
+                                <button class="kit-btn-minus" onclick="decreaseQty()">
+                                    -
+                                </button>
+                                <p id="kit-quantity-value">1</p>
+                                <button class="kit-btn-plus" onclick="increaseQty()">
+                                    +
+                                </button>
+                            </div>
+                            <a asp-controller="Shop" asp-action="ProductDetails" class="kit-add-to-cart text-center">Details</a>
+                            <a class="kit-add-to-cart text-center">Add to Cart</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
+    } 
+}
 <!-- Test Kit Details Section End  -->
+
+
 <!-- Customized Galenic Supplements Start  -->
+
+
 <section id="customized_supplements">
     <div class="sup-page-bg">
         <div class="container">
@@ -83,162 +89,32 @@
                     Formulated based on your microbiota results.
                 </p>
             </div>
-
             <!-- Product Grid -->
             <div class="sup-product-grid">
                 <!-- 1 -->
-                <div class="sup-card">
-                    <div class="sup-card-img-wrapper">
-                        <img src="~/assets/images/product1.png"
-                             alt="product"
-                             class="sup-card-img" />
-                    </div>
-                    <div class="sup-card-body">
-                        <h5 class="sup-card-title">Microbiome-Test</h5>
-                        <p class="sup-card-desc">
-                            Essential microbiome testing with basic recommendations
-                        </p>
-                        <div class="sup-card-bottom">
-                            <p class="sup-card-price">$324.00</p>
-                            <button class="sup-card-btn">View details</button>
+                @foreach (var product in Model)
+                {
+                    if(product.ProductType == Vexacare.Domain.Enums.ProductType.Supplement)
+                    {
+                        <div class="sup-card">
+                        <div class="sup-card-img-wrapper">
+                            @if (!string.IsNullOrEmpty(product.ProductImages))
+                            {
+                                <img src="~/images/products/@product.ProductImages" alt="product" class="sup-card-img" />
+                            }
+                        </div>
+                        <div class="sup-card-body">
+                            <h5 class="sup-card-title">@product.Name</h5>
+                            <p class="sup-card-desc">@product.Description</p>
+                            <div class="sup-card-bottom">
+                                <p class="sup-card-price">$@product.Price</p>
+                                <a asp-controller = "Shop" asp-action ="ProductDetails" class="sup-card-btn">View details</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- 2 -->
-                <div class="sup-card">
-                    <div class="sup-card-img-wrapper">
-                        <img src="~/assets/images/product1.png"
-                             alt="product"
-                             class="sup-card-img" />
-                    </div>
-                    <div class="sup-card-body">
-                        <h5 class="sup-card-title">Microbiome-Test</h5>
-                        <p class="sup-card-desc">
-                            Essential microbiome testing with basic recommendations
-                        </p>
-                        <div class="sup-card-bottom">
-                            <p class="sup-card-price">$324.00</p>
-                            <button class="sup-card-btn">View details</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3 -->
-                <div class="sup-card">
-                    <div class="sup-card-img-wrapper">
-                        <img src="~/assets/images/product1.png"
-                             alt="product"
-                             class="sup-card-img" />
-                    </div>
-                    <div class="sup-card-body">
-                        <h5 class="sup-card-title">Microbiome-Test</h5>
-                        <p class="sup-card-desc">
-                            Essential microbiome testing with basic recommendations
-                        </p>
-                        <div class="sup-card-bottom">
-                            <p class="sup-card-price">$324.00</p>
-                            <button class="sup-card-btn">View details</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4 -->
-                <div class="sup-card">
-                    <div class="sup-card-img-wrapper">
-                        <img src="~/assets/images/product1.png"
-                             alt="product"
-                             class="sup-card-img" />
-                    </div>
-                    <div class="sup-card-body">
-                        <h5 class="sup-card-title">Microbiome-Test</h5>
-                        <p class="sup-card-desc">
-                            Essential microbiome testing with basic recommendations
-                        </p>
-                        <div class="sup-card-bottom">
-                            <p class="sup-card-price">$324.00</p>
-                            <button class="sup-card-btn">View details</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5 -->
-                <div class="sup-card">
-                    <div class="sup-card-img-wrapper">
-                        <img src="~/assets/images/product1.png"
-                             alt="product"
-                             class="sup-card-img" />
-                    </div>
-                    <div class="sup-card-body">
-                        <h5 class="sup-card-title">Microbiome-Test</h5>
-                        <p class="sup-card-desc">
-                            Essential microbiome testing with basic recommendations
-                        </p>
-                        <div class="sup-card-bottom">
-                            <p class="sup-card-price">$324.00</p>
-                            <button class="sup-card-btn">View details</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6 -->
-                <div class="sup-card">
-                    <div class="sup-card-img-wrapper">
-                        <img src="~/assets/images/product1.png"
-                             alt="product"
-                             class="sup-card-img" />
-                    </div>
-                    <div class="sup-card-body">
-                        <h5 class="sup-card-title">Microbiome-Test</h5>
-                        <p class="sup-card-desc">
-                            Essential microbiome testing with basic recommendations
-                        </p>
-                        <div class="sup-card-bottom">
-                            <p class="sup-card-price">$324.00</p>
-                            <button class="sup-card-btn">View details</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 7 -->
-                <div class="sup-card">
-                    <div class="sup-card-img-wrapper">
-                        <img src="~/assets/images/product1.png"
-                             alt="product"
-                             class="sup-card-img" />
-                    </div>
-                    <div class="sup-card-body">
-                        <h5 class="sup-card-title">Microbiome-Test</h5>
-                        <p class="sup-card-desc">
-                            Essential microbiome testing with basic recommendations
-                        </p>
-                        <div class="sup-card-bottom">
-                            <p class="sup-card-price">$324.00</p>
-                            <button class="sup-card-btn">View details</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 8 -->
-                <div class="sup-card">
-                    <div class="sup-card-img-wrapper">
-                        <img src="~/assets/images/product1.png"
-                             alt="product"
-                             class="sup-card-img" />
-                    </div>
-                    <div class="sup-card-body">
-                        <h5 class="sup-card-title">Microbiome-Test</h5>
-                        <p class="sup-card-desc">
-                            Essential microbiome testing with basic recommendations
-                        </p>
-                        <div class="sup-card-bottom">
-                            <p class="sup-card-price">$324.00</p>
-                            <button class="sup-card-btn">View details</button>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
             </div>
-
             <!-- Pagination -->
             <div class="sup-pagination">
                 <button class="sup-page-btn">«</button>
@@ -252,7 +128,10 @@
         </div>
     </div>
 </section>
+
 <!-- Customized Galenic Supplements End  -->
+
+
 <!-- Need Help Choosing the Right Solution? Section Start  -->
 <section id="need-help">
     <div class="doc-section">

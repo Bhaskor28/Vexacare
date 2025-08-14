@@ -1,7 +1,7 @@
+using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
 
@@ -30,7 +30,6 @@ builder.Services.AddAuthentication()
                 Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"]))
         };
     });
-
 
 
 // Add services to the container.

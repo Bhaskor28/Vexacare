@@ -1,25 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Vexacare.Domain.Entities.ProductEntities;
 using Vexacare.Domain.Enums;
 
 namespace Vexacare.Application.Products.ViewModels
 {
-    public class EditProductVM
+    public class ProductDetailsVM
     {
-        public int? Id { get; set; }
-
-        [Required]
+        public int Id { get; set; }
         [Display(Name = "Product Name")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Required]
         [Display(Name = "Product Type")]
-        public ProductType ProductType { get; set; }
+        public ProductType? ProductType { get; set; }
 
-        [Required]
         [Display(Name = "Price")]
         public decimal Price { get; set; }
 
@@ -29,8 +31,6 @@ namespace Vexacare.Application.Products.ViewModels
         public string? ProductImagePath { get; set; }
 
         [Display(Name = "Benefits")]
-        public List<int>? SelectedBenefitIds { get; set; } = new List<int>();
-
-        public List<BenefitVM>? AvailableBenefits { get; set; } = new List<BenefitVM>();
+        public List<BenefitVM>? Benefits { get; set; } = new List<BenefitVM>();
     }
 }

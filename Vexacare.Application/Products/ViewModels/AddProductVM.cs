@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Vexacare.Domain.Enums;
 
 namespace Vexacare.Application.Products.ViewModels
 {
@@ -11,7 +12,10 @@ namespace Vexacare.Application.Products.ViewModels
         [Display(Name = "Product Name")]
         public string Name { get; set; }
 
-        [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters")]
+        [Required(ErrorMessage = "Product type is required")]
+        [Display(Name = "Product Type")]
+        public ProductType ProductType { get; set; }
+
         [Display(Name = "Description")]
         public string Description { get; set; }
 
@@ -26,7 +30,7 @@ namespace Vexacare.Application.Products.ViewModels
         public string? ProductImagePath { get; set; }  // To store the path after upload
 
         [Display(Name = "Benefits")]
-        public List<int> SelectedBenefitIds { get; set; } = new List<int>();
+        public List<int>? SelectedBenefitIds { get; set; } = new List<int>();
 
         public List<BenefitVM>? AvailableBenefits { get; set; } = new List<BenefitVM>();
     }

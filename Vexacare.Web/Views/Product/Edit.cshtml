@@ -1,4 +1,5 @@
-﻿@model EditProductVM
+﻿@using Vexacare.Domain.Enums
+@model EditProductVM
 @{
     ViewData["Title"] = "Edit Product";
     Layout = "_AdminLayout";
@@ -15,13 +16,6 @@
                     <form asp-action="Edit" method="post" enctype="multipart/form-data">
                         <input type="hidden" asp-for="Id" />
 
-                        <!-- Similar fields to Create view -->
-                        <div class="form-group mb-3">
-                            <label asp-for="Name" class="form-label"></label>
-                            <input asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
-
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
@@ -36,6 +30,18 @@
                                     <label asp-for="Price"></label>
                                     <span asp-validation-for="Price" class="text-danger"></span>
                                 </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <select asp-for="ProductType" class="form-control"
+                                        asp-items="Html.GetEnumSelectList<ProductType>()">
+                                    <option value="" selected disabled hidden>-- Select Type --</option>
+                                </select>
+                                <label asp-for="ProductType"></label>
+                                <span asp-validation-for="ProductType" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -52,11 +58,20 @@
                             <div class="file-upload-container">
                                 <input asp-for="ProductImage" type="file" class="form-control-file" id="imageUpload" accept="image/*" />
                                 <div id="imagePreviewContainer" class="mt-2" style="display:none;">
-                                    <img id="imagePreview" class="preview-image" />
+                                    <img id="imagePreview" class="preview-image" style="max-height: 200px;" />
                                 </div>
                                 <span asp-validation-for="ProductImage" class="text-danger"></span>
                             </div>
                         </div>
+
+                        <!-- Current image preview -->
+                        @if (!string.IsNullOrEmpty(Model.ProductImagePath))
+                        {
+                            <div class="mb-3">
+                                <label class="form-label">Current Image</label>
+                                <img src="@Model.ProductImagePath" class="img-thumbnail" style="max-height: 200px;" />
+                            </div>
+                        }
 
                         <div class="mb-4">
                             <label class="form-label">Product Benefits</label>
@@ -69,7 +84,8 @@
                                                    id="benefit_@Model.AvailableBenefits[i].Id"
                                                    name="SelectedBenefitIds"
                                                    value="@Model.AvailableBenefits[i].Id"
-                                                   class="form-check-input" />
+                                                   class="form-check-input"
+                                                   checked="@Model.AvailableBenefits[i].IsSelected" />
                                             <label class="form-check-label" for="benefit_@Model.AvailableBenefits[i].Id">
                                                 @Model.AvailableBenefits[i].BenefitName
                                             </label>
@@ -78,16 +94,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-
-                        <!-- Current image preview -->
-                        @if (!string.IsNullOrEmpty(Model.ProductImagePath))
-                        {
-                            <div class="mb-3">
-                                <label class="form-label">Current Image</label>
-                                <img src="@Model.ProductImagePath" class="img-thumbnail" style="max-height: 200px;" />
-                            </div>
-                        }
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                             <a asp-action="Index" class="btn btn-secondary me-md-2">
@@ -103,3 +109,34 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Image preview functionality
+            $('#imageUpload').change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#imagePreview').attr('src', e.target.result);
+                        $('#imagePreviewContainer').show();
+                    }
+
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            // Initialize image preview if file is already selected (for form validation re-display)
+            var fileInput = document.getElementById('imageUpload');
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imagePreview').attr('src', e.target.result);
+                    $('#imagePreviewContainer').show();
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+    </script>
+}

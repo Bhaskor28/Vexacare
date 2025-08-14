@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Vexacare.Domain\Vexacare.Domain.csproj" />
+    <ProjectReference Include="..\Vexacare.Infrastructure\Vexacare.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

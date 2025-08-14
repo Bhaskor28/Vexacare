@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vexacare.Domain.Enums;
 
 namespace Vexacare.Domain.Entities.ProductEntities
 {
@@ -14,6 +15,8 @@ namespace Vexacare.Domain.Entities.ProductEntities
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+        [Required]
+        public ProductType ProductType { get; set; }
         public string Description { get; set; }
 
         [DataType(DataType.Currency)]

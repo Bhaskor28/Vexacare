@@ -1,4 +1,5 @@
-﻿@model Vexacare.Application.Products.ViewModels.AddProductVM
+﻿@using Vexacare.Domain.Enums
+@model Vexacare.Application.Products.ViewModels.AddProductVM
 @{
     Layout = "_AdminLayout";
     ViewBag.Title = "Create Product";
@@ -17,6 +18,14 @@
         .preview-image {
             max-height: 200px;
             margin-top: 10px;
+        }
+
+        select:invalid {
+            color: #6c757d; /* Bootstrap's secondary color */
+        }
+
+        select option {
+            color: #212529; /* Bootstrap's default text color */
         }
     </style>
 }
@@ -55,22 +64,37 @@
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select asp-for="ProductType" class="form-control"
+                                    asp-items="Html.GetEnumSelectList<ProductType>()">
+                                <option value="" selected disabled hidden>-- Select Type --</option>
+                            </select>
+                            <label asp-for="ProductType"></label>
+                            <span asp-validation-for="ProductType" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <label class="form-label">Product Image</label>
+                            <div class="file-upload-container">
+                                <input asp-for="ProductImage" type="file" class="form-control-file" id="imageUpload" accept="image/*" />
+                                <div id="imagePreviewContainer" class="mt-2" style="display:none;">
+                                    <img id="imagePreview" class="preview-image" />
+                                </div>
+                                <span asp-validation-for="ProductImage" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="mb-3">
                     <div class="form-floating">
                         <textarea asp-for="Description" class="form-control" placeholder="Description" style="height: 100px"></textarea>
                         <label asp-for="Description"></label>
                         <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Product Image</label>
-                    <div class="file-upload-container">
-                        <input asp-for="ProductImage" type="file" class="form-control-file" id="imageUpload" accept="image/*" />
-                        <div id="imagePreviewContainer" class="mt-2" style="display:none;">
-                            <img id="imagePreview" class="preview-image" />
-                        </div>
-                        <span asp-validation-for="ProductImage" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -115,13 +139,19 @@
             $('#imageUpload').change(function() {
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
-
                     reader.onload = function(e) {
                         $('#imagePreview').attr('src', e.target.result);
                         $('#imagePreviewContainer').show();
                     }
-
                     reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            // Handle form submission to ensure ProductType is selected
+            $('form').submit(function(e) {
+                if ($('#ProductType').val() === "") {
+                    e.preventDefault();
+                    $('[data-valmsg-for="ProductType"]').text("Please select a product type");
                 }
             });
         });
