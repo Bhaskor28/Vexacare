@@ -1,0 +1,142 @@
+﻿@using Vexacare.Domain.Enums
+@model EditProductVM
+@{
+    ViewData["Title"] = "Edit Product";
+    Layout = "_AdminLayout";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Edit Product</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Name" class="form-control" placeholder="Product name" />
+                                    <label asp-for="Name"></label>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Price" class="form-control" placeholder="Price" />
+                                    <label asp-for="Price"></label>
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <select asp-for="ProductType" class="form-control"
+                                        asp-items="Html.GetEnumSelectList<ProductType>()">
+                                    <option value="" selected disabled hidden>-- Select Type --</option>
+                                </select>
+                                <label asp-for="ProductType"></label>
+                                <span asp-validation-for="ProductType" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <textarea asp-for="Description" class="form-control" placeholder="Description" style="height: 100px"></textarea>
+                                <label asp-for="Description"></label>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Product Image</label>
+                            <div class="file-upload-container">
+                                <input asp-for="ProductImage" type="file" class="form-control-file" id="imageUpload" accept="image/*" />
+                                <div id="imagePreviewContainer" class="mt-2" style="display:none;">
+                                    <img id="imagePreview" class="preview-image" style="max-height: 200px;" />
+                                </div>
+                                <span asp-validation-for="ProductImage" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Current image preview -->
+                        @if (!string.IsNullOrEmpty(Model.ProductImagePath))
+                        {
+                            <div class="mb-3">
+                                <label class="form-label">Current Image</label>
+                                <img src="@Model.ProductImagePath" class="img-thumbnail" style="max-height: 200px;" />
+                            </div>
+                        }
+
+                        <div class="mb-4">
+                            <label class="form-label">Product Benefits</label>
+                            <div class="card">
+                                <div class="card-body" style="max-height: 200px; overflow-y: auto;">
+                                    @for (int i = 0; i < Model.AvailableBenefits.Count; i++)
+                                    {
+                                        <div class="form-check">
+                                            <input type="checkbox"
+                                                   id="benefit_@Model.AvailableBenefits[i].Id"
+                                                   name="SelectedBenefitIds"
+                                                   value="@Model.AvailableBenefits[i].Id"
+                                                   class="form-check-input"
+                                                   checked="@Model.AvailableBenefits[i].IsSelected" />
+                                            <label class="form-check-label" for="benefit_@Model.AvailableBenefits[i].Id">
+                                                @Model.AvailableBenefits[i].BenefitName
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-action="Index" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Image preview functionality
+            $('#imageUpload').change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#imagePreview').attr('src', e.target.result);
+                        $('#imagePreviewContainer').show();
+                    }
+
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            // Initialize image preview if file is already selected (for form validation re-display)
+            var fileInput = document.getElementById('imageUpload');
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imagePreview').attr('src', e.target.result);
+                    $('#imagePreviewContainer').show();
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+    </script>
+}

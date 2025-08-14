@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexacare.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Vexacare.Infrastructure.Data;
 namespace Vexacare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250813080058_Create Product Benefit and ProductBenefit table")]
+    partial class CreateProductBenefitandProductBenefittable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -484,10 +487,6 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -657,10 +656,8 @@ namespace Vexacare.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductImages")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductType")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -672,13 +669,13 @@ namespace Vexacare.Infrastructure.Migrations
 
             modelBuilder.Entity("Vexacare.Domain.Entities.ProductEntities.ProductBenefit", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("productId")
                         .HasColumnType("int");
 
                     b.Property<int>("BenefitId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId", "BenefitId");
+                    b.HasKey("productId", "BenefitId");
 
                     b.HasIndex("BenefitId");
 
@@ -823,7 +820,7 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.HasOne("Vexacare.Domain.Entities.ProductEntities.Product", "Product")
                         .WithMany("ProductBenefits")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("productId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
