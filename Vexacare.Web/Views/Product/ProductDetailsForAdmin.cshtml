@@ -35,11 +35,11 @@
                             <h5>Description</h5>
                             <p>@Model.Description</p>
 
-                            @if (Model.Benefits.Any())
+                            @if (Model.ProductBenefits.Any())
                             {
                                 <h5 class="mt-4">Benefits</h5>
                                 <div class="d-flex flex-wrap">
-                                    @foreach (var benefit in Model.Benefits)
+                                    @foreach (var benefit in Model.ProductBenefits)
                                     {
                                         <span class="badge bg-info me-2 mb-2">@benefit.BenefitName</span>
                                     }

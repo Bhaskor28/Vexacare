@@ -1,0 +1,63 @@
+﻿using AutoMapper;
+using Vexacare.Application.Products.ViewModels;
+using Vexacare.Domain.Entities.ProductEntities;
+
+namespace Vexacare.Application.Mapping
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            // Product mappings
+            CreateMap<Product, ProductListVM>()
+                .ForMember(dest => dest.ProductBenefits,
+                           opt => opt.MapFrom(src => src.ProductBenefits));
+
+            // ProductBenefit -> BenefitVM mapping
+            CreateMap<ProductBenefit, BenefitVM>()
+                .ForMember(dest => dest.Id,
+                           opt => opt.MapFrom(src => src.Benefit.Id))
+                .ForMember(dest => dest.BenefitName,
+                           opt => opt.MapFrom(src => src.Benefit.BenefitName));
+
+
+            CreateMap<Product, EditProductVM>()
+                .ForMember(dest => dest.SelectedBenefitIds,
+                           opt => opt.MapFrom(src => src.ProductBenefits.Select(pb => pb.BenefitId).ToList())
+                )
+                .ForMember(dest => dest.ProductImagePath,
+                           opt => opt.MapFrom(src => src.ProductImages)
+                )
+                .AfterMap((src, dest) =>
+                {
+                    foreach (var benefit in dest.AvailableBenefits)
+                    {
+                        benefit.IsSelected = dest.SelectedBenefitIds.Contains(benefit.Id);
+                    }
+                }
+            );
+           
+            // Reverse mapping for update operations
+            CreateMap<EditProductVM, Product>()
+                .ForMember(dest => dest.ProductBenefits,
+                    opt => opt.Ignore()) // We'll handle this separately
+                .ForMember(dest => dest.ProductImages,
+                    opt => opt.Condition(src => src.ProductImage == null)); // Keep existing if no new image
+
+
+            CreateMap<Product, ProductDetailsVM>()
+                .ForMember(dest => dest.ProductImagePath, otp => otp.MapFrom(src=>src.ProductImages))
+                .ForMember(dest => dest.ProductBenefits,
+                           opt => opt.MapFrom(src => src.ProductBenefits));
+
+            CreateMap<AddProductVM, Product>()
+                .ForMember(dest => dest.ProductBenefits,
+                           opt => opt.Ignore());
+
+            
+
+            // Benefit mappings
+            CreateMap<Benefit, BenefitVM>();
+        }
+    }
+}

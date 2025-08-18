@@ -62,7 +62,7 @@
                             <div class="product-img-container">
                                 @if (!string.IsNullOrEmpty(product.ProductImages))
                                 {
-                                    <img src="~/images/products/@product.ProductImages" class="product-img" alt="@product.Name">
+                                    <img src="@product.ProductImages" class="product-img" alt="@product.Name">
                                 }
                                 else
                                 {

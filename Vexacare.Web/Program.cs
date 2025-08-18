@@ -2,14 +2,30 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Vexacare.Application.Interfaces;
+using Vexacare.Application.Mapping;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
+using Vexacare.Infrastructure.Repositories;
 using Vexacare.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+#region Added By Sazib
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IFileStorageService, FileStorageService>();
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
+
+// Add AutoMapper with your assembly
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+#endregion
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));

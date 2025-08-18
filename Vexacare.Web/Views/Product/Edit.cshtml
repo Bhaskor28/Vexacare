@@ -77,17 +77,17 @@
                             <label class="form-label">Product Benefits</label>
                             <div class="card">
                                 <div class="card-body" style="max-height: 200px; overflow-y: auto;">
-                                    @for (int i = 0; i < Model.AvailableBenefits.Count; i++)
+                                    @foreach (var benefit in Model.AvailableBenefits)
                                     {
                                         <div class="form-check">
                                             <input type="checkbox"
-                                                   id="benefit_@Model.AvailableBenefits[i].Id"
+                                                   id="benefit_@benefit.Id"
                                                    name="SelectedBenefitIds"
-                                                   value="@Model.AvailableBenefits[i].Id"
+                                                   value="@benefit.Id"
                                                    class="form-check-input"
-                                                   checked="@Model.AvailableBenefits[i].IsSelected" />
-                                            <label class="form-check-label" for="benefit_@Model.AvailableBenefits[i].Id">
-                                                @Model.AvailableBenefits[i].BenefitName
+                                            @(Model.SelectedBenefitIds.Contains(benefit.Id) ? "checked" : "") />
+                                            <label class="form-check-label" for="benefit_@benefit.Id">
+                                                @benefit.BenefitName
                                             </label>
                                         </div>
                                     }

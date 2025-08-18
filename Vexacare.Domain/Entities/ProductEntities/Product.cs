@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vexacare.Domain.Common;
 using Vexacare.Domain.Enums;
 
 namespace Vexacare.Domain.Entities.ProductEntities
 {
-    public class Product
+    public class Product: BaseEntity
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         [Required]
         [StringLength(100)]
