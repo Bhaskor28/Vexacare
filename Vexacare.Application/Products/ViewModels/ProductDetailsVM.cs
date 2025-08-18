@@ -31,6 +31,6 @@ namespace Vexacare.Application.Products.ViewModels
         public string? ProductImagePath { get; set; }
 
         [Display(Name = "Benefits")]
-        public List<BenefitVM>? Benefits { get; set; } = new List<BenefitVM>();
+        public List<BenefitVM>? ProductBenefits { get; set; }
     }
 }

@@ -15,6 +15,6 @@ namespace Vexacare.Application.Products.ViewModels
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string ProductImages { get; set; }
-        public List<BenefitVM> ProductBenefits { get; set; } = new List<BenefitVM>();
+        public List<BenefitVM> ProductBenefits { get; set; }
     }
 }

@@ -26,7 +26,7 @@
                 <div class="kit-image-wrapper">
                     @if (!string.IsNullOrEmpty(product.ProductImages))
                     {
-                        <img src="~/images/products/@product.ProductImages" alt="kit image" class="kit-image" />
+                        <img src="@product.ProductImages" alt="kit image" class="kit-image" />
                     }
                     else
                     {
@@ -100,7 +100,7 @@
                         <div class="sup-card-img-wrapper">
                             @if (!string.IsNullOrEmpty(product.ProductImages))
                             {
-                                <img src="~/images/products/@product.ProductImages" alt="product" class="sup-card-img" />
+                                <img src="@product.ProductImages" alt="product" class="sup-card-img" />
                             }
                         </div>
                         <div class="sup-card-body">

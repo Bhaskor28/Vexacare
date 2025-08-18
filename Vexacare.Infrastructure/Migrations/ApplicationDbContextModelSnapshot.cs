@@ -678,6 +678,9 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<int>("BenefitId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.HasKey("ProductId", "BenefitId");
 
                     b.HasIndex("BenefitId");

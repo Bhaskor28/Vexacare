@@ -6,7 +6,7 @@ namespace Vexacare.Application.Products.ViewModels
 {
     public class EditProductVM
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [Display(Name = "Product Name")]

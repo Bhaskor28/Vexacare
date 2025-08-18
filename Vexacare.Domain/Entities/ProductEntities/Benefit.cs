@@ -5,12 +5,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vexacare.Domain.Common;
 
 namespace Vexacare.Domain.Entities.ProductEntities
 {
-    public class Benefit
+    public class Benefit : BaseEntity
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string BenefitName { get; set; }
         public virtual ICollection<ProductBenefit> ProductBenefits { get; set; }
     }
