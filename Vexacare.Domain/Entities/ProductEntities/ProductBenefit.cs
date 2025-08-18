@@ -8,7 +8,7 @@ using Vexacare.Domain.Common;
 namespace Vexacare.Domain.Entities.ProductEntities
 {
     //map table of product and benefit
-    public class ProductBenefit : BaseEntity
+    public class ProductBenefit
     {
         public int ProductId { get; set; }
         public Product Product { get; set; }

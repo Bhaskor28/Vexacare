@@ -1,0 +1,34 @@
+﻿@model ProductDetailsVM
+<!-- Description Section Start -->
+<section id="product-description">
+    <div class="product-wrapper">
+        <div class="product-content">
+            <div class="product-image">
+                <img src="@Model.ProductImagePath" alt="Product Image" />
+            </div>
+            <div class="product-info">
+                <h1 class="product-title">@Model.Name</h1>
+                <p class="product-price">$324.00</p>
+                <p class="product-description">@Model.Description</p>
+
+                <div class="product-quantity-block">
+                    <h4 class="product-quantity-label">Quantity</h4>
+                    <div class="product-quantity-group">
+                        <div class="product-quantity-control">
+                            <button class="product-qty-btn">-</button>
+                            <p class="product-qty-display">1</p>
+                            <button class="product-qty-btn">+</button>
+                        </div>
+                        <button class="product-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-details">
+            <h4 class="product-details-title">Description</h4>
+            <p class="product-details-text">@Model.Description</p>
+        </div>
+    </div>
+</section>
+<!-- Description Section End -->

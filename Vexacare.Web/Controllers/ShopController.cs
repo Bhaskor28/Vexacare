@@ -30,5 +30,20 @@ namespace Vexacare.Web.Controllers
                 return View("Error");
             }
         }
+
+        public async Task<IActionResult> ProductDetail(int id)
+        {
+            try
+            {
+                var product = await _productService.GetProductDetailsAsync(id);
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving products");
+                return View("Error");
+            }
+        }
+
     }
 }

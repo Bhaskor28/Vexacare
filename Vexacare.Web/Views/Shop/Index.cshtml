@@ -64,7 +64,8 @@
                                     +
                                 </button>
                             </div>
-                            <a asp-controller="Shop" asp-action="ProductDetails" class="kit-add-to-cart text-center">Details</a>
+
+                            <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id" class="kit-add-to-cart text-center">Details</a>
                             <a class="kit-add-to-cart text-center">Add to Cart</a>
                         </div>
                     </div>
@@ -108,7 +109,7 @@
                             <p class="sup-card-desc">@product.Description</p>
                             <div class="sup-card-bottom">
                                 <p class="sup-card-price">$@product.Price</p>
-                                <a asp-controller = "Shop" asp-action ="ProductDetails" class="sup-card-btn">View details</a>
+                                    <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id" class="sup-card-btn">View details</a>
                             </div>
                         </div>
                     </div>

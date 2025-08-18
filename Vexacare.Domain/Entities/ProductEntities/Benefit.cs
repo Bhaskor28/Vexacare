@@ -11,7 +11,6 @@ namespace Vexacare.Domain.Entities.ProductEntities
 {
     public class Benefit : BaseEntity
     {
-        //public int Id { get; set; }
         public string BenefitName { get; set; }
         public virtual ICollection<ProductBenefit> ProductBenefits { get; set; }
     }
