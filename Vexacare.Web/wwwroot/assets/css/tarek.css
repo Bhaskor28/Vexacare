@@ -1,0 +1,1518 @@
+/* ===================================================================
+   Base and Universal Styles
+=================================================================== */
+
+/* Universal Section Header Styling */
+.tm-tm-doctor-profile-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.tm-section-heading {
+    color: #212B36;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    margin-bottom: 10px;
+}
+
+.tm-section-description {
+    color: #9D9D9D;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.tm-section-header {
+    margin-bottom: 60px;
+}
+
+.tm-profile-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===================================================================
+   Hero Section (#consultations-hero)
+=================================================================== */
+#consultations-hero {
+    padding: 148px 0;
+    background-color: #f0fafb;
+}
+
+#consultations-hero .tm-consultations-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#consultations-hero .tm-consultations-content .tm-consultations-heading {
+    color: #212B36;
+    text-align: center;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 64px;
+    max-width: 862px;
+    text-align: center;
+}
+
+#consultations-hero .tm-consultations-content .tm-consultations-description {
+    color: #2f4158;
+    font-size: 20px;
+    line-height: 30px;
+    margin-top: 16px;
+}
+
+/* ===================================================================
+   How It Works Section (#how-it-works)
+=================================================================== */
+#how-it-works {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+.tm-steps-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.tm-step-item {
+    text-align: center;
+    max-width: 200px;
+}
+
+.tm-step-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    color: #09B2B5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border-radius: 50px;
+    border: 0.6px solid rgba(9, 178, 181, 0.20);
+    background: rgba(9, 178, 181, 0.06);
+}
+
+.tm-step-number {
+    color: var(--Primary-Color, #09B2B5);
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.tm-step-title {
+    color: #212B36;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    margin: 8px 0px;
+}
+
+.tm-step-text {
+    color: #212B36;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+/* ===================================================================
+   Find Professional Section (#find-professional)
+=================================================================== */
+#find-professional {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+/* --- Search Form --- */
+.tm-search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    border-radius: 60px;
+    gap: 20px;
+    border: 1px solid #F4F4F4;
+    background: #FBFBFB;
+    padding: 10px 20px;
+}
+
+.tm-search-form .form-control:focus {
+    border-color: none;
+    outline: 0;
+    box-shadow: none;
+}
+
+.tm-search-form-left {
+    display: flex;
+    align-items: center;
+}
+
+.tm-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.tm-field-label {
+    color: #212B36;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+
+
+.tm-search-form select,
+.tm-search-form #date-picker {
+
+    border-radius: 8px;
+    border: none;
+    background-color: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    color: var(--Subtext-Color, #9D9D9D);
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    cursor: pointer;
+}
+
+/* Custom dropdown arrow */
+/* .tm-search-form select {
+    background: #fff url("data:image/svg+xml,%3Csvg fill='%23666' height='14' viewBox='0 0 24 24' width='14' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center;
+    background-size: 14px;
+} */
+
+/* Separator */
+.tm-separator {
+    background: #D5D5D5;
+    width: 1px;
+    height: 36px;
+    margin: 0 30px;
+}
+
+/* Icon in date field */
+.icon-field {
+    display: flex;
+    background: #fff;
+    padding-right: 10px;
+    border-radius: 8px;
+}
+
+.icon-field i {
+    color: #888;
+}
+
+.icon-field input {
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding: 12px 12px;
+}
+
+.tm-field-icon-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* Search button */
+.tm-search-form button {
+    background-color: #09B2B5;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    color: #FFF;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    /* 28px */
+    padding: 20px 30px;
+    border-radius: 30px;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+
+/* --- Results & Cards --- */
+.tm-results-info {
+    text-align: center;
+    color: #637381;
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+.tm-professionals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.tm-professional-card {
+    border: 1px solid #EAEAEA;
+    background: #FFF;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+}
+
+.tm-professional-photo {
+    width: 100%;
+    height: 370px;
+    object-fit: cover;
+}
+
+.tm-card-body {
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 12px;
+}
+
+.tm-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.tm-professional-name {
+    color: #212B36;
+    font-family: "Public Sans";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+}
+
+.tm-view-profile-link {
+    color: var(--Primary-Color, #09B2B5);
+    font-family: "Public Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: 1px solid #09B2B5;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: .3s ease-in-out;
+}
+
+.tm-view-profile-link:hover {
+    background-color: #09B2B5;
+    color: #e3f1f1;
+    border: 1px solid #09B2B5;
+}
+
+.tm-speciality-ratings-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tm-professional-specialty {
+    color: #212B36;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+}
+
+.tm-professional-rating {
+    color: #212B36;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    margin-left: 8px;
+}
+
+.tm-card-tag-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tm-card-tag {
+    border-radius: 30px;
+    background: rgba(9, 178, 181, 0.10);
+    padding: 8px 16px;
+    color: #09B2B5;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+}
+
+.tm-card-availability-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.tm-card-availability-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #212B36;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    padding: 8px;
+}
+
+.tm-card-availability-item svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.tm-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 4px;
+
+    /* 33.6px */
+}
+
+.tm-card-footer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tm-professional-price, .tm-service-duration {
+    color: #212B36;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.tm-book-now-btn {
+    background-color: #09B2B5;
+    color: #e3f1f1;
+    border: 1px solid #09B2B5;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #FFF;
+    font-family: "Public Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: .3s ease-in-out;
+}
+
+.tm-book-now-btn:hover {
+    background-color: #FFF;
+    color: #09B2B5;
+    border: 1px solid #09B2B5;
+}
+
+/* --- Pagination --- */
+.tm-pagination {
+    text-align: center;
+}
+
+.tm-pagination ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    gap: 8px;
+}
+
+.tm-page-link {
+    display: block;
+    padding: 10px 16px;
+    color: #212b36;
+    background-color: #fff;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.tm-page-link.tm-active,
+.tm-page-link:hover {
+    background-color: #09B2B5;
+    color: #fff;
+    border-color: #09B2B5;
+}
+
+/** consultaion page end */
+
+
+
+/* -------------------------------------- */
+/* ***New page Start from here** */
+/* -------------------------------------- */
+
+
+
+
+
+/** doctor profile page start */
+.tm-navbar {
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.06) !important;
+}
+
+.tm-all-rights-reserved-area {
+    padding-top: 24px;
+    margin-top: 34px;
+    border-top: 1px solid #EAEAEA;
+}
+
+.tm-all-rights-reserved-area p {
+    color: var(--Subtext-Color, #9D9D9D);
+    font-family: "Public Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+#tm-profile-section, #tm-booking-section, #tm-payment-section {
+    background: #fff;
+    padding: 80px 0px;
+}
+
+.tm-profile-container {
+    border-radius: 16px;
+    border: 1px solid #EAEAEA;
+    background: #FBFBFB;
+    /* display: inline-flex; */
+    padding: 40px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.tm-profile-header {
+    display: flex;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #EAEAEA;
+    background: #FFF;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.tm-profile-header-left {
+    min-width: 272px;
+    min-height: 272px;
+}
+
+.tm-profile-photo {
+    width: 100%;
+
+    height: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.tm-total-tm-review {
+    color: #212B36;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    /* 28px */
+}
+
+.tm-doctor-profile-header {
+    color: #212B36;
+    font-family: "Public Sans";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    margin-bottom: 12px;
+}
+
+.tm-section-content {
+    color: #212B36;
+    font-family: "Public Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+}
+
+.tm-section-content li {
+    list-style: inside;
+}
+
+.tm-section-content li::marker {
+    margin-left: 5px !important;
+}
+
+.tm-reviews-section {
+    border-top: 1px solid #EAEAEA;
+    padding-top: 30px;
+}
+
+.tm-reviews {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tm-review {
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    background: #FFF;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tm-review-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tm-header-top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tm-header-top-left-img-area {
+    width: 60px;
+    height: 60px;
+    aspect-ratio: 1/1;
+}
+
+.tm-header-top-left-img-area img {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+}
+
+.tm-header-top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.tm-review-author {
+    color: #212B36;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: 0.15px;
+}
+
+.tm-review-date {
+    color: #9D9D9D;
+    font-family: Manrope;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.15px;
+}
+
+.tm-review-text {
+    color: #585858;
+    font-family: "Public Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.15px;
+}
+
+.stars {
+    color: #ffd700;
+    margin-bottom: 5px;
+}
+
+.tm-review-see-more {
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    background: #FFF;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tm-see-more {
+    color: #585858;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    letter-spacing: 0.15px;
+}
+
+/** doctor profile page end */
+
+
+
+
+/* -------------------------------------- */
+/* ***New page Start from here** */
+/* -------------------------------------- */
+
+
+/** Consultation booking page start */
+.tm-booking-section {
+    width: 100%;
+}
+
+.tm-booking-container {
+    display: flex;
+    width: 100%;
+    gap: 30px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+}
+
+.tm-booking-date,
+.tm-booking-time {
+    flex: 1;
+    padding: 20px;
+
+}
+
+.tm-booking-date h3,
+.tm-booking-time h3 {
+    color: var(--Text-color, #212B36);
+    font-family: "Public Sans";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 20px;
+}
+
+.tm-calendar, .tm-time-group-wrapper {
+    border-radius: 12.6px;
+    border: 0.922px solid #EAEAEA;
+    background: #FFF;
+    padding: 20px;
+}
+
+
+/* Calendar */
+.tm-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.tm-calendar-header button {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.tm-calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.tm-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12.6px;
+}
+
+.tm-calendar-grid button {
+    width: 100%;
+    aspect-ratio: 1;
+    border: none;
+    border-radius: 12.6px;
+    background: #F6F6F6;
+    color: #212B36;
+    text-align: right;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.tm-calendar-grid button:hover:not(:disabled):not(.active):not(.today) {
+    background: #0ae2ee;
+}
+
+.tm-calendar-grid button:disabled, .tm-calendar-grid button:disabled:hover {
+    background: transparent;
+    cursor: default;
+    text-decoration-line: line-through;
+    color: #949494;
+    text-align: right;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: line-through;
+}
+
+/* Today Highlight */
+.tm-calendar-grid button.today {
+    border: 2px solid #27a2a7;
+    color: #09B2B5;
+    font-weight: 600;
+}
+
+.tm-calendar-grid button.active {
+    border-radius: 12.6px;
+    background: #09B2B5;
+    color: #fff;
+}
+
+.tm-calendar-grid button:hover {
+    background: #d0f0f1;
+}
+
+.tm-cal-month {
+    color: #212B36;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+/* Time Slots */
+.tm-time-group {
+    margin-bottom: 20px;
+}
+
+.tm-time-group h4 {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.tm-time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 10px;
+}
+
+.tm-time-btn {
+    padding: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.tm-time-btn.active {
+    background: #27a2a7;
+    color: #fff;
+}
+
+.tm-booking-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #EAEAEA;
+    padding-top: 30px;
+}
+
+.tm-btn-back,
+.tm-btn-confirm {
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tm-btn-back {
+    background: #ccc;
+}
+
+.tm-btn-confirm {
+    background: #27a2a7;
+}
+
+/* * Consultation booking page end */
+
+
+/* -------------------------------------- */
+/* ***New page Start from here** */
+/* -------------------------------------- */
+
+
+/* * payment page Start */
+.tm-payment-container {
+    display: flex;
+    gap: 30px;
+}
+
+.tm-payment-box {
+    flex: 1;
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid #EAEAEA;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+}
+
+.tm-box-title {
+    color: #212B36;
+    font-family: "Public Sans";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 20px;
+}
+
+/* Stripe logo */
+.tm-stripe-logo {
+    border-radius: 8px;
+    border: 1px solid #EAEAEA;
+    padding: 16px 32px;
+    margin-bottom: 20px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tm-stripe-logo img {
+    height: 28px;
+
+}
+
+.tm-logo-name {
+    color: #000;
+    text-align: right;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+
+}
+
+/* Form Inputs */
+.tm-payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tm-payment-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.tm-input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px 10px;
+    background: #fff;
+}
+
+.tm-input-icon {
+    margin-right: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.tm-input-group input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+}
+
+/* Booking Info */
+.tm-booking-info-para {
+    color: #736B6B;
+    font-family: "Public Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.tm-common-label {
+    color: #131212;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+
+/* Payment Summary */
+.tm-payment-summary {
+    font-size: 14px;
+}
+
+.tm-summary-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.tm-summary-row-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.tm-total-row {
+    display: flex;
+    justify-content: space-between;
+    background: #e4f7f8;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+
+/* * payment page end */
+
+
+/* -------------------------------------- */
+/* ***New page Start from here** */
+/* -------------------------------------- */
+
+
+/* * Success page start */
+#tm-success-section {
+    background-color: #FFF;
+    width: 100%;
+    min-height: 85vh;
+    padding-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.tm-success-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 708px;
+    margin: auto;
+    gap: 40px;
+}
+
+.tm-sucess-img-area {
+    max-width: 507.589px;
+    max-height: 332px;
+}
+
+.tm-sucess-img-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+
+.tm-success-content-wrapper h4 {
+    color: #212B36;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    margin-bottom: 10px;
+}
+
+.tm-success-content-wrapper p {
+    color: #000;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.tm-success-content-wrapper a {
+    color: #09B2B5;
+    text-align: center;
+    font-family: "Public Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+}
+
+
+/* * Success page end */
+
+
+
+
+
+
+
+
+
+/* ===================================================================
+   Responsive Media Queries (Consolidated)
+=================================================================== */
+
+/* ===================================================================
+   Responsive Media Queries (Consolidated)
+=================================================================== */
+
+/* Tablet and smaller desktop */
+@media (max-width: 992px) {
+    .tm-professionals-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* --- New Page Responsiveness --- */
+    .tm-booking-container,
+    .tm-payment-container {
+        flex-direction: column;
+    }
+
+    .tm-professional-name {
+        font-size: 28px;
+    }
+
+    .tm-professional-price, .tm-service-duration {
+        font-size: 20px;
+    }
+
+    .tm-book-now-btn {
+        padding: 8px 12px;
+        font-size: 17px;
+    }
+
+    .tm-card-availability-wrapper {
+        gap: 15px;
+    }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+
+    .tm-section-heading,
+    #consultations-hero .tm-consultations-content .tm-consultations-heading {
+        font-size: 32px;
+        line-height: 44px;
+    }
+
+    .tm-section-description,
+    #consultations-hero .tm-consultations-content .tm-consultations-description {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    #consultations-hero,
+    #how-it-works,
+    #find-professional,
+    #tm-profile-section,
+    #tm-booking-section,
+    #tm-payment-section {
+        padding: 80px 20px;
+    }
+
+    .tm-search-form {
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .tm-search-form-left {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+
+    .tm-separator {
+        width: 80%;
+        height: 1px;
+        margin: 15px 0;
+    }
+
+    .tm-professionals-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tm-step-item {
+        max-width: none;
+        width: 100%;
+    }
+
+    .tm-professional-name {
+        font-size: 20px;
+    }
+
+    .tm-total-tm-review {
+        font-size: 17px;
+
+    }
+
+    .tm-professional-price, .tm-service-duration {
+        font-size: 18px;
+    }
+
+    .tm-book-now-btn {
+        padding: 8px;
+        font-size: 15px;
+    }
+
+    .tm-card-availability-wrapper {
+        gap: 10px;
+    }
+
+    .tm-card-header {
+        flex-direction: column;
+    }
+
+
+    /* --- New Page Responsiveness --- */
+    /* Doctor Profile */
+    .tm-profile-container {
+        padding: 24px;
+    }
+
+    .tm-profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .tm-profile-header-left {
+        min-width: unset;
+        min-height: unset;
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+    }
+
+    .tm-profile-photo {
+        margin-right: 0;
+    }
+
+    .tm-review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .tm-review {
+        padding: 24px;
+    }
+
+    .tm-doctor-profile-header {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .tm-section-content {
+        font-size: 18px;
+    }
+
+    /* Booking & Payment */
+    .tm-calendar-grid button {
+        font-size: 13px;
+    }
+
+    .tm-calendar-grid button:disabled, .tm-calendar-grid button:disabled:hover {
+        font-size: 13px;
+    }
+
+    .tm-booking-container {
+        flex-direction: column;
+    }
+
+    .tm-payment-container {
+        flex-direction: column;
+    }
+
+    .tm-booking-date h3,
+    .tm-booking-time h3,
+    .tm-box-title {
+        font-size: 26px;
+    }
+
+    /* Success Page */
+    .tm-success-content-wrapper h4 {
+        font-size: 24px;
+    }
+
+    .tm-success-content-wrapper p {
+        font-size: 16px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .tm-section-heading,
+    #consultations-hero .tm-consultations-content .tm-consultations-heading {
+        font-size: 26px;
+        line-height: 36px;
+    }
+
+    .tm-section-description,
+    #consultations-hero .tm-consultations-content .tm-consultations-description {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    #consultations-hero,
+    #how-it-works,
+    #find-professional,
+    #tm-profile-section,
+    #tm-booking-section,
+    #tm-payment-section {
+        padding: 60px 15px;
+    }
+
+    .tm-pagination .tm-page-link {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+
+    .tm-professional-name {
+        font-size: 24px;
+    }
+
+    .tm-professional-price, .tm-service-duration {
+        font-size: 16px;
+    }
+
+    .tm-book-now-btn {
+        padding: 8px;
+        font-size: 15px;
+    }
+
+    .tm-card-availability-wrapper {
+        gap: 10px;
+    }
+
+    /* --- New Page Responsiveness --- */
+    /* Profile & Reviews */
+    .tm-profile-container {
+        padding: 15px;
+    }
+
+    .tm-doctor-profile-header {
+        font-size: 24px;
+    }
+
+    .tm-review {
+        padding: 16px;
+    }
+
+    .tm-review-author,
+    .tm-review-date {
+        font-size: 16px;
+    }
+
+    .tm-review-text {
+        font-size: 15px;
+    }
+
+    .tm-doctor-profile-header {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .tm-section-content {
+        font-size: 16px;
+    }
+
+    /* Booking Page */
+    .tm-booking-date,
+    .tm-booking-time {
+        padding: 10px;
+    }
+
+    .tm-calender,
+    .tm-time-group-wrapper {
+        padding: 15px;
+    }
+
+    .tm-calendar-grid {
+        gap: 5px;
+    }
+
+    .tm-calendar-grid button {
+        font-size: 14px;
+    }
+
+    .tm-time-slots {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+    }
+
+    .tm-booking-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .tm-btn-back,
+    .tm-btn-confirm {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .tm-calendar-grid {
+        gap: 8.6px;
+    }
+
+    .tm-calendar-grid button {
+        font-size: 13px;
+    }
+
+    .tm-calendar-grid button:disabled, .tm-calendar-grid button:disabled:hover {
+        font-size: 13px;
+    }
+
+
+    /* Payment Page */
+    .tm-payment-box {
+        padding: 20px;
+    }
+
+    .tm-box-title {
+        font-size: 22px;
+    }
+
+    .tm-stripe-logo {
+        padding: 10px 16px;
+    }
+
+    /* Success Page */
+    .tm-success-content-wrapper {
+        gap: 20px;
+    }
+
+    .tm-success-content-wrapper h4 {
+        font-size: 24px;
+    }
+
+    .tm-success-content-wrapper p {
+        font-size: 16px;
+    }
+}

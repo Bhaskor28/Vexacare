@@ -697,7 +697,7 @@ namespace Vexacare.Web.Controllers
                 }
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "PatientDashboard");
             }
 
             return View(model);

@@ -1,0 +1,1780 @@
+﻿
+    <!-- Dashboard Banner Section Start -->
+    <section id="dashboard-banner">
+        <div class="container">
+            <div class="dashboard-banner-content">
+                <h1 class="dashboard-banner-title">Dashboard</h1>
+                <p class="dashboard-banner-description">
+                    Track your gut health journey effortlessly and stay motivated by
+                    following personalized, AI-powered recommendations designed to
+                    improve your digestive wellness, boost overall vitality, and help
+                    you achieve a balanced, healthier lifestyle every day.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- Dashboard Banner Section End -->
+    <!-- Test Status Section Start -->
+    <section id="test-status">
+        <div class="container">
+            <!-- IF no test ordered -->
+            <div class="test-status-wrapper">
+                <div class="test-status-header">
+                    <h3 class="test-status-title">Your Test Status</h3>
+                </div>
+
+                <div class="test-status-content">
+                    <div class="test-status-icon">
+                        <img src="~/assets/images/test-status-icon.png"
+                             alt="Test Status Icon" />
+                    </div>
+
+                    <div class="test-status-text">
+                        <p class="test-status-description">
+                            You haven’t ordered your gut test kit yet. Start your journey
+                            to better gut health today.
+                        </p>
+
+                        <a href="/shop.html" class="test-order-button">Order Your Kit</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IF test ordered -->
+            <div style="display: none"
+                 class="text-status-wrapper text-status-wrapper-ordered">
+                <div class="test-status-wrapper">
+                    <div class="test-status-header">
+                        <h3 class="test-status-title">Your Test Status</h3>
+
+                        <a href="#" class="how-to-take">
+                            <span><img src="assets/SVG/Playbutton.svg" alt="" /></span>
+                            How to take the sample
+                        </a>
+                    </div>
+
+                    <div class="test-status-steps">
+                        <div class="test-status-step">
+                            <div class="test-status-icon compleate">
+                                <img src="assets/SVG/TestStepCompleate1.svg"
+                                     class="step-icon"
+                                     alt="Test Status Icon" />
+                            </div>
+
+                            <p class="test-status-description">Kit Ordered</p>
+                        </div>
+
+                        <div class="test-status-step">
+                            <div class="test-status-icon compleate">
+                                <img src="assets/SVG/TestStepCompleate2.svg"
+                                     class="step-icon"
+                                     alt="Test Status Icon" />
+                            </div>
+
+                            <p class="test-status-description">Sample Received</p>
+                        </div>
+
+                        <div class="test-status-step">
+                            <div class="test-status-icon pending">
+                                <img src="assets/SVG/TestStepPending3.svg"
+                                     class="step-icon"
+                                     alt="Test Status Icon" />
+                            </div>
+
+                            <p class="test-status-description">In Analysis</p>
+                        </div>
+
+                        <div class="test-status-step">
+                            <div class="test-status-icon">
+                                <img src="assets/SVG/TestStepDefault4.svg"
+                                     class="step-icon"
+                                     alt="Test Status Icon" />
+                            </div>
+
+                            <p class="test-status-description">AI Processing</p>
+                        </div>
+
+                        <div class="test-status-step">
+                            <div class="test-status-icon">
+                                <img src="assets/SVG/TestStepDefault5.svg"
+                                     class="step-icon"
+                                     alt="Test Status Icon" />
+                            </div>
+
+                            <p class="test-status-description">Medical Validation</p>
+                        </div>
+
+                        <div class="test-status-step">
+                            <div class="test-status-icon">
+                                <img src="assets/SVG/TestStepDefault6.svg"
+                                     class="step-icon"
+                                     alt="Test Status Icon" />
+                            </div>
+
+                            <p class="test-status-description">Results Available</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-results-forecast box">
+                    <h4 class="test-results-forecast-title">Results Forecast</h4>
+
+                    <div class="test-results-forecast-date">
+                        <span><img src="assets/SVG/Calander.svg" alt="" /></span>
+                        <p>May 15, 2025</p>
+                    </div>
+
+                    <div class="test-results-forecast-button">
+                        <a href="#" class="book-consultation-btn">Book a Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Test Status Section End -->
+    <!-- Dashboard Tabs Section Start -->
+    <section id="dashboard-tabs">
+        <div class="container">
+            <div class="dashboard-tabs-wrapper">
+                <!-- Tab Navigations -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link"
+                                id="overview-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#overview-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="overview-tab-pane"
+                                aria-selected="true">
+                            Overview
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link"
+                                id="recommendations-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#recommendations-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="recommendations-tab-pane"
+                                aria-selected="false">
+                            Recommendations
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active"
+                                id="meal-planner-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#meal-planner-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="meal-planner-tab-pane"
+                                aria-selected="false">
+                            Meal Planner
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link"
+                                id="test-history-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#test-history-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="test-history-tab-pane"
+                                aria-selected="false">
+                            Test History
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link"
+                                id="notification-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#notification-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="notification-tab-pane"
+                                aria-selected="false">
+                            Notification
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link"
+                                id="profile-settings-tab"
+                                data-bs-toggle="tab"
+                                data-bs-target="#profile-settings-tab-pane"
+                                type="button"
+                                role="tab"
+                                aria-controls="profile-settings-tab-pane"
+                                aria-selected="false">
+                            Profile Settings
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tab Contents -->
+                <div class="tab-content" id="myTabContent">
+                    <!-- Overview Content Start -->
+                    <div class="tab-pane fade"
+                         id="overview-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="overview-tab"
+                         tabindex="0">
+                        <div id="overview-tab-content">
+                            <!-- Last Update -->
+                            <div class="last-update-data box">
+                                <p class="last-update-data-description">
+                                    All data shown here is derived from your most recent
+                                    microbiota test, conducted on
+                                    <span>February 12, 2025</span>.
+                                </p>
+                            </div>
+
+                            <!-- Overall  Microbiota Score -->
+                            <div class="overall-microbiota-score box">
+                                <div class="overall-microbiota-score-top">
+                                    <div class="overall-microbiota-score-top-left">
+                                        <h5 class="overall-microbiota-score-title">
+                                            Overall Microbiota Score
+                                        </h5>
+
+                                        <p class="overall-microbiota-score-description">
+                                            Your overall score based on your gut microbiota
+                                            analysis
+                                        </p>
+                                    </div>
+
+                                    <div class="overall-microbiota-score-top-right">
+                                        <p class="overall-microbiota-score-growth">
+                                            <!-- Backend Dev: Chnange the color of the growth by chngaing the class - growth-up, growth-down -->
+                                            <span class="growth-up">+6.03% </span> from last test
+                                            test
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="overall-microbiota-score-mid">
+                                    <div class="overall-microbiota-score-mid-top">
+                                        <div class="overall-microbiota-score-mid-top-pie-chart">
+                                            <div class="progress-container">
+                                                <svg class="progress-ring" width="150" height="150">
+                                                    <circle class="progress-ring__bg"
+                                                            cx="75"
+                                                            cy="75"
+                                                            r="65" />
+                                                    <circle class="progress-ring__circle"
+                                                            cx="75"
+                                                            cy="75"
+                                                            r="65" />
+                                                </svg>
+                                                <div class="progress-text">
+                                                    <span id="progress-value">81</span>
+                                                    <span class="total">/100</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="overall-microbiota-score-mid-bottom">
+                                        <div class="overall-microbiota-score-mid-bottom-tags">
+                                            <div class="overall-microbiota-score-mid-bottom-tag positive">
+                                                <img src="assets/SVG/CheckMark.svg" alt="" /> Good
+                                            </div>
+
+                                            <!-- <div
+                                              class="overall-microbiota-score-mid-bottom-tag negative"
+                                            >
+                                              <img src="assets/SVG/Alert.svg" alt="" /> Bad
+                                            </div> -->
+                                        </div>
+
+                                        <p class="overall-microbiota-score-mid-bottom-description">
+                                            Great news! Your gut microbiota exhibits excellent
+                                            diversity and composition. Keep up the good work by
+                                            following our recommendations to further enhance your
+                                            gut health.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="overall-microbiota-score-bottom">
+                                    <div class="overall-microbiota-score-bottom-item box">
+                                        <div style="color: #e87e00; border-color: #fcc27b"
+                                             class="overall-microbiota-score-bottom-item-left">
+                                            50%
+                                        </div>
+
+                                        <div class="overall-microbiota-score-bottom-item-right">
+                                            <h4 class="overall-microbiota-score-bottom-item-right-title">
+                                                Diversity Score
+                                            </h4>
+                                            <p class="overall-microbiota-score-bottom-item-right-description">
+                                                Excellent Variety
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="overall-microbiota-score-bottom-item box">
+                                        <div style="color: #3a2e87; border-color: #8473f7"
+                                             class="overall-microbiota-score-bottom-item-left">
+                                            50%
+                                        </div>
+
+                                        <div class="overall-microbiota-score-bottom-item-right">
+                                            <h4 class="overall-microbiota-score-bottom-item-right-title">
+                                                Balance Score
+                                            </h4>
+                                            <p class="overall-microbiota-score-bottom-item-right-description">
+                                                Optimal Ratio
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="overall-microbiota-score-bottom-item box">
+                                        <div style="color: #0995af; border-color: #71e8fd"
+                                             class="overall-microbiota-score-bottom-item-left">
+                                            50%
+                                        </div>
+
+                                        <div class="overall-microbiota-score-bottom-item-right">
+                                            <h4 class="overall-microbiota-score-bottom-item-right-title">
+                                                Health Score
+                                            </h4>
+                                            <p class="overall-microbiota-score-bottom-item-right-description">
+                                                Positive Indicators
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Score Details -->
+                            <div class="score-details-cards">
+                                <!-- Intestinal Inflammation -->
+                                <div class="score-details-card box">
+                                    <div class="score-details-card-top">
+                                        <div style="background-color: rgba(72, 187, 120, 0.14)"
+                                             class="score-details-card-top-icon">
+                                            <img src="assets/SVG/Sheild.svg" alt="" />
+                                        </div>
+
+                                        <h3 class="score-details-card-top-title">
+                                            Intestinal Inflammation
+                                        </h3>
+                                    </div>
+
+                                    <div class="score-details-card-mid">
+                                        <div class="score-details-card-mid-score">
+                                            <h5 style="color: #48bb78"
+                                                class="score-details-card-mid-score-title">
+                                                High Level - Excellent
+                                            </h5>
+
+                                            <h5 class="score-details-card-mid-score-value">
+                                                79%
+                                            </h5>
+                                        </div>
+
+                                        <div class="score-details-card-mid-bar">
+                                            <div style="width: 79%; background-color: #48bb78"
+                                                 class="score-details-card-mid-bar-fill"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="score-details-card-bottom">
+                                        <p class="score-details-card-bottom-description">
+                                            Your gut barrier function shows moderate permeability.
+                                            Consider dietary adjustments.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Intestinal Permeability -->
+                                <div class="score-details-card box">
+                                    <div class="score-details-card-top">
+                                        <div style="background-color: rgba(248, 171, 27, 0.12)"
+                                             class="score-details-card-top-icon">
+                                            <img src="assets/SVG/Heartrate.svg" alt="" />
+                                        </div>
+
+                                        <h3 class="score-details-card-top-title">
+                                            Intestinal Permeability
+                                        </h3>
+                                    </div>
+
+                                    <div class="score-details-card-mid">
+                                        <div class="score-details-card-mid-score">
+                                            <h5 style="color: #f8ab1b"
+                                                class="score-details-card-mid-score-title">
+                                                Medium Level - To be Monitor
+                                            </h5>
+
+                                            <h5 class="score-details-card-mid-score-value">
+                                                79%
+                                            </h5>
+                                        </div>
+
+                                        <div class="score-details-card-mid-bar">
+                                            <div style="width: 79%; background-color: #f8ab1b"
+                                                 class="score-details-card-mid-bar-fill"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="score-details-card-bottom">
+                                        <p class="score-details-card-bottom-description">
+                                            Your gut barrier function shows moderate permeability.
+                                            Consider dietary adjustments.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Short Chain Fatty Acids -->
+                                <div class="score-details-card box">
+                                    <div class="score-details-card-top">
+                                        <div style="background-color: rgba(72, 187, 120, 0.14)"
+                                             class="score-details-card-top-icon">
+                                            <img src="assets/SVG/Thunder.svg" alt="" />
+                                        </div>
+
+                                        <h3 class="score-details-card-top-title">
+                                            Short Chain Fatty Acids
+                                        </h3>
+                                    </div>
+
+                                    <div class="score-details-card-mid">
+                                        <div class="score-details-card-mid-score">
+                                            <h5 style="color: #48bb78"
+                                                class="score-details-card-mid-score-title">
+                                                Low Level - Excellent
+                                            </h5>
+
+                                            <h5 class="score-details-card-mid-score-value">
+                                                79%
+                                            </h5>
+                                        </div>
+
+                                        <div class="score-details-card-mid-bar">
+                                            <div style="width: 79%; background-color: #48bb78"
+                                                 class="score-details-card-mid-bar-fill"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="score-details-card-bottom">
+                                        <p class="score-details-card-bottom-description">
+                                            Your gut barrier function shows moderate permeability.
+                                            Consider dietary adjustments.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Cardiovascular Indicators -->
+                                <div class="score-details-card box">
+                                    <div class="score-details-card-top">
+                                        <div style="background-color: rgba(103, 85, 247, 0.09)"
+                                             class="score-details-card-top-icon">
+                                            <img src="assets/SVG/HeaderViolate.svg" alt="" />
+                                        </div>
+
+                                        <h3 class="score-details-card-top-title">
+                                            Cardiovascular Indicators
+                                        </h3>
+                                    </div>
+
+                                    <div class="score-details-card-mid">
+                                        <div class="score-details-card-mid-score">
+                                            <h5 style="color: #7162e0"
+                                                class="score-details-card-mid-score-title">
+                                                Good Level - Improving
+                                            </h5>
+
+                                            <h5 class="score-details-card-mid-score-value">
+                                                79%
+                                            </h5>
+                                        </div>
+
+                                        <div class="score-details-card-mid-bar">
+                                            <div style="width: 79%; background-color: #7162e0"
+                                                 class="score-details-card-mid-bar-fill"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="score-details-card-bottom">
+                                        <p class="score-details-card-bottom-description">
+                                            Your gut barrier function shows moderate permeability.
+                                            Consider dietary adjustments.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Report Summary -->
+                            <div class="overall-microbiota-report-summary box">
+                                <h3 class="overall-microbiota-report-summary-title">
+                                    Your Report Summary
+                                </h3>
+
+                                <p class="overall-microbiota-report-summary-description">
+                                    Your gut microbiota demonstrates a generally balanced and
+                                    stable ecosystem, characterized by a high level of
+                                    microbial diversity and low markers of intestinal
+                                    inflammation. This suggests that your gut environment is
+                                    functioning well in supporting digestion, nutrient
+                                    absorption, and immune response. However, there are slight
+                                    concerns regarding increased intestinal
+                                    permeability—sometimes referred to as "leaky gut"—which
+                                    may indicate that the lining of your intestinal wall is
+                                    not fully intact. This condition can allow unwanted
+                                    substances to pass into the bloodstream, potentially
+                                    triggering inflammation or immune responses.
+                                </p>
+                            </div>
+
+                            <!-- Report Download Button -->
+                            <div class="report-download-button-container">
+                                <a href="#" class="report-download-button">
+                                    <span class="report-download-button-icon">
+                                        <img src="assets/SVG/Document.svg" alt="" />
+                                    </span>
+
+                                    Download Full Report
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Overview Content End -->
+                    <!-- Recommendations Content Start -->
+                    <div class="tab-pane fade"
+                         id="recommendations-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="recommendations-tab"
+                         tabindex="0">
+                        <div id="recommendations-tab-content">
+                            <!-- Recommendations Total List -->
+                            <div style="display: none" class="recommendations-total-list">
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(243, 155, 6, 0.04) 13.27%,
+                          rgba(234, 130, 9, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-total-list-item box">
+                                    <div style="
+                          background: linear-gradient(
+                            102deg,
+                            #f39b06 13.27%,
+                            #ea8209 87.36%
+                          );
+                        "
+                                         class="recommendations-total-list-item-icon">
+                                        <div class="recommendations-total-list-item-icon-icon">
+                                            <img src="assets/SVG/DietIcon.svg" alt="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-total-list-item-title">
+                                        <h3 class="recommendations-total-list-item-title-number">
+                                            3
+                                        </h3>
+                                        <p class="recommendations-total-list-item-title-description">
+                                            Diet
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(59, 130, 246, 0.04) 13.27%,
+                          rgba(37, 99, 235, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-total-list-item box">
+                                    <div style="
+                          background: linear-gradient(
+                            102deg,
+                            #3b82f6 13.27%,
+                            #2563eb 87.36%
+                          );
+                        "
+                                         class="recommendations-total-list-item-icon">
+                                        <div class="recommendations-total-list-item-icon-icon">
+                                            <img src="assets/SVG/SupplementsIcon.svg" alt="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-total-list-item-title">
+                                        <h3 class="recommendations-total-list-item-title-number">
+                                            2
+                                        </h3>
+                                        <p class="recommendations-total-list-item-title-description">
+                                            Supplements
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(168, 85, 247, 0.04) 13.27%,
+                          rgba(147, 51, 234, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-total-list-item box">
+                                    <div style="
+                          background: linear-gradient(
+                            102deg,
+                            #a855f7 13.27%,
+                            #9333ea 87.36%
+                          );
+                        "
+                                         class="recommendations-total-list-item-icon">
+                                        <div class="recommendations-total-list-item-icon-icon">
+                                            <img src="assets/SVG/GalenicheIcon.svg" alt="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-total-list-item-title">
+                                        <h3 class="recommendations-total-list-item-title-number">
+                                            5
+                                        </h3>
+                                        <p class="recommendations-total-list-item-title-description">
+                                            Galeniche
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(34, 197, 94, 0.04) 13.27%,
+                          rgba(23, 180, 81, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-total-list-item box">
+                                    <div style="
+                          background: linear-gradient(
+                            102deg,
+                            #22c55e 13.27%,
+                            #17b451 87.36%
+                          );
+                        "
+                                         class="recommendations-total-list-item-icon">
+                                        <div class="recommendations-total-list-item-icon-icon">
+                                            <img src="assets/SVG/DietIcon.svg" alt="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-total-list-item-title">
+                                        <h3 class="recommendations-total-list-item-title-number">
+                                            4
+                                        </h3>
+                                        <p class="recommendations-total-list-item-title-description">
+                                            Lifestyle
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recommendations Lists -->
+                            <div style="display: none" class="recommendations-list">
+                                <!-- 1 -->
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(243, 155, 6, 0.04) 13.27%,
+                          rgba(234, 130, 9, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-list-item box">
+                                    <div class="recommendations-list-item-header">
+                                        <div class="recommendations-list-header-left">
+                                            <div style="
+                              background: linear-gradient(
+                                102deg,
+                                #f39b06 13.27%,
+                                #ea8209 87.36%
+                              );
+                            "
+                                                 class="recommendations-list-item-icon">
+                                                <div class="recommendations-list-item-icon-icon">
+                                                    <img src="assets/SVG/DietIcon.svg" alt="" />
+                                                </div>
+                                            </div>
+
+                                            <div class="recommendations-list-item-title">
+                                                <h3 class="recommendations-total-list-item-title-number">
+                                                    Increase fiber intake
+                                                </h3>
+                                                <p style="color: orange"
+                                                   class="recommendations-total-list-item-title-description">
+                                                    Diet
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="recommendations-list-header-right">
+                                            <div class="recommendations-list-header-tag high">
+                                                <!-- This icon is for High -->
+                                                <span>
+                                                    <img src="assets/SVG/AlertWhite.svg" alt="" />
+                                                </span>
+
+                                                <!-- This icon is for Medium -->
+                                                <!-- <span>
+                                                  <img src="assets/SVG/WarnWhite.svg" alt="" />
+                                                </span> -->
+                                                High
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-list-item-description">
+                                        <p class="recommendations-list-item-description-text">
+                                            Include natural probiotics in your diet to boost
+                                            digestion, balance gut flora, and improve gut health.
+                                        </p>
+                                    </div>
+
+                                    <ul class="recommendations-list-item-features">
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/ImpactIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Impact :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                Improves bacterial diversity by 25%
+                                            </p>
+                                        </li>
+
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/TimeIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Time :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                3-4 weeks
+                                            </p>
+                                        </li>
+                                    </ul>
+
+                                    <div class="recommendations-list-item-buttons">
+                                        <button class="recommendations-list-item-buttons-button">
+                                            More Details
+                                        </button>
+
+                                        <button class="recommendations-list-item-buttons-button compleated">
+                                            Mark as Complete
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- 2 -->
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(59, 130, 246, 0.04) 13.27%,
+                          rgba(37, 99, 235, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-list-item box">
+                                    <div class="recommendations-list-item-header">
+                                        <div class="recommendations-list-header-left">
+                                            <div style="
+                              background: linear-gradient(
+                                102deg,
+                                #3b82f6 13.27%,
+                                #2563eb 87.36%
+                              );
+                            "
+                                                 class="recommendations-list-item-icon">
+                                                <div class="recommendations-list-item-icon-icon">
+                                                    <img src="assets/SVG/SupplementsIcon.svg"
+                                                         alt="" />
+                                                </div>
+                                            </div>
+
+                                            <div class="recommendations-list-item-title">
+                                                <h3 class="recommendations-total-list-item-title-number">
+                                                    Increase fiber intake
+                                                </h3>
+                                                <p style="color: #3b82f6"
+                                                   class="recommendations-total-list-item-title-description">
+                                                    Supplements
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="recommendations-list-header-right">
+                                            <div class="recommendations-list-header-tag medium">
+                                                <!-- This icon is for Medium -->
+                                                <span>
+                                                    <img src="assets/SVG/WarnWhite.svg" alt="" />
+                                                </span>
+
+                                                Medium
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-list-item-description">
+                                        <p class="recommendations-list-item-description-text">
+                                            Include natural probiotics in your diet to boost
+                                            digestion, balance gut flora, and improve gut health.
+                                        </p>
+                                    </div>
+
+                                    <ul class="recommendations-list-item-features">
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/ImpactIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Impact :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                Improves bacterial diversity by 25%
+                                            </p>
+                                        </li>
+
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/TimeIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Time :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                3-4 weeks
+                                            </p>
+                                        </li>
+                                    </ul>
+
+                                    <div class="recommendations-list-item-buttons">
+                                        <button class="recommendations-list-item-buttons-button">
+                                            More Details
+                                        </button>
+
+                                        <button class="recommendations-list-item-buttons-button compleated">
+                                            Mark as Complete
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- 3 -->
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(168, 85, 247, 0.04) 13.27%,
+                          rgba(147, 51, 234, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-list-item box">
+                                    <div class="recommendations-list-item-header">
+                                        <div class="recommendations-list-header-left">
+                                            <div style="
+                              background: linear-gradient(
+                                102deg,
+                                #a855f7 13.27%,
+                                #9333ea 87.36%
+                              );
+                            "
+                                                 class="recommendations-list-item-icon">
+                                                <div class="recommendations-list-item-icon-icon">
+                                                    <img src="assets/SVG/DietIcon.svg" alt="" />
+                                                </div>
+                                            </div>
+
+                                            <div class="recommendations-list-item-title">
+                                                <h3 class="recommendations-total-list-item-title-number">
+                                                    Increase fiber intake
+                                                </h3>
+                                                <p style="color: #9333ea"
+                                                   class="recommendations-total-list-item-title-description">
+                                                    Galeniche
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="recommendations-list-header-right">
+                                            <div class="recommendations-list-header-tag high">
+                                                <!-- This icon is for High -->
+                                                <span>
+                                                    <img src="assets/SVG/AlertWhite.svg" alt="" />
+                                                </span>
+
+                                                <!-- This icon is for Medium -->
+                                                <!-- <span>
+                                                  <img src="assets/SVG/WarnWhite.svg" alt="" />
+                                                </span> -->
+                                                High
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-list-item-description">
+                                        <p class="recommendations-list-item-description-text">
+                                            Include natural probiotics in your diet to boost
+                                            digestion, balance gut flora, and improve gut health.
+                                        </p>
+                                    </div>
+
+                                    <ul class="recommendations-list-item-features">
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/ImpactIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Impact :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                Improves bacterial diversity by 25%
+                                            </p>
+                                        </li>
+
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/TimeIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Time :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                3-4 weeks
+                                            </p>
+                                        </li>
+                                    </ul>
+
+                                    <div class="recommendations-list-item-buttons">
+                                        <button class="recommendations-list-item-buttons-button">
+                                            More Details
+                                        </button>
+
+                                        <button class="recommendations-list-item-buttons-button compleated">
+                                            Mark as Complete
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- 4 -->
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(34, 197, 94, 0.04) 13.27%,
+                          rgba(23, 180, 81, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-list-item box">
+                                    <div class="recommendations-list-item-header">
+                                        <div class="recommendations-list-header-left">
+                                            <div style="
+                              background: linear-gradient(
+                                102deg,
+                                #22c55e 13.27%,
+                                #17b451 87.36%
+                              );
+                            "
+                                                 class="recommendations-list-item-icon">
+                                                <div class="recommendations-list-item-icon-icon">
+                                                    <img src="assets/SVG/DietIcon.svg" alt="" />
+                                                </div>
+                                            </div>
+
+                                            <div class="recommendations-list-item-title">
+                                                <h3 class="recommendations-total-list-item-title-number">
+                                                    Increase fiber intake
+                                                </h3>
+                                                <p style="color: #22c55e"
+                                                   class="recommendations-total-list-item-title-description">
+                                                    Lifestyle
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="recommendations-list-header-right">
+                                            <div class="recommendations-list-header-tag high">
+                                                <!-- This icon is for High -->
+                                                <span>
+                                                    <img src="assets/SVG/AlertWhite.svg" alt="" />
+                                                </span>
+
+                                                <!-- This icon is for Medium -->
+                                                <!-- <span>
+                                                  <img src="assets/SVG/WarnWhite.svg" alt="" />
+                                                </span> -->
+                                                High
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-list-item-description">
+                                        <p class="recommendations-list-item-description-text">
+                                            Include natural probiotics in your diet to boost
+                                            digestion, balance gut flora, and improve gut health.
+                                        </p>
+                                    </div>
+
+                                    <ul class="recommendations-list-item-features">
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/ImpactIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Impact :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                Improves bacterial diversity by 25%
+                                            </p>
+                                        </li>
+
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/TimeIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Time :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                3-4 weeks
+                                            </p>
+                                        </li>
+                                    </ul>
+
+                                    <div class="recommendations-list-item-buttons">
+                                        <button class="recommendations-list-item-buttons-button">
+                                            More Details
+                                        </button>
+
+                                        <button class="recommendations-list-item-buttons-button compleated">
+                                            Mark as Complete
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- 5 -->
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(243, 155, 6, 0.04) 13.27%,
+                          rgba(234, 130, 9, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-list-item box">
+                                    <div class="recommendations-list-item-header">
+                                        <div class="recommendations-list-header-left">
+                                            <div style="
+                              background: linear-gradient(
+                                102deg,
+                                #f39b06 13.27%,
+                                #ea8209 87.36%
+                              );
+                            "
+                                                 class="recommendations-list-item-icon">
+                                                <div class="recommendations-list-item-icon-icon">
+                                                    <img src="assets/SVG/DietIcon.svg" alt="" />
+                                                </div>
+                                            </div>
+
+                                            <div class="recommendations-list-item-title">
+                                                <h3 class="recommendations-total-list-item-title-number">
+                                                    Increase fiber intake
+                                                </h3>
+                                                <p style="color: orange"
+                                                   class="recommendations-total-list-item-title-description">
+                                                    Diet
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="recommendations-list-header-right">
+                                            <div class="recommendations-list-header-tag high">
+                                                <!-- This icon is for High -->
+                                                <span>
+                                                    <img src="assets/SVG/AlertWhite.svg" alt="" />
+                                                </span>
+
+                                                <!-- This icon is for Medium -->
+                                                <!-- <span>
+                                                  <img src="assets/SVG/WarnWhite.svg" alt="" />
+                                                </span> -->
+                                                High
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-list-item-description">
+                                        <p class="recommendations-list-item-description-text">
+                                            Include natural probiotics in your diet to boost
+                                            digestion, balance gut flora, and improve gut health.
+                                        </p>
+                                    </div>
+
+                                    <ul class="recommendations-list-item-features">
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/ImpactIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Impact :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                Improves bacterial diversity by 25%
+                                            </p>
+                                        </li>
+
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/TimeIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Time :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                3-4 weeks
+                                            </p>
+                                        </li>
+                                    </ul>
+
+                                    <div class="recommendations-list-item-buttons">
+                                        <button class="recommendations-list-item-buttons-button">
+                                            More Details
+                                        </button>
+
+                                        <button class="recommendations-list-item-buttons-button compleated">
+                                            Mark as Complete
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- 6 -->
+                                <div style="
+                        background: linear-gradient(
+                          102deg,
+                          rgba(59, 130, 246, 0.04) 13.27%,
+                          rgba(37, 99, 235, 0.04) 87.36%
+                        );
+                      "
+                                     class="recommendations-list-item box">
+                                    <div class="recommendations-list-item-header">
+                                        <div class="recommendations-list-header-left">
+                                            <div style="
+                              background: linear-gradient(
+                                102deg,
+                                #3b82f6 13.27%,
+                                #2563eb 87.36%
+                              );
+                            "
+                                                 class="recommendations-list-item-icon">
+                                                <div class="recommendations-list-item-icon-icon">
+                                                    <img src="assets/SVG/DietIcon.svg" alt="" />
+                                                </div>
+                                            </div>
+
+                                            <div class="recommendations-list-item-title">
+                                                <h3 class="recommendations-total-list-item-title-number">
+                                                    Increase fiber intake
+                                                </h3>
+                                                <p style="color: orange"
+                                                   class="recommendations-total-list-item-title-description">
+                                                    Diet
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="recommendations-list-header-right">
+                                            <div class="recommendations-list-header-tag high">
+                                                <!-- This icon is for High -->
+                                                <span>
+                                                    <img src="assets/SVG/SupplementsIcon.svg"
+                                                         alt="" />
+                                                </span>
+
+                                                <!-- This icon is for Medium -->
+                                                <!-- <span>
+                                                  <img src="assets/SVG/WarnWhite.svg" alt="" />
+                                                </span> -->
+                                                High
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="recommendations-list-item-description">
+                                        <p class="recommendations-list-item-description-text">
+                                            Include natural probiotics in your diet to boost
+                                            digestion, balance gut flora, and improve gut health.
+                                        </p>
+                                    </div>
+
+                                    <ul class="recommendations-list-item-features">
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/ImpactIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Impact :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                Improves bacterial diversity by 25%
+                                            </p>
+                                        </li>
+
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/TimeIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Time :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                3-4 weeks
+                                            </p>
+                                        </li>
+                                    </ul>
+
+                                    <div class="recommendations-list-item-buttons">
+                                        <button class="recommendations-list-item-buttons-button">
+                                            More Details
+                                        </button>
+
+                                        <button class="recommendations-list-item-buttons-button compleated">
+                                            Mark as Complete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- List Details -->
+                            <div class="recommendations-list-details box">
+                                <div class="back-btn">
+                                    <span>
+                                        <img src="assets/SVG/ArrowBlack.svg" alt="" />
+                                    </span>
+                                    Back
+                                </div>
+
+                                <div class="recommendations-list-details-content">
+                                    <!-- Title & Description -->
+                                    <h3 class="recommendations-list-details-content-title big">
+                                        Increase fiber intake
+                                    </h3>
+                                    <p class="recommendations-list-details-content-description">
+                                        Include natural probiotics in your diet to boost
+                                        digestion, balance gut flora, and improve gut health.
+                                    </p>
+
+                                    <!-- Features -->
+                                    <ul class="recommendations-list-item-features">
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/ImpactIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Impact :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                Improves bacterial diversity by 25%
+                                            </p>
+                                        </li>
+
+                                        <li class="recommendations-list-item-features-item">
+                                            <div class="recommendations-list-item-features-item-icon">
+                                                <img src="assets/SVG/TimeIcon.svg" alt="" />
+                                            </div>
+
+                                            <p class="recommendations-list-item-features-item-title">
+                                                Time :
+                                            </p>
+                                            <p class="recommendations-list-item-features-item-description">
+                                                3-4 weeks
+                                            </p>
+                                        </li>
+                                    </ul>
+
+                                    <!-- Description -->
+                                    <div class="recommendations-list-details-content-description-box">
+                                        <h6 class="recommendations-list-details-content-title">
+                                            Description
+                                        </h6>
+                                        <p class="recommendations-list-details-content-description-text">
+                                            This is a tailored wellness approach designed
+                                            exclusively for your unique health profile. It
+                                            integrates a variety of natural fermented foods, known
+                                            for their rich probiotic content, to help balance your
+                                            gut microbiota. By supporting healthy digestion and
+                                            nutrient absorption, this strategy aims to enhance
+                                            your digestive health, boost immunity, and promote
+                                            overall physical and mental well-being. Carefully
+                                            developed by our health experts, this recommendation
+                                            aligns with your specific needs to help you feel your
+                                            best, every day.
+                                        </p>
+                                    </div>
+
+                                    <!-- Key Points -->
+                                    <div class="recommendations-list-details-content-description-box">
+                                        <h6 class="recommendations-list-details-content-title">
+                                            Key Points
+                                        </h6>
+                                        <ul>
+                                            <li class="recommendations-list-details-content-description-text">
+                                                Obiettivo: Migliorare la flora intestinale e il
+                                                sistema immunitario
+                                            </li>
+                                            <li class="recommendations-list-details-content-description-text">
+                                                Application: Include in breakfast 3 times a week
+                                            </li>
+                                            <li class="recommendations-list-details-content-description-text">
+                                                Duration: 3 initial months with progressive
+                                                evaluation
+                                            </li>
+                                            <li class="recommendations-list-details-content-description-text">
+                                                Caution: Not recommended during antibiotic treatment
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Main Benefits -->
+                                    <div class="recommendations-list-details-content-description-box">
+                                        <h6 class="recommendations-list-details-content-title">
+                                            Main Benefits
+                                        </h6>
+                                        <ul>
+                                            <li class="recommendations-list-details-content-description-text">
+                                                Obiettivo: Migliorare la flora intestinale e il
+                                                sistema immunitario
+                                            </li>
+                                            <li class="recommendations-list-details-content-description-text">
+                                                Application: Include in breakfast 3 times a week
+                                            </li>
+                                            <li class="recommendations-list-details-content-description-text">
+                                                Duration: 3 initial months with progressive
+                                                evaluation
+                                            </li>
+                                            <li class="recommendations-list-details-content-description-text">
+                                                Caution: Not recommended during antibiotic treatment
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- How to use -->
+                                    <div class="recommendations-list-details-content-description-box">
+                                        <h6 class="recommendations-list-details-content-title">
+                                            How to Use
+                                        </h6>
+                                        <p class="recommendations-list-details-content-description-text">
+                                            Start by gradually introducing fermented foods into
+                                            your daily routine. Consume 100–150ml per day,
+                                            preferably in the morning on an empty stomach or
+                                            alongside meals. These can be taken directly or
+                                            combined with smoothies, oats, or salads for enhanced
+                                            taste and nutrition. Ensure consistent intake for at
+                                            least 2–4 weeks to notice improvements in digestion
+                                            and overall gut health.
+                                        </p>
+                                    </div>
+
+                                    <!-- Note -->
+                                    <div class="recommendations-list-details-content-description-box">
+                                        <p class="recommendations-list-details-content-description-text">
+                                            ⚠️ Note: If you are new to fermented foods, begin with
+                                            smaller portions to allow your digestive system to
+                                            adapt.
+                                        </p>
+                                    </div>
+
+                                    <!-- Buttons -->
+                                    <div class="recommendations-list-details-content-buttons-wrapper">
+                                        <a href="#"
+                                           class="recommendations-list-details-content-button">
+                                            Book a Consultation
+                                        </a>
+                                        <a href="#"
+                                           class="recommendations-list-details-content-button">
+                                            Mark as Complete
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Recommendations Content End -->
+                    <!-- Meal Planner Content Starts -->
+                    <div class="tab-pane fade show active"
+                         id="meal-planner-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="meal-planner-tab"
+                         tabindex="0">
+                        <div id="meal-planner-tab-content">
+                            <!-- Meal Planner Content Top -->
+                            <div class="meal-planner-content-top box">
+                                <h4 class="meal-planner-content-top-title">
+                                    Weekly Meal Planner
+                                </h4>
+                                <p class="meal-planner-content-top-description">
+                                    Your meal plan is generated using your gut analysis
+                                    results from February 12, 2025, designed to support
+                                    optimal digestive health.
+                                </p>
+                            </div>
+
+                            <!-- Meal Planner Weekly Content -->
+                            <div class="meal-planner-weekly-content box">
+                                <div class="meal-planner-weekly-content-header">
+                                    <h4 class="meal-planner-weekly-content-header-title">
+                                        This Week
+                                    </h4>
+
+                                    <p class="meal-planner-weekly-content-header-date">
+                                        February 21 - February 27
+                                    </p>
+                                </div>
+
+                                <div class="meal-planner-weekly-content-body">
+                                    <div class="meal-planner-weekly-content-body-left box">
+                                        <!-- Bootstrap NavTabs Start -->
+                                        <div class="nav flex-column nav-pills meal-planner-weekly-content-body-left-nav"
+                                             id="v-pills-tab"
+                                             role="tablist"
+                                             aria-orientation="vertical">
+                                            <!-- Monday -->
+                                            <button class="nav-link active meal-planner-weekly-content-body-left-item"
+                                                    id="v-pills-mon-tab"
+                                                    data-bs-toggle="pill"
+                                                    data-bs-target="#v-pills-mon"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="v-pills-mon"
+                                                    aria-selected="true">
+                                                <div class="meal-planner-weekly-content-body-left-item-header">
+                                                    <h4 class="meal-planner-weekly-content-body-left-item-day">
+                                                        Monday
+                                                    </h4>
+                                                    <h6 class="meal-planner-weekly-content-body-left-item-date">
+                                                        February 21
+                                                    </h6>
+                                                </div>
+                                                <div class="meal-planner-weekly-content-body-left-item-dots">
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                </div>
+                                            </button>
+
+                                            <!-- Tuesday -->
+                                            <button class="nav-link meal-planner-weekly-content-body-left-item"
+                                                    id="v-pills-tue-tab"
+                                                    data-bs-toggle="pill"
+                                                    data-bs-target="#v-pills-tue"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="v-pills-tue"
+                                                    aria-selected="false">
+                                                <div class="meal-planner-weekly-content-body-left-item-header">
+                                                    <h4 class="meal-planner-weekly-content-body-left-item-day">
+                                                        Tuesday
+                                                    </h4>
+                                                    <h6 class="meal-planner-weekly-content-body-left-item-date">
+                                                        February 22
+                                                    </h6>
+                                                </div>
+                                                <div class="meal-planner-weekly-content-body-left-item-dots">
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                </div>
+                                            </button>
+
+                                            <!-- Wednesday -->
+                                            <button class="nav-link meal-planner-weekly-content-body-left-item"
+                                                    id="v-pills-wed-tab"
+                                                    data-bs-toggle="pill"
+                                                    data-bs-target="#v-pills-wed"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="v-pills-wed"
+                                                    aria-selected="false">
+                                                <div class="meal-planner-weekly-content-body-left-item-header">
+                                                    <h4 class="meal-planner-weekly-content-body-left-item-day">
+                                                        Wednesday
+                                                    </h4>
+                                                    <h6 class="meal-planner-weekly-content-body-left-item-date">
+                                                        February 23
+                                                    </h6>
+                                                </div>
+                                                <div class="meal-planner-weekly-content-body-left-item-dots">
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                </div>
+                                            </button>
+
+                                            <!-- Thursday -->
+                                            <button class="nav-link meal-planner-weekly-content-body-left-item"
+                                                    id="v-pills-thu-tab"
+                                                    data-bs-toggle="pill"
+                                                    data-bs-target="#v-pills-thu"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="v-pills-thu"
+                                                    aria-selected="false">
+                                                <div class="meal-planner-weekly-content-body-left-item-header">
+                                                    <h4 class="meal-planner-weekly-content-body-left-item-day">
+                                                        Thursday
+                                                    </h4>
+                                                    <h6 class="meal-planner-weekly-content-body-left-item-date">
+                                                        February 24
+                                                    </h6>
+                                                </div>
+                                                <div class="meal-planner-weekly-content-body-left-item-dots">
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                </div>
+                                            </button>
+
+                                            <!-- Friday -->
+                                            <button class="nav-link meal-planner-weekly-content-body-left-item"
+                                                    id="v-pills-fri-tab"
+                                                    data-bs-toggle="pill"
+                                                    data-bs-target="#v-pills-fri"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="v-pills-fri"
+                                                    aria-selected="false">
+                                                <div class="meal-planner-weekly-content-body-left-item-header">
+                                                    <h4 class="meal-planner-weekly-content-body-left-item-day">
+                                                        Friday
+                                                    </h4>
+                                                    <h6 class="meal-planner-weekly-content-body-left-item-date">
+                                                        February 25
+                                                    </h6>
+                                                </div>
+                                                <div class="meal-planner-weekly-content-body-left-item-dots">
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                </div>
+                                            </button>
+
+                                            <!-- Saturday -->
+                                            <button class="nav-link meal-planner-weekly-content-body-left-item"
+                                                    id="v-pills-sat-tab"
+                                                    data-bs-toggle="pill"
+                                                    data-bs-target="#v-pills-sat"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="v-pills-sat"
+                                                    aria-selected="false">
+                                                <div class="meal-planner-weekly-content-body-left-item-header">
+                                                    <h4 class="meal-planner-weekly-content-body-left-item-day">
+                                                        Saturday
+                                                    </h4>
+                                                    <h6 class="meal-planner-weekly-content-body-left-item-date">
+                                                        February 26
+                                                    </h6>
+                                                </div>
+                                                <div class="meal-planner-weekly-content-body-left-item-dots">
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                </div>
+                                            </button>
+
+                                            <!-- Sunday -->
+                                            <button class="nav-link meal-planner-weekly-content-body-left-item"
+                                                    id="v-pills-sun-tab"
+                                                    data-bs-toggle="pill"
+                                                    data-bs-target="#v-pills-sun"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="v-pills-sun"
+                                                    aria-selected="false">
+                                                <div class="meal-planner-weekly-content-body-left-item-header">
+                                                    <h4 class="meal-planner-weekly-content-body-left-item-day">
+                                                        Sunday
+                                                    </h4>
+                                                    <h6 class="meal-planner-weekly-content-body-left-item-date">
+                                                        February 27
+                                                    </h6>
+                                                </div>
+                                                <div class="meal-planner-weekly-content-body-left-item-dots">
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                    <span class="meal-planner-weekly-content-body-left-item-dot"></span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        <!-- Bootstrap NavTabs End -->
+                                    </div>
+
+                                    <!-- Bootstrap Tab Content -->
+                                    <div class="meal-planner-weekly-content-body-right box">
+                                        <div class="tab-content" id="v-pills-tabContent">
+                                            <!-- Monday -->
+                                            <div class="tab-pane fade show active"
+                                                 id="v-pills-mon"
+                                                 role="tabpanel"
+                                                 aria-labelledby="v-pills-mon-tab"
+                                                 tabindex="0">
+                                                Monday’s meals content
+                                            </div>
+
+                                            <!-- Tuesday -->
+                                            <div class="tab-pane fade"
+                                                 id="v-pills-tue"
+                                                 role="tabpanel"
+                                                 aria-labelledby="v-pills-tue-tab"
+                                                 tabindex="0">
+                                                Tuesday’s meals content
+                                            </div>
+
+                                            <!-- Wednesday -->
+                                            <div class="tab-pane fade"
+                                                 id="v-pills-wed"
+                                                 role="tabpanel"
+                                                 aria-labelledby="v-pills-wed-tab"
+                                                 tabindex="0">
+                                                Wednesday’s meals content
+                                            </div>
+
+                                            <!-- Thursday -->
+                                            <div class="tab-pane fade"
+                                                 id="v-pills-thu"
+                                                 role="tabpanel"
+                                                 aria-labelledby="v-pills-thu-tab"
+                                                 tabindex="0">
+                                                Thursday’s meals content
+                                            </div>
+
+                                            <!-- Friday -->
+                                            <div class="tab-pane fade"
+                                                 id="v-pills-fri"
+                                                 role="tabpanel"
+                                                 aria-labelledby="v-pills-fri-tab"
+                                                 tabindex="0">
+                                                Friday’s meals content
+                                            </div>
+
+                                            <!-- Saturday -->
+                                            <div class="tab-pane fade"
+                                                 id="v-pills-sat"
+                                                 role="tabpanel"
+                                                 aria-labelledby="v-pills-sat-tab"
+                                                 tabindex="0">
+                                                Saturday’s meals content
+                                            </div>
+
+                                            <!-- Sunday -->
+                                            <div class="tab-pane fade"
+                                                 id="v-pills-sun"
+                                                 role="tabpanel"
+                                                 aria-labelledby="v-pills-sun-tab"
+                                                 tabindex="0">
+                                                Sunday’s meals content
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Meal Planner Content End -->
+
+                    <div class="tab-pane fade"
+                         id="test-history-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="test-history-tab"
+                         tabindex="0">
+                        <!-- Test History Content -->
+                        ...
+                    </div>
+                    <div class="tab-pane fade"
+                         id="notification-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="notification-tab"
+                         tabindex="0">
+                        <!-- Notification Content -->
+                        ...
+                    </div>
+                    <div class="tab-pane fade"
+                         id="profile-settings-tab-pane"
+                         role="tabpanel"
+                         aria-labelledby="profile-settings-tab"
+                         tabindex="0">
+                        <!-- Profile Settings Content -->
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Dashboard Tabs Section End -->
+    <!-- Upcoming Appointments Section Start -->
+    <section id="test-status">
+        <div class="container">
+            <div class="test-status-wrapper">
+                <div class="test-status-header">
+                    <h3 class="test-status-title">Upcoming Appointments</h3>
+                </div>
+
+                <div class="test-status-content">
+                    <div class="test-status-icon">
+                        <img src="~/assets/images/upcomming-status-icon.png"
+                             alt="Upcomming Status Icon" />
+                    </div>
+
+                    <div class="test-status-text">
+                        <p class="test-status-description">
+                            You haven't scheduled any appointments. Let's get you
+                            connected with a specialist.
+                        </p>
+
+                        <a href="/shop.html" class="test-order-button">Book a Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Upcoming Appointments Section End -->
+    <!-- Profile Section Start -->
+    <!-- Profile Section End -->
+<script>
+    function setProgress(percent) {
+      const circle = document.querySelector(".progress-ring__circle");
+      const radius = circle.r.baseVal.value;
+      const circumference = 2 * Math.PI * radius;
+
+      circle.style.strokeDasharray = `${circumference}`;
+      circle.style.strokeDashoffset = `${circumference}`;
+
+      const offset = circumference - (percent / 100) * circumference;
+      circle.style.strokeDashoffset = offset;
+
+      document.getElementById("progress-value").textContent = percent;
+    }
+
+    setProgress(81);
+</script>
+
+<script src="assets/js/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+<script src="assets/js/main.js"></script>

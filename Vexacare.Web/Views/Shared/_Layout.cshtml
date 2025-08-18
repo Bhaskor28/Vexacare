@@ -37,6 +37,7 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/somor.css" />
     <link rel="stylesheet" type="text/css" href="~/assets/css/jahirul.css" />
     <link rel="stylesheet" type="text/css" href="~/assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/tarek.css" />
 </head>
 <body>
     <header>
@@ -56,10 +57,10 @@
                         <li><a href="@Url.Action("Index","Shop")">Shop</a></li>
 
                         <li>
-                            <a href="#">Microbiota Analysis</a>
+                            <a href="@Url.Action("Index","Microbiota")">Microbiota Analysis</a>
                         </li>
                         <li>
-                            <a href="#">Consultations & Home Care</a>
+                            <a href="@Url.Action("Index","Consultations")">Consultations & Home Care</a>
                         </li>
                         <li><a href="#">Blog</a></li>
                         <li>
@@ -254,7 +255,7 @@
         <!-- Navbar Section End  -->
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main id="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
