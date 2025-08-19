@@ -58,6 +58,8 @@ namespace Vexacare.Application.Mapping
 
             // Benefit mappings
             CreateMap<Benefit, BenefitVM>();
+            CreateMap<BenefitVM, Benefit>()
+            .ForMember(dest => dest.ProductBenefits, opt => opt.Ignore());
         }
     }
 }

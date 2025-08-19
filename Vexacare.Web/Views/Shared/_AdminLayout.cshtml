@@ -213,15 +213,23 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
+                        <a asp-controller="Admin" asp-action="GetAllUsers" class="nav-link">
+                            <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+                            All Users
+                        </a>
 
                         <a asp-controller="Product" asp-action="Index" class="nav-link">
                             <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                             Products
                         </a>
                         <div class="sb-sidenav-menu-heading">Management</div>
-                        <a class="nav-link" asp-controller="Product" asp-action="Create">
+                        @* <a class="nav-link" asp-controller="Product" asp-action="Create"> *@
+                        @*     <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div> *@
+                        @*     Add Product *@
+                        @* </a> *@
+                        <a class="nav-link" asp-controller="Product" asp-action="CreateBenefit">
                             <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
-                            Add Product
+                            Add Benefit
                         </a>
                     </div>
                 </div>
