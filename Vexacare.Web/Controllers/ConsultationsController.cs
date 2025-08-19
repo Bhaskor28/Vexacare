@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Vexacare.Web.Controllers
 {
@@ -12,14 +13,17 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Patient")]
         public IActionResult BookNow()
         {
             return View();
         }
+        [Authorize(Roles = "Patient")]
         public IActionResult ConfirmPay()
         {
             return View();
         }
+        [Authorize(Roles = "Patient")]
         public IActionResult Confirmed()
         {
             return View();

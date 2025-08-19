@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
+using Vexacare.Infrastructure.Data.Configurations.Admin;
 using Vexacare.Infrastructure.Data.Configurations.Product;
 
 namespace Vexacare.Infrastructure.Data
