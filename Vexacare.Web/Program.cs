@@ -1,12 +1,13 @@
-using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Mapping;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
+using Vexacare.Infrastructure.Data.Configurations.Admin;
 using Vexacare.Infrastructure.Repositories;
 using Vexacare.Infrastructure.Services;
 
@@ -46,7 +47,22 @@ builder.Services.AddIdentity<Patient, IdentityRole>(options =>
 
 var app = builder.Build();
 
-await SeedService.SeedDatabase(app.Services);// for automatic seed data after running app
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var userManager = services.GetRequiredService<UserManager<Patient>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+        await DataSeeder.SeedAdminUserAndRoleAsync(userManager, roleManager);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding admin data.");
+    }
+}// for automatic seed data after running app
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

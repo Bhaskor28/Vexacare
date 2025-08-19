@@ -533,7 +533,7 @@ namespace Vexacare.Web.Controllers
 
         //step 6: Lifestyle info
         #region LifestyleInfo
-        
+        [HttpGet]
         public async Task<IActionResult> LifestyleInfo()
         {
             var patientId = _userManager.GetUserId(User);
@@ -627,7 +627,7 @@ namespace Vexacare.Web.Controllers
         //step 7: Symtoms info
 
         // AccountController.cs
-        
+        [HttpGet]
         public async Task<IActionResult> TherapiesInfo()
         {
             var patientId = _userManager.GetUserId(User);
@@ -665,7 +665,7 @@ namespace Vexacare.Web.Controllers
             return View(model);
         }
 
-        
+        [HttpPost]
         public async Task<IActionResult> TherapiesInfo(TherapiesInfoVM model)
         {
             if (ModelState.IsValid)
