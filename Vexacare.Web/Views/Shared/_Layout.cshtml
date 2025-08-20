@@ -221,9 +221,15 @@
                                             <i class="fa fa-user"></i> <span>Profile</span>
                                         </a>
                                     }
-                                    @if (isAdmin)
+                                    else if (isAdmin)
                                     {
                                         <a href="@Url.Action("Index", "Admin")" class="dropdown-item" tabindex="0" role="menuitem">
+                                            <i class="fa fa-user"></i> <span>Dashboard</span>
+                                        </a>
+                                    }
+                                    else if (isDoctor)
+                                    {
+                                        <a href="@Url.Action("Index", "Doctors")" class="dropdown-item" tabindex="0" role="menuitem">
                                             <i class="fa fa-user"></i> <span>Dashboard</span>
                                         </a>
                                     }
@@ -256,6 +262,7 @@
                                 </div>
                             }
                         </div>
+
 
                     </div>
 

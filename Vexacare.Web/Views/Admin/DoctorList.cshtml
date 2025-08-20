@@ -1,0 +1,92 @@
+﻿@using Vexacare.Domain.Entities.PatientEntities
+@model IEnumerable<Patient>
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Doctor Management";
+}
+
+@section Styles {
+    <style>
+        .doctor-card {
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+            .doctor-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+        .doctor-img-container {
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+        }
+
+        .doctor-img {
+            object-fit: cover;
+            max-height: 100%;
+            width: auto;
+        }
+
+        .badge-custom {
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+}
+
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
+        <h1 class="mt-4">Doctor Management</h1>
+        <a asp-action="RegisterDoctor" class="btn btn-success">
+            <i class="fas fa-plus me-2"></i>Add Doctor
+        </a>
+    </div>
+
+    <div class="row">
+        @if (Model.Any())
+        {
+            foreach (var doctor in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card doctor-card">
+                        <div class="doctor-img-container">
+                            <!-- Placeholder for doctor image -->
+                            <div class="doctor-img bg-primary text-white d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
+                                <span class="display-4">@doctor.FirstName[0]@doctor.LastName[0]</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dr. @doctor.FirstName @doctor.LastName</h5>
+                            <p class="card-text">
+                                <i class="fas fa-envelope me-2"></i> @doctor.Email<br>
+                                <i class="fas fa-phone me-2"></i> @doctor.PhoneNumber
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <span class="badge bg-primary badge-custom">Doctor</span>
+                                <div>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                    <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info">
+                    No doctors found. <a asp-action="RegisterDoctor">Add a doctor</a> to get started.
+                </div>
+            </div>
+        }
+    </div>
+</div>
