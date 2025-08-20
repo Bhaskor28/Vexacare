@@ -35,47 +35,7 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
-        #region register
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Register(DoctorRegisterVM model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new Patient
-                {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName
-                };
-
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    // Assign Patient role
-                    await _userManager.AddToRoleAsync(user, "Doctor");
-                    await _context.SaveChangesAsync();
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Doctors");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-
-            return View(model);
-        }
-        #endregion
+        
 
         
 

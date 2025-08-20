@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Vexacare.Application.Doctors.ViewModel;
 using Vexacare.Application.Patients.ViewModels;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
@@ -17,19 +18,21 @@ namespace Vexacare.Web.Controllers
         private readonly SignInManager<Patient> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         #region Constructor
         public AdminController(
-        UserManager<Patient> userManager,
-        SignInManager<Patient> signInManager,
-        ApplicationDbContext context,
-        IWebHostEnvironment webHostEnvironment)
+            UserManager<Patient> userManager,
+            SignInManager<Patient> signInManager,
+            ApplicationDbContext context,
+            IWebHostEnvironment webHostEnvironment,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _roleManager = roleManager;
         }
         public IActionResult Index()
         {
@@ -37,12 +40,32 @@ namespace Vexacare.Web.Controllers
         }
 
         #endregion
-        public IActionResult Signup()
+        #region Doctor List
+        [HttpGet]
+        public async Task<IActionResult> DoctorList()
+        {
+            // Check if Doctor role exists, if not create it
+            if (!await _roleManager.RoleExistsAsync("Doctor"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Doctor"));
+            }
+
+            // Get all users with the Doctor role
+            var doctors = await _userManager.GetUsersInRoleAsync("Doctor");
+
+            // Map to view model if needed, or pass the Patient entities directly
+            return View(doctors);
+        }
+        #endregion
+        #region register
+        [HttpGet]
+        public IActionResult RegisterDoctor()
         {
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> Signup(AdminVM model)
+        public async Task<IActionResult> RegisterDoctor(DoctorRegisterVM model)
         {
             if (ModelState.IsValid)
             {
@@ -60,10 +83,10 @@ namespace Vexacare.Web.Controllers
                 if (result.Succeeded)
                 {
                     // Assign Patient role
-                    //await _userManager.AddToRoleAsync(user, "Patient");
+                    await _userManager.AddToRoleAsync(user, "Doctor");
                     await _context.SaveChangesAsync();
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Login", "Admin");
+                    return RedirectToAction("DoctorList", "Admin");
                 }
 
                 foreach (var error in result.Errors)
@@ -74,41 +97,6 @@ namespace Vexacare.Web.Controllers
 
             return View(model);
         }
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Login(AdminLoginVM model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Find user by email (since we're using email as username)
-                var user = await _userManager.FindByEmailAsync(model.Email);
-
-                if (user != null)
-                {
-                    // Attempt to sign in
-                    var result = await _signInManager.PasswordSignInAsync(
-                        user.UserName,
-                        model.Password,
-                        model.RememberMe,
-                        lockoutOnFailure: false);
-
-                    if (result.Succeeded)
-                    {
-                        // Redirect to returnUrl if provided, otherwise to home
-                        return RedirectToAction("Index", "Admin");
-                    }
-                }
-
-                // If we got this far, something failed
-                //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            }
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-
-            return View(model);
-        }
+        #endregion
     }
 }
