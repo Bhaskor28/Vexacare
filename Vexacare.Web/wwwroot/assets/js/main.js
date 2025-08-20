@@ -1,5 +1,5 @@
 // Aos added by Tarek
-AOS.init();
+//AOS.init();
 
 document.addEventListener('DOMContentLoaded', function () {
   // Navbar JS
@@ -78,24 +78,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // If you want SPA style navigation without page reload (for demo only):
     // intercept clicks on nav links and update history + active state
-    const isFileProtocol = location.protocol === 'file:';
-    if (!isFileProtocol) {
-      // don't hijack when testing via file:// (it will 404)
-      navLinks.forEach((a) => {
-        a.addEventListener('click', function (e) {
-          const href = a.getAttribute('href');
-          // only intercept same-origin internal links
-          if (href && href.startsWith('/')) {
-            e.preventDefault();
-            history.pushState({}, '', href);
-            setActiveNav();
-            // optionally scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        });
-      });
-      window.addEventListener('popstate', setActiveNav);
-    }
+    //const isFileProtocol = location.protocol === 'file:';
+    //if (!isFileProtocol) {
+    //  // don't hijack when testing via file:// (it will 404)
+    //  navLinks.forEach((a) => {
+    //    a.addEventListener('click', function (e) {
+    //      const href = a.getAttribute('href');
+    //      // only intercept same-origin internal links
+    //      if (href && href.startsWith('/')) {
+    //        e.preventDefault();
+    //        history.pushState({}, '', href);
+    //        setActiveNav();
+    //        // optionally scroll to top
+    //        window.scrollTo({ top: 0, behavior: 'smooth' });
+    //      }
+    //    });
+    //  });
+    //  window.addEventListener('popstate', setActiveNav);
+    //}
   })();
 });
 

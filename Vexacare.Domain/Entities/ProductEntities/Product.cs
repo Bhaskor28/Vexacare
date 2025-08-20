@@ -18,6 +18,7 @@ namespace Vexacare.Domain.Entities.ProductEntities
         public string Name { get; set; }
         [Required]
         public ProductType ProductType { get; set; }
+        public string BreifDescription { get; set; }
         public string Description { get; set; }
 
         [DataType(DataType.Currency)]

@@ -133,5 +133,29 @@ namespace Vexacare.Web.Controllers
             return View(viewModel);
         }
         #endregion
+
+        public async Task<IActionResult> CreateBenefit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateBenefit(BenefitVM model)
+        {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+            try
+            {
+                await _productService.CreateBenefitAsync(model);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating benefit");
+                ModelState.AddModelError("", "An error occurred while saving the benefit");
+                return View(model);
+            }
+        }
     }
 }

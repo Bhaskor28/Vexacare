@@ -16,6 +16,9 @@ namespace Vexacare.Application.Products.ViewModels
         [Display(Name = "Product Type")]
         public ProductType ProductType { get; set; }
 
+        [Display(Name = "Breif Description")]
+        public string BreifDescription { get; set; }
+
         [Display(Name = "Description")]
         public string Description { get; set; }
 

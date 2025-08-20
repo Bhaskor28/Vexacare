@@ -38,6 +38,9 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/jahirul.css" />
     <link rel="stylesheet" type="text/css" href="~/assets/css/style.css" />
     <link rel="stylesheet" type="text/css" href="~/assets/css/tarek.css" />
+
+    <!-- Render additional styles from views -->
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <header>
@@ -163,8 +166,38 @@
                     
                     <!-- Right side -->
                     <div class="nav-actions">
+                        @* <div class="cart" title="Cart" id="cart-icon" aria-hidden="true"> *@
+                        @*     <!-- CardSVG placeholder --> *@
+                        @*     <svg viewBox="0 0 24 24" *@
+                        @*          fill="none" *@
+                        @*          stroke="currentColor" *@
+                        @*          stroke-width="1.6" *@
+                        @*          stroke-linecap="round" *@
+                        @*          stroke-linejoin="round" *@
+                        @*          aria-hidden="true"> *@
+                        @*         <path d="M6 6h15l-1.4 8.4A2 2 0 0 1 17.6 16H8.4a2 2 0 0 1-2-1.6L5 4H3"></path> *@
+                        @*         <circle cx="10" cy="20" r="1"></circle> *@
+                        @*         <circle cx="18" cy="20" r="1"></circle> *@
+                        @*     </svg> *@
+                        @*     <div class="cart-badge" id="cart-count">0</div> *@
+                        @* </div> *@
+
+                        @* Changed by Sazib *@
                         <div class="cart" title="Cart" id="cart-icon" aria-hidden="true">
-                            <!-- ...cart SVG and badge... -->
+                            <a href="@Url.Action("Cart", "Shop")" style="color: inherit; text-decoration: none;">
+                                <svg viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="1.6"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     aria-hidden="true">
+                                    <path d="M6 6h15l-1.4 8.4A2 2 0 0 1 17.6 16H8.4a2 2 0 0 1-2-1.6L5 4H3"></path>
+                                    <circle cx="10" cy="20" r="1"></circle>
+                                    <circle cx="18" cy="20" r="1"></circle>
+                                </svg>
+                                <div class="cart-badge" id="cart-count">@await Component.InvokeAsync("CartCount")</div>
+                            </a>
                         </div>
 
                         <div class="dropdown" id="account-dropdown">
@@ -353,8 +386,7 @@
     <!-- Footer Section End  -->
     <!-- ==== All Js Links ==== -->
 
-     <script src="~/assets/js/jquery-3.7.1.min.js"></script> 
-
+    <script src="~/assets/js/jquery-3.7.1.min.js"></script> 
     <script src="~/assets/js/doctos.js"></script>
     <script src="~/assets/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)

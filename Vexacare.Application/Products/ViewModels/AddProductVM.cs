@@ -16,6 +16,10 @@ namespace Vexacare.Application.Products.ViewModels
         [Display(Name = "Product Type")]
         public ProductType ProductType { get; set; }
 
+        [StringLength(200, ErrorMessage = "Breif Description cannot exceed 200 characters")]
+        [Display(Name = "Breif Description")]
+        public string BreifDescription { get; set; }
+
         [Display(Name = "Description")]
         public string Description { get; set; }
 

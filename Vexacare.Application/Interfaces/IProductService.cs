@@ -17,5 +17,8 @@ namespace Vexacare.Application.Interfaces
         Task<AddProductVM> GetCreateProductModelAsync();
         Task<EditProductVM> GetEditProductModelAsync(int id);
 
+        // Benefit Operations
+        Task CreateBenefitAsync(BenefitVM model);
+        Task DeleteBenefitAsync(int id);
     }
 }

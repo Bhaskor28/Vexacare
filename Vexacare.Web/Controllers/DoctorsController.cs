@@ -13,7 +13,6 @@ namespace Vexacare.Web.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         #endregion
-
         #region Constructor
         public DoctorsController(
         UserManager<Patient> userManager,
@@ -31,9 +30,6 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
-
-
-
 
     }
 }

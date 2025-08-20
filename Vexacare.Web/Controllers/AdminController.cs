@@ -1,11 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Vexacare.Application.Users.Doctors;
-using Vexacare.Application.UsersVM;
+
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using Vexacare.Application.Doctors.ViewModel;
+using Vexacare.Application.Patients.ViewModels;
+using Vexacare.Domain.Entities;
+using Vexacare.Domain.Entities.PatientEntities;
+using Vexacare.Infrastructure.Data;
 
 namespace Vexacare.Web.Controllers
 {
     public class AdminController : Controller
     {
+
         private readonly IDoctorService _doctorService;
 
         #region Constructor
@@ -18,8 +29,6 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
-
-
         #region Doctor List
         [HttpGet]
         public async Task<IActionResult> DoctorList()
@@ -45,6 +54,7 @@ namespace Vexacare.Web.Controllers
                 {
                     await _doctorService.AddDoctorAsync(model);
                     return RedirectToAction("DoctorList");
+
                 }
                 catch (Exception ex)
                 {
@@ -55,7 +65,6 @@ namespace Vexacare.Web.Controllers
             return View(model);
         }
         #endregion
-
         #region Delete Doctor
         [HttpGet]
         public async Task<IActionResult> DeleteDoctor(string id)
@@ -69,7 +78,6 @@ namespace Vexacare.Web.Controllers
 
             return View(doctor);
         }
-
         [HttpPost, ActionName("DeleteDoctor")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteDoctorConfirmed(string id)
@@ -90,5 +98,6 @@ namespace Vexacare.Web.Controllers
             return View(doctor);
         }
         #endregion
+
     }
 }

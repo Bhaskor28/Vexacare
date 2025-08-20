@@ -114,5 +114,19 @@ namespace Vexacare.Infrastructure.Services
             var product = await _productRepository.GetByIdWithBenefitsAsync(id);
             return _mapper.Map<ProductDetailsVM>(product);
         }
+
+        public async Task CreateBenefitAsync(BenefitVM model)
+        {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+
+            var benefit = _mapper.Map<Benefit>(model);
+            await _benefitRepository.AddAsync(benefit);
+        }
+
+        public Task DeleteBenefitAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

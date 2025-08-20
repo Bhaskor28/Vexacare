@@ -71,7 +71,7 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">@product.Name</h5>
-                                <p class="card-text text-muted">@(product.Description?.Length > 50 ? product.Description.Substring(0, 50) + "..." : product.Description)</p>
+                                <p class="card-text text-muted">@(product.BreifDescription?.Length > 50 ? product.BreifDescription.Substring(0, 50) + "..." : product.BreifDescription)</p>
                                 <h6 class="text-primary mb-3">$@product.Price.ToString("N2")</h6>
 
                                 @if (product.ProductBenefits.Any())
