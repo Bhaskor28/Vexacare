@@ -1,3 +1,4 @@
+
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -15,46 +16,28 @@ namespace Vexacare.Web.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly UserManager<Patient> _userManager;
-        private readonly SignInManager<Patient> _signInManager;
-        private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly RoleManager<IdentityRole> _roleManager;
+
+        private readonly IDoctorService _doctorService;
 
         #region Constructor
-        public AdminController(
-            UserManager<Patient> userManager,
-            SignInManager<Patient> signInManager,
-            ApplicationDbContext context,
-            IWebHostEnvironment webHostEnvironment,
-            RoleManager<IdentityRole> roleManager)
+        public AdminController(IDoctorService doctorService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _context = context;
-            _webHostEnvironment = webHostEnvironment;
-            _roleManager = roleManager;
+            _doctorService = doctorService;
         }
         #endregion
-
+        public IActionResult Index()
+        {
+            return View();
+        }
         #region Doctor List
         [HttpGet]
         public async Task<IActionResult> DoctorList()
         {
-            // Check if Doctor role exists, if not create it
-            if (!await _roleManager.RoleExistsAsync("Doctor"))
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Doctor"));
-            }
-
-            // Get all users with the Doctor role
-            var doctors = await _userManager.GetUsersInRoleAsync("Doctor");
-
-            // Map to view model if needed, or pass the Patient entities directly
+            var doctors = await _doctorService.GetAllDoctorAsync();
             return View(doctors);
         }
         #endregion
-        #region register
+        #region Register Doctor
         [HttpGet]
         public IActionResult RegisterDoctor()
         {
@@ -62,43 +45,59 @@ namespace Vexacare.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterDoctor(DoctorRegisterVM model)
+        public async Task<IActionResult> RegisterDoctor(DoctorVM model)
         {
+            //model.UserName = model.Email;
             if (ModelState.IsValid)
             {
-                var user = new Patient
+                try
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName
-                };
+                    await _doctorService.AddDoctorAsync(model);
+                    return RedirectToAction("DoctorList");
 
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    // Assign Patient role
-                    await _userManager.AddToRoleAsync(user, "Doctor");
-                    await _context.SaveChangesAsync();
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("DoctorList", "Admin");
                 }
-
-                foreach (var error in result.Errors)
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(string.Empty, ex.Message);
                 }
             }
 
             return View(model);
         }
         #endregion
-        public IActionResult Index()
+        #region Delete Doctor
+        [HttpGet]
+        public async Task<IActionResult> DeleteDoctor(string id)
         {
-            return View();
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var doctor = await _doctorService.GetDoctorByIdAsync(id);
+            if (doctor == null)
+                return NotFound();
+
+            return View(doctor);
         }
-        
+        [HttpPost, ActionName("DeleteDoctor")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteDoctorConfirmed(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return NotFound();
+
+            var success = await _doctorService.DeleteDoctorAsync(id);
+
+            if (success)
+            {
+                TempData["SuccessMessage"] = "Doctor deleted successfully.";
+                return RedirectToAction("DoctorList");
+            }
+
+            ModelState.AddModelError(string.Empty, "Failed to delete doctor.");
+            var doctor = await _doctorService.GetDoctorByIdAsync(id);
+            return View(doctor);
+        }
+        #endregion
+
     }
 }

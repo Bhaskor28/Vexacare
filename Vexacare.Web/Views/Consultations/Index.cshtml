@@ -209,7 +209,128 @@
 
                     <div class="tm-professionals-grid">
 
-                        <!-- card 1 -->
+            @foreach (var doctor in ViewBag.Doctors)
+            {
+                <!-- card 1 -->
+                <div class="tm-professional-card">
+                    <img src="./assets/images/dr1.png"
+                         alt="Dr. Luca Marino"
+                         class="tm-professional-photo">
+                    <div class="tm-card-body">
+                        <div class="tm-card-header">
+                            <h3 class="tm-professional-name">
+                                @doctor.FirstName
+                            </h3>
+                            <a asp-controller="Consultation" asp-action="Profile" asp-route-id="@doctor.Id"
+                               class="tm-view-profile-link">
+                                View
+                                Profile
+                            </a>
+                        </div>
+                        <div class="tm-speciality-ratings-wrapper">
+                            <p class="tm-professional-specialty">
+                                Home Care
+                            </p>
+                            <span class="tm-professional-rating">
+                                ⭐
+                                4.9
+                            </span>
+                        </div>
+                        <div class="tm-card-tag-wrapper">
+                            <p class="tm-card-tag">
+                                Digestive
+                                Disorders
+                            </p>
+                            <p class="tm-card-tag">Gut Inflammation</p>
+                        </div>
+
+                        <div class="tm-card-availability-wrapper">
+                            <div class="tm-card-availability-item ">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         width="20" height="21"
+                                         viewBox="0 0 20 21" fill="none">
+                                        <path d="M7.06165 3.32633L1.23911 8.42134C0.739798 8.85826 1.07458 9.63428 1.76238 9.63428C2.18259 9.63428 2.52324 9.94892 2.52324 10.3371V13.5806C2.52324 16.371 2.52324 17.7662 3.46176 18.6331C4.40029 19.5 5.91082 19.5 8.93189 19.5H11.0681C14.0892 19.5 15.5997 19.5 16.5382 18.6331C17.4768 17.7662 17.4768 16.371 17.4768 13.5806V10.3371C17.4768 9.94893 17.8174 9.63428 18.2376 9.63428C18.9254 9.63428 19.2602 8.85826 18.7609 8.42134L12.9383 3.32633C11.5469 2.10878 10.8512 1.5 10 1.5C9.14878 1.5 8.45307 2.10878 7.06165 3.32633Z"
+                                              stroke="#212B36"
+                                              stroke-width="1.5"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                        <path d="M10 14.5H10.009"
+                                              stroke="#212B36"
+                                              stroke-width="2"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                                <span>Home Visit</span>
+                            </div>
+                            <div class="tm-card-availability-item ">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         width="24" height="25"
+                                         viewBox="0 0 24 25" fill="none">
+                                        <path d="M8 2.5V5.5"
+                                              stroke="#292D32"
+                                              stroke-width="1.5"
+                                              stroke-miterlimit="10"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                        <path d="M16 2.5V5.5"
+                                              stroke="#292D32"
+                                              stroke-width="1.5"
+                                              stroke-miterlimit="10"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                        <path d="M3.5 9.59H20.5"
+                                              stroke="#292D32"
+                                              stroke-width="1.5"
+                                              stroke-miterlimit="10"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                        <path d="M21 9V17.5C21 20.5 19.5 22.5 16 22.5H8C4.5 22.5 3 20.5 3 17.5V9C3 6 4.5 4 8 4H16C19.5 4 21 6 21 9Z"
+                                              stroke="#292D32"
+                                              stroke-width="1.5"
+                                              stroke-miterlimit="10"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                        <path d="M11.9945 14.2H12.0035"
+                                              stroke="#292D32"
+                                              stroke-width="2"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                        <path d="M8.29529 14.2H8.30427"
+                                              stroke="#292D32"
+                                              stroke-width="2"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                        <path d="M8.29529 17.2H8.30427"
+                                              stroke="#292D32"
+                                              stroke-width="2"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                                <span>Available Tue, Thu, Fri</span>
+                            </div>
+                        </div>
+
+                        <div class="tm-card-footer">
+                            <div class="tm-card-footer-left">
+                                <span class="tm-service-duration">
+                                    <i class="far fa-clock"></i> 1
+                                    day
+                                </span>
+                                <span class="tm-professional-price">$320</span>
+                            </div>
+                            <a href="./consultations-booking.html" class="tm-book-now-btn">
+                                Book
+                                Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- card 1 -->
                         <div class="tm-professional-card">
                             <img src="./assets/images/dr1.png"
                                 alt="Dr. Luca Marino"
