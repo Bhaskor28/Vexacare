@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -34,12 +35,8 @@ namespace Vexacare.Web.Controllers
             _webHostEnvironment = webHostEnvironment;
             _roleManager = roleManager;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         #endregion
+
         #region Doctor List
         [HttpGet]
         public async Task<IActionResult> DoctorList()
@@ -98,5 +95,10 @@ namespace Vexacare.Web.Controllers
             return View(model);
         }
         #endregion
+        public IActionResult Index()
+        {
+            return View();
+        }
+        
     }
 }

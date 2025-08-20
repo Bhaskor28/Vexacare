@@ -624,9 +624,7 @@ namespace Vexacare.Web.Controllers
         #endregion
         //end of step 6
 
-        //step 7: Symtoms info
-
-        // AccountController.cs
+        #region TherapiesInfo
         [HttpGet]
         public async Task<IActionResult> TherapiesInfo()
         {
@@ -664,6 +662,8 @@ namespace Vexacare.Web.Controllers
 
             return View(model);
         }
+       
+        
 
         [HttpPost]
         public async Task<IActionResult> TherapiesInfo(TherapiesInfoVM model)
@@ -702,7 +702,7 @@ namespace Vexacare.Web.Controllers
 
             return View(model);
         }
-        //end of step 7
+        #endregion
 
         #region Login
 

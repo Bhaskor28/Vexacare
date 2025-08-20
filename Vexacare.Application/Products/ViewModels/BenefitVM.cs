@@ -10,6 +10,6 @@ namespace Vexacare.Application.Products.ViewModels
     {
         public int Id { get; set; }
         public string BenefitName { get; set; }
-        public bool IsSelected { get; set; }
+        public bool? IsSelected { get; set; }
     }
 }
