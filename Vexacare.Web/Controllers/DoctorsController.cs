@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Vexacare.Application.Doctors.ViewModel;
-using Vexacare.Application.Patients.ViewModels;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
 
@@ -17,7 +13,7 @@ namespace Vexacare.Web.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         #endregion
-    
+
         #region Constructor
         public DoctorsController(
         UserManager<Patient> userManager,
@@ -35,9 +31,9 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
-        
 
-        
+
+
 
     }
 }

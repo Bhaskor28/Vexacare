@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Vexacare.Application.Products.ViewModels;
+using Vexacare.Application.UsersVM;
+using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
 
 namespace Vexacare.Application.Mapping
@@ -8,6 +10,7 @@ namespace Vexacare.Application.Mapping
     {
         public MappingProfile()
         {
+            #region by Sazib
             // Product mappings
             CreateMap<Product, ProductListVM>()
                 .ForMember(dest => dest.ProductBenefits,
@@ -20,7 +23,7 @@ namespace Vexacare.Application.Mapping
                 .ForMember(dest => dest.BenefitName,
                            opt => opt.MapFrom(src => src.Benefit.BenefitName));
 
-
+            
             CreateMap<Product, EditProductVM>()
                 .ForMember(dest => dest.SelectedBenefitIds,
                            opt => opt.MapFrom(src => src.ProductBenefits.Select(pb => pb.BenefitId).ToList())
@@ -58,6 +61,10 @@ namespace Vexacare.Application.Mapping
 
             // Benefit mappings
             CreateMap<Benefit, BenefitVM>();
+
+            #endregion
+
+            CreateMap<Patient, DoctorVM>();
         }
     }
 }

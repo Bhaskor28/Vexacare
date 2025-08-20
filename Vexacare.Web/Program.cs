@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Mapping;
+using Vexacare.Application.Users.Doctors;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
@@ -27,6 +28,10 @@ builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 #endregion
 
+#region Added By Bhaskor
+builder.Services.AddScoped<IDoctorService, DoctorService>();
+#endregion
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
@@ -46,7 +51,6 @@ builder.Services.AddIdentity<Patient, IdentityRole>(options =>
     .AddDefaultTokenProviders();
 
 var app = builder.Build();
-
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

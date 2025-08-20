@@ -1,4 +1,5 @@
-﻿<section id="tm-payment-section">
+﻿@model DoctorVM
+<section id="tm-payment-section">
     <div class="container">
         <div class="tm-profile-container">
             <div class="tm-profile-header">
@@ -10,8 +11,7 @@
                 <div class="tm-card-body">
                     <div class="tm-card-header">
                         <h3 class="tm-professional-name">
-                            Dr. Luca
-                            Marino
+                            @Model.FirstName
                         </h3>
                         <div class="tm-professional-rating">
                             ⭐
@@ -139,7 +139,7 @@
                             </span>
                             <span class="tm-professional-price">$320</span>
                         </div>
-                        <a href="./doctor-profile.html"
+                        <a asp-controller="Consultations" asp-action="Profile" asp-route-id="@Model.Id"
                            class="tm-view-profile-link">
                             View
                             Profile

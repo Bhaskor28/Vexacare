@@ -230,7 +230,31 @@
                 </div>
 
                 <!-- All doctor cards -->
-                <div class="grid-12" id="doctors-grid" aria-live="polite">
+        <div class="grid-12" id="doctors-grid" aria-live="polite">
+        @foreach (var doctor in ViewBag.Doctors)
+        {
+            <div class="col-span-3">
+                <article class="doctor-card" role="article" aria-label="@doctor.FirstName">
+                    <div class="doc-image" aria-hidden="true">
+                        <img src="~/assets/images/MedicalExperts1.png"
+                             alt="@doctor.FirstName">
+                    </div>
+                    <div class="doc-body">
+                        <h3 class="doc-name">@doctor.FirstName</h3>
+                        <p class="doc-role">"Medical Expert"</p>
+                            <a asp-controller="Consultations"
+                               asp-action="BookNow"
+                               asp-route-id="@doctor.Id"
+                               class="btn-book">
+                                Book Consultation
+                            </a>
+                    </div>
+                </article>
+            </div>
+            
+        }
+        </div>
+        <div class="grid-12" id="doctors-grid" aria-live="polite">
                     <!-- JavaScript will populate 8 cards here -->
                 </div>
             </div>

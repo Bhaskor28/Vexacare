@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Vexacare.Application.Doctors.ViewModel
+namespace Vexacare.Application.UsersVM
 {
-    public class DoctorRegisterVM
+    public class DoctorVM
     {
+        public string? Id { get; set; }
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -22,6 +18,8 @@ namespace Vexacare.Application.Doctors.ViewModel
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        public string? UserName { get; set; }
+
         [Required]
         [Phone]
         [Display(Name = "Phone Number")]
@@ -30,6 +28,7 @@ namespace Vexacare.Application.Doctors.ViewModel
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

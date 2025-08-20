@@ -1,5 +1,5 @@
-﻿@using Vexacare.Domain.Entities.PatientEntities
-@model IEnumerable<Patient>
+﻿
+@model IEnumerable<DoctorVM>
 @{
     Layout = "_AdminLayout";
     ViewBag.Title = "Doctor Management";
@@ -72,7 +72,7 @@
                                 <span class="badge bg-primary badge-custom">Doctor</span>
                                 <div>
                                     <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
-                                    <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                                    <a asp-action="DeleteDoctor" asp-route-id="@doctor.Id" class="btn btn-danger btn-sm">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -90,3 +90,4 @@
         }
     </div>
 </div>
+
