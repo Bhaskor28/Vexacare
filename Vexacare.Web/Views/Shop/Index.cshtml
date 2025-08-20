@@ -55,18 +55,24 @@
                     <div class="kit-quantity-section">
                         <h4 class="kit-quantity-label">Quantity</h4>
                         <div class="kit-quantity-controls">
+                            @* <div class="kit-quantity-box"> *@
+                            @*     <button class="kit-btn-minus" onclick="decreaseQty()"> *@
+                            @*         - *@
+                            @*     </button> *@
+                            @*     <p id="kit-quantity-value">1</p> *@
+                            @*     <button class="kit-btn-plus" onclick="increaseQty()"> *@
+                            @*         + *@
+                            @*     </button> *@
+                            @* </div> *@
+                            @* changed by sazib *@
                             <div class="kit-quantity-box">
-                                <button class="kit-btn-minus" onclick="decreaseQty()">
-                                    -
-                                </button>
-                                <p id="kit-quantity-value">1</p>
-                                <button class="kit-btn-plus" onclick="increaseQty()">
-                                    +
-                                </button>
+                                <button type="button" class="product-qty-btn" id="decrease-qty">-</button>
+                                <p class="product-qty-display" id="quantity">1</p>
+                                <button type="button" class="product-qty-btn" id="increase-qty">+</button>
                             </div>
-
                             <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id" class="kit-add-to-cart text-center">Details</a>
-                            <a class="kit-add-to-cart text-center">Add to Cart</a>
+                            @* <a class="kit-add-to-cart text-center">Add to Cart</a> *@
+                            <button class="product-add-btn" id="add-to-cart" data-product-id="@product.Id">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -235,3 +241,49 @@
 </section>
 
 <!-- Get Weekly Gut Health Tips Section End  -->
+
+
+@* Added by Sazib *@
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            let quantity = 1;
+
+            // Quantity controls
+            $('#increase-qty').click(function() {
+                quantity++;
+                $('#quantity').text(quantity);
+            });
+
+            $('#decrease-qty').click(function() {
+                if (quantity > 1) {
+                    quantity--;
+                    $('#quantity').text(quantity);
+                }
+            });
+
+                    // Add to cart
+        $('#add-to-cart').click(function() {
+            const productId = $(this).data('product-id');
+
+            $.post('@Url.Action("AddToCart", "Shop")', {
+                productId: productId,
+                quantity: quantity
+            }, function(response) {
+                if (response.success) {
+                    // Update cart count in navbar
+                    $('#cart-count').text(response.cartCount);
+
+                    // Show success message
+                    alert('Product added to cart successfully!');
+                } else {
+                    alert('Error adding product to cart: ' + response.message);
+                }
+            }).fail(function() {
+                alert('Error adding product to cart. Please try again.');
+            });
+        });
+        });
+    </script>
+}

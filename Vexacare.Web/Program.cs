@@ -10,6 +10,7 @@ using Vexacare.Infrastructure.Data;
 using Vexacare.Infrastructure.Data.Configurations.Admin;
 using Vexacare.Infrastructure.Repositories;
 using Vexacare.Infrastructure.Services;
+using Vexacare.Infrastructure.Services.ProductServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,9 @@ builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
 
 // Add AutoMapper with your assembly
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+// In ConfigureServices method of Startup.cs
+builder.Services.AddMemoryCache(); // Add this if not already added
+builder.Services.AddScoped<ICartService, CartService>();
 #endregion
 
 builder.Services.AddControllersWithViews();

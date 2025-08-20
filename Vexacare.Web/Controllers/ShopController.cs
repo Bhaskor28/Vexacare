@@ -1,20 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Vexacare.Application.Interfaces;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
+using Vexacare.Domain.Entities.PatientEntities;
 
 namespace Vexacare.Web.Controllers
 {
     public class ShopController : Controller
     {
         private readonly IProductService _productService;
+        private readonly ICartService _cartService;
+        private readonly UserManager<Patient> _userManager;
         private readonly ILogger<ShopController> _logger;
 
         public ShopController(
             IProductService productService,
-            ILogger<ShopController> logger)
+            ICartService cartService,
+            ILogger<ShopController> logger,
+            UserManager<Patient> userManager)
         {
             _productService = productService;
+            _cartService = cartService;
             _logger = logger;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
@@ -44,6 +52,48 @@ namespace Vexacare.Web.Controllers
                 return View("Error");
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int productId, int quantity)
+        {
+            try
+            {
+                var userId = _userManager.GetUserId(User);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    // For anonymous users, you might want to use a session-based approach
+                    // For this example, we'll require authentication
+                    return RedirectToAction("Login", "Account", new { returnUrl = Request.Path });
+                }
+
+                await _cartService.AddToCartAsync(productId, quantity, userId);
+
+                // Return the updated cart count
+                var cartCount = await _cartService.GetCartItemCountAsync(userId);
+                return Json(new { success = true, cartCount });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error adding product to cart");
+                return Json(new { success = false, message = "Error adding product to cart" });
+            }
+        }
+
+        public async Task<IActionResult> Cart()
+        {
+            var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Login", "Account", new { returnUrl = Request.Path });
+            }
+
+            var cart = await _cartService.GetCartAsync(userId);
+
+            return View(cart);
+        }
+
+
+
 
     }
 }

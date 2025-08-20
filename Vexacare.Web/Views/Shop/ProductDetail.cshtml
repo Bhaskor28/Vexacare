@@ -8,18 +8,18 @@
             </div>
             <div class="product-info">
                 <h1 class="product-title">@Model.Name</h1>
-                <p class="product-price">$324.00</p>
+                <p class="product-price">$@Model.Price.ToString("0.00")</p>
                 <p class="product-description">@Model.BreifDescription</p>
 
                 <div class="product-quantity-block">
                     <h4 class="product-quantity-label">Quantity</h4>
                     <div class="product-quantity-group">
                         <div class="product-quantity-control">
-                            <button class="product-qty-btn">-</button>
-                            <p class="product-qty-display">1</p>
-                            <button class="product-qty-btn">+</button>
+                            <button type="button" class="product-qty-btn" id="decrease-qty">-</button>
+                            <p class="product-qty-display" id="quantity">1</p>
+                            <button type="button" class="product-qty-btn" id="increase-qty">+</button>
                         </div>
-                        <button class="product-add-btn">Add to Cart</button>
+                        <button class="product-add-btn" id="add-to-cart" data-product-id="@Model.Id">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -32,3 +32,46 @@
     </div>
 </section>
 <!-- Description Section End -->
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            let quantity = 1;
+
+            // Quantity controls
+            $('#increase-qty').click(function() {
+                quantity++;
+                $('#quantity').text(quantity);
+            });
+
+            $('#decrease-qty').click(function() {
+                if (quantity > 1) {
+                    quantity--;
+                    $('#quantity').text(quantity);
+                }
+            });
+
+                    // Add to cart
+        $('#add-to-cart').click(function() {
+            const productId = $(this).data('product-id');
+
+            $.post('@Url.Action("AddToCart", "Shop")', {
+                productId: productId,
+                quantity: quantity
+            }, function(response) {
+                if (response.success) {
+                    // Update cart count in navbar
+                    $('#cart-count').text(response.cartCount);
+
+                    // Show success message
+                    alert('Product added to cart successfully!');
+                } else {
+                    alert('Error adding product to cart: ' + response.message);
+                }
+            }).fail(function() {
+                alert('Error adding product to cart. Please try again.');
+            });
+        });
+        });
+    </script>
+}
