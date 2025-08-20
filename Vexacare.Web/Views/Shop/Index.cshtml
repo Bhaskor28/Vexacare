@@ -37,7 +37,7 @@
                 <!-- Details Section -->
                 <div class="kit-details">
                     <h4 class="kit-title">@product.Name</h4>
-                    <p class="kit-description">@product.Description</p>
+                    <p class="kit-description">@product.BreifDescription</p>
                     <p class="kit-price">$@product.Price</p>
 
                     <!-- Features List -->
@@ -106,7 +106,7 @@
                         </div>
                         <div class="sup-card-body">
                             <h5 class="sup-card-title">@product.Name</h5>
-                            <p class="sup-card-desc">@product.Description</p>
+                                <p class="sup-card-desc">@product.BreifDescription</p>
                             <div class="sup-card-bottom">
                                 <p class="sup-card-price">$@product.Price</p>
                                     <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id" class="sup-card-btn">View details</a>
