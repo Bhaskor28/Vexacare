@@ -1,5 +1,5 @@
 // Aos added by Tarek
-AOS.init();
+//AOS.init();
 
 document.addEventListener('DOMContentLoaded', function () {
   // Navbar JS
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         navbar.classList.remove('shadow');
       }
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window?.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
     // Dropdown toggle
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
       dropdownMenu.setAttribute('aria-hidden', 'false');
     }
 
-    accountToggle.addEventListener('click', function (e) {
+    accountToggle?.addEventListener('click', function (e) {
       e.stopPropagation();
       const isOpen = dropdownMenu.classList.contains('show');
       if (isOpen) closeDropdown();
@@ -42,14 +42,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Close dropdown when clicking outside
-    document.addEventListener('click', function (e) {
+    document?.addEventListener('click', function (e) {
       if (!accountDropdown.contains(e.target)) {
         closeDropdown();
       }
     });
 
     // Keyboard: close on Escape
-    document.addEventListener('keydown', function (e) {
+    document?.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeDropdown();
     });
 
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!isFileProtocol) {
       // don't hijack when testing via file:// (it will 404)
       navLinks.forEach((a) => {
-        a.addEventListener('click', function (e) {
+        a?.addEventListener('click', function (e) {
           const href = a.getAttribute('href');
           // only intercept same-origin internal links
           if (href && href.startsWith('/')) {
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
       });
-      window.addEventListener('popstate', setActiveNav);
+      window?.addEventListener('popstate', setActiveNav);
     }
   })();
 });
@@ -112,15 +112,15 @@ document.addEventListener('DOMContentLoaded', function () {
     profilePicInput.click();
   }
 
-  uploadCircle.addEventListener('click', openFilePicker);
-  uploadCircle.addEventListener('keydown', (e) => {
+  uploadCircle?.addEventListener('click', openFilePicker);
+  uploadCircle?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
       e.preventDefault();
       openFilePicker();
     }
   });
 
-  profilePicInput.addEventListener('change', function () {
+  profilePicInput?.addEventListener('change', function () {
     const file = this.files && this.files[0];
     if (!file) return;
 
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 2000);
   });
 
-  window.addEventListener('beforeunload', () => {
+  window?.addEventListener('beforeunload', () => {
     if (currentObjectUrl) URL.revokeObjectURL(currentObjectUrl);
   });
 })();
