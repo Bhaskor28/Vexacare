@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Vexacare.Domain.Entities;
+using Vexacare.Domain.Entities.Order;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
 using Vexacare.Infrastructure.Data.Configurations.Admin;
@@ -24,12 +25,16 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<SymptomsInfo> SymptomsInfos { get; set; }
         public DbSet<LifestyleInfo> LifestyleInfos { get; set; }
         public DbSet<TherapiesInfo> TherapiesInfos { get; set; }
-        
 
+        #region Sazib
         //product Tables
         public DbSet<Product> Products { get; set; }
         public DbSet<Benefit> Benefits { get; set; }
         public DbSet<ProductBenefit> ProductBenefits { get; set; } //mapping table of products and benefist.
+
+        public DbSet<Order> Orders { get; set; }
+
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -60,12 +60,16 @@ namespace Vexacare.Application.Mapping
             CreateMap<BenefitVM, Benefit>()
             .ForMember(dest => dest.ProductBenefits, opt => opt.Ignore());
 
-            #endregion
-
             // Benefit mappings
             CreateMap<Benefit, BenefitVM>();
 
-            
+            #endregion
+
+            #region Bhaskor
+            CreateMap<DoctorVM, Patient>().ReverseMap();
+            #endregion
+
+
 
         }
     }

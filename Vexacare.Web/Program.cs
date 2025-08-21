@@ -30,6 +30,8 @@ builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 // In ConfigureServices method of Startup.cs
 builder.Services.AddMemoryCache(); // Add this if not already added
 builder.Services.AddScoped<ICartService, CartService>();
+
+builder.Services.AddScoped<IOrderService, OrderService>();
 #endregion
 
 #region Added By Bhaskor
