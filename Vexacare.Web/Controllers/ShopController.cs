@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Vexacare.Application.Interfaces;
@@ -58,6 +59,7 @@ namespace Vexacare.Web.Controllers
             }
         }
 
+        [Authorize(Roles ="Patient")]
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId, int quantity)
         {
@@ -80,10 +82,11 @@ namespace Vexacare.Web.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error adding product to cart");
-                return Json(new { success = false, message = "Error adding product to cart" });
+                return RedirectToAction("Login", "Account");
             }
         }
-
+        
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> Cart()
         {
             var userId = _userManager.GetUserId(User);
@@ -97,7 +100,7 @@ namespace Vexacare.Web.Controllers
             return View(cart);
         }
 
-
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> RemoveFromCart(int productId)
         {
@@ -129,7 +132,8 @@ namespace Vexacare.Web.Controllers
                 return Json(new { success = false, message = "Error removing product from cart" });
             }
         }
-
+        
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> ClearCart()
         {
@@ -157,6 +161,7 @@ namespace Vexacare.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> UpdateCartItem(int productId, int quantity)
         {
@@ -204,7 +209,7 @@ namespace Vexacare.Web.Controllers
 
 
 
-
+        [Authorize(Roles = "Patient")]
         // GET: Checkout Page
         public async Task<IActionResult> Checkout()
         {
@@ -243,6 +248,7 @@ namespace Vexacare.Web.Controllers
         }
 
         // POST: Save Checkout Data to Cache
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> SaveCheckoutToCache(CheckoutVM checkout)
         {
@@ -275,6 +281,7 @@ namespace Vexacare.Web.Controllers
         }
 
         // POST: Process Dummy Payment
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> ProcessDummyPayment()
         {
@@ -324,6 +331,7 @@ namespace Vexacare.Web.Controllers
         }
 
         // GET: Order Confirmation
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> OrderConfirmation(int orderId)
         {
             var userId = _userManager.GetUserId(User);
