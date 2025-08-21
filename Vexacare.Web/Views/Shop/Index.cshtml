@@ -158,6 +158,23 @@
 
             <!-- Doctor Cards Grid -->
             <div class="doc-grid">
+
+                @foreach(var doctor in ViewBag.DoctorList)
+                {
+                    <!-- Card 1 -->
+                    <div class="doc-card">
+                        <div class="doc-card-img-wrapper">
+                            <img src="~/assets/images/MedicalExperts1.png"
+                                 alt="Dr. Sarah Johnson"
+                                 class="doc-card-img" />
+                        </div>
+                        <div class="doc-card-body">
+                            <h5 class="doc-card-name">@doctor.FirstName</h5>
+                            <p class="doc-card-role">Chief Medical Officer</p>
+                            <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@doctor.Id" class="doc-book-btn">Book Consultation</a>
+                        </div>
+                    </div>
+                }
                 <!-- Card 1 -->
                 <div class="doc-card">
                     <div class="doc-card-img-wrapper">

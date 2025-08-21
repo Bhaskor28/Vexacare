@@ -234,13 +234,13 @@
         @foreach (var doctor in ViewBag.Doctors)
         {
             <div class="col-span-3">
-                <article class="doctor-card" role="article" aria-label="@doctor.FirstName">
+                <article class="doctor-card" role="article" aria-label="">
                     <div class="doc-image" aria-hidden="true">
                         <img src="~/assets/images/MedicalExperts1.png"
-                             alt="@doctor.FirstName">
+                             alt="@doctor.Name">
                     </div>
                     <div class="doc-body">
-                        <h3 class="doc-name">@doctor.FirstName</h3>
+                        <h3 class="doc-name">@doctor.Name</h3>
                         <p class="doc-role">"Medical Expert"</p>
                             <a asp-controller="Consultations"
                                asp-action="BookNow"

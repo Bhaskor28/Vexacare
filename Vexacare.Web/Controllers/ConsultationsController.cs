@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Vexacare.Application.DoctorProfiles;
+using Vexacare.Application.Interfaces;
 using Vexacare.Application.Products.ViewModels;
 using Vexacare.Application.UsersVM;
 using Vexacare.Domain.Entities.PatientEntities;
@@ -11,17 +13,23 @@ namespace Vexacare.Web.Controllers
 {
     public class ConsultationsController : Controller
     {
+        private readonly IDoctorProfileService _doctorProfileService;
+        private readonly ILocationService _locationService;
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<Patient> _userManager;
         private readonly IMapper _mapper;
         private readonly RoleManager<IdentityRole> _roleManager;
         // Single constructor with all dependencies
         public ConsultationsController(
+            IDoctorProfileService doctorProfileService,
+            ILocationService locationService,
             ILogger<HomeController> logger,
             UserManager<Patient> userManager,
             RoleManager<IdentityRole> roleManager,
              IMapper mapper)
         {
+            _doctorProfileService = doctorProfileService;
+            _locationService = locationService;
             _logger = logger;
             _userManager = userManager;
             _mapper = mapper;
@@ -34,91 +42,67 @@ namespace Vexacare.Web.Controllers
             {
                 await _roleManager.CreateAsync(new IdentityRole("Doctor"));
             }
-            var doctors = await _userManager.GetUsersInRoleAsync("Doctor");
+            var doctors = await _doctorProfileService.GetAllDoctorProfiles();
+            var locations = await _locationService.GetAllLocationsAsync();
+
 
             // Add doctors to ViewBag
             ViewBag.Doctors = doctors;
+            ViewBag.Locations = locations;
             return View();
         }
 
         #region Profile
-        public async Task<IActionResult> Profile(string id)
+        public async Task<IActionResult> Profile(int id)
         {
-            var doctor = await _userManager.FindByIdAsync(id);
+            var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
 
             if (doctor == null)
             {
                 return NotFound();
             }
 
-            // Check if the doctor is actually in the Doctor role
-            var isDoctor = await _userManager.IsInRoleAsync(doctor, "Doctor");
+            
+            var getDoctor = _mapper.Map<DoctorProfileVM>(doctor);
 
-            if (!isDoctor)
-            {
-                return NotFound();
-            }
-
-            // Pass doctor information to the view
-            //ViewBag.Doctor = doctor;
-            var doctorP = _mapper.Map<DoctorVM>(doctor);
-
-            return View(doctorP);
+            return View(getDoctor);
         }
         #endregion
 
         #region BookNow
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> BookNow(string id)
+        public async Task<IActionResult> BookNow(int id)
         {
             // Get the doctor by ID
-            var doctor = await _userManager.FindByIdAsync(id);
+            var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
 
             if (doctor == null)
             {
                 return NotFound();
             }
 
-            // Check if the doctor is actually in the Doctor role
-            var isDoctor = await _userManager.IsInRoleAsync(doctor, "Doctor");
 
-            if (!isDoctor)
-            {
-                return NotFound();
-            }
+            var getDoctor = _mapper.Map<DoctorProfileVM>(doctor);
 
-            // Pass doctor information to the view
-            //ViewBag.Doctor = doctor;
-            var doctorP = _mapper.Map<DoctorVM>(doctor);
-
-            return View(doctorP);
+            return View(getDoctor);
         }
         #endregion BookNow
 
         #region ConfirmPay
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> ConfirmPay(string id)
+        public async Task<IActionResult> ConfirmPay(int id)
         {
-            var doctor = await _userManager.FindByIdAsync(id);
+            var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
 
             if (doctor == null)
             {
                 return NotFound();
             }
 
-            // Check if the doctor is actually in the Doctor role
-            var isDoctor = await _userManager.IsInRoleAsync(doctor, "Doctor");
 
-            if (!isDoctor)
-            {
-                return NotFound();
-            }
+            var getDoctor = _mapper.Map<DoctorProfileVM>(doctor);
 
-            // Pass doctor information to the view
-            //ViewBag.Doctor = doctor;
-            var doctorP = _mapper.Map<DoctorVM>(doctor);
-
-            return View(doctorP);
+            return View(getDoctor);
         }
         #endregion
         [Authorize(Roles = "Patient")]

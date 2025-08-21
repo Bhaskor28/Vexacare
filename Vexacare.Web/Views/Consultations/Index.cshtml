@@ -183,8 +183,11 @@
                                 <p class="tm-field-label">Location</p>
                                 <select name="location">
                                     <option value="">Enter your location</option>
-                                    <option value="ny">New York</option>
-                                    <option value="la">Los Angeles</option>
+                                        @foreach(var location in ViewBag.Locations)
+                                        {
+                                            <option value="@location.Id">@location.Name</option>
+                                        }
+                                        <option value="ny">New York</option>
                                 </select>
                             </div>
 
@@ -219,9 +222,9 @@
                     <div class="tm-card-body">
                         <div class="tm-card-header">
                             <h3 class="tm-professional-name">
-                                @doctor.FirstName
+                                @doctor.Name
                             </h3>
-                            <a asp-controller="Consultation" asp-action="Profile" asp-route-id="@doctor.Id"
+                            <a asp-controller="Consultations" asp-action="Profile" asp-route-id="@doctor.Id"
                                class="tm-view-profile-link">
                                 View
                                 Profile
@@ -322,7 +325,7 @@
                                 </span>
                                 <span class="tm-professional-price">$320</span>
                             </div>
-                            <a href="./consultations-booking.html" class="tm-book-now-btn">
+                            <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@doctor.Id" class="tm-book-now-btn">
                                 Book
                                 Now
                             </a>

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Vexacare.Application.Doctors.ViewModel;
 using Vexacare.Application.Patients.ViewModels;
+using Vexacare.Application.Users.Doctors;
+using Vexacare.Application.UsersVM;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;

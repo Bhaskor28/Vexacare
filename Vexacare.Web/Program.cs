@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Vexacare.Application.DoctorProfiles;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Mapping;
 using Vexacare.Application.Users.Doctors;
@@ -11,6 +12,8 @@ using Vexacare.Infrastructure.Data;
 using Vexacare.Infrastructure.Data.Configurations.Admin;
 using Vexacare.Infrastructure.Repositories;
 using Vexacare.Infrastructure.Services;
+using Vexacare.Infrastructure.Services.DoctorProfileServices;
+using Vexacare.Infrastructure.Services.LocationServices;
 using Vexacare.Infrastructure.Services.ProductServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +37,9 @@ builder.Services.AddScoped<ICartService, CartService>();
 
 #region Added By Bhaskor
 builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
+
 #endregion
 
 builder.Services.AddControllersWithViews();

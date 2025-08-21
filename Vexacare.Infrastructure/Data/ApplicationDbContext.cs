@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Vexacare.Domain.Entities;
+using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
 using Vexacare.Infrastructure.Data.Configurations.Admin;
@@ -26,11 +28,23 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<TherapiesInfo> TherapiesInfos { get; set; }
         
 
+
         //product Tables
         public DbSet<Product> Products { get; set; }
         public DbSet<Benefit> Benefits { get; set; }
         public DbSet<ProductBenefit> ProductBenefits { get; set; } //mapping table of products and benefist.
 
+
+
+        // Doctor's Tables
+        #region
+        public DbSet<DoctorProfile> DoctorProfiles { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Availability> Availabilities { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<ServiceType> ServiceTypes { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
