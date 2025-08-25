@@ -1,62 +1,1268 @@
-﻿@model IEnumerable<ProductListVM>
-@{
-    Layout = "_AdminLayout";
-    ViewBag.Title = "Product Management";
-}
-
-@section Styles {
-    <style>
-        .product-card {
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-
-            .product-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            }
-
-        .product-img-container {
-            height: 200px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f8f9fa;
-        }
-
-        .product-img {
-            object-fit: cover;
-            max-height: 100%;
-            width: auto;
-        }
-
-        .badge-custom {
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-    </style>
-}
-
-<div class="container-fluid px-4">
-    <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
-        <h1 class="mt-4">Product Management</h1>
-        <a href="@Url.Action("RegisterDoctor","Admin")" class="btn btn-success">
-            <i class="fas fa-plus me-2"></i>Add Doctor
-        </a>
-    </div>
-
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Products List
-        </div>
-        <div class="card-body">
-            <div class="row">
-              
-                    
+﻿      <!-- Navbar Section Start  -->
+<section id="partner-hub-banner">
+    <div class="container">
+        <div class="partner-hub-banner-content">
+            <h1 class="partner-hub-banner-title">Partner Hub</h1>
+            <p class="partner-hub-banner-description">
+                Empowering healthcare professionals with access to patient
+                reports, AI-generated insights, and essential tools to validate,
+                review, and deliver personalized microbiota-based recommendations
+                — all from one seamless, secure dashboard.
+            </p>
         </div>
     </div>
-</div>
+</section>
+<!-- Navbar Section End  -->
+<!-- Partner Hub NavTabs Section Start  -->
+<section id="partner-hub-tabs">
+    <div class="container">
+        <div class="partner-hub-tabs-wrapper">
+            <!-- Tab Navigations -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link"
+                            id="analysis-reports"
+                            data-bs-toggle="tab"
+                            data-bs-target="#analysis-reports-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="analysis-reports-pane"
+                            aria-selected="true">
+                        Analysis Reports
+                    </button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link"
+                            id="video-consultation"
+                            data-bs-toggle="tab"
+                            data-bs-target="#video-consultation-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="video-consultation-pane"
+                            aria-selected="false">
+                        Video Consultation
+                    </button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link"
+                            id="notification"
+                            data-bs-toggle="tab"
+                            data-bs-target="#notification-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="notification-pane"
+                            aria-selected="false">
+                        Notification
+                    </button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active"
+                            id="profile-setting"
+                            data-bs-toggle="tab"
+                            data-bs-target="#profile-setting-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="profile-setting-pane"
+                            aria-selected="false">
+                        Profile Setting
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Contents -->
+            <div class="tab-content" id="myTabContent">
+                <!-- Analysis Content Start -->
+                <div class="tab-pane fade"
+                     id="analysis-reports-pane"
+                     role="tabpanel"
+                     aria-labelledby="analysis-reports"
+                     tabindex="0">
+                    <div id="analysis-reports-content">
+                        <!-- Analysis Reports Box Start -->
+                        <div class="analysis-reports-boxs">
+                            <div class="analysis-reports-box box">
+                                <h4 class="analysis-report-box-amount">43</h4>
+                                <p class="analysis-report-box-title">Total Reports</p>
+                            </div>
+
+                            <div class="analysis-reports-box box">
+                                <h4 class="analysis-report-box-amount">28</h4>
+                                <p class="analysis-report-box-title">Reviewed</p>
+                            </div>
+
+                            <div class="analysis-reports-box box">
+                                <h4 class="analysis-report-box-amount">15</h4>
+                                <p class="analysis-report-box-title">Pending</p>
+                            </div>
+                        </div>
+                        <!-- Analysis Reports Box End -->
+                        <!-- Analysis Reports Table Start -->
+                        <div class="analysis-reports-table-wrapper box">
+                            <h3 class="table-title">Analysis by status</h3>
+
+                            <!-- Nested Tabs -->
+                            <div class="nested-tabs">
+                                <ul class="nav nav-tabs" id="nestedTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active"
+                                                id="all-reports-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#all-reports"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="all-reports"
+                                                aria-selected="true">
+                                            All Reports
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link"
+                                                id="by-status-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#by-status"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="by-status"
+                                                aria-selected="false">
+                                            By Status
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link"
+                                                id="by-date-tab"
+                                                data-bs-toggle="tab"
+                                                data-bs-target="#by-date"
+                                                type="button"
+                                                role="tab"
+                                                aria-controls="by-date"
+                                                aria-selected="false">
+                                            By Date
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content" id="nestedTabContent">
+                                    <!-- All Reports Tab -->
+                                    <div class="tab-pane fade show active"
+                                         id="all-reports"
+                                         role="tabpanel"
+                                         aria-labelledby="all-reports-tab"
+                                         tabindex="0">
+                                        <table class="analysis-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Date</th>
+                                                    <th>Analysis Type</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Ariene McCoy</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-pending">Pending</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Bessie Cooper</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-reviewed">Reviewed</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Robert Fox</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-pending">Pending</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Theresa Webb</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-reviewed">Reviewed</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Albert Flores</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-pending">Pending</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="pagination-container">
+                                            <div class="results-count">
+                                                Showing 5 of 43 reports
+                                            </div>
+                                            <ul class="pagination">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Previous</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="#">1</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">Next</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- By Status Tab -->
+                                    <div class="tab-pane fade"
+                                         id="by-status"
+                                         role="tabpanel"
+                                         aria-labelledby="by-status-tab"
+                                         tabindex="0">
+                                        <div class="status-filters mb-3">
+                                            <div class="btn-group" role="group">
+                                                <button type="button"
+                                                        class="btn btn-outline-primary active">
+                                                    All
+                                                </button>
+                                                <button type="button"
+                                                        class="btn btn-outline-primary">
+                                                    Reviewed
+                                                </button>
+                                                <button type="button"
+                                                        class="btn btn-outline-primary">
+                                                    Pending
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <table class="analysis-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Date</th>
+                                                    <th>Analysis Type</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Ariene McCoy</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-pending">Pending</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Robert Fox</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-pending">Pending</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Albert Flores</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-pending">Pending</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Bessie Cooper</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-reviewed">Reviewed</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Theresa Webb</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-reviewed">Reviewed</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="pagination-container">
+                                            <div class="results-count">
+                                                Showing 5 of 43 reports
+                                            </div>
+                                            <ul class="pagination">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Previous</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="#">1</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">Next</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- By Date Tab -->
+                                    <div class="tab-pane fade"
+                                         id="by-date"
+                                         role="tabpanel"
+                                         aria-labelledby="by-date-tab"
+                                         tabindex="0">
+                                        <div class="date-filters mb-3 d-flex gap-2">
+                                            <input type="date"
+                                                   class="form-control"
+                                                   style="max-width: 200px" />
+                                            <span class="align-self-center">to</span>
+                                            <input type="date"
+                                                   class="form-control"
+                                                   style="max-width: 200px" />
+                                            <button class="btn btn-primary">Filter</button>
+                                        </div>
+
+                                        <table class="analysis-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Date</th>
+                                                    <th>Analysis Type</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Theresa Webb</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-reviewed">Reviewed</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Albert Flores</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-pending">Pending</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Robert Fox</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-pending">Pending</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Bessie Cooper</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-reviewed">Reviewed</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>PA-456209</td>
+                                                    <td>Ariene McCoy</td>
+                                                    <td>12.06.2025</td>
+                                                    <td>Gut Microbiota Test Report</td>
+                                                    <td>
+                                                        <span class="status-badge status-pending">Pending</span>
+                                                    </td>
+                                                    <td><i class="fas fa-ellipsis-v"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="pagination-container">
+                                            <div class="results-count">
+                                                Showing 5 of 43 reports
+                                            </div>
+                                            <ul class="pagination">
+                                                <li class="page-item disabled">
+                                                    <a class="page-link" href="#">Previous</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="#">1</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">2</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="#">Next</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Analysis Reports Table End -->
+                    </div>
+                </div>
+                <!-- Analysis Content End -->
+                <!-- Video Consultation Content Start -->
+                <div class="tab-pane fade"
+                     id="video-consultation-pane"
+                     role="tabpanel"
+                     aria-labelledby="video-consultation"
+                     tabindex="0">
+                    <div id="video-consultation-content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non
+                        minus aliquid est soluta nam rem, placeat cupiditate explicabo
+                        provident? Voluptatum voluptatibus rem quos architecto itaque
+                        commodi, incidunt excepturi in placeat!
+                    </div>
+                </div>
+                <!-- Video Consultation Content End -->
+                <!-- Notification Content Start -->
+                <div class="tab-pane fade"
+                     id="notification-pane"
+                     role="tabpanel"
+                     aria-labelledby="notification"
+                     tabindex="0">
+                    <div id="notification-content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non
+                        minus aliquid est soluta nam rem, placeat cupiditate explicabo
+                        provident? Voluptatum voluptatibus rem quos architecto itaque
+                        commodi, incidunt excepturi in placeat!
+                    </div>
+                </div>
+                <!-- Notification Content End -->
+                <!-- Profile Setting Content Start -->
+                <div class="tab-pane fade show active"
+                     id="profile-setting-pane"
+                     role="tabpanel"
+                     aria-labelledby="profile-setting"
+                     tabindex="0">
+                    <div id="profile-setting-content" class="box">
+                        <h3 class="table-title">Profile Settings</h3>
+
+                        <!-- Nested Tabs -->
+                        <div class="nested-tabs">
+                            <ul class="nav nav-tabs" id="nestedTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link"
+                                            id="profile-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#profile"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="profile"
+                                            aria-selected="true">
+                                        Profile
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active"
+                                            id="session-details-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#session-details"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="session-details"
+                                            aria-selected="false">
+                                        Session Details
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link"
+                                            id="recent-review-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#recent-review"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="recent-review"
+                                            aria-selected="false">
+                                        Recent Review
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link"
+                                            id="change-password-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#change-password"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="change-password"
+                                            aria-selected="false">
+                                        Change Password
+                                    </button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" id="nestedTabContent">
+                                <!-- Profile Tab Start -->
+                                <div class="tab-pane fade"
+                                     id="profile"
+                                     role="tabpanel"
+                                     aria-labelledby="profile-tab"
+                                     tabindex="0">
+                                    <div style="display: block"
+                                         id="profile-content-normal-view">
+                                        <div class="profile-intro">
+                                            <div class="profile-image">
+                                                <img src="~/assets/images/dr1.png" alt="" />
+                                            </div>
+
+                                            <div class="profile-name">
+                                                <h4 class="profile-name-title">
+                                                    Dr. Emdadul Huq
+                                                </h4>
+                                                <h6 class="profile-name-subtitle">
+                                                    Gut Microbiota
+                                                </h6>
+                                                <div class="profile-rating">
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <p class="profile-rating-text">
+                                                        4.8 (80 reviews)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-details">
+                                            <table cellpadding="14px">
+                                                <tr>
+                                                    <td>Service Type</td>
+                                                    <td>Video Consultation</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Areas of Expertise</td>
+                                                    <td>
+                                                        <span class="expertise-badge">Digestive Disorders</span>
+                                                        <span class="expertise-badge">Gut Inflammation</span>
+                                                        <span class="expertise-badge">Microbiota Analysis</span>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Email Address</td>
+                                                    <td>hefzurrahman523@gmail.com</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Gender</td>
+                                                    <td>Male</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>About Us</td>
+                                                    <td>
+                                                        Experienced gastroenterologist with a focus on
+                                                        digestive health and gut microbiome research.
+                                                        Specialized in treating chronic digestive
+                                                        conditions and providing personalized
+                                                        nutrition advice.
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Education Details</td>
+                                                    <td>
+                                                        Dr. John Smith completed his MBBS from Dhaka
+                                                        Medical College and pursued MD in
+                                                        Gastroenterology from King’s College, London.
+                                                        He has received specialized training in
+                                                        nutrition and gut microbiota. With over 10
+                                                        years of academic and clinical excellence, he
+                                                        continues research in digestive health and
+                                                        patient-centered treatments.
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div class="profile-actions">
+                                            <button onclick="editProfile()"
+                                                    class="btn btn-primary">
+                                                Update Profile
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <form style="display: none"
+                                          id="profile-content-edit-view">
+                                        <label class="profile-intro box">
+                                            <div class="profile-image">
+                                                <img src="~/assets/images/dr1.png" alt="" />
+                                            </div>
+
+                                            <div class="profile-name">
+                                                <h4 class="upload-now">Upload New</h4>
+
+                                                <p class="image-size-limit">
+                                                    Your Image should Below 4 MB, Accepted format
+                                                    jpg,png
+                                                </p>
+                                            </div>
+                                        </label>
+
+                                        <div class="profile-details">
+                                            <h4 class="profile-details-title">
+                                                Doctor Information
+                                            </h4>
+
+                                            <div class="profile-edit-form-wrapper box">
+                                                <label for="" class="profile-edit-label">
+                                                    Doctor Name
+
+                                                    <input type="text"
+                                                           placeholder="Enter Doctor Name"
+                                                           class="form-control profile-edit-input" />
+                                                </label>
+
+                                                <label for="" class="profile-edit-label">
+                                                    Service Type
+
+                                                    <select name=""
+                                                            id=""
+                                                            class="form-control profile-edit-input form-input-select">
+                                                        <option value="Video Consultation">
+                                                            Video Consultation
+                                                        </option>
+                                                        <option value="In-Person Consultation">
+                                                            In-Person Consultation
+                                                        </option>
+                                                    </select>
+                                                </label>
+
+                                                <label for="" class="profile-edit-label">
+                                                    Service Category
+
+                                                    <select name=""
+                                                            id=""
+                                                            class="form-control profile-edit-input form-input-select">
+                                                        <option value="Gut Microbiota">
+                                                            Gut Microbiota
+                                                        </option>
+                                                        <option value="Digestive Health">
+                                                            Digestive Health
+                                                        </option>
+                                                    </select>
+                                                </label>
+
+                                                <label for="" class="profile-edit-label">
+                                                    Areas of Expertise
+
+                                                    <div style="position: relative">
+                                                        <input type="email"
+                                                               placeholder="Enter your expertise..."
+                                                               class="form-control profile-edit-input" />
+
+                                                        <div class="input-confirm-btn">Confirm</div>
+                                                    </div>
+
+                                                    <div class="expertise-badges">
+                                                        <span class="expertise-badge">
+                                                            <i class="fa fa-times"></i> Microbiota
+                                                            Analysis
+                                                        </span>
+                                                        <span class="expertise-badge">
+                                                            <i class="fa fa-times"></i> Digestive
+                                                            Disorders
+                                                        </span>
+                                                    </div>
+                                                </label>
+
+                                                <label for="" class="profile-edit-label">
+                                                    Email Address
+
+                                                    <input type="email"
+                                                           placeholder="Enter Doctor Name"
+                                                           class="form-control profile-edit-input" />
+                                                </label>
+
+                                                <label for="" class="profile-edit-label">
+                                                    Gender
+
+                                                    <select name=""
+                                                            id=""
+                                                            class="form-control profile-edit-input form-input-select">
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
+                                                </label>
+
+                                                <label for="" class="profile-edit-label">
+                                                    About Us
+                                                    <textarea name=""
+                                                              id=""
+                                                              class="form-control profile-edit-input"></textarea>
+                                                </label>
+
+                                                <label for="" class="profile-edit-label">
+                                                    Education Details
+                                                    <textarea name=""
+                                                              id=""
+                                                              class="form-control profile-edit-input"></textarea>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-actions profile-edit-actions">
+                                            <button onclick="cancleProfileEdit()"
+                                                    class="btn btn-primary btn-cancle">
+                                                Cancle
+                                            </button>
+
+                                            <button onclick="saveProfileEdit()"
+                                                    class="btn btn-primary btn-save">
+                                                Save Changes
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Profile Tab End -->
+                                <!-- Session Details Tab Start -->
+                                <div class="tab-pane fade show active"
+                                     id="session-details"
+                                     role="tabpanel"
+                                     aria-labelledby="session-details-tab"
+                                     tabindex="0">
+                                    <div style="display: none"
+                                         id="session-details-normal-view">
+                                        <div class="session-details-div">
+                                            <h4 class="session-details-title">Availability</h4>
+
+                                            <div class="session-details-availability">
+                                                <h6 class="session-details-availability-day">
+                                                    Monday
+                                                </h6>
+                                                <h6 class="session-details-availability-time">
+                                                    10:00 AM - 5:00 PM
+                                                </h6>
+                                            </div>
+
+                                            <div class="session-details-availability">
+                                                <h6 class="session-details-availability-day">
+                                                    Monday
+                                                </h6>
+                                                <h6 class="session-details-availability-time">
+                                                    10:00 AM - 5:00 PM
+                                                </h6>
+                                            </div>
+                                        </div>
+
+                                        <div class="session-details-div">
+                                            <h4 class="session-details-title">
+                                                Price per Consultations
+                                            </h4>
+
+                                            <div class="session-details-availability">
+                                                <h6 class="session-details-availability-day">
+                                                    $50 per session
+                                                </h6>
+                                            </div>
+                                        </div>
+
+                                        <div class="session-details-div">
+                                            <h4 class="session-details-title">
+                                                Session Duration
+                                            </h4>
+
+                                            <div class="session-details-availability">
+                                                <h6 class="session-details-availability-day">
+                                                    30 minute
+                                                </h6>
+                                            </div>
+                                        </div>
+
+                                        <div class="session-details-div">
+                                            <button onclick="editSessionDetails()"
+                                                    style="width: max-content"
+                                                    class="btn btn-primary">
+                                                Update Details
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div id="session-details-edit-view">
+                                        <form action="" class="profile-edit-form">
+                                            <div class="profile-edit-body">
+                                                <div class="availability-section">
+                                                    <h3 class="section-title">Availability</h3>
+
+                                                    <div class="availability-table box">
+                                                        <!-- Monday -->
+                                                        <div class="availability-row">
+                                                            <div class="day">Monday</div>
+                                                            <div class="toggle-wrapper">
+                                                                <div class="toggle normal">
+                                                                    <input id="monday-toggle"
+                                                                           type="checkbox"
+                                                                           checked />
+                                                                    <label class="toggle-item"
+                                                                           for="monday-toggle"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="time-inputs">
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="monday-start" />
+                                                                <span class="to-text">to</span>
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="monday-end" />
+                                                                <span class="closed-text">Closed</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Tuesday -->
+                                                        <div class="availability-row">
+                                                            <div class="day">Tuesday</div>
+                                                            <div class="toggle-wrapper">
+                                                                <div class="toggle normal">
+                                                                    <input id="tuesday-toggle"
+                                                                           type="checkbox" />
+                                                                    <label class="toggle-item"
+                                                                           for="tuesday-toggle"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="time-inputs">
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="tuesday-start"
+                                                                       disabled />
+                                                                <span class="to-text">to</span>
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="tuesday-end"
+                                                                       disabled />
+                                                                <span class="closed-text">Closed</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Wednesday -->
+                                                        <div class="availability-row">
+                                                            <div class="day">Wednesday</div>
+                                                            <div class="toggle-wrapper">
+                                                                <div class="toggle normal">
+                                                                    <input id="wednesday-toggle"
+                                                                           type="checkbox"
+                                                                           checked />
+                                                                    <label class="toggle-item"
+                                                                           for="wednesday-toggle"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="time-inputs">
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="wednesday-start" />
+                                                                <span class="to-text">to</span>
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="wednesday-end" />
+                                                                <span class="closed-text">Closed</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Thursday -->
+                                                        <div class="availability-row">
+                                                            <div class="day">Thursday</div>
+                                                            <div class="toggle-wrapper">
+                                                                <div class="toggle normal">
+                                                                    <input id="thursday-toggle"
+                                                                           type="checkbox"
+                                                                           checked />
+                                                                    <label class="toggle-item"
+                                                                           for="thursday-toggle"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="time-inputs">
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="thursday-start" />
+                                                                <span class="to-text">to</span>
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="thursday-end" />
+                                                                <span class="closed-text">Closed</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Friday -->
+                                                        <div class="availability-row">
+                                                            <div class="day">Friday</div>
+                                                            <div class="toggle-wrapper">
+                                                                <div class="toggle normal">
+                                                                    <input id="friday-toggle"
+                                                                           type="checkbox"
+                                                                           checked />
+                                                                    <label class="toggle-item"
+                                                                           for="friday-toggle"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="time-inputs">
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="friday-start" />
+                                                                <span class="to-text">to</span>
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="friday-end" />
+                                                                <span class="closed-text">Closed</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Saturday -->
+                                                        <div class="availability-row">
+                                                            <div class="day">Saturday</div>
+                                                            <div class="toggle-wrapper">
+                                                                <div class="toggle normal">
+                                                                    <input id="saturday-toggle"
+                                                                           type="checkbox"
+                                                                           checked />
+                                                                    <label class="toggle-item"
+                                                                           for="saturday-toggle"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="time-inputs">
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="saturday-start" />
+                                                                <span class="to-text">to</span>
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="saturday-end" />
+                                                                <span class="closed-text">Closed</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Sunday -->
+                                                        <div class="availability-row">
+                                                            <div class="day">Sunday</div>
+                                                            <div class="toggle-wrapper">
+                                                                <div class="toggle normal">
+                                                                    <input id="sunday-toggle"
+                                                                           type="checkbox"
+                                                                           checked />
+                                                                    <label class="toggle-item"
+                                                                           for="sunday-toggle"></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="time-inputs">
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="sunday-start" />
+                                                                <span class="to-text">to</span>
+                                                                <input type="time"
+                                                                       value="09:00"
+                                                                       class="time-input"
+                                                                       id="sunday-end" />
+                                                                <span class="closed-text">Closed</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pricing-section">
+                                                    <h3 class="section-title">
+                                                        Price per Consultation
+                                                    </h3>
+
+                                                    <div class="price-input-container">
+                                                        <span class="currency-symbol">$</span>
+                                                        <input type="number"
+                                                               value="500"
+                                                               class="price-input" />
+                                                    </div>
+
+                                                    <h4 class="section-title">Session Duration</h4>
+
+                                                    <div class="duration-input-container">
+                                                        <select class="form-control form-input-select">
+                                                            <option value="30">30 minutes</option>
+                                                            <option value="45">45 minutes</option>
+                                                            <option value="60" selected>
+                                                                60 minutes
+                                                            </option>
+                                                        </select>
+
+                                                        <select class="form-control form-input-select">
+                                                            <option value="minutes" selected>
+                                                                minutes
+                                                            </option>
+                                                            <option value="hours">hours</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-actions profile-edit-actions">
+                                                <button class="btn btn-primary btn-cancle"
+                                                        type="button">
+                                                    Cancel
+                                                </button>
+
+                                                <button type="submit"
+                                                        class="btn btn-primary btn-save">
+                                                    Save Changes
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Session Details Tab End -->
+                                <!-- Recent Review Tab Start -->
+                                <div class="tab-pane fade"
+                                     id="recent-review"
+                                     role="tabpanel"
+                                     aria-labelledby="recent-review-tab"
+                                     tabindex="0">
+                                    Recent review content goes here. You can display
+                                    information about your sessions, such as date, time,
+                                    location, and any relevant details.
+                                </div>
+                                <!-- Recent Review Tab End -->
+                                <!-- Change Password Tab Start -->
+                                <div class="tab-pane fade"
+                                     id="change-password"
+                                     role="tabpanel"
+                                     aria-labelledby="change-password-tab"
+                                     tabindex="0">
+                                    <form action="" id="change-password-form">
+                                        <legend class="form-legend">Change Password</legend>
+
+                                        <label for="" class="form-label">
+                                            Old Password
+
+                                            <div style="position: relative">
+                                                <input type="password"
+                                                       placeholder="Enter your old password"
+                                                       class="form-control form-input"
+                                                       required />
+
+                                                <!-- <span class="password-eye">
+                                                  <img
+                                                    src="~/assets/SVG/PasswordEyeClose.svg"
+                                                    alt=""
+                                                  />
+                                                </span> -->
+                                            </div>
+                                        </label>
+
+                                        <label for="" class="form-label">
+                                            New Password
+
+                                            <div style="position: relative">
+                                                <input type="password"
+                                                       placeholder="Enter your new password"
+                                                       class="form-control form-input"
+                                                       required />
+
+                                                <!-- <span class="password-eye">
+                                                  <img
+                                                    src="~/assets/SVG/PasswordEyeClose.svg"
+                                                    alt=""
+                                                  />
+                                                </span> -->
+                                            </div>
+                                        </label>
+
+                                        <label for="" class="form-label">
+                                            Confirm Password
+
+                                            <div style="position: relative">
+                                                <input type="password"
+                                                       placeholder="Enter your confirm password"
+                                                       class="form-control form-input"
+                                                       required />
+
+                                                <!-- <span class="password-eye">
+                                                  <img
+                                                    src="~/assets/SVG/PasswordEyeClose.svg"
+                                                    alt=""
+                                                  />
+                                                </span> -->
+                                            </div>
+                                        </label>
+
+                                        <button type="submit"
+                                                class="btn btn-primary update-password-btn">
+                                            Update Password
+                                        </button>
+                                    </form>
+                                </div>
+                                <!-- Change Password Tab End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile Setting Content End -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Partner Hub NavTabs Section End  -->
+<!-- ==== All Js Links ==== -->
+<script>
+    // Logic to handle profile editing
+    function editProfile() {
+      document.getElementById("profile-content-normal-view").style.display =
+        "none";
+      document.getElementById("profile-content-edit-view").style.display =
+        "block";
+    }
+
+    function cancleProfileEdit() {
+      document.getElementById("profile-content-normal-view").style.display =
+        "block";
+      document.getElementById("profile-content-edit-view").style.display =
+        "none";
+    }
+</script>
+
+<script>
+    // Login to handle session details editing
+    function editSessionDetails() {
+      document.getElementById("session-details-normal-view").style.display =
+        "none";
+      document.getElementById("session-details-edit-view").style.display =
+        "block";
+    }
+
+    function cancleSessionDetailsEdit() {
+      document.getElementById("session-details-normal-view").style.display =
+        "block";
+      document.getElementById("session-details-edit-view").style.display =
+        "none";
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Set up toggle functionality for each day
+      const days = [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+      ];
+
+      days.forEach((day) => {
+        const toggle = document.getElementById(`${day}-toggle`);
+        const startInput = document.getElementById(`${day}-start`);
+        const endInput = document.getElementById(`${day}-end`);
+        const timeInputs = startInput.parentElement;
+        const closedText = timeInputs.querySelector(".closed-text");
+
+        // Initial setup based on toggle state
+        updateInputsState();
+
+        // Add event listener for toggle change
+        toggle.addEventListener("change", updateInputsState);
+
+        function updateInputsState() {
+          if (toggle.checked) {
+            startInput.disabled = false;
+            endInput.disabled = false;
+            closedText.style.display = "none";
+            startInput.style.display = "inline-block";
+            endInput.style.display = "inline-block";
+            timeInputs.querySelector(".to-text").style.display =
+              "inline-block";
+          } else {
+            startInput.disabled = true;
+            endInput.disabled = true;
+            closedText.style.display = "inline-block";
+            startInput.style.display = "none";
+            endInput.style.display = "none";
+            timeInputs.querySelector(".to-text").style.display = "none";
+          }
+        }
+      });
+
+      // Set Tuesday to closed by default (as in the image)
+      document.getElementById("tuesday-toggle").click();
+    });
+</script>
+
+<script src="~/assets/js/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>

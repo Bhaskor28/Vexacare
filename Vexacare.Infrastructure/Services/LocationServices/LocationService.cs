@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Locations;
-using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Infrastructure.Data;
 
 namespace Vexacare.Infrastructure.Services.LocationServices

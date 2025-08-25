@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Vexacare.Application.Categories;
 using Vexacare.Application.DoctorProfiles;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Mapping;
+using Vexacare.Application.ServiceTypes;
 using Vexacare.Application.Users.Doctors;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
@@ -12,9 +14,11 @@ using Vexacare.Infrastructure.Data;
 using Vexacare.Infrastructure.Data.Configurations.Admin;
 using Vexacare.Infrastructure.Repositories;
 using Vexacare.Infrastructure.Services;
+using Vexacare.Infrastructure.Services.Categories;
 using Vexacare.Infrastructure.Services.DoctorProfileServices;
 using Vexacare.Infrastructure.Services.LocationServices;
 using Vexacare.Infrastructure.Services.ProductServices;
+using Vexacare.Infrastructure.Services.ServiceTypes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +43,8 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
-
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
 #endregion
 
 builder.Services.AddControllersWithViews();
