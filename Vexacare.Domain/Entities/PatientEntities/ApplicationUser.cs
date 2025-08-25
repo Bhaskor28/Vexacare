@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Vexacare.Domain.Entities.PatientEntities
 {
-    public class Patient : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         [Required]
         [MaxLength(100)]

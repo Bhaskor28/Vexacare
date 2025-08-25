@@ -13,7 +13,7 @@ namespace Vexacare.Infrastructure.Services
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Patient>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<SeedService>>();
 
             try
@@ -33,7 +33,7 @@ namespace Vexacare.Infrastructure.Services
                 var adminEmail = "Admin@123.com";
                 if (await userManager.FindByEmailAsync(adminEmail) == null)
                 {
-                    var adminUser = new Patient
+                    var adminUser = new ApplicationUser
                     {
                         FirstName = "CodeHub",
                         UserName = adminEmail,

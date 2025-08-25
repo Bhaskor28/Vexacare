@@ -51,6 +51,6 @@ namespace Vexacare.Domain.Entities.PatientEntities
         public string PatientId { get; set; } // Foreign key to Patient
 
         // Navigation property
-        public Patient Patient { get; set; }
+        public ApplicationUser Patient { get; set; }
     }
 }

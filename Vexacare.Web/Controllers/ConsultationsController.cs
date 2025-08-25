@@ -20,7 +20,7 @@ namespace Vexacare.Web.Controllers
         private readonly ILocationService _locationService;
         private readonly ICategoryService _categoryService;
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<Patient> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
         private readonly RoleManager<IdentityRole> _roleManager;
         // Single constructor with all dependencies
@@ -30,7 +30,7 @@ namespace Vexacare.Web.Controllers
             ILocationService locationService,
             ICategoryService categoryService,
             ILogger<HomeController> logger,
-            UserManager<Patient> userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
              IMapper mapper)
         {

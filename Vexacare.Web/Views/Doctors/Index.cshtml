@@ -1,4 +1,5 @@
-﻿      <!-- Navbar Section Start  -->
+﻿@model ProfileBasicVM 
+     <!-- Navbar Section Start  -->
 <section id="partner-hub-banner">
     <div class="container">
         <div class="partner-hub-banner-content">
@@ -672,11 +673,11 @@
 
                                             <div class="profile-edit-form-wrapper box">
                                                 <label for="" class="profile-edit-label">
-                                                    Doctor Name
+                                                    Name
 
                                                     <input type="text"
                                                            placeholder="Enter Doctor Name"
-                                                           class="form-control profile-edit-input" />
+                                                           class="form-control profile-edit-input" value="@Model.Name" readonly />
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
@@ -685,12 +686,39 @@
                                                     <select name=""
                                                             id=""
                                                             class="form-control profile-edit-input form-input-select">
-                                                        <option value="Video Consultation">
+                                                       
+                                                            @foreach (var serviceType in ViewBag.ServiceTypes)
+                                                            {
+                                                                <option value="@serviceType.Id">@serviceType.Name</option>
+                                                            }
+                                                        
+    
+                                                        @* <option value="Video Consultation">
                                                             Video Consultation
                                                         </option>
                                                         <option value="In-Person Consultation">
                                                             In-Person Consultation
+                                                        </option> *@
+                                                    </select>
+                                                </label>
+                                                <label for="" class="profile-edit-label">
+                                                    Location
+
+                                                    <select name=""
+                                                            id=""
+                                                            class="form-control profile-edit-input form-input-select">
+                                                        @foreach (var location in ViewBag.Locations)
+                                                        {
+                                                            <option value="@location.Id">
+                                                                @location.Name
+                                                            </option>
+                                                        }
+                                                        @* <option value="Gut Microbiota">
+                                                            Gut Microbiota
                                                         </option>
+                                                        <option value="Digestive Health">
+                                                            Digestive Health
+                                                        </option> *@
                                                     </select>
                                                 </label>
 
@@ -700,44 +728,37 @@
                                                     <select name=""
                                                             id=""
                                                             class="form-control profile-edit-input form-input-select">
-                                                        <option value="Gut Microbiota">
+                                                        @foreach (var category in ViewBag.Categories)
+                                                        {
+                                                            <option value="@category.Id">
+                                                                @category.Name
+                                                            </option>
+                                                        }
+                                                        @* <option value="Gut Microbiota">
                                                             Gut Microbiota
                                                         </option>
                                                         <option value="Digestive Health">
                                                             Digestive Health
-                                                        </option>
+                                                        </option> *@
                                                     </select>
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
                                                     Areas of Expertise
 
-                                                    <div style="position: relative">
-                                                        <input type="email"
-                                                               placeholder="Enter your expertise..."
-                                                               class="form-control profile-edit-input" />
+                                                    <textarea name=""
+                                                              id="areaofExperties"
+                                                              class="form-control profile-edit-input"></textarea>
 
-                                                        <div class="input-confirm-btn">Confirm</div>
-                                                    </div>
-
-                                                    <div class="expertise-badges">
-                                                        <span class="expertise-badge">
-                                                            <i class="fa fa-times"></i> Microbiota
-                                                            Analysis
-                                                        </span>
-                                                        <span class="expertise-badge">
-                                                            <i class="fa fa-times"></i> Digestive
-                                                            Disorders
-                                                        </span>
-                                                    </div>
+                                                    
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
-                                                    Email Address
+                                                    Email
 
                                                     <input type="email"
                                                            placeholder="Enter Doctor Name"
-                                                           class="form-control profile-edit-input" />
+                                                           class="form-control profile-edit-input" value="@Model.Email" readonly />
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
@@ -755,15 +776,14 @@
                                                 <label for="" class="profile-edit-label">
                                                     About Us
                                                     <textarea name=""
-                                                              id=""
+                                                              id="aboutEditor"
                                                               class="form-control profile-edit-input"></textarea>
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
                                                     Education Details
-                                                    <textarea name=""
-                                                              id=""
-                                                              class="form-control profile-edit-input"></textarea>
+                                                    <textarea class="form-control" rows="4" id="educationalEditor">
+                                                    </textarea>
                                                 </label>
                                             </div>
                                         </div>

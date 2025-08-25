@@ -11,14 +11,14 @@ namespace Vexacare.Web.Controllers
     {
         private readonly IDoctorProfileService _doctorprofileService;
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<Patient> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         // Single constructor with all dependencies
         public HomeController(
             IDoctorProfileService doctorprofileService,
             ILogger<HomeController> logger,
-            UserManager<Patient> userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             _doctorprofileService = doctorprofileService;

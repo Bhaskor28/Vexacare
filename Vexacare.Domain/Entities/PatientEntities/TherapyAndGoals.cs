@@ -32,7 +32,7 @@ namespace Vexacare.Domain.Entities.PatientEntities
         public string SecondaryObjectives { get; set; }
 
         // Navigation
-        public Patient Patient { get; set; }
+        public ApplicationUser Patient { get; set; }
 
     }
 }

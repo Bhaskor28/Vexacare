@@ -42,6 +42,6 @@ namespace Vexacare.Domain.Entities.PatientEntities
 
         // Navigation
         public string PatientId { get; set; }
-        public Patient Patient { get; set; }
+        public ApplicationUser Patient { get; set; }
     }
 }

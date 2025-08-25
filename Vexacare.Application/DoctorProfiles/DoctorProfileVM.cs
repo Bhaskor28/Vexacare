@@ -7,12 +7,13 @@ using Vexacare.Domain.Entities.DoctorEntities;
 
 namespace Vexacare.Application.DoctorProfiles
 {
-    public class DoctorProfileVM
+    public class DoctorProfileVM 
     {
         public int Id { get; set; }
+        public string userId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? ProfilePictureUrl { get; set; }
-        public int PatientsCount { get; set; }
+        public Decimal PatientsCount { get; set; }
         public string ConsultationType { get; set; } = string.Empty;
         public decimal ConsultationFee { get; set; }
         public string FeePeriod { get; set; } = string.Empty;

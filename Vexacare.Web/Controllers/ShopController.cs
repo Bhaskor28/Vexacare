@@ -12,7 +12,7 @@ namespace Vexacare.Web.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
         private readonly IDoctorService _doctorService;
-        private readonly UserManager<Patient> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<ShopController> _logger;
 
         public ShopController(
@@ -20,7 +20,7 @@ namespace Vexacare.Web.Controllers
             ICartService cartService,
             IDoctorService doctorService,
             ILogger<ShopController> logger,
-            UserManager<Patient> userManager)
+            UserManager<ApplicationUser> userManager)
         {
             _productService = productService;
             _cartService = cartService;

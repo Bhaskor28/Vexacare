@@ -73,11 +73,12 @@ namespace Vexacare.Application.Mapping
 
 
             #region by Bhaskor
-            CreateMap<DoctorVM, Patient>().ReverseMap();
+            CreateMap<DoctorVM, ApplicationUser>().ReverseMap();
             CreateMap<LocationVM, Location>().ReverseMap();
             CreateMap<DoctorProfileVM, DoctorProfile>().ReverseMap();
             CreateMap<CategoryVM, Category>().ReverseMap();
             CreateMap<ServiceTypeVM, ServiceType>().ReverseMap();
+            CreateMap<ProfileBasicVM, DoctorProfile>().ReverseMap();
             #endregion
 
         }

@@ -14,16 +14,16 @@ namespace Vexacare.Web.Controllers
     public class AccountController : Controller
     {
         #region Fields
-        private readonly UserManager<Patient> _userManager;
-        private readonly SignInManager<Patient> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         #endregion
 
         #region Constructor
         public AccountController(
-        UserManager<Patient> userManager,
-        SignInManager<Patient> signInManager,
+        UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager,
         ApplicationDbContext context,
         IWebHostEnvironment webHostEnvironment)
         {
@@ -46,7 +46,7 @@ namespace Vexacare.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Patient
+                var user = new ApplicationUser
                 {
                     UserName = model.Email,
                     Email = model.Email,

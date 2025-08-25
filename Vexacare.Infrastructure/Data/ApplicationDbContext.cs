@@ -11,7 +11,7 @@ using Vexacare.Infrastructure.Data.Configurations.Product;
 
 namespace Vexacare.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<Patient>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
