@@ -224,6 +224,136 @@
         text-align: center;
         color: #0d47a1;
     }
+
+    /* Print Styles - Optimized for single page */
+    @@media print {
+        body * {
+            visibility: hidden;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .order-confirmation-container,
+        .order-confirmation-container * {
+            visibility: visible;
+        }
+
+        .order-confirmation-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 15px !important;
+            box-shadow: none !important;
+            background: white !important;
+            border-radius: 0 !important;
+            page-break-inside: avoid;
+        }
+
+        .action-buttons,
+        .btn-primary,
+        .btn-secondary,
+        .pdf-download-btn,
+        .email-notification i,
+        .success-icon i {
+            display: none !important;
+        }
+
+        .confirmation-header {
+            text-align: left !important;
+            margin-bottom: 20px !important;
+            padding-bottom: 15px !important;
+            border-bottom: 2px solid #000 !important;
+            page-break-after: avoid;
+        }
+
+        .success-icon {
+            color: #000 !important;
+            font-size: 48px !important;
+            margin-bottom: 15px !important;
+        }
+
+        .confirmation-title {
+            font-size: 1.5em !important;
+            margin-bottom: 8px !important;
+        }
+
+        .order-details-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 15px !important;
+            margin: 20px 0 !important;
+            page-break-inside: avoid;
+        }
+
+        .detail-section {
+            background: #f0f0f0 !important;
+            padding: 15px !important;
+            page-break-inside: avoid;
+        }
+
+        .order-items {
+            margin: 20px 0 !important;
+            page-break-inside: avoid;
+        }
+
+        .order-item {
+            padding: 10px !important;
+        }
+
+        .order-summary {
+            background: #f0f0f0 !important;
+            padding: 15px !important;
+            margin-top: 15px !important;
+            page-break-inside: avoid;
+        }
+
+        .detail-section,
+        .order-summary {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .status-badge {
+            border: 1px solid #000 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .thank-you-message {
+            margin: 15px 0 !important;
+            font-size: 1em !important;
+        }
+
+        @@page {
+            margin: 0.5cm;
+            size: auto;
+        }
+    }
+
+    /* PDF Download Button */
+    .pdf-download-btn {
+        background: #dc3545;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .pdf-download-btn:hover {
+            background: #c82333;
+            color: white;
+            text-decoration: none;
+        }
 </style>
 
 <div class="order-confirmation-container">
@@ -252,7 +382,6 @@
             <div class="detail-item">
                 <span class="detail-label">Order Status:</span>
                 <span class="detail-value">
-                    @Model.Status
                     <span class="status-badge status-@Model.Status.ToLower()">@Model.Status</span>
                 </span>
             </div>
@@ -335,23 +464,36 @@
         <a href="@Url.Action("Index", "Account")" class="btn-secondary">
             <i class="fas fa-user"></i> View Order History
         </a>
+
+        <!-- PDF Download Button -->
+        <button onclick="downloadAsPDF()" class="pdf-download-btn">
+            <i class="fas fa-download"></i> Download PDF
+        </button>
     </div>
 </div>
 
 @section Scripts {
     <script>
-        $(document).ready(function() {
-            // Print order confirmation
-            setTimeout(function() {
-                window.print();
-            }, 3000);
+        // Simple and reliable auto-print after 3 seconds
+        // setTimeout(function() {
+        //     window.print();
+        // }, 3000);
 
-            // Track order confirmation event
-            console.log('Order confirmed:', {
-                orderNumber: '@Model.OrderNumber',
-                total: @Model.Total,
-                items: @Model.OrderItems.Count
-            });
+        // Simple PDF download that opens print dialog
+        function downloadAsPDF() {
+            window.print();
+        }
+
+        // Track order confirmation event
+        console.log('Order confirmed:', {
+            orderNumber: '@Model.OrderNumber',
+            total: @Model.Total,
+            items: @Model.OrderItems.Count
+        });
+
+        // Add event listener for print completion
+        window.addEventListener('afterprint', function() {
+            console.log('Print completed or cancelled');
         });
     </script>
 }
