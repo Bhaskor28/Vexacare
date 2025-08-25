@@ -66,10 +66,13 @@
                     // Show success message
                     alert('Product added to cart successfully!');
                 } else {
-                    alert('Error adding product to cart: ' + response.message);
+                    alert(response.message);
+                    window.location.href = '@Url.Action("Login", "Account")';
+
                 }
             }).fail(function() {
-                alert('Error adding product to cart. Please try again.');
+                alert('You have not acces of this page!!. Please try again.');
+                window.location.href = '@Url.Action("Login", "Account")';
             });
         });
         });

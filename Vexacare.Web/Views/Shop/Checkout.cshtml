@@ -141,97 +141,99 @@
             <!-- Buttons -->
             <div class="checkout-buttons">
                 <button type="button" class="btn btn-back" id="btn-back">&larr; Back</button>
-                @* <button type="button" class="btn btn-confirm" id="btn-confirm">Confirm &rarr;</button> *@
-                <a asp-controller="CheckOut" asp-action="Checkout" type="button" class="btn btn-confirm">Confirm &rarr;</a>
+                <button type="button" class="btn btn-confirm" id="btn-confirm">Confirm &rarr;</button>
+                @* <a asp-controller="CheckOut" asp-action="Checkout" type="button" class="btn btn-confirm">Confirm &rarr;</a> *@
             </div>
         </div>
     </div>
 </section>
 <!-- Checkout Form Section End -->
-@* @section Scripts { *@
-@*     <partial name="_ValidationScriptsPartial" /> *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 
-@*     <script> *@
-@*         $(document).ready(function() { *@
-@*             // Back button - go to cart page *@
-@*             $('#btn-back').click(function() { *@
-@*                 window.location.href = '@Url.Action("Cart", "Shop")'; *@
-@*             }); *@
+    <script>
+        $(document).ready(function() {
+            // Back button - go to cart page
+            $('#btn-back').click(function() {
+                window.location.href = '@Url.Action("Cart", "Shop")';
+            });
 
-@*             // Confirm button *@
-@*             $('#btn-confirm').click(function() { *@
-@*                 // Validate form *@
-@*                 if (!$('#checkout-form').valid()) { *@
-@*                     alert('Please fill all required fields correctly.'); *@
-@*                     return; *@
-@*                 } *@
+            // Confirm button
+            $('#btn-confirm').click(function() {
+                // Validate form
+                if (!$('#checkout-form').valid()) {
+                    alert('Please fill all required fields correctly.');
+                    return;
+                }
 
-@*                 // Show loading *@
-@*                 $('#btn-confirm').prop('disabled', true).html('Processing... <i class="fas fa-spinner fa-spin"></i>'); *@
+                // Show loading
+                $('#btn-confirm').prop('disabled', true).html('Processing... <i class="fas fa-spinner fa-spin"></i>');
 
-@*                 // Save checkout data to cache *@
-@*                 $.post('@Url.Action("SaveCheckoutToCache", "Shop")', *@
-@*                     $('#checkout-form').serialize(), *@
-@*                     function(response) { *@
-@*                         if (response.success) { *@
-@*                             // Process payment *@
-@*                             processPayment(); *@
-@*                         } else { *@
-@*                             alert('Error: ' + response.message); *@
-@*                             $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;'); *@
-@*                         } *@
-@*                     } *@
-@*                 ).fail(function() { *@
-@*                     alert('Error saving checkout data. Please try again.'); *@
-@*                     $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;'); *@
-@*                 }); *@
-@*             }); *@
+                // Save checkout data to cache
+                $.post('@Url.Action("SaveCheckoutToCache", "Shop")',
+                    $('#checkout-form').serialize(),
+                    function(response) {
+                        if (response.success) {
+                            // Process payment
+                            processPayment();
+                        } else {
+                            alert('Error: ' + response.message);
+                            $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;');
+                        }
+                    }
+                ).fail(function() {
+                    alert('Error saving checkout data. Please try again.');
+                    $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;');
+                });
+            });
 
-@*             // Process payment function *@
-@*             function processPayment() { *@
-@*                 $.post('@Url.Action("ProcessDummyPayment", "Shop")', *@
-@*                     function(response) { *@
-@*                         if (response.success) { *@
-@*                             // Redirect to order confirmation *@
-@*                             window.location.href = response.redirectUrl; *@
-@*                         } else { *@
-@*                             alert('Payment failed: ' + response.message); *@
-@*                             $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;'); *@
-@*                         } *@
-@*                     } *@
-@*                 ).fail(function() { *@
-@*                     alert('Error processing payment. Please try again.'); *@
-@*                     $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;'); *@
-@*                 }); *@
-@*             } *@
+            // Process payment function
+            function processPayment() {
+                $('#btn-confirm').prop('disabled', true).html('Processing...');
 
-@*             // Recalculate totals when country changes *@
-@*             $('#Country').change(function() { *@
-@*                 recalculateTotals(); *@
-@*             }); *@
+                $.post('@Url.Action("ProcessPayment", "CheckOut")',
+                    function(response) {
+                        if (response.success) {
+                            // Redirect to Stripe checkout page
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            alert('Payment failed: ' + response.message);
+                            $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;');
+                        }
+                    }
+                ).fail(function() {
+                    alert('Error processing payment. Please try again.');
+                    $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;');
+                });
+            }
 
-@*             // Recalculate totals function *@
-@*             function recalculateTotals() { *@
-@*                 const country = $('#Country').val(); *@
-@*                 const subtotal = @Model.Subtotal; *@
+            // Recalculate totals when country changes
+            $('#Country').change(function() {
+                recalculateTotals();
+            });
 
-@*                 if (!country) { *@
-@*                     return; *@
-@*                 } *@
+            // Recalculate totals function
+            function recalculateTotals() {
+                const country = $('#Country').val();
+                const subtotal = @Model.Subtotal;
 
-@*                 $.post('@Url.Action("CalculateTotals", "Shop")', { *@
-@*                     subtotal: subtotal, *@
-@*                     country: country *@
-@*                 }, function(response) { *@
-@*                     if (response.success) { *@
-@*                         // Update amounts *@
-@*                         $('#subtotal-amount').text('$' + response.subtotal.toFixed(2)); *@
-@*                         $('#shipping-amount').text('$' + response.shipping.toFixed(2)); *@
-@*                         $('#tax-amount').text('$' + response.tax.toFixed(2)); *@
-@*                         $('#total-amount').text('$' + response.total.toFixed(2)); *@
-@*                     } *@
-@*                 }); *@
-@*             } *@
-@*         }); *@
-@*     </script> *@
-@* } *@
+                if (!country) {
+                    return;
+                }
+
+                $.post('@Url.Action("CalculateTotals", "Shop")', {
+                    subtotal: subtotal,
+                    country: country
+                }, function(response) {
+                    if (response.success) {
+                        // Update amounts
+                        $('#subtotal-amount').text('$' + response.subtotal.toFixed(2));
+                        $('#shipping-amount').text('$' + response.shipping.toFixed(2));
+                        $('#tax-amount').text('$' + response.tax.toFixed(2));
+                        $('#total-amount').text('$' + response.total.toFixed(2));
+                    }
+                });
+            }
+        });
+    </script>
+}

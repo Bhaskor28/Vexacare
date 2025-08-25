@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.Order;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
-using Vexacare.Infrastructure.Data.Configurations.Admin;
+using Vexacare.Infrastructure.Data.Configurations.OrderConfig;
 using Vexacare.Infrastructure.Data.Configurations.Product;
 
 namespace Vexacare.Infrastructure.Data
@@ -46,6 +45,7 @@ namespace Vexacare.Infrastructure.Data
                 new IdentityRole { Id = "3", Name = "Patient", NormalizedName = "PATIENT" }
             );
             modelBuilder.ApplyConfiguration(new ProductBenefitConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
         }
 
 

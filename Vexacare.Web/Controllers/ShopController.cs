@@ -58,8 +58,7 @@ namespace Vexacare.Web.Controllers
                 return View("Error");
             }
         }
-
-        [Authorize(Roles ="Patient")]
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId, int quantity)
         {
@@ -68,9 +67,7 @@ namespace Vexacare.Web.Controllers
                 var userId = _userManager.GetUserId(User);
                 if (string.IsNullOrEmpty(userId))
                 {
-                    // For anonymous users, you might want to use a session-based approach
-                    // For this example, we'll require authentication
-                    return RedirectToAction("Login", "Account", new { returnUrl = Request.Path });
+                    return Json(new { success = false, message = "You are not a valid user!! Please login first." });
                 }
 
                 await _cartService.AddToCartAsync(productId, quantity, userId);
@@ -300,10 +297,16 @@ namespace Vexacare.Web.Controllers
                     return Json(new { success = false, message = "Checkout data not found" });
                 }
 
+
+
+
                 // Process dummy payment
                 var paymentSuccess = await _orderService.ProcessDummyPaymentAsync(checkout, userId);
 
-                if (paymentSuccess)
+
+
+
+                if (paymentSuccess)   //CheckOut/OrderConfirmation
                 {
                     // Create order
                     var order = await _orderService.CreateOrderAsync(checkout, userId);
@@ -318,7 +321,7 @@ namespace Vexacare.Web.Controllers
                         redirectUrl = Url.Action("OrderConfirmation", new { orderId = order.Id })
                     });
                 }
-                else
+                else     //order failed
                 {
                     return Json(new { success = false, message = "Payment processing failed" });
                 }

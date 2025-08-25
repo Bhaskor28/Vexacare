@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Vexacare.Application.Interfaces;
 using Vexacare.Application.Patients.ViewModels;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
@@ -18,6 +19,7 @@ namespace Vexacare.Web.Controllers
         private readonly SignInManager<Patient> _signInManager;
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ICartService _cartService;
         #endregion
 
         #region Constructor
@@ -25,12 +27,14 @@ namespace Vexacare.Web.Controllers
         UserManager<Patient> userManager,
         SignInManager<Patient> signInManager,
         ApplicationDbContext context,
-        IWebHostEnvironment webHostEnvironment)
+        IWebHostEnvironment webHostEnvironment,
+        ICartService cartService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _cartService = cartService;
         }
         #endregion
 
@@ -82,6 +86,7 @@ namespace Vexacare.Web.Controllers
         public async Task<IActionResult> BasicInfo()
         {
             var patientId = _userManager.GetUserId(User);
+            
             var basicInfo = await _context.BasicInfos
                 .FirstOrDefaultAsync(b => b.PatientId == patientId);
 
@@ -752,6 +757,9 @@ namespace Vexacare.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            var userId = _userManager.GetUserId(User);
+            // Clear cart after successful order
+            await _cartService.ClearCartAsync(userId);
             return RedirectToAction("Index", "Home");
         }
         #endregion
