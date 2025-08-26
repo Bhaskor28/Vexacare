@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Application.Users.Doctors;
+using Vexacare.Application.DoctorProfiles;
 
 namespace Vexacare.Web.Controllers
 {
@@ -11,7 +12,7 @@ namespace Vexacare.Web.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
-        private readonly IDoctorService _doctorService;
+        private readonly IDoctorProfileService _doctorProfileService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<ShopController> _logger;
 
@@ -19,12 +20,13 @@ namespace Vexacare.Web.Controllers
             IProductService productService,
             ICartService cartService,
             IDoctorService doctorService,
+            IDoctorProfileService doctorProfileService,
             ILogger<ShopController> logger,
             UserManager<ApplicationUser> userManager)
         {
             _productService = productService;
             _cartService = cartService;
-            _doctorService = doctorService;
+            _doctorProfileService = doctorProfileService;
             _logger = logger;
             _userManager = userManager;
         }
@@ -35,7 +37,7 @@ namespace Vexacare.Web.Controllers
             {
                 var products = await _productService.GetAllProductsAsync();
 
-                ViewBag.DoctorList = await _doctorService.GetAllDoctorAsync();
+                ViewBag.DoctorList = await _doctorProfileService.GetAllDoctorProfiles();
                 return View(products);
             }
             catch (Exception ex)

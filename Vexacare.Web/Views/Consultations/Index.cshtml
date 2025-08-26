@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DoctorProfileVM>
+﻿@model IEnumerable<ProfileBasicVM>
 <!-- Consultations & Home Care Hero Section start -->
             <section id="consultations-hero">
                 <div class="container">
@@ -227,7 +227,7 @@
             {
                 <!-- card 1 -->
                 <div class="tm-professional-card">
-                    <img src="./assets/images/dr1.png"
+                    <img src="@doctor.ProfileImagePath"
                          alt="Dr. Luca Marino"
                          class="tm-professional-photo">
                     <div class="tm-card-body">
@@ -243,7 +243,7 @@
                         </div>
                         <div class="tm-speciality-ratings-wrapper">
                             <p class="tm-professional-specialty">
-                                @doctor.Category.Name
+                                @doctor.Category?.Name
                             </p>
                             <span class="tm-professional-rating">
                                 ⭐
@@ -252,7 +252,7 @@
                         </div>
                         <div class="tm-card-tag-wrapper">
                             <p class="tm-card-tag">
-                                @doctor.SubCategory
+                                Nothing
                             </p>
                             @* <p class="tm-card-tag">Gut Inflammation</p> *@
                         </div>
@@ -333,7 +333,7 @@
                                     <i class="far fa-clock"></i> 1
                                     day
                                 </span>
-                                <span class="tm-professional-price">$@doctor.ConsultationFee</span>
+                                <span class="tm-professional-price">$700</span>
                             </div>
                             <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@doctor.Id" class="tm-book-now-btn">
                                 Book

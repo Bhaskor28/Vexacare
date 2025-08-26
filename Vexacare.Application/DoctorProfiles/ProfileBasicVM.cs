@@ -48,5 +48,8 @@ namespace Vexacare.Application.DoctorProfiles
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime? ModifiedDate { get; set; }
+        public Category? Category { get; set; }
+        public ServiceType? ServiceType { get; set; }
+        public Location? Location { get; set; }
     }
 }

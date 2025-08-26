@@ -89,14 +89,43 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
             
         }
 
-        public Task<ProfileBasicVM> GetDoctorProfileByIdAsync(string doctorId)
+        public async Task<ProfileBasicVM> GetDoctorProfileByIdAsync(int doctorId)
         {
-            throw new NotImplementedException();
+            var doctor = await _context.DoctorProfiles.FindAsync(doctorId);
+            return _mapper.Map<ProfileBasicVM>(doctor);
         }
 
-        public Task<IEnumerable<ProfileBasicVM>> GetFilteredDoctorProfilesAsync(int? categoryId, int? serviceTypeId, int? locationId, int? availableId)
+        public async Task<IEnumerable<ProfileBasicVM>> GetFilteredDoctorProfilesAsync(int? categoryId, int? serviceTypeId, int? locationId, int? availableId)
         {
-            throw new NotImplementedException();
+            var query = _context.DoctorProfiles
+                .Include(dp => dp.Category)
+                .Include(dp => dp.ServiceType)
+                .Include(dp => dp.Location)
+                .Include(dp => dp.Reviews)
+                .AsQueryable();
+
+            // Apply filters
+            if (categoryId.HasValue && categoryId.Value > 0)
+            {
+                query = query.Where(dp => dp.CategoryId == categoryId.Value);
+            }
+
+            if (serviceTypeId.HasValue && serviceTypeId.Value > 0)
+            {
+                query = query.Where(dp => dp.ServiceTypeId == serviceTypeId.Value);
+            }
+
+            if (locationId.HasValue && locationId.Value > 0)
+            {
+                query = query.Where(dp => dp.LocationId == locationId.Value);
+            }
+
+            
+            var filteredProfiles = await query
+                .OrderBy(dp => dp.Name)
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<ProfileBasicVM>>(filteredProfiles);
         }
     }
 }

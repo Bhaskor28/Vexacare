@@ -65,7 +65,7 @@ namespace Vexacare.Web.Controllers
             return View(doctorProfiles);
         }
         #region Profile
-        public async Task<IActionResult> Profile(string id)
+        public async Task<IActionResult> Profile(int id)
         {
             var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
 
@@ -75,15 +75,15 @@ namespace Vexacare.Web.Controllers
             }
 
             
-            var getDoctor = _mapper.Map<DoctorProfileVM>(doctor);
+            
 
-            return View(getDoctor);
+            return View(doctor);
         }
         #endregion
 
         #region BookNow
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> BookNow(string id)
+        public async Task<IActionResult> BookNow(int id)
         {
             // Get the doctor by ID
             var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
@@ -94,15 +94,15 @@ namespace Vexacare.Web.Controllers
             }
 
 
-            var getDoctor = _mapper.Map<DoctorProfileVM>(doctor);
+            
 
-            return View(getDoctor);
+            return View(doctor);
         }
         #endregion BookNow
 
         #region ConfirmPay
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> ConfirmPay(string id)
+        public async Task<IActionResult> ConfirmPay(int id)
         {
             var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
 
@@ -112,9 +112,9 @@ namespace Vexacare.Web.Controllers
             }
 
 
-            var getDoctor = _mapper.Map<DoctorProfileVM>(doctor);
+           
 
-            return View(getDoctor);
+            return View(doctor);
         }
         #endregion
         [Authorize(Roles = "Patient")]
