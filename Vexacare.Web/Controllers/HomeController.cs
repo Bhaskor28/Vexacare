@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Vexacare.Application.DoctorProfiles;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Web.Models;
 
@@ -8,16 +9,19 @@ namespace Vexacare.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IDoctorProfileService _doctorprofileService;
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<Patient> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         // Single constructor with all dependencies
         public HomeController(
+            IDoctorProfileService doctorprofileService,
             ILogger<HomeController> logger,
-            UserManager<Patient> userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
+            _doctorprofileService = doctorprofileService;
             _logger = logger;
             _userManager = userManager;
             _roleManager = roleManager;
@@ -29,7 +33,7 @@ namespace Vexacare.Web.Controllers
             {
                 await _roleManager.CreateAsync(new IdentityRole("Doctor"));
             }
-            var doctors = await _userManager.GetUsersInRoleAsync("Doctor");
+            var doctors = await _doctorprofileService.GetAllDoctorProfiles();
 
             // Add doctors to ViewBag
             ViewBag.Doctors = doctors;

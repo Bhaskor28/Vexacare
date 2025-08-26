@@ -1,4 +1,5 @@
-﻿<!-- Consultations & Home Care Hero Section start -->
+﻿@model IEnumerable<DoctorProfileVM>
+<!-- Consultations & Home Care Hero Section start -->
             <section id="consultations-hero">
                 <div class="container">
                     <div class="tm-consultations-content">
@@ -150,17 +151,23 @@
                         </p>
                     </div>
 
-                    <form class="tm-search-form">
+                    <form asp-controller="Consultations" asp-action="Index" class="tm-search-form" method="get">
                         <div class="tm-search-form-left">
                             <div class="tm-field">
                                 <p class="tm-field-label">Category</p>
-                                <select name="category">
+                                <select name="categoryId">
                                     <option value="">Choose a category</option>
-                                    <option
-                                        value="nutritionist">Nutritionist</option>
+                                @foreach (var category in ViewBag.Categories)
+                                {
+                                
+                                <option value="@category.Id">@category.Name</option>
+                                
+
+                                }
+                        @* <option value="nutritionist">Nutritionist</option>
                                     <option value="microbiota">Gut
                                         Microbiota</option>
-                                    <option value="homeCare">Home Care</option>
+                                    <option value="homeCare">Home Care</option> *@
                                 </select>
                             </div>
 
@@ -168,12 +175,16 @@
 
                             <div class="tm-field">
                                 <p class="tm-field-label">Service Type</p>
-                                <select name="service_type">
-                                    <option value="">Choose a type</option>
-                                    <option
+                                <select name="serviceTypeId">
+                                    <option value="" >Choose a type</option>
+                        @foreach(var servicetype in ViewBag.ServiceTypes)
+                        {
+                            <option value="@servicetype.Id">@servicetype.Name</option>
+                        }
+                        @* <option
                                         value="consultation">Consultation</option>
                                     <option value="homevisit">Home
-                                        Visit</option>
+                                        Visit</option> *@
                                 </select>
                             </div>
 
@@ -181,10 +192,13 @@
 
                             <div class="tm-field">
                                 <p class="tm-field-label">Location</p>
-                                <select name="location">
+                                <select name="locationId">
                                     <option value="">Enter your location</option>
-                                    <option value="ny">New York</option>
-                                    <option value="la">Los Angeles</option>
+                                        @foreach(var location in ViewBag.Locations)
+                                        {
+                                            <option value="@location.Id">@location.Name</option>
+                                        }
+                                        <option value="ny">New York</option>
                                 </select>
                             </div>
 
@@ -194,7 +208,7 @@
                                 <p class="tm-field-label">Availability</p>
                                 <div class="tm-field-icon-text">
                                     <i class="fas fa-calendar-alt"></i>
-                                    <input type="date" id="date-picker"
+                                    <input name= "dateId" type="date" id="date-picker"
                                         placeholder="Date">
                                 </div>
                             </div>
@@ -205,11 +219,11 @@
                         </button>
                     </form>
 
-                    <p class="tm-results-info">Showing 09 of 104</p>
+                    <p class="tm-results-info">Showing @Model.Count() of @ViewBag.TotalItem</p>
 
                     <div class="tm-professionals-grid">
 
-            @foreach (var doctor in ViewBag.Doctors)
+            @foreach (var doctor in Model)
             {
                 <!-- card 1 -->
                 <div class="tm-professional-card">
@@ -219,9 +233,9 @@
                     <div class="tm-card-body">
                         <div class="tm-card-header">
                             <h3 class="tm-professional-name">
-                                @doctor.FirstName
+                                @doctor.Name
                             </h3>
-                            <a asp-controller="Consultation" asp-action="Profile" asp-route-id="@doctor.Id"
+                            <a asp-controller="Consultations" asp-action="Profile" asp-route-id="@doctor.Id"
                                class="tm-view-profile-link">
                                 View
                                 Profile
@@ -229,7 +243,7 @@
                         </div>
                         <div class="tm-speciality-ratings-wrapper">
                             <p class="tm-professional-specialty">
-                                Home Care
+                                @doctor.Category.Name
                             </p>
                             <span class="tm-professional-rating">
                                 ⭐
@@ -238,10 +252,9 @@
                         </div>
                         <div class="tm-card-tag-wrapper">
                             <p class="tm-card-tag">
-                                Digestive
-                                Disorders
+                                @doctor.SubCategory
                             </p>
-                            <p class="tm-card-tag">Gut Inflammation</p>
+                            @* <p class="tm-card-tag">Gut Inflammation</p> *@
                         </div>
 
                         <div class="tm-card-availability-wrapper">
@@ -262,7 +275,7 @@
                                               stroke-linejoin="round" />
                                     </svg>
                                 </span>
-                                <span>Home Visit</span>
+                                <span>@doctor.ServiceType.Name</span>
                             </div>
                             <div class="tm-card-availability-item ">
                                 <span>
@@ -320,9 +333,9 @@
                                     <i class="far fa-clock"></i> 1
                                     day
                                 </span>
-                                <span class="tm-professional-price">$320</span>
+                                <span class="tm-professional-price">$@doctor.ConsultationFee</span>
                             </div>
-                            <a href="./consultations-booking.html" class="tm-book-now-btn">
+                            <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@doctor.Id" class="tm-book-now-btn">
                                 Book
                                 Now
                             </a>
@@ -331,7 +344,7 @@
                 </div>
             }
             <!-- card 1 -->
-                        <div class="tm-professional-card">
+                        @* <div class="tm-professional-card">
                             <img src="./assets/images/dr1.png"
                                 alt="Dr. Luca Marino"
                                 class="tm-professional-photo">
@@ -1013,7 +1026,7 @@
                                         Now</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> *@
 
                     </div>
 

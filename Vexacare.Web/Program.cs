@@ -1,21 +1,31 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Vexacare.Application.Categories;
+using Vexacare.Application.DoctorProfiles;
 using Stripe;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Mapping;
+using Vexacare.Application.ServiceTypes;
 using Vexacare.Application.Users.Doctors;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
 using Vexacare.Infrastructure.Data.Configurations.Admin;
 using Vexacare.Infrastructure.Repositories;
 using Vexacare.Infrastructure.Services;
+using Vexacare.Infrastructure.Services.Categories;
+using Vexacare.Infrastructure.Services.DoctorProfileServices;
+using Vexacare.Infrastructure.Services.LocationServices;
 using Vexacare.Infrastructure.Services.ProductServices;
+using Vexacare.Infrastructure.Services.ServiceTypes;
 using Vexacare.Infrastructure.Services.StripeServices;
 
 
 // Aliases to avoid conflict with Stripe
 using AppOrderService = Vexacare.Infrastructure.Services.OrderService;
 using AppProductService = Vexacare.Infrastructure.Services.ProductService;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,12 +53,15 @@ builder.Services.AddScoped<StripeConfigService>();
 
 #region Added By Bhaskor
 builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
-
-builder.Services.AddIdentity<Patient, IdentityRole>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
@@ -72,7 +85,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-        var userManager = services.GetRequiredService<UserManager<Patient>>();
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
         await DataSeeder.SeedAdminUserAndRoleAsync(userManager, roleManager);

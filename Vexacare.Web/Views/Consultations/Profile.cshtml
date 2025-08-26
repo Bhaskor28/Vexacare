@@ -1,4 +1,4 @@
-﻿@model DoctorVM
+﻿@model DoctorProfileVM
 <section id="tm-profile-section">
     <div class="container">
         <div class="tm-profile-container">
@@ -11,19 +11,19 @@
                     <div class="tm-card-body">
                         <div class="tm-card-header">
                             <h3 class="tm-professional-name">
-                                @Model.FirstName 
+                                @Model.Name 
                             </h3>
                             <div class="tm-professional-rating">
                                 ⭐
                                 4.9 <span class="tm-total-tm-review">
-                                    (180
+                                    (@Model.Reviews.Count()
                                     reviews)
                                 </span>
                             </div>
                         </div>
                         <div class="tm-speciality-ratings-wrapper">
                             <p class="tm-professional-specialty">
-                                Gastroenterologist
+                                @Model.Category.Name
                             </p>
 
                         </div>
@@ -59,7 +59,7 @@
                                               stroke-width="1.5" />
                                     </svg>
                                 </span>
-                                <span>642+ Patients</span>
+                                <span>@Model.PatientsCount+ Patients</span>
                             </div>
                             <div class="tm-card-availability-item ">
                                 <span>
@@ -79,7 +79,7 @@
                                               stroke-linecap="round" />
                                     </svg>
                                 </span>
-                                <span>Video consultation</span>
+                                <span>@Model.ServiceType.Name</span>
                             </div>
                             <div class="tm-card-availability-item ">
                                 <span>
@@ -137,7 +137,7 @@
                                     <i class="far fa-clock"></i> 1
                                     day
                                 </span>
-                                <span class="tm-professional-price">$320</span>
+                                <span class="tm-professional-price">$@Model.ConsultationFee</span>
                             </div>
                             <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@Model.Id" class="tm-book-now-btn">
                                 Book
@@ -147,7 +147,7 @@
                     </div>
                 </div>
                 <div class="tm-about-section">
-                    <h2 class="tm-doctor-profile-header">About Dr. Luca Marino</h2>
+                    <h2 class="tm-doctor-profile-header">About @Model.Name</h2>
                     <p class="tm-section-content">
                         Dr. Luca Marino is a renowned
                         gastroenterologist with over 15 years of experience
@@ -189,116 +189,31 @@
                 </div>
                 <div class="tm-language-section">
                     <h2 class="tm-doctor-profile-header">Languages</h2>
-                    <p class="tm-section-content">English (Native), Dutch (Fluent), German (Professional)</p>
+                    <p class="tm-section-content">@Model.Languages (Native), Dutch (Fluent), German (Professional)</p>
                 </div>
                 <div class="tm-reviews-section">
                     <h2 class="tm-doctor-profile-header">Recent Patient reviews</h2>
                     <div class="tm-reviews">
-                        <div class="tm-review">
-                            <div class="tm-review-header">
-                                <div class="tm-header-top-left">
-                                    <div class="tm-header-top-left-img-area">
-                                        <img src="~/assets/images/reviewer.png" alt="" srcset="">
+                        @foreach (var review in Model.Reviews.OrderByDescending(r=>r.CreatedAt).Take(5))
+                        {
+                            <div class="tm-review">
+                                <div class="tm-review-header">
+                                    <div class="tm-header-top-left">
+                                        <div class="tm-header-top-left-img-area">
+                                            <img src="~/assets/images/reviewer.png" alt="" srcset="">
+                                        </div>
+                                        <div class="tm-header-top-left-author-datw-wrapper">
+                                            <p class="tm-review-author">@review.PatientName</p>
+                                            <p class="tm-review-date">@review.CreatedAt.ToString("MM/dd/yyyy")</p>
+                                        </div>
                                     </div>
-                                    <div class="tm-header-top-left-author-datw-wrapper">
-                                        <p class="tm-review-author">Ariene McCoy</p>
-                                        <p class="tm-review-date">04/08/2025</p>
-                                    </div>
+                                    <div class="stars">⭐⭐⭐⭐⭐</div>
                                 </div>
-                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                                <p class="tm-review-text">
+                                    @review.Comment
+                                </p>
                             </div>
-                            <p class="tm-review-text">
-                                Dr. Johnson was
-                                incredibly thorough and took the time to
-                                explain everything in detail. Her approach
-                                to treating my IBS was completely different
-                                from what I experienced before.
-                            </p>
-                        </div>
-                        <div class="tm-review">
-                            <div class="tm-review-header">
-                                <div class="tm-header-top-left">
-                                    <div class="tm-header-top-left-img-area">
-                                        <img src="~/assets/images/reviewer.png" alt="" srcset="">
-                                    </div>
-                                    <div class="tm-header-top-left-author-datw-wrapper">
-                                        <p class="tm-review-author">Ariene McCoy</p>
-                                        <p class="tm-review-date">04/08/2025</p>
-                                    </div>
-                                </div>
-                                <div class="stars">⭐⭐⭐⭐⭐</div>
-                            </div>
-                            <p class="tm-review-text">
-                                Dr. Johnson was
-                                incredibly thorough and took the time to
-                                explain everything in detail. Her approach
-                                to treating my IBS was completely different
-                                from what I experienced before.
-                            </p>
-                        </div>
-                        <div class="tm-review">
-                            <div class="tm-review-header">
-                                <div class="tm-header-top-left">
-                                    <div class="tm-header-top-left-img-area">
-                                        <img src="~/assets/images/reviewer.png" alt="" srcset="">
-                                    </div>
-                                    <div class="tm-header-top-left-author-datw-wrapper">
-                                        <p class="tm-review-author">Ariene McCoy</p>
-                                        <p class="tm-review-date">04/08/2025</p>
-                                    </div>
-                                </div>
-                                <div class="stars">⭐⭐⭐⭐⭐</div>
-                            </div>
-                            <p class="tm-review-text">
-                                Dr. Johnson was
-                                incredibly thorough and took the time to
-                                explain everything in detail. Her approach
-                                to treating my IBS was completely different
-                                from what I experienced before.
-                            </p>
-                        </div>
-                        <div class="tm-review">
-                            <div class="tm-review-header">
-                                <div class="tm-header-top-left">
-                                    <div class="tm-header-top-left-img-area">
-                                        <img src="~/assets/images/reviewer.png" alt="" srcset="">
-                                    </div>
-                                    <div class="tm-header-top-left-author-datw-wrapper">
-                                        <p class="tm-review-author">Ariene McCoy</p>
-                                        <p class="tm-review-date">04/08/2025</p>
-                                    </div>
-                                </div>
-                                <div class="stars">⭐⭐⭐⭐⭐</div>
-                            </div>
-                            <p class="tm-review-text">
-                                Dr. Johnson was
-                                incredibly thorough and took the time to
-                                explain everything in detail. Her approach
-                                to treating my IBS was completely different
-                                from what I experienced before.
-                            </p>
-                        </div>
-                        <div class="tm-review">
-                            <div class="tm-review-header">
-                                <div class="tm-header-top-left">
-                                    <div class="tm-header-top-left-img-area">
-                                        <img src="~/assets/images/reviewer.png" alt="" srcset="">
-                                    </div>
-                                    <div class="tm-header-top-left-author-datw-wrapper">
-                                        <p class="tm-review-author">Ariene McCoy</p>
-                                        <p class="tm-review-date">04/08/2025</p>
-                                    </div>
-                                </div>
-                                <div class="stars">⭐⭐⭐⭐⭐</div>
-                            </div>
-                            <p class="tm-review-text">
-                                Dr. Johnson was
-                                incredibly thorough and took the time to
-                                explain everything in detail. Her approach
-                                to treating my IBS was completely different
-                                from what I experienced before.
-                            </p>
-                        </div>
+                        }
                         <div class="tm-review-see-more">
                             <a href="#" class="tm-see-more">See More</a>
                         </div>
@@ -308,7 +223,6 @@
                 </div>
             </div>
         </div>
-
         <div class="tm-all-rights-reserved-area">
             <p>© 2025 MicroHealth. All rights reserved.</p>
         </div>

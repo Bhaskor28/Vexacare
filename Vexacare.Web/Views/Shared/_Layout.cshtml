@@ -3,8 +3,8 @@
 @using Microsoft.EntityFrameworkCore
 @inject Vexacare.Infrastructure.Data.ApplicationDbContext DbContext
 
-@inject SignInManager<Patient> SignInManager
-@inject UserManager<Patient> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 
 <!DOCTYPE html>
@@ -39,6 +39,8 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/style.css" />
     <link rel="stylesheet" type="text/css" href="~/assets/css/tarek.css" />
 
+    <!--added by Bhaskor >
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5-premium-features/45.2.1/ckeditor5-premium-features.css" />
     <!-- Render additional styles from views -->
     @RenderSection("Styles", required: false)
 </head>
@@ -280,6 +282,23 @@
     <script src="~/assets/js/jquery-3.7.1.min.js"></script> 
     <script src="~/assets/js/doctos.js"></script>
     <script src="~/assets/js/main.js"></script>
+
+
+
+    <!--Added by Bhaskor-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+    <!-- Initialize with bullet/number list enabled -->
+    <script>
+        const editorIDs = ['aboutEditor','areaofExperties','educationalEditor', 'descriptionEditor','companyDescription'];
+
+        editorIDs.forEach(id => {
+            ClassicEditor.create(document.querySelector('#' + id))
+                .catch(error => {
+                    console.error(`Error initializing CKEditor on ${id}:`, error);
+                });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -13,11 +13,11 @@ namespace Vexacare.Application.Users.Doctors
 {
     public class DoctorService : IDoctorService
     {
-        private readonly UserManager<Patient> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _context;
 
-        public DoctorService(UserManager<Patient> userManager,
+        public DoctorService(UserManager<ApplicationUser> userManager,
                              RoleManager<IdentityRole> roleManager,
                              ApplicationDbContext context)
         {
@@ -31,7 +31,7 @@ namespace Vexacare.Application.Users.Doctors
             if (!await _roleManager.RoleExistsAsync("Doctor"))
                 await _roleManager.CreateAsync(new IdentityRole("Doctor"));
 
-            var user = new Patient
+            var user = new ApplicationUser
             {
                 UserName = doctor.Email,
                 Email = doctor.Email,

@@ -12,7 +12,7 @@ namespace Vexacare.Infrastructure.Data.Configurations.Admin
 {
     public static class DataSeeder
     {
-        public static async Task SeedAdminUserAndRoleAsync(UserManager<Patient> userManager,
+        public static async Task SeedAdminUserAndRoleAsync(UserManager<ApplicationUser> userManager,
                                                      RoleManager<IdentityRole> roleManager)
         {
             // 1. Seed Admin Role
@@ -28,7 +28,7 @@ namespace Vexacare.Infrastructure.Data.Configurations.Admin
             }
 
             // 2. Seed Admin User using your Patient class
-            var adminUser = new Patient
+            var adminUser = new ApplicationUser
             {
                 UserName = "admin@vexacare.com",
                 NormalizedUserName = "ADMIN@VEXACARE.COM",

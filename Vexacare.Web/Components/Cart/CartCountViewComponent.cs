@@ -8,9 +8,9 @@ namespace Vexacare.Web.Components.Cart
     public class CartCountViewComponent : ViewComponent
     {
         private readonly ICartService _cartService;
-        private readonly UserManager<Patient> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CartCountViewComponent(ICartService cartService, UserManager<Patient> userManager)
+        public CartCountViewComponent(ICartService cartService, UserManager<ApplicationUser> userManager)
         {
             _cartService = cartService;
             _userManager = userManager;

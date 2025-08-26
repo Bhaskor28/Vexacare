@@ -1,6 +1,11 @@
 ﻿using AutoMapper;
+using Vexacare.Application.Categories;
+using Vexacare.Application.DoctorProfiles;
+using Vexacare.Application.Locations;
 using Vexacare.Application.Products.ViewModels;
+using Vexacare.Application.ServiceTypes;
 using Vexacare.Application.UsersVM;
+using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
 
@@ -63,14 +68,21 @@ namespace Vexacare.Application.Mapping
             // Benefit mappings
             CreateMap<Benefit, BenefitVM>();
 
+            CreateMap<BenefitVM, Benefit>()
+            .ForMember(dest => dest.ProductBenefits, opt => opt.Ignore());
             #endregion
 
-            #region Bhaskor
-            CreateMap<DoctorVM, Patient>().ReverseMap();
+
+            #region by Bhaskor
+            CreateMap<DoctorVM, ApplicationUser>().ReverseMap();
+            CreateMap<LocationVM, Location>().ReverseMap();
+            CreateMap<DoctorProfileVM, DoctorProfile>().ReverseMap();
+            CreateMap<CategoryVM, Category>().ReverseMap();
+            CreateMap<ServiceTypeVM, ServiceType>().ReverseMap();
+            CreateMap<ProfileBasicVM, DoctorProfile>().ReverseMap();
             #endregion
-
-
 
         }
+
     }
 }
