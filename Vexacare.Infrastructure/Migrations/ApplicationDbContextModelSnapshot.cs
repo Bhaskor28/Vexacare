@@ -176,7 +176,6 @@ namespace Vexacare.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Availability", b =>
-            modelBuilder.Entity("Vexacare.Domain.Entities.Order.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -305,6 +304,70 @@ namespace Vexacare.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(MAX)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DoctorProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PatientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly>("ReviewDate")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorProfileId");
+
+                    b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.ServiceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceTypes");
+                });
+
+            modelBuilder.Entity("Vexacare.Domain.Entities.Order.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -358,16 +421,11 @@ namespace Vexacare.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ZipCode")
-                    
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Review", b =>
                     b.ToTable("Orders");
                 });
 
@@ -379,45 +437,27 @@ namespace Vexacare.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(MAX)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DoctorProfileId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PatientName")
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("ReviewDate")
-                        .HasColumnType("date");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DoctorProfileId");
-
-                    b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.ServiceType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("ServiceTypes");
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.ApplicationUser", b =>
@@ -497,29 +537,6 @@ namespace Vexacare.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItem");
-
                 });
 
             modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.BasicInfo", b =>
@@ -1238,6 +1255,8 @@ namespace Vexacare.Infrastructure.Migrations
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.ServiceType", b =>
                 {
                     b.Navigation("DoctorProfiles");
+                });
+
             modelBuilder.Entity("Vexacare.Domain.Entities.Order.Order", b =>
                 {
                     b.Navigation("OrderItems");

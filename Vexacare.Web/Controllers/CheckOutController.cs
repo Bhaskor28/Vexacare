@@ -16,7 +16,7 @@ namespace Vexacare.Web.Controllers
         private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
         private readonly ILogger<ShopController> _logger;
-        private readonly UserManager<Patient> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly StripeConfigService _stripeConfigService;
 
         public CheckOutController(
@@ -24,7 +24,7 @@ namespace Vexacare.Web.Controllers
             ICartService cartService,
             IOrderService orderService,
             ILogger<ShopController> logger,
-            UserManager<Patient> userManager,
+            UserManager<ApplicationUser> userManager,
             StripeConfigService stripeConfigService)
         {
             _productService = productService;
