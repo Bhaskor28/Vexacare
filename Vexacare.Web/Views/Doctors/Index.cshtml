@@ -649,22 +649,36 @@
                                         </div>
                                     </div>
 
-                                    <form style="display: none"
-                                          id="profile-content-edit-view">
-                                        <label class="profile-intro box">
+                                    <form asp-controller="Doctors" asp-action="EditProfileBasic" enctype="multipart/form-data" method="post" style="display: none"
+                                          id="profile-content-edit-view" >
+
+                                        <label class="profile-intro box" id="profileLabel">
                                             <div class="profile-image">
-                                                <img src="~/assets/images/dr1.png" alt="" />
+                                                @if (Model.ProfileImagePath != null)
+                                                {
+                                                    var path = Model.ProfileImagePath;
+                                                }
+                                                <img id="profilePreview" 
+                                                src="@Model.ProfileImagePath"
+                                                     alt="Profile Preview" 
+                                                      />
+                                                <input asp-for="DoctorImage" type="file"
+                                                       id="profileInput"
+                                                       accept="image/png, image/jpeg"
+                                                       hidden />
                                             </div>
 
                                             <div class="profile-name">
-                                                <h4 class="upload-now">Upload New</h4>
-
+                                                <h4 class="upload-now" id="uploadTrigger">
+                                                    Upload New
+                                                </h4>
                                                 <p class="image-size-limit">
-                                                    Your Image should Below 4 MB, Accepted format
-                                                    jpg,png
+                                                    Your image should be below 4 MB, Accepted
+                                                    formats: jpg, png
                                                 </p>
                                             </div>
                                         </label>
+                                       
 
                                         <div class="profile-details">
                                             <h4 class="profile-details-title">
@@ -675,18 +689,18 @@
                                                 <label for="" class="profile-edit-label">
                                                     Name
 
-                                                    <input type="text"
+                                                    <input asp-for="Name" type="text"
                                                            placeholder="Enter Doctor Name"
                                                            class="form-control profile-edit-input" value="@Model.Name" readonly />
                                                 </label>
 
-                                                <label for="" class="profile-edit-label">
+                                                <label  class="profile-edit-label">
                                                     Service Type
 
-                                                    <select name=""
+                                                    <select asp-for="ServiceTypeId"
                                                             id=""
                                                             class="form-control profile-edit-input form-input-select">
-                                                       
+                                                       <option value="">Select Service Type</option>
                                                             @foreach (var serviceType in ViewBag.ServiceTypes)
                                                             {
                                                                 <option value="@serviceType.Id">@serviceType.Name</option>
@@ -704,10 +718,11 @@
                                                 <label for="" class="profile-edit-label">
                                                     Location
 
-                                                    <select name=""
+                                                    <select asp-for="LocationId"
                                                             id=""
                                                             class="form-control profile-edit-input form-input-select">
-                                                        @foreach (var location in ViewBag.Locations)
+                                                        <option value="">Select Location</option>
+                                                            @foreach (var location in ViewBag.Locations)
                                                         {
                                                             <option value="@location.Id">
                                                                 @location.Name
@@ -725,10 +740,11 @@
                                                 <label for="" class="profile-edit-label">
                                                     Service Category
 
-                                                    <select name=""
-                                                            id=""
+                                                    <select asp-for="CategoryId"
+                                                            
                                                             class="form-control profile-edit-input form-input-select">
-                                                        @foreach (var category in ViewBag.Categories)
+                                                        <option value="">Select Category</option>
+                                                            @foreach (var category in ViewBag.Categories)
                                                         {
                                                             <option value="@category.Id">
                                                                 @category.Name
@@ -746,9 +762,9 @@
                                                 <label for="" class="profile-edit-label">
                                                     Areas of Expertise
 
-                                                    <textarea name=""
-                                                              id="areaofExperties"
-                                                              class="form-control profile-edit-input"></textarea>
+                                                    <textarea asp-for="AreaofExperties" 
+                                                                id="areaofExperties"
+                                                                class="form-control profile-edit-input"></textarea>
 
                                                     
                                                 </label>
@@ -756,7 +772,7 @@
                                                 <label for="" class="profile-edit-label">
                                                     Email
 
-                                                    <input type="email"
+                                                    <input asp-for="Email" type="email"
                                                            placeholder="Enter Doctor Name"
                                                            class="form-control profile-edit-input" value="@Model.Email" readonly />
                                                 </label>
@@ -764,10 +780,11 @@
                                                 <label for="" class="profile-edit-label">
                                                     Gender
 
-                                                    <select name=""
+                                                    <select asp-for="Gender"
                                                             id=""
                                                             class="form-control profile-edit-input form-input-select">
-                                                        <option value="Male">Male</option>
+                                                        <option value="">Select Gender</option>
+                                                            <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
                                                         <option value="Other">Other</option>
                                                     </select>
@@ -775,14 +792,14 @@
 
                                                 <label for="" class="profile-edit-label">
                                                     About Us
-                                                    <textarea name=""
+                                                    <textarea asp-for="About"
                                                               id="aboutEditor"
                                                               class="form-control profile-edit-input"></textarea>
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
                                                     Education Details
-                                                    <textarea class="form-control" rows="4" id="educationalEditor">
+                                                    <textarea asp-for="EducationDetails" class="form-control" rows="4" id="educationalEditor">
                                                     </textarea>
                                                 </label>
                                             </div>
@@ -794,8 +811,11 @@
                                                 Cancle
                                             </button>
 
-                                            <button onclick="saveProfileEdit()"
+                                            @* <button onclick="saveProfileEdit()"
                                                     class="btn btn-primary btn-save">
+                                                Save Changes
+                                            </button> *@
+                                            <button type="submit" class="btn btn-primary btn-save">
                                                 Save Changes
                                             </button>
                                         </div>

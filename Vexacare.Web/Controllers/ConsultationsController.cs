@@ -65,7 +65,7 @@ namespace Vexacare.Web.Controllers
             return View(doctorProfiles);
         }
         #region Profile
-        public async Task<IActionResult> Profile(int id)
+        public async Task<IActionResult> Profile(string id)
         {
             var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
 
@@ -83,7 +83,7 @@ namespace Vexacare.Web.Controllers
 
         #region BookNow
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> BookNow(int id)
+        public async Task<IActionResult> BookNow(string id)
         {
             // Get the doctor by ID
             var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
@@ -102,7 +102,7 @@ namespace Vexacare.Web.Controllers
 
         #region ConfirmPay
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> ConfirmPay(int id)
+        public async Task<IActionResult> ConfirmPay(string id)
         {
             var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
 

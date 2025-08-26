@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vexacare.Application.DoctorProfiles;
+using Vexacare.Application.Interfaces;
+using Vexacare.Domain.Entities.DoctorEntities;
+using Vexacare.Domain.Entities.ProductEntities;
 using Vexacare.Infrastructure.Data;
 
 namespace Vexacare.Infrastructure.Services.DoctorProfileServices
@@ -13,143 +17,86 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
     public class DoctorProfileService : IDoctorProfileService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IFileStorageService _fileStorageService;
+        private readonly IMapper _mapper;
+        private const string ContainerName = "doctors";
 
-        public DoctorProfileService(ApplicationDbContext context)
+        public DoctorProfileService(ApplicationDbContext context,
+            IFileStorageService fileStorageService, 
+            IMapper mapper
+            )
         {
             _context = context;
+            _fileStorageService = fileStorageService;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<DoctorProfileVM>> GetAllDoctorProfiles()
+        public async Task CreateDoctorBasicProfile(ProfileBasicVM model)
+        {
+
+            var existingDoctor = await _context.DoctorProfiles
+                .FirstOrDefaultAsync(dp => dp.Id == model.Id);
+            string imageUrl = null;
+            if (model.DoctorImage != null)
+            {
+                if (existingDoctor != null && !string.IsNullOrEmpty(existingDoctor.ProfileImagePath))
+                {
+                    await _fileStorageService.DeleteFileAsync(existingDoctor.ProfileImagePath, ContainerName);
+                }
+                imageUrl = await _fileStorageService.SaveFileAsync(model.DoctorImage, ContainerName);
+            }
+            else if (existingDoctor != null)
+            {
+                // If no new image provided but updating, keep the existing image
+                imageUrl = existingDoctor.ProfileImagePath;
+            }
+            if (existingDoctor != null)
+            {
+                // Update existing doctor profile
+                _mapper.Map(model, existingDoctor); // Map from source to destination
+                existingDoctor.ProfileImagePath = imageUrl;
+                existingDoctor.ModifiedDate = DateTime.Now;
+
+                _context.DoctorProfiles.Update(existingDoctor);
+            }
+            else
+            {
+                // Create new doctor profile
+                var doctorBasicProfile = _mapper.Map<DoctorProfile>(model);
+                doctorBasicProfile.ProfileImagePath = imageUrl;
+                doctorBasicProfile.CreatedDate = DateTime.Now;
+                doctorBasicProfile.ModifiedDate = DateTime.Now;
+
+                await _context.DoctorProfiles.AddAsync(doctorBasicProfile);
+            }
+            
+            await _context.SaveChangesAsync();
+
+        }
+        public async Task<IEnumerable<ProfileBasicVM>> GetAllDoctorProfiles()
         {
             var doctorProfiles = await _context.DoctorProfiles
                 .Include(dp => dp.Category)
                 .Include(dp => dp.ServiceType)
                 .Include(dp => dp.Location)
-                .Include(dp => dp.Availability)
                 .Include(dp => dp.Reviews)
                 .OrderBy(dp => dp.Name)
                 .ToListAsync();
 
-            return doctorProfiles.Select(doctor => new DoctorProfileVM
-            {
-                Id = doctor.Id,
-                Name = doctor.Name,
-                ProfilePictureUrl = doctor.ProfilePictureUrl,
-                PatientsCount = doctor.PatientsCount,
-                ConsultationType = doctor.ConsultationType,
-                ConsultationFee = doctor.ConsultationFee,
-                FeePeriod = doctor.FeePeriod,
-                About = doctor.About,
-                AreaofExperties = doctor.AreaofExperties,
-                Languages = doctor.Languages,
-                Reviews = doctor.Reviews,
-                CategoryId = doctor.CategoryId,
-                Category = doctor.Category,
-                SubCategory = doctor.SubCategory,
-                ServiceTypeId = doctor.ServiceTypeId,
-                ServiceType = doctor.ServiceType,
-                LocationId = doctor.LocationId,
-                Location = doctor.Location,
-                AvailabilityId = doctor.AvailabilityId,
-                Availability = doctor.Availability
-            });
-        }
-        public async Task<DoctorProfileVM> GetDoctorProfileByIdAsync(int doctorId)
-        {
-            var doctor = await _context.DoctorProfiles
-                .Include(dp => dp.Category)
-                .Include(dp => dp.ServiceType)
-                .Include(dp => dp.Location)
-                .Include(dp => dp.Availability)
-                .Include(dp => dp.Reviews)
-                .FirstOrDefaultAsync(dp => dp.Id == doctorId);
+            var allDoctors = _mapper.Map<IEnumerable<ProfileBasicVM>>(doctorProfiles);
+            return allDoctors;
 
-            if (doctor == null)
-            {
-                return null; // Or throw an exception if preferred
-            }
-
-            return new DoctorProfileVM
-            {
-                Id = doctor.Id,
-                Name = doctor.Name,
-                ProfilePictureUrl = doctor.ProfilePictureUrl,
-                PatientsCount = doctor.PatientsCount,
-                ConsultationType = doctor.ConsultationType,
-                ConsultationFee = doctor.ConsultationFee,
-                FeePeriod = doctor.FeePeriod,
-                About = doctor.About,
-                AreaofExperties = doctor.AreaofExperties,
-                Languages = doctor.Languages,
-                Reviews = doctor.Reviews,
-                CategoryId = doctor.CategoryId,
-                Category = doctor.Category,
-                SubCategory = doctor.SubCategory,
-                ServiceTypeId = doctor.ServiceTypeId,
-                ServiceType = doctor.ServiceType,
-                LocationId = doctor.LocationId,
-                Location = doctor.Location,
-                AvailabilityId = doctor.AvailabilityId,
-                Availability = doctor.Availability
-            };
-        }
-
-        public async Task<IEnumerable<DoctorProfileVM>> GetFilteredDoctorProfilesAsync(int? categoryId, int? serviceTypeId, int? locationId, int? availableId)
-        {
-            var query = _context.DoctorProfiles
-        .Include(dp => dp.Category)
-        .Include(dp => dp.ServiceType)
-        .Include(dp => dp.Location)
-        .Include(dp => dp.Availability)
-        .Include(dp => dp.Reviews)
-        .AsQueryable();
             
-            // Apply filters only if they are provided
-            if (categoryId.HasValue && categoryId>0)
-            {
-                query = query.Where(dp => dp.CategoryId == categoryId.Value);
-            }
-            if(serviceTypeId.HasValue && serviceTypeId > 0)
-            {
-                query = query.Where(dp => dp.ServiceTypeId == serviceTypeId.Value);
+        }
 
-            }
-            if (locationId.HasValue && locationId > 0)
-            {
-                query = query.Where(dp => dp.LocationId == locationId.Value);
+        public Task<ProfileBasicVM> GetDoctorProfileByIdAsync(string doctorId)
+        {
+            throw new NotImplementedException();
+        }
 
-            }
-            if (availableId.HasValue && availableId > 0)
-            {
-                query = query.Where(dp => dp.AvailabilityId == availableId.Value);
-
-            }
-            var doctorProfiles = await query
-        .OrderBy(dp => dp.Name)
-        .ToListAsync();
-            return doctorProfiles.Select(doctor => new DoctorProfileVM
-            {
-                Id = doctor.Id,
-                Name = doctor.Name,
-                ProfilePictureUrl = doctor.ProfilePictureUrl,
-                PatientsCount = doctor.PatientsCount,
-                ConsultationType = doctor.ConsultationType,
-                ConsultationFee = doctor.ConsultationFee,
-                FeePeriod = doctor.FeePeriod,
-                About = doctor.About,
-                AreaofExperties = doctor.AreaofExperties,
-                Languages = doctor.Languages,
-                Reviews = doctor.Reviews,
-                CategoryId = doctor.CategoryId,
-                Category = doctor.Category,
-                SubCategory = doctor.SubCategory,
-                ServiceTypeId = doctor.ServiceTypeId,
-                ServiceType = doctor.ServiceType,
-                LocationId = doctor.LocationId,
-                Location = doctor.Location,
-                AvailabilityId = doctor.AvailabilityId,
-                Availability = doctor.Availability
-            });
+        public Task<IEnumerable<ProfileBasicVM>> GetFilteredDoctorProfilesAsync(int? categoryId, int? serviceTypeId, int? locationId, int? availableId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
