@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Vexacare.Domain.Entities.Order;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
+using Vexacare.Domain.Entities.Stripe;
 using Vexacare.Infrastructure.Data.Configurations.OrderConfig;
 using Vexacare.Infrastructure.Data.Configurations.Product;
 
@@ -32,6 +33,8 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<ProductBenefit> ProductBenefits { get; set; } //mapping table of products and benefist.
 
         public DbSet<Order> Orders { get; set; }
+        public DbSet<StripeConfig> StripeConfigs { get; set; }
+
 
         #endregion
 

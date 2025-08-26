@@ -10,6 +10,8 @@ using Vexacare.Infrastructure.Data.Configurations.Admin;
 using Vexacare.Infrastructure.Repositories;
 using Vexacare.Infrastructure.Services;
 using Vexacare.Infrastructure.Services.ProductServices;
+using Vexacare.Infrastructure.Services.StripeServices;
+
 
 // Aliases to avoid conflict with Stripe
 using AppOrderService = Vexacare.Infrastructure.Services.OrderService;
@@ -35,6 +37,8 @@ builder.Services.AddMemoryCache(); // Add this if not already added
 builder.Services.AddScoped<ICartService, CartService>();
 
 builder.Services.AddScoped<IOrderService, AppOrderService>();  //change
+// Register the StripeConfigService
+builder.Services.AddScoped<StripeConfigService>();
 #endregion
 
 #region Added By Bhaskor

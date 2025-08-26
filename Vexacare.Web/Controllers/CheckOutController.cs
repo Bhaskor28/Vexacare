@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
+using Stripe.Checkout;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Products.ViewModels.Checkout;
 using Vexacare.Domain.Entities.PatientEntities;
-using Stripe.Checkout;
+using Vexacare.Infrastructure.Services.StripeServices;
 
 namespace Vexacare.Web.Controllers
 {
@@ -15,38 +17,48 @@ namespace Vexacare.Web.Controllers
         private readonly IOrderService _orderService;
         private readonly ILogger<ShopController> _logger;
         private readonly UserManager<Patient> _userManager;
+        private readonly StripeConfigService _stripeConfigService;
 
         public CheckOutController(
             IProductService productService,
             ICartService cartService,
             IOrderService orderService,
             ILogger<ShopController> logger,
-            UserManager<Patient> userManager)
+            UserManager<Patient> userManager,
+            StripeConfigService stripeConfigService)
         {
             _productService = productService;
             _cartService = cartService;
             _orderService = orderService;
             _logger = logger;
             _userManager = userManager;
+            _stripeConfigService = stripeConfigService;
         }
-
 
         public async Task<IActionResult> ValidatePayment()
         {
-            try {
+            try
+            {
+                // Get keys from database for validation
+                var keys = await _stripeConfigService.GetStripeKeysForPaymentAsync();
+
                 var service = new SessionService();
-                Session session = service.Get(TempData["SessionId"].ToString());
 
+                // CORRECT: Use RequestOptions with ApiKey property
+                var requestOptions = new RequestOptions { ApiKey = keys.SecretKey };
 
+                // Now this will work - SessionGetOptions is optional first parameter
+                Session session = service.Get(TempData["SessionId"].ToString(),
+                    null, // SessionGetOptions (optional) - can be null
+                    requestOptions); // RequestOptions with API key
 
                 if (session.PaymentStatus == "paid")
                 {
-                    
                     var userId = TempData["UserId"].ToString();
                     var checkout = await _orderService.GetCheckoutFromCacheAsync(userId);
+
                     // Create order
                     var order = await _orderService.CreateOrderAsync(checkout, userId);
-
                     await _orderService.ClearCheckoutCacheAsync(userId);
 
                     // Clear temp data
@@ -55,7 +67,6 @@ namespace Vexacare.Web.Controllers
 
                     // Redirect to order confirmation page
                     return RedirectToAction("OrderConfirmation", new { orderId = order.Id });
-                  
                 }
                 else
                 {
@@ -69,87 +80,7 @@ namespace Vexacare.Web.Controllers
             }
         }
 
-
-        //[Authorize(Roles = "Patient")]
-        //// GET: Checkout Page
-        //public async Task<IActionResult> Checkout()
-        //{
-        //    var userId = _userManager.GetUserId(User);
-        //    if (string.IsNullOrEmpty(userId))
-        //    {
-        //        return RedirectToAction("Login", "Account", new { returnUrl = Request.Path });
-        //    }
-
-        //    var cart = await _cartService.GetCartAsync(userId);
-        //    if (!cart.Items.Any())
-        //    {
-        //        return RedirectToAction("Cart");
-        //    }
-
-        //    // Create checkout view model with cart data
-        //    var checkout = new CheckoutVM
-        //    {
-        //        Subtotal = cart.Total,
-        //        Shipping = await _orderService.CalculateShippingAsync(cart.Total),
-        //        Tax = await _orderService.CalculateTaxAsync(cart.Total, "USA"),
-        //        Total = cart.Total + await _orderService.CalculateShippingAsync(cart.Total) +
-        //                await _orderService.CalculateTaxAsync(cart.Total, "USA"),
-        //        CartItems = cart.Items
-        //    };
-
-        //    // Pre-fill user info if available
-        //    var user = await _userManager.GetUserAsync(User);
-        //    if (user != null)
-        //    {
-        //        checkout.Email = user.Email;
-        //        checkout.FullName = $"{user.FirstName} {user.LastName}";
-        //    }
-
-        //    var domain = "https://localhost:7236/";//your application domain
-
-        //    var options = new SessionCreateOptions
-        //    {
-        //        SuccessUrl = domain + $"CheckOut/OrderConfirmation",
-        //        CancelUrl = domain + "Shop/Checkout",
-        //        LineItems = new List<SessionLineItemOptions>(),
-        //        Mode = "payment",
-        //        CustomerEmail = checkout.Email
-        //    };
-
-        //    foreach (var item in checkout.CartItems)
-        //    {
-        //        var sessionListItem = new SessionLineItemOptions
-        //        {
-        //            PriceData = new SessionLineItemPriceDataOptions
-        //            {
-        //                UnitAmount = (long)(item.Price * item.Quantity), // Convert to cents
-        //                Currency = "usd",
-        //                ProductData = new SessionLineItemPriceDataProductDataOptions
-        //                {
-        //                    Name = item.ProductName
-        //                },
-        //            },
-        //            Quantity = item.Quantity
-        //        };
-
-        //        options.LineItems.Add(sessionListItem);
-        //    }
-
-        //    //setup stripe core
-        //    var service = new SessionService();
-        //    Session session = service.Create(options);
-
-        //    TempData["Session"] = session.Id;
-
-        //    Response.Headers.Add("Location", session.Url);  // Redirect to Stripe Checkout url
-        //    return new StatusCodeResult(303); // Redirect to Stripe Checkout
-
-        //    //return View(checkout);
-        //}
-
-
         [Authorize(Roles = "Patient")]
-        // GET: Checkout Page
         public async Task<IActionResult> ProcessPayment()
         {
             var userId = _userManager.GetUserId(User);
@@ -169,7 +100,8 @@ namespace Vexacare.Web.Controllers
                 return Json(new { success = false, message = "Checkout data not found" });
             }
 
-            //payment
+            // Get Stripe keys from database
+            var keys = await _stripeConfigService.GetStripeKeysForPaymentAsync();
 
             // Pre-fill user info if available
             var user = await _userManager.GetUserAsync(User);
@@ -179,12 +111,12 @@ namespace Vexacare.Web.Controllers
                 checkout.FullName = $"{user.FirstName} {user.LastName}";
             }
 
-            var domain = "https://localhost:7236/";//your application domain
+            var domain = "http://localhost:5244/";
 
             var options = new SessionCreateOptions
             {
                 SuccessUrl = domain + $"CheckOut/ValidatePayment",
-                CancelUrl = domain + "CheckOut/Orderfailed",
+                CancelUrl = domain + "CheckOut/OrderFailed",
                 LineItems = new List<SessionLineItemOptions>(),
                 Mode = "payment",
                 CustomerEmail = checkout.Email
@@ -196,27 +128,27 @@ namespace Vexacare.Web.Controllers
                 {
                     PriceData = new SessionLineItemPriceDataOptions
                     {
-                        UnitAmount = (long)(item.Price * item.Quantity), // Convert to cents
+                        UnitAmount = (long)(item.Price * 100), // Convert to cents
                         Currency = "usd",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
-                            Name = item.ProductName
+                            Name = item.ProductName,
                         },
                     },
                     Quantity = item.Quantity
                 };
-
                 options.LineItems.Add(sessionListItem);
             }
 
-            //setup stripe core
+            // Create the Stripe session using the secret key from database
             var service = new SessionService();
-            Session session = service.Create(options);
+            var requestOptions = new RequestOptions { ApiKey = keys.SecretKey };
+
+            Session session = service.Create(options, requestOptions); // CORRECT
 
             TempData["SessionId"] = session.Id;
             TempData["UserId"] = userId;
 
-            // Return the Stripe URL to the client instead of redirecting
             return Json(new
             {
                 success = true,
@@ -225,7 +157,7 @@ namespace Vexacare.Web.Controllers
             });
         }
 
-        // GET: Order Confirmation
+        // ... rest of your controller methods remain the same
         [Authorize(Roles = "Patient")]
         public async Task<IActionResult> OrderConfirmation(int orderId)
         {
@@ -244,12 +176,10 @@ namespace Vexacare.Web.Controllers
             return View(order);
         }
 
-
         [Authorize(Roles = "Patient")]
         public IActionResult OrderFailed()
         {
             return View();
         }
-
     }
 }
