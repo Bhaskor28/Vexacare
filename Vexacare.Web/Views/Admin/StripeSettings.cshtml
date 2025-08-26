@@ -1,0 +1,39 @@
+﻿@using Vexacare.Domain.Entities.Stripe
+@model StripeConfig
+
+@{
+    ViewData["Title"] = "Stripe Payment Settings";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
+
+<form asp-action="StripeSettings" method="post">
+    <div class="form-group">
+        <label asp-for="PublishableKey"></label>
+        <input asp-for="PublishableKey" class="form-control" />
+        <span asp-validation-for="PublishableKey" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SecretKey"></label>
+        <input asp-for="SecretKey" class="form-control" type="password"
+               placeholder="Enter new key to update" />
+        <span asp-validation-for="SecretKey" class="text-danger"></span>
+        <small class="form-text text-muted">
+            Test keys start with: pk_test_... and sk_test_...<br />
+            Live keys start with: pk_live_... and sk_live_...
+        </small>
+    </div>
+
+    <div class="form-group form-check">
+        <input asp-for="IsTestMode" class="form-check-input" />
+        <label asp-for="IsTestMode" class="form-check-label">Use Test Mode</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Settings</button>
+</form>

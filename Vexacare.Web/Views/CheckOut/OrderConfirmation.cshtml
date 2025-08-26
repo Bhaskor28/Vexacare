@@ -1,0 +1,499 @@
+﻿@model Vexacare.Domain.Entities.Order.Order
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<style>
+    .order-confirmation-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 30px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .confirmation-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #4CAF50;
+    }
+
+    .success-icon {
+        font-size: 64px;
+        color: #4CAF50;
+        margin-bottom: 20px;
+    }
+
+    .confirmation-title {
+        font-size: 2em;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .order-number {
+        font-size: 1.2em;
+        color: #7f8c8d;
+        margin-bottom: 10px;
+    }
+
+    .confirmation-message {
+        color: #95a5a6;
+        margin-bottom: 30px;
+    }
+
+    .order-details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin: 30px 0;
+    }
+
+    @@media (max-width: 768px) {
+        .order-details-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .detail-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .section-title {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 5px 0;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .detail-value {
+        color: #7f8c8d;
+    }
+
+    .order-items {
+        margin: 30px 0;
+    }
+
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        background: white;
+    }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+    .item-name {
+        font-weight: 600;
+    }
+
+    .item-price {
+        color: #4CAF50;
+    }
+
+    .order-summary {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+    .total-row {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #4CAF50;
+        border-top: 2px solid #ddd;
+        padding-top: 15px;
+        margin-top: 15px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap;
+    }
+
+    .btn-primary {
+        background: #4CAF50;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .btn-primary:hover {
+            background: #3d8b40;
+            color: white;
+            text-decoration: none;
+        }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            color: white;
+            text-decoration: none;
+        }
+
+    .status-badge {
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 10px;
+    }
+
+    .status-confirmed {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .status-pending {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .thank-you-message {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 1.1em;
+        color: #6c757d;
+    }
+
+    .email-notification {
+        background: #e3f2fd;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+        text-align: center;
+        color: #0d47a1;
+    }
+
+    /* Print Styles - Optimized for single page */
+    @@media print {
+        body * {
+            visibility: hidden;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .order-confirmation-container,
+        .order-confirmation-container * {
+            visibility: visible;
+        }
+
+        .order-confirmation-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 15px !important;
+            box-shadow: none !important;
+            background: white !important;
+            border-radius: 0 !important;
+            page-break-inside: avoid;
+        }
+
+        .action-buttons,
+        .btn-primary,
+        .btn-secondary,
+        .pdf-download-btn,
+        .email-notification i,
+        .success-icon i {
+            display: none !important;
+        }
+
+        .confirmation-header {
+            text-align: left !important;
+            margin-bottom: 20px !important;
+            padding-bottom: 15px !important;
+            border-bottom: 2px solid #000 !important;
+            page-break-after: avoid;
+        }
+
+        .success-icon {
+            color: #000 !important;
+            font-size: 48px !important;
+            margin-bottom: 15px !important;
+        }
+
+        .confirmation-title {
+            font-size: 1.5em !important;
+            margin-bottom: 8px !important;
+        }
+
+        .order-details-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 15px !important;
+            margin: 20px 0 !important;
+            page-break-inside: avoid;
+        }
+
+        .detail-section {
+            background: #f0f0f0 !important;
+            padding: 15px !important;
+            page-break-inside: avoid;
+        }
+
+        .order-items {
+            margin: 20px 0 !important;
+            page-break-inside: avoid;
+        }
+
+        .order-item {
+            padding: 10px !important;
+        }
+
+        .order-summary {
+            background: #f0f0f0 !important;
+            padding: 15px !important;
+            margin-top: 15px !important;
+            page-break-inside: avoid;
+        }
+
+        .detail-section,
+        .order-summary {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .status-badge {
+            border: 1px solid #000 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .thank-you-message {
+            margin: 15px 0 !important;
+            font-size: 1em !important;
+        }
+
+        @@page {
+            margin: 0.5cm;
+            size: auto;
+        }
+    }
+
+    /* PDF Download Button */
+    .pdf-download-btn {
+        background: #dc3545;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .pdf-download-btn:hover {
+            background: #c82333;
+            color: white;
+            text-decoration: none;
+        }
+</style>
+
+<div class="order-confirmation-container">
+    <div class="confirmation-header">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1 class="confirmation-title">Thank You For Your Order!</h1>
+        <p class="order-number">Order Number: <strong>@Model.OrderNumber</strong></p>
+        <p class="confirmation-message">Your order has been successfully placed and is being processed.</p>
+    </div>
+
+    <div class="email-notification">
+        <i class="fas fa-envelope"></i>
+        A confirmation email has been sent to your email address.
+    </div>
+
+    <div class="order-details-grid">
+        <!-- Order Information -->
+        <div class="detail-section">
+            <h3 class="section-title">Order Information</h3>
+            <div class="detail-item">
+                <span class="detail-label">Order Date:</span>
+                <span class="detail-value">@Model.OrderDate.ToString("f")</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Order Status:</span>
+                <span class="detail-value">
+                    <span class="status-badge status-@Model.Status.ToLower()">@Model.Status</span>
+                </span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Payment Method:</span>
+                <span class="detail-value">Stripe (Credit Card)</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Payment Status:</span>
+                <span class="detail-value">Completed</span>
+            </div>
+        </div>
+
+        <!-- Customer Information -->
+        <div class="detail-section">
+            <h3 class="section-title">Customer Information</h3>
+            <div class="detail-item">
+                <span class="detail-label">Full Name:</span>
+                <span class="detail-value">@Model.FullName</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Phone:</span>
+                <span class="detail-value">@Model.PhoneNumber</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Shipping Address:</span>
+                <span class="detail-value">
+                    @Model.Address<br />
+                    @Model.City, @Model.ZipCode<br />
+                    @Model.Country
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Items -->
+    <div class="order-items">
+        <h3 class="section-title">Order Items</h3>
+        @foreach (var item in Model.OrderItems)
+        {
+            <div class="order-item">
+                <span class="item-name">@item.ProductName × @item.Quantity</span>
+                <span class="item-price">$@item.Subtotal.ToString("0.00")</span>
+            </div>
+        }
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+        <h3 class="section-title">Order Summary</h3>
+        <div class="summary-row">
+            <span>Subtotal:</span>
+            <span>$@Model.Subtotal.ToString("0.00")</span>
+        </div>
+        <div class="summary-row">
+            <span>Shipping:</span>
+            <span>$@Model.Shipping.ToString("0.00")</span>
+        </div>
+        <div class="summary-row">
+            <span>Tax:</span>
+            <span>$@Model.Tax.ToString("0.00")</span>
+        </div>
+        <div class="summary-row total-row">
+            <span>Total Amount:</span>
+            <span>$@Model.Total.ToString("0.00")</span>
+        </div>
+    </div>
+
+    <div class="thank-you-message">
+        <p>Thank you for shopping with us! We'll send you shipping confirmation once your order is on its way.</p>
+    </div>
+
+    <div class="action-buttons">
+        <a href="@Url.Action("Index", "Shop")" class="btn-primary">
+            <i class="fas fa-shopping-bag"></i> Continue Shopping
+        </a>
+        <a href="@Url.Action("Index", "Home")" class="btn-secondary">
+            <i class="fas fa-home"></i> Go to Homepage
+        </a>
+        <a href="@Url.Action("Index", "Account")" class="btn-secondary">
+            <i class="fas fa-user"></i> View Order History
+        </a>
+
+        <!-- PDF Download Button -->
+        <button onclick="downloadAsPDF()" class="pdf-download-btn">
+            <i class="fas fa-download"></i> Download PDF
+        </button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Simple and reliable auto-print after 3 seconds
+        // setTimeout(function() {
+        //     window.print();
+        // }, 3000);
+
+        // Simple PDF download that opens print dialog
+        function downloadAsPDF() {
+            window.print();
+        }
+
+        // Track order confirmation event
+        console.log('Order confirmed:', {
+            orderNumber: '@Model.OrderNumber',
+            total: @Model.Total,
+            items: @Model.OrderItems.Count
+        });
+
+        // Add event listener for print completion
+        window.addEventListener('afterprint', function() {
+            console.log('Print completed or cancelled');
+        });
+    </script>
+}

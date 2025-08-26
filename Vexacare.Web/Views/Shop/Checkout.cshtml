@@ -1,0 +1,239 @@
+﻿@model Vexacare.Application.Products.ViewModels.Checkout.CheckoutVM
+@using Microsoft.AspNetCore.Identity
+@using Vexacare.Domain.Entities.PatientEntities
+@inject UserManager<Patient> UserManager
+
+<!-- Checkout Form Section Start -->
+<section class="checkout-form-section">
+    <div class="container">
+        <div class="checkout-form">
+            <h1 class="checkout-form-title">Checkout</h1>
+
+            <div class="checkout-form-inner">
+                <!-- Left Column: Billing Details -->
+                <div class="checkout-form-box checkout-form-left">
+                    <h2 class="form-section-title">Billing Details</h2>
+
+                    <form class="checkout-form-form" id="checkout-form">
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label" asp-for="FullName">Full Name</label>
+                            <input type="text"
+                                   class="checkout-form-input"
+                                   placeholder="Enter your full name"
+                                   asp-for="FullName" readonly />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label" asp-for="Email">Email</label>
+                            <input type="email"
+                                   class="checkout-form-input"
+                                   placeholder="Enter your email"
+                                   asp-for="Email" readonly/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label" asp-for="Address">Address</label>
+                            <input type="text"
+                                   class="checkout-form-input"
+                                   placeholder="Enter your address"
+                                   asp-for="Address" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label" asp-for="Country">Country</label>
+                            <select class="checkout-form-input" asp-for="Country">
+                                <option value="">Select your country</option>
+                                @foreach (var country in Enum.GetValues(typeof(Vexacare.Domain.Enums.Country)).Cast<Vexacare.Domain.Enums.Country>())
+                                {
+                                    <option value="@country">@country</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label" asp-for="City">City</label>
+                            <input type="text"
+                                   class="checkout-form-input"
+                                   placeholder="Enter your city"
+                                   asp-for="City" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label" asp-for="ZipCode">Zip Code</label>
+                            <input type="text"
+                                   class="checkout-form-input"
+                                   placeholder="Enter your zip code"
+                                   asp-for="ZipCode" />
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                        </div>
+
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label" asp-for="PhoneNumber">Phone Number</label>
+                            <input type="text"
+                                   class="checkout-form-input"
+                                   placeholder="Enter your phone number"
+                                   asp-for="PhoneNumber" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="checkout-form-group">
+                            <h3 class="form-section-subtitle">
+                                Additional Information
+                            </h3>
+                            <label class="checkout-form-label" asp-for="OrderNotes">
+                                Order Notes
+                                <span class="optional">(optional)</span>
+                            </label>
+                            <textarea class="checkout-form-input textarea"
+                                      placeholder="Notes about your order, e.g. special notes for delivery"
+                                      asp-for="OrderNotes"></textarea>
+                            <span asp-validation-for="OrderNotes" class="text-danger"></span>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right Column: Your Order -->
+                <div class="checkout-form-box checkout-form-right">
+                    <div class="order-summary">
+                        <h2 class="form-section-title">Your Order</h2>
+
+                        <div class="order-item header">
+                            <span class="checkout-order-summary-item-heading">Product</span>
+                            <span class="checkout-order-summary-item-heading">Price</span>
+                        </div>
+
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <div class="order-item divider-line">
+                                <span>@item.ProductName × @item.Quantity</span>
+                                <span>$@((item.Price * item.Quantity).ToString("0.00"))</span>
+                            </div>
+                        }
+
+                        <div class="order-item">
+                            <span>Subtotal</span>
+                            <span id="subtotal-amount">$@Model.Subtotal.ToString("0.00")</span>
+                        </div>
+
+                        <div class="order-item">
+                            <span>Shipping</span>
+                            <span id="shipping-amount">$@Model.Shipping.ToString("0.00")</span>
+                        </div>
+
+                        <div class="order-item">
+                            <span>Tax</span>
+                            <span id="tax-amount">$@Model.Tax.ToString("0.00")</span>
+                        </div>
+                    </div>
+
+                    <div class="order-total">
+                        <span class="order-total-label">Total</span>
+                        <span class="total-price" id="total-amount">$@Model.Total.ToString("0.00")</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="checkout-buttons">
+                <button type="button" class="btn btn-back" id="btn-back">&larr; Back</button>
+                <button type="button" class="btn btn-confirm" id="btn-confirm">Confirm &rarr;</button>
+                @* <a asp-controller="CheckOut" asp-action="Checkout" type="button" class="btn btn-confirm">Confirm &rarr;</a> *@
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Checkout Form Section End -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function() {
+            // Back button - go to cart page
+            $('#btn-back').click(function() {
+                window.location.href = '@Url.Action("Cart", "Shop")';
+            });
+
+            // Confirm button
+            $('#btn-confirm').click(function() {
+                // Validate form
+                if (!$('#checkout-form').valid()) {
+                    alert('Please fill all required fields correctly.');
+                    return;
+                }
+
+                // Show loading
+                $('#btn-confirm').prop('disabled', true).html('Processing... <i class="fas fa-spinner fa-spin"></i>');
+
+                // Save checkout data to cache
+                $.post('@Url.Action("SaveCheckoutToCache", "Shop")',
+                    $('#checkout-form').serialize(),
+                    function(response) {
+                        if (response.success) {
+                            // Process payment
+                            processPayment();
+                        } else {
+                            alert('Error: ' + response.message);
+                            $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;');
+                        }
+                    }
+                ).fail(function() {
+                    alert('Error saving checkout data. Please try again.');
+                    $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;');
+                });
+            });
+
+            // Process payment function
+            function processPayment() {
+                $('#btn-confirm').prop('disabled', true).html('Processing...');
+
+                $.post('@Url.Action("ProcessPayment", "CheckOut")',
+                    function(response) {
+                        if (response.success) {
+                            // Redirect to Stripe checkout page
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            alert('Payment failed: ' + response.message);
+                            $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;');
+                        }
+                    }
+                ).fail(function() {
+                    alert('Error processing payment. Please try again.');
+                    $('#btn-confirm').prop('disabled', false).html('Confirm &rarr;');
+                });
+            }
+
+            // Recalculate totals when country changes
+            $('#Country').change(function() {
+                recalculateTotals();
+            });
+
+            // Recalculate totals function
+            function recalculateTotals() {
+                const country = $('#Country').val();
+                const subtotal = @Model.Subtotal;
+
+                if (!country) {
+                    return;
+                }
+
+                $.post('@Url.Action("CalculateTotals", "Shop")', {
+                    subtotal: subtotal,
+                    country: country
+                }, function(response) {
+                    if (response.success) {
+                        // Update amounts
+                        $('#subtotal-amount').text('$' + response.subtotal.toFixed(2));
+                        $('#shipping-amount').text('$' + response.shipping.toFixed(2));
+                        $('#tax-amount').text('$' + response.tax.toFixed(2));
+                        $('#total-amount').text('$' + response.total.toFixed(2));
+                    }
+                });
+            }
+        });
+    </script>
+}
