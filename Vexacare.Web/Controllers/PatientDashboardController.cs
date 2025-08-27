@@ -5,7 +5,6 @@ namespace Vexacare.Web.Controllers
 {
     public class PatientDashboardController : Controller
     {
-        [Authorize(Roles = "Patient")]
         public IActionResult Index()
         {
             return View();

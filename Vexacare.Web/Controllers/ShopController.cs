@@ -34,7 +34,7 @@ namespace Vexacare.Web.Controllers
             _logger = logger;
             _userManager = userManager;
         }
-
+        #region index
         public async Task<IActionResult> Index()
         {
             try
@@ -50,7 +50,9 @@ namespace Vexacare.Web.Controllers
                 return View("Error");
             }
         }
+        #endregion
 
+        #region product detail
         public async Task<IActionResult> ProductDetail(int id)
         {
             try
@@ -64,7 +66,11 @@ namespace Vexacare.Web.Controllers
                 return View("Error");
             }
         }
-        [Authorize(Roles = "Patient")]
+
+        #endregion
+
+
+        #region Add to cart
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId, int quantity)
         {
@@ -88,8 +94,10 @@ namespace Vexacare.Web.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        
-        [Authorize(Roles = "Patient")]
+        #endregion
+
+        #region Cart
+
         public async Task<IActionResult> Cart()
         {
             var userId = _userManager.GetUserId(User);
@@ -102,8 +110,9 @@ namespace Vexacare.Web.Controllers
 
             return View(cart);
         }
+        #endregion
 
-        [Authorize(Roles = "Patient")]
+        #region Remove from cart
         [HttpPost]
         public async Task<IActionResult> RemoveFromCart(int productId)
         {
@@ -135,8 +144,10 @@ namespace Vexacare.Web.Controllers
                 return Json(new { success = false, message = "Error removing product from cart" });
             }
         }
-        
-        [Authorize(Roles = "Patient")]
+
+        #endregion
+
+        #region Clear Cart
         [HttpPost]
         public async Task<IActionResult> ClearCart()
         {
@@ -164,7 +175,9 @@ namespace Vexacare.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "Patient")]
+        #endregion
+
+        #region update cart item 
         [HttpPost]
         public async Task<IActionResult> UpdateCartItem(int productId, int quantity)
         {
@@ -210,9 +223,9 @@ namespace Vexacare.Web.Controllers
             }
         }
 
+        #endregion
 
-
-        [Authorize(Roles = "Patient")]
+        #region checkout
         // GET: Checkout Page
         public async Task<IActionResult> Checkout()
         {
@@ -249,7 +262,9 @@ namespace Vexacare.Web.Controllers
 
             return View(checkout);
         }
+        #endregion
 
+        #region save checkout to cache
         // POST: Save Checkout Data to Cache
         [Authorize(Roles = "Patient")]
         [HttpPost]
@@ -282,62 +297,10 @@ namespace Vexacare.Web.Controllers
                 return Json(new { success = false, message = "Error saving checkout data" });
             }
         }
-
-        // POST: Process Dummy Payment
-        [Authorize(Roles = "Patient")]
-        [HttpPost]
-        public async Task<IActionResult> ProcessDummyPayment()
-        {
-            var userId = _userManager.GetUserId(User);
-            if (string.IsNullOrEmpty(userId))
-            {
-                return Json(new { success = false, message = "User not authenticated" });
-            }
-
-            try
-            {
-                // Get checkout data from cache
-                var checkout = await _orderService.GetCheckoutFromCacheAsync(userId);
-                if (checkout == null)
-                {
-                    return Json(new { success = false, message = "Checkout data not found" });
-                }
+        #endregion
 
 
-
-
-                // Process dummy payment
-                var paymentSuccess = await _orderService.ProcessDummyPaymentAsync(checkout, userId);
-
-
-
-
-                if (paymentSuccess)   //CheckOut/OrderConfirmation
-                {
-                    // Create order
-                    var order = await _orderService.CreateOrderAsync(checkout, userId);
-
-                    // Clear checkout cache
-                    await _orderService.ClearCheckoutCacheAsync(userId);
-
-                    return Json(new
-                    {
-                        success = true,
-                        orderId = order.Id,
-                        redirectUrl = Url.Action("OrderConfirmation", new { orderId = order.Id })
-                    });
-                }
-                else     //order failed
-                {
-                    return Json(new { success = false, message = "Payment processing failed" });
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error processing payment");
-                return Json(new { success = false, message = "Error processing payment" });
-            }
-        }
+        #region Order Confirmation
 
         // GET: Order Confirmation
         [Authorize(Roles = "Patient")]
@@ -357,5 +320,7 @@ namespace Vexacare.Web.Controllers
 
             return View(order);
         }
+
+        #endregion
     }
 }

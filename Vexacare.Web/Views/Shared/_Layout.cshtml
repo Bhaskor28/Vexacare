@@ -103,7 +103,7 @@
                                 var basicInfo = await DbContext.BasicInfos
                                 .AsNoTracking()
                                 .FirstOrDefaultAsync(b => b.PatientId == user.Id);
-                                var profilePic = basicInfo?.ProfilePictureUrl ?? Url.Content("~/assets/images/default-user.png");
+                                var profilePic = basicInfo?.ProfilePictureUrl ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png");
                                 string displayName = user.UserName;
 
                                 if (isPatient)
@@ -133,6 +133,9 @@
                                     {
                                         <a href="@Url.Action("BasicInfo", "Account")" class="dropdown-item" tabindex="0" role="menuitem">
                                             <i class="fa fa-user"></i> <span>Profile</span>
+                                        </a>
+                                        <a href="@Url.Action("Index", "PatientDashboard")" class="dropdown-item" tabindex="0" role="menuitem">
+                                            <i class="fa fa-user"></i> <span>Dashboard</span>
                                         </a>
                                     }
                                     else if (isAdmin)

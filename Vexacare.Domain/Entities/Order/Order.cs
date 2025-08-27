@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Vexacare.Domain.Enums;
 
 namespace Vexacare.Domain.Entities.Order
 {
@@ -23,7 +24,8 @@ namespace Vexacare.Domain.Entities.Order
         public decimal Shipping { get; set; }
         public decimal Tax { get; set; }
         public decimal Total { get; set; }
-        public string Status { get; set; } = "Pending";
+        public KitState KitState { get; set; }
+        public StateStatus StateStatus { get; set; }
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

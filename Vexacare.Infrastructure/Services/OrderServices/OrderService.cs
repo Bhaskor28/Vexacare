@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Products.ViewModels.Checkout;
 using Vexacare.Domain.Entities.Order;
+using Vexacare.Domain.Enums;
 using Vexacare.Infrastructure.Data;
 
 namespace Vexacare.Infrastructure.Services
@@ -19,6 +20,7 @@ namespace Vexacare.Infrastructure.Services
             _cartService = cartService;
             _cache = cache;
         }
+
 
         public async Task<Order> CreateOrderAsync(CheckoutVM checkout, string userId)
         {
@@ -41,7 +43,9 @@ namespace Vexacare.Infrastructure.Services
                 Shipping = checkout.Shipping,
                 Tax = checkout.Tax,
                 Total = checkout.Total,
-                Status = "Confirmed",
+                KitState = KitState.KitOrdered, // Default Ordered state set
+                StateStatus = StateStatus.Done, // Default Done status
+
                 OrderItems = cart.Items.Select(item => new OrderItem
                 {
                     ProductId = item.ProductId,
@@ -124,18 +128,43 @@ namespace Vexacare.Infrastructure.Services
             _cache.Remove(cacheKey);
         }
 
-        public async Task<bool> ProcessDummyPaymentAsync(CheckoutVM checkout, string userId)
+        public async Task<List<Order>> GetAllOrdersAsync()
+        {
+            return await _context.Orders
+                .Include(o => o.OrderItems)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+        }
+        public async Task UpdateOrderAsync(Order order)
+        {
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteOrderAsync(int orderId)
         {
             try
             {
-                // Simulate payment processing delay
-                await Task.Delay(2000);
+                var order = await _context.Orders
+                    .Include(o => o.OrderItems)
+                    .FirstOrDefaultAsync(o => o.Id == orderId);
 
-                // For demo purposes, always return success
+                if (order == null)
+                    return false;
+
+                // Remove order items first (due to foreign key constraint)
+                _context.OrderItems.RemoveRange(order.OrderItems);
+
+                // Remove the order
+                _context.Orders.Remove(order);
+
+                await _context.SaveChangesAsync();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                // Log the exception
+                Console.WriteLine($"Error deleting order: {ex.Message}");
                 return false;
             }
         }

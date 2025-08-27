@@ -35,6 +35,7 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<Benefit> Benefits { get; set; }
         public DbSet<ProductBenefit> ProductBenefits { get; set; } //mapping table of products and benefist.
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<StripeConfig> StripeConfigs { get; set; }
 
         #endregion

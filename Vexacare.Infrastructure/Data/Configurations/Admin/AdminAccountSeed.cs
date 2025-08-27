@@ -41,7 +41,8 @@ namespace Vexacare.Infrastructure.Data.Configurations.Admin
                 Role = "Admin",
                 AccessFailedCount = 0,
                 FirstName = "System",
-                LastName = "Administrator"
+                LastName = "Administrator",
+
             };
 
             var existingUser = await userManager.FindByEmailAsync(adminUser.Email);

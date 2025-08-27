@@ -5,6 +5,7 @@ namespace Vexacare.Application.Interfaces
 {
     public interface IOrderService
     {
+        //methods for order processing
         Task<Order> CreateOrderAsync(CheckoutVM checkout, string userId);
         Task<Order> GetOrderByIdAsync(int orderId);
         Task<List<Order>> GetUserOrdersAsync(string userId);
@@ -14,6 +15,11 @@ namespace Vexacare.Application.Interfaces
         Task SaveCheckoutToCacheAsync(CheckoutVM checkout, string userId);
         Task<CheckoutVM> GetCheckoutFromCacheAsync(string userId);
         Task ClearCheckoutCacheAsync(string userId);
-        Task<bool> ProcessDummyPaymentAsync(CheckoutVM checkout, string userId);
+
+        // Additional methods for order management
+        Task<List<Order>> GetAllOrdersAsync();
+        Task UpdateOrderAsync(Order order);
+        Task<bool> DeleteOrderAsync(int orderId);
+
     }
 }

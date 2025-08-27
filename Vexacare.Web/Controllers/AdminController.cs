@@ -36,6 +36,7 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
+        
         #region Doctor List
         [HttpGet]
         public async Task<IActionResult> DoctorList()
@@ -124,7 +125,7 @@ namespace Vexacare.Web.Controllers
                 {
                     await _stripeConfigService.SaveConfigAsync(model);
                     ViewBag.SuccessMessage = "Stripe settings updated successfully!";
-                    return View(model);
+                    return RedirectToAction("Index", "Admin");
                 }
                 catch (Exception ex)
                 {

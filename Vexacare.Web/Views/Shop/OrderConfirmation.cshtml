@@ -252,8 +252,8 @@
             <div class="detail-item">
                 <span class="detail-label">Order Status:</span>
                 <span class="detail-value">
-                    @Model.Status
-                    <span class="status-badge status-@Model.Status.ToLower()">@Model.Status</span>
+                    @Model.StateStatus.ToString()
+                    <span class="status-badge status-@Model.StateStatus.ToString().ToLower()">@Model.StateStatus.ToString()</span>
                 </span>
             </div>
             <div class="detail-item">
