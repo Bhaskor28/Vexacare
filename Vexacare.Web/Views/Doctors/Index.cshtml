@@ -21,7 +21,7 @@
             <!-- Tab Navigations -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link"
+                    <button class="nav-link active"
                             id="analysis-reports"
                             data-bs-toggle="tab"
                             data-bs-target="#analysis-reports-pane"
@@ -60,7 +60,7 @@
                 </li>
 
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active"
+                    <button class="nav-link"
                             id="profile-setting"
                             data-bs-toggle="tab"
                             data-bs-target="#profile-setting-pane"
@@ -76,7 +76,7 @@
             <!-- Tab Contents -->
             <div class="tab-content" id="myTabContent">
                 <!-- Analysis Content Start -->
-                <div class="tab-pane fade"
+                <div class="tab-pane fade show active"
                      id="analysis-reports-pane"
                      role="tabpanel"
                      aria-labelledby="analysis-reports"
@@ -494,7 +494,7 @@
                 </div>
                 <!-- Notification Content End -->
                 <!-- Profile Setting Content Start -->
-                <div class="tab-pane fade show active"
+                <div class="tab-pane fade"
                      id="profile-setting-pane"
                      role="tabpanel"
                      aria-labelledby="profile-setting"
@@ -506,7 +506,7 @@
                         <div class="nested-tabs">
                             <ul class="nav nav-tabs" id="nestedTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link"
+                                    <button class="nav-link active"
                                             id="profile-tab"
                                             data-bs-toggle="tab"
                                             data-bs-target="#profile"
@@ -519,7 +519,7 @@
                                 </li>
 
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active"
+                                    <button class="nav-link"
                                             id="session-details-tab"
                                             data-bs-toggle="tab"
                                             data-bs-target="#session-details"
@@ -560,7 +560,7 @@
 
                             <div class="tab-content" id="nestedTabContent">
                                 <!-- Profile Tab Start -->
-                                <div class="tab-pane fade"
+                                <div class="tab-pane fade show active"
                                      id="profile"
                                      role="tabpanel"
                                      aria-labelledby="profile-tab"
@@ -569,7 +569,7 @@
                                          id="profile-content-normal-view">
                                         <div class="profile-intro">
                                             <div class="profile-image">
-                                                <img src="~/assets/images/dr1.png" alt="" />
+                                                <img src="" alt="" />
                                             </div>
 
                                             <div class="profile-name">
@@ -760,13 +760,16 @@
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
-                                                    Areas of Expertise
+                                                    Gender
 
-                                                    <textarea asp-for="AreaofExperties" 
-                                                                id="areaofExperties"
-                                                                class="form-control profile-edit-input"></textarea>
-
-                                                    
+                                                    <select asp-for="Gender"
+                                                            id=""
+                                                            class="form-control profile-edit-input form-input-select">
+                                                        <option value="">Select Gender</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
@@ -778,16 +781,13 @@
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
-                                                    Gender
+                                                    Areas of Expertise
 
-                                                    <select asp-for="Gender"
-                                                            id=""
-                                                            class="form-control profile-edit-input form-input-select">
-                                                        <option value="">Select Gender</option>
-                                                            <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                        <option value="Other">Other</option>
-                                                    </select>
+                                                    <textarea asp-for="AreaofExperties"
+                                                              id="areaofExperties"
+                                                                class="form-control profile-edit-input"></textarea>
+
+                                                    
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
@@ -822,8 +822,9 @@
                                     </form>
                                 </div>
                                 <!-- Profile Tab End -->
+
                                 <!-- Session Details Tab Start -->
-                                <div class="tab-pane fade show active"
+                                <div class="tab-pane fade"
                                      id="session-details"
                                      role="tabpanel"
                                      aria-labelledby="session-details-tab"
@@ -1125,6 +1126,7 @@
                                     </div>
                                 </div>
                                 <!-- Session Details Tab End -->
+
                                 <!-- Recent Review Tab Start -->
                                 <div class="tab-pane fade"
                                      id="recent-review"
@@ -1217,6 +1219,37 @@
 </section>
 <!-- Partner Hub NavTabs Section End  -->
 <!-- ==== All Js Links ==== -->
+<!-- Profile Settings - Profile Photo Upload -->
+<script>
+    const profileInput = document.getElementById("profileInput");
+    const profilePreview = document.getElementById("profilePreview");
+    const uploadTrigger = document.getElementById("uploadTrigger");
+
+    profileInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        if (file.size > 4 * 1024 * 1024) {
+          alert("File size must be below 4 MB!");
+          this.value = "";
+          return;
+        }
+
+        const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+        if (!allowedTypes.includes(file.type)) {
+          alert("Only JPG and PNG formats are allowed!");
+          this.value = "";
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profilePreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+</script>
+
 <script>
     // Logic to handle profile editing
     function editProfile() {
