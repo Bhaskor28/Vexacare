@@ -11,7 +11,11 @@
                 <div class="tm-card-body">
                     <div class="tm-card-header">
                         <h3 class="tm-professional-name">
-                            @Model.Name
+                            @if(Model!= null)
+                            {
+                                @Model.Name
+                            }
+                            
                         </h3>
                         <div class="tm-professional-rating">
                             ⭐
@@ -23,7 +27,7 @@
                     </div>
                     <div class="tm-speciality-ratings-wrapper">
                         <p class="tm-professional-specialty">
-                            @Model.Category
+                            @Model.Category?.Name
                         </p>
 
                     </div>
@@ -79,7 +83,7 @@
                                           stroke-linecap="round" />
                                 </svg>
                             </span>
-                            <span>@Model.ServiceType.Name</span>
+                            <span>@Model.ServiceType?.Name</span>
                         </div>
                         <div class="tm-card-availability-item ">
                             <span>

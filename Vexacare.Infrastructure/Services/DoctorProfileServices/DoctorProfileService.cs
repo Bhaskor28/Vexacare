@@ -34,9 +34,20 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
         public async Task CreateDoctorBasicProfile(ProfileBasicVM model)
         {
 
-            var existingDoctor = await _context.DoctorProfiles
-                .FirstOrDefaultAsync(dp => dp.Id == model.Id);
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+
+            DoctorProfile existingDoctor = null;
+
+            
             string imageUrl = null;
+            // Check if we're updating an existing doctor
+            if (model.Id > 0)
+            {
+                // REMOVE AsNoTracking() - we need tracking for updates
+                existingDoctor = await _context.DoctorProfiles
+                    .FirstOrDefaultAsync(dp => dp.Id == model.Id);
+            }
             if (model.DoctorImage != null)
             {
                 if (existingDoctor != null && !string.IsNullOrEmpty(existingDoctor.ProfileImagePath))
@@ -52,12 +63,13 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
             }
             if (existingDoctor != null)
             {
-                // Update existing doctor profile
-                _mapper.Map(model, existingDoctor); // Map from source to destination
+                // Update existing doctor profile - map properties to the tracked entity
+                _mapper.Map(model, existingDoctor); // This maps from source to destination
                 existingDoctor.ProfileImagePath = imageUrl;
                 existingDoctor.ModifiedDate = DateTime.Now;
 
-                _context.DoctorProfiles.Update(existingDoctor);
+                // No need to call Update() on a tracked entity
+                // Entity Framework automatically detects changes on tracked entities
             }
             else
             {
@@ -91,7 +103,13 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
 
         public async Task<ProfileBasicVM> GetDoctorProfileByIdAsync(int doctorId)
         {
-            var doctor = await _context.DoctorProfiles.FindAsync(doctorId);
+            var doctor = await _context.DoctorProfiles
+        .Include(dp => dp.Category)        // Include Category
+        .Include(dp => dp.ServiceType)     // Include ServiceType
+        .Include(dp => dp.Location)        // Include Location
+        .Include(dp => dp.Reviews)         // Include Reviews
+        .FirstOrDefaultAsync(dp => dp.Id == doctorId);
+
             return _mapper.Map<ProfileBasicVM>(doctor);
         }
 

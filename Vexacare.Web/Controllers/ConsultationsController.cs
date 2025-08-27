@@ -74,9 +74,11 @@ namespace Vexacare.Web.Controllers
                 return NotFound();
             }
 
-            
-            
 
+
+            ViewBag.Categories = await _categoryService.GetAllCategories();
+            ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
+            //ViewBag.Location = await _locationService.GetLocationByIdAsync(doctor.LocationId.Value);
             return View(doctor);
         }
         #endregion

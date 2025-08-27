@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexacare.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Vexacare.Infrastructure.Data;
 namespace Vexacare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250826233450_doctorupdatedinformation")]
+    partial class doctorupdatedinformation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -359,6 +362,28 @@ namespace Vexacare.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ServiceTypes");
+                });
+
+            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.SubCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DoctorProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorProfileId");
+
+                    b.ToTable("SubCategory");
                 });
 
             modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.ApplicationUser", b =>
@@ -1003,6 +1028,17 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Navigation("DoctorProfile");
                 });
 
+            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.SubCategory", b =>
+                {
+                    b.HasOne("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", "DoctorProfile")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("DoctorProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DoctorProfile");
+                });
+
             modelBuilder.Entity("Vexacare.Domain.Entities.PatientEntities.BasicInfo", b =>
                 {
                     b.HasOne("Vexacare.Domain.Entities.PatientEntities.ApplicationUser", "Patient")
@@ -1107,6 +1143,8 @@ namespace Vexacare.Infrastructure.Migrations
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", b =>
                 {
                     b.Navigation("Reviews");
+
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Location", b =>
