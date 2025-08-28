@@ -1134,63 +1134,6 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Navigation("DoctorProfile");
                 });
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Availability", b =>
-                {
-                    b.HasOne("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", "DoctorProfile")
-                        .WithMany()
-                        .HasForeignKey("DoctorProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DoctorProfile");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", b =>
-                {
-                    b.HasOne("Vexacare.Domain.Entities.DoctorEntities.Category", "Category")
-                        .WithMany("DoctorProfile")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Vexacare.Domain.Entities.DoctorEntities.Location", "Location")
-                        .WithMany("DoctorProfiles")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Vexacare.Domain.Entities.DoctorEntities.ServiceType", "ServiceType")
-                        .WithMany("DoctorProfiles")
-                        .HasForeignKey("ServiceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Vexacare.Domain.Entities.PatientEntities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Location");
-
-                    b.Navigation("ServiceType");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Review", b =>
-                {
-                    b.HasOne("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", "DoctorProfile")
-                        .WithMany("Reviews")
-                        .HasForeignKey("DoctorProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DoctorProfile");
-                });
-
             modelBuilder.Entity("Vexacare.Domain.Entities.Order.OrderItem", b =>
                 {
                     b.HasOne("Vexacare.Domain.Entities.Order.Order", null)

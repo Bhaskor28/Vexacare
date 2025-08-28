@@ -119,6 +119,15 @@
                                         }
                                     }
                                 }
+                                if (isDoctor)
+                                {
+                                    var doctor = await DbContext.DoctorProfiles.FirstOrDefaultAsync(d => d.UserId == user.Id);
+                                    if (doctor != null)
+                                    {
+                                        displayName = doctor.Name;
+                                        profilePic = doctor.ProfileImagePath;
+                                    }
+                                }
                                 
                                 <button class="account-btn" id="account-toggle" aria-expanded="false" aria-haspopup="true">
                                     <img src="@profilePic"
