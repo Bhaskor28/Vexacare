@@ -140,6 +140,15 @@ namespace Vexacare.Web.Controllers
 
             try
             {
+                var existingProfile = await _context.DoctorProfiles
+            .FirstOrDefaultAsync(d => d.UserId == currentUser.Id);
+
+                // Set the ID from the existing profile to ensure update, not create
+                if (existingProfile != null)
+                {
+                    model.Id = existingProfile.Id; // THIS IS THE CRITICAL LINE
+                }
+                
                 model.UserId = currentUser.Id;
                 await _doctorProfileService.CreateDoctorBasicProfile(model);
                 var updatedProfile = await _context.DoctorProfiles

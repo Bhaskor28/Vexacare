@@ -6,6 +6,7 @@ using Vexacare.Application.Interfaces;
 using Vexacare.Application.Products.ViewModels.Checkout;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Application.Users.Doctors;
+using Vexacare.Application.DoctorProfiles;
 using Vexacare.Infrastructure.Services.ProductServices;
 
 namespace Vexacare.Web.Controllers
@@ -14,7 +15,7 @@ namespace Vexacare.Web.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
-        private readonly IDoctorService _doctorService;
+        private readonly IDoctorProfileService _doctorProfileService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOrderService _orderService;
         private readonly ILogger<ShopController> _logger;
@@ -23,13 +24,14 @@ namespace Vexacare.Web.Controllers
             IProductService productService,
             ICartService cartService,
             IDoctorService doctorService,
+            IDoctorProfileService doctorProfileService,
             IOrderService orderService,
             ILogger<ShopController> logger,
             UserManager<ApplicationUser> userManager)
         {
             _productService = productService;
             _cartService = cartService;
-            _doctorService = doctorService;
+            _doctorProfileService = doctorProfileService;
             _orderService = orderService;
             _logger = logger;
             _userManager = userManager;
@@ -40,8 +42,7 @@ namespace Vexacare.Web.Controllers
             try
             {
                 var products = await _productService.GetAllProductsAsync();
-
-                ViewBag.DoctorList = await _doctorService.GetAllDoctorAsync();
+                ViewBag.DoctorList = await _doctorProfileService.GetAllDoctorProfiles();
                 return View(products);
             }
             catch (Exception ex)

@@ -1741,6 +1741,7 @@
               margin-top: 40px;
 
               .profile-edit-label {
+                width: 99%;
                 color: #212b36;
                 font-size: 18px;
                 line-height: 132%;

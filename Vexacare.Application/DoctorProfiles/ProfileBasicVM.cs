@@ -45,8 +45,11 @@ namespace Vexacare.Application.DoctorProfiles
         public IFormFile? DoctorImage { get; set; }  // Changed from string to IFormFile
 
         public string? ProfileImagePath { get; set; }
-
+        public decimal? PatientCount { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime? ModifiedDate { get; set; }
+        public Category? Category { get; set; }
+        public ServiceType? ServiceType { get; set; }
+        public Location? Location { get; set; }
     }
 }

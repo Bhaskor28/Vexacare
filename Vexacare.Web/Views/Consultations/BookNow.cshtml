@@ -1,17 +1,23 @@
-﻿@model DoctorProfileVM
+@model ProfileBasicVM
+@using System.Text.RegularExpressions
 <section id="tm-booking-section">
     <div class="container">
         <div class="tm-profile-container">
             <div class="tm-profile-header">
                 <div class="tm-profile-header-left">
-                    <img src="~/assets/images/dr1.png"
+                    <img src="@Model.ProfileImagePath"
                          alt="Dr. Luca Marino"
                          class="tm-profile-photo">
                 </div>
                 <div class="tm-card-body">
                     <div class="tm-card-header">
                         <h3 class="tm-professional-name">
-                            @Model.Name
+
+                            @if(Model!= null)
+                            {
+                                @Model.Name
+                            }
+                            
                         </h3>
                         <div class="tm-professional-rating">
                             ⭐
@@ -23,16 +29,41 @@
                     </div>
                     <div class="tm-speciality-ratings-wrapper">
                         <p class="tm-professional-specialty">
-                            @Model.Category
+                            @Model.Category?.Name
                         </p>
 
                     </div>
                     <div class="tm-card-tag-wrapper">
-                        <p class="tm-card-tag">
+                        @{
+                            if (!string.IsNullOrEmpty(Model.AreaofExperties))
+                            {
+                                // Combined regex to match both <li> and <p> tags
+                                var matches = Regex.Matches(Model.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
+
+                                if (matches.Count > 0)
+                                {
+                                    for (int i = 0; i < Math.Min(2, matches.Count); i++)
+                                    {
+                                        <p class="tm-card-tag">@Html.Raw(matches[i].Groups[1].Value.Trim())</p>
+                                    }
+                                }
+                                else
+                                {
+                                    // Fallback for content without expected tags
+                                    var lines = Model.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                    for (int i = 0; i < Math.Min(2, lines.Length); i++)
+                                    {
+                                        <p class="tm-card-tag">@lines[i].Trim()</p>
+                                    }
+                                }
+                            }
+                        }
+                        @* <p class="tm-card-tag">
                             Digestive
                             Disorders
                         </p>
-                        <p class="tm-card-tag">@Model.SubCategory</p>
+                        <p class="tm-card-tag">Nothing</p> *@
                     </div>
 
                     <div class="tm-card-availability-wrapper">
@@ -59,7 +90,7 @@
                                           stroke-width="1.5" />
                                 </svg>
                             </span>
-                            <span>@Model.PatientsCount Patients</span>
+                            <span>650+</span>
                         </div>
                         <div class="tm-card-availability-item ">
                             <span>
@@ -79,7 +110,7 @@
                                           stroke-linecap="round" />
                                 </svg>
                             </span>
-                            <span>@Model.ServiceType.Name</span>
+                            <span>@Model.ServiceType?.Name</span>
                         </div>
                         <div class="tm-card-availability-item ">
                             <span>
@@ -127,7 +158,7 @@
                                           stroke-linejoin="round" />
                                 </svg>
                             </span>
-                            <span>Available @Model.FeePeriod</span>
+                            <span>Available sun, mon, thursday </span>
                         </div>
                     </div>
 
@@ -137,7 +168,7 @@
                                 <i class="far fa-clock"></i> 1
                                 day
                             </span>
-                            <span class="tm-professional-price">$@Model.ConsultationFee</span>
+                            <span class="tm-professional-price">$700</span>
                         </div>
                         <a asp-controller="Consultations" asp-action="Profile" asp-route-id="@Model.Id"
                            class="tm-view-profile-link">

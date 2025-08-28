@@ -53,7 +53,6 @@ namespace Vexacare.Web.Controllers
 
             //var doctors = await _doctorProfileService.GetAllDoctorProfiles();
 
-
             // Get all categories, service types, and locations for dropdowns
             ViewBag.Categories = await _categoryService.GetAllCategories();
             ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
@@ -65,7 +64,7 @@ namespace Vexacare.Web.Controllers
             return View(doctorProfiles);
         }
         #region Profile
-        public async Task<IActionResult> Profile(string id)
+        public async Task<IActionResult> Profile(int id)
         {
             var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
 
@@ -74,16 +73,16 @@ namespace Vexacare.Web.Controllers
                 return NotFound();
             }
 
-            
-            var getDoctor = _mapper.Map<DoctorProfileVM>(doctor);
-
-            return View(getDoctor);
+            ViewBag.Categories = await _categoryService.GetAllCategories();
+            ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
+            //ViewBag.Location = await _locationService.GetLocationByIdAsync(doctor.LocationId.Value);
+            return View(doctor);
         }
         #endregion
 
         #region BookNow
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> BookNow(string id)
+        public async Task<IActionResult> BookNow(int id)
         {
             // Get the doctor by ID
             var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
@@ -93,16 +92,13 @@ namespace Vexacare.Web.Controllers
                 return NotFound();
             }
 
-
-            var getDoctor = _mapper.Map<DoctorProfileVM>(doctor);
-
-            return View(getDoctor);
+            return View(doctor);
         }
         #endregion BookNow
 
         #region ConfirmPay
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> ConfirmPay(string id)
+        public async Task<IActionResult> ConfirmPay(int id)
         {
             var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
 
@@ -111,10 +107,7 @@ namespace Vexacare.Web.Controllers
                 return NotFound();
             }
 
-
-            var getDoctor = _mapper.Map<DoctorProfileVM>(doctor);
-
-            return View(getDoctor);
+            return View(doctor);
         }
         #endregion
         [Authorize(Roles = "Patient")]

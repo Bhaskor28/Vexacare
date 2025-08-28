@@ -15,10 +15,10 @@ namespace Vexacare.Domain.Entities.DoctorEntities
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime? ModifiedDate { get; set; }
         //public int ReviewId { get; set; }
+        public decimal? PatientCount { get; set; } = 0;
         public ICollection<Review>? Reviews { get; set; }
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
-        public string? SubCategory { get; set; }
         public int ServiceTypeId { get; set; }
         public ServiceType? ServiceType { get; set; }
         public int LocationId { get; set; }
@@ -26,6 +26,6 @@ namespace Vexacare.Domain.Entities.DoctorEntities
         public string UserId { get; set; }
         public int MyProperty { get; set; }
         public ApplicationUser User { get; set; }
-
+        //public ICollection<SubCategory> SubCategories { get; set; }
     }
 }
