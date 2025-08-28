@@ -3,48 +3,116 @@
 
 @{
     ViewData["Title"] = "Stripe Payment Settings";
+    Layout = "_AdminLayout";
 }
 
-<h2>@ViewData["Title"]</h2>
-
-@if (ViewBag.SuccessMessage != null)
-{
-    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
-}
-
-<form asp-action="StripeSettings" method="post">
-    <div class="form-group">
-        <label asp-for="PublishableKey"></label>
-        <input asp-for="PublishableKey" class="form-control" />
-        <span asp-validation-for="PublishableKey" class="text-danger"></span>
+<div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white py-3">
+        <h5 class="card-title mb-0"><i class="fas fa-credit-card me-2"></i>@ViewData["Title"]</h5>
     </div>
+    <div class="card-body p-4">
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show mb-4">
+                <i class="fas fa-check-circle me-2"></i>@ViewBag.SuccessMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
 
-    <div class="form-group">
-        <label asp-for="SecretKey"></label>
-        <input asp-for="SecretKey" class="form-control" type="password"
-               placeholder="Enter new key to update" />
-        <span asp-validation-for="SecretKey" class="text-danger"></span>
-        <small class="form-text text-muted">
-            Test keys start with: pk_test_... and sk_test_...<br />
-            Live keys start with: pk_live_... and sk_live_...
-        </small>
+        <form asp-action="StripeSettings" method="post" id="stripeForm" class="needs-validation" novalidate>
+            <div class="form-group mb-4">
+                <label asp-for="PublishableKey" class="form-label fw-bold text-dark"></label>
+                <input asp-for="PublishableKey" class="form-control form-control-lg border-0 shadow-sm bg-light" />
+                <span asp-validation-for="PublishableKey" class="text-danger small mt-1 d-block"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="SecretKey" class="form-label fw-bold text-dark"></label>
+                <input asp-for="SecretKey" class="form-control form-control-lg border-0 shadow-sm bg-light" type="password"
+                       placeholder="Enter new key to update" />
+                <span asp-validation-for="SecretKey" class="text-danger small mt-1 d-block"></span>
+                <small class="form-text text-muted mt-2 d-block">
+                    <i class="fas fa-info-circle me-1"></i>Test keys start with: <code>pk_test_...</code> and <code>sk_test_...</code><br />
+                    <i class="fas fa-info-circle me-1"></i>Live keys start with: <code>pk_live_...</code> and <code>sk_live_...</code>
+                </small>
+            </div>
+
+            <div class="form-group form-check mb-4">
+                <input asp-for="IsTestMode" class="form-check-input" style="width: 1.2em; height: 1.2em;" />
+                <label asp-for="IsTestMode" class="form-check-label fw-bold ms-2 text-dark">Use Test Mode</label>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" onclick="confirmSave(event)" class="btn btn-primary px-4 py-2 rounded-pill shadow">
+                    <i class="fas fa-save me-2"></i>Save Settings
+                </button>
+            </div>
+        </form>
     </div>
-
-    <div class="form-group form-check">
-        <input asp-for="IsTestMode" class="form-check-input" />
-        <label asp-for="IsTestMode" class="form-check-label">Use Test Mode</label>
-    </div>
-    <button type="submit" onclick="confirmSave()" class="btn btn-primary">Save Settings</button>
-    
-</form>
-
+</div>
 
 @section Scripts {
     <script>
-        function confirmSave() {
+        function confirmSave(event) {
+            event.preventDefault();
             if (confirm('Are you sure you want to update Stripe settings?')) {
                 document.getElementById('stripeForm').submit();
             }
         }
+
+        // Add some interactive styling
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.boxShadow = '0 0 0 3px rgba(13, 110, 253, 0.25)';
+                    this.style.transform = 'translateY(-2px)';
+                });
+
+                input.addEventListener('blur', function() {
+                    this.style.boxShadow = '';
+                    this.style.transform = '';
+                });
+            });
+        });
     </script>
+
+    <style>
+        .card {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .form-control {
+            transition: all 0.3s ease;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+        }
+
+            .form-control:focus {
+                box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+                transform: translateY(-2px);
+            }
+
+        .btn {
+            transition: all 0.3s ease;
+        }
+
+            .btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            }
+
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        code {
+            padding: 0.2em 0.4em;
+            background-color: rgba(175, 184, 193, 0.2);
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+    </style>
 }
