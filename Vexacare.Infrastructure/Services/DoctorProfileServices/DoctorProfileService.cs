@@ -48,6 +48,7 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
                 existingDoctor = await _context.DoctorProfiles
                     .FirstOrDefaultAsync(dp => dp.Id == model.Id);
             }
+
             if (model.DoctorImage != null)
             {
                 if (existingDoctor != null && !string.IsNullOrEmpty(existingDoctor.ProfileImagePath))

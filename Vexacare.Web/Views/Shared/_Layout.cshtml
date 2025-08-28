@@ -73,118 +73,9 @@
                         </li>
                     </ul>
 
-                    @* <!-- Right side --> *@
-                    @* <div class="nav-actions"> *@
-                    @*     <div class="cart" title="Cart" id="cart-icon" aria-hidden="true"> *@
-                    @*         <!-- CardSVG placeholder --> *@
-                    @*         <svg viewBox="0 0 24 24" *@
-                    @*              fill="none" *@
-                    @*              stroke="currentColor" *@
-                    @*              stroke-width="1.6" *@
-                    @*              stroke-linecap="round" *@
-                    @*              stroke-linejoin="round" *@
-                    @*              aria-hidden="true"> *@
-                    @*             <path d="M6 6h15l-1.4 8.4A2 2 0 0 1 17.6 16H8.4a2 2 0 0 1-2-1.6L5 4H3"></path> *@
-                    @*             <circle cx="10" cy="20" r="1"></circle> *@
-                    @*             <circle cx="18" cy="20" r="1"></circle> *@
-                    @*         </svg> *@
-                    @*         <div class="cart-badge" id="cart-count">0</div> *@
-                    @*     </div> *@
-
-                    @*     <div class="dropdown" id="account-dropdown"> *@
-                    @*         <button class="account-btn" *@
-                    @*                 id="account-toggle" *@
-                    @*                 aria-expanded="false" *@
-                    @*                 aria-haspopup="true"> *@
-                    @*             <svg viewBox="0 0 24 24" *@
-                    @*                  fill="none" *@
-                    @*                  stroke="currentColor" *@
-                    @*                  stroke-width="1.6" *@
-                    @*                  stroke-linecap="round" *@
-                    @*                  stroke-linejoin="round" *@
-                    @*                  aria-hidden="true"> *@
-                    @*                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path> *@
-                    @*                 <circle cx="12" cy="7" r="4"></circle> *@
-                    @*             </svg> *@
-                    @*             <span>Account</span> *@
-                    @*             <svg style="margin-left: 6px" *@
-                    @*                  viewBox="0 0 24 24" *@
-                    @*                  width="16" *@
-                    @*                  height="16" *@
-                    @*                  fill="none" *@
-                    @*                  stroke="currentColor" *@
-                    @*                  stroke-width="1.6"> *@
-                    @*                 <polyline points="6 9 12 15 18 9"></polyline> *@
-                    @*             </svg> *@
-                    @*         </button> *@
-
-                    @*         <div class="dropdown-menu" *@
-                    @*              id="dropdown-menu" *@
-                    @*              role="menu" *@
-                    @*              aria-hidden="true"> *@
-                    @*             <!-- Login Link --> *@
-
-                    @*             <a href="@Url.Action("login","Account")" *@
-
-                    @*                class="dropdown-item" *@
-                    @*                tabindex="0" *@
-                    @*                role="menuitem" *@
-                    @*                id="login-btn"> *@
-                    @*                 <svg viewBox="0 0 24 24" *@
-                    @*                      fill="none" *@
-                    @*                      stroke="currentColor" *@
-                    @*                      stroke-width="1.6"> *@
-                    @*                     <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path> *@
-                    @*                     <circle cx="12" cy="7" r="4"></circle> *@
-                    @*                 </svg> *@
-                    @*                 <span>Log In</span> *@
-                    @*             </a> *@
-
-                    @*             <!-- Signup Link --> *@
-
-                    @*             <a href="@Url.Action("Register","Account")" *@
-
-                    @*                class="dropdown-item" *@
-                    @*                tabindex="0" *@
-                    @*                role="menuitem" *@
-                    @*                id="signup-btn"> *@
-                    @*                 <svg viewBox="0 0 24 24" *@
-                    @*                      fill="none" *@
-                    @*                      stroke="currentColor" *@
-                    @*                      stroke-width="1.6"> *@
-                    @*                     <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path> *@
-                    @*                     <circle cx="12" cy="7" r="4"></circle> *@
-                    @*                     <path d="M19 8v6M22 11h-6" /> *@
-                    @*                 </svg> *@
-                    @*                 <span>Sign Up</span> *@
-                    @*             </a> *@
-                    @*         </div> *@
-                    @*     </div> *@
-                    @* </div> *@
-
-
-                    @* added by sazib *@
-
-                    
                     <!-- Right side -->
+                    @* Changed by Sazib *@
                     <div class="nav-actions">
-                        @* <div class="cart" title="Cart" id="cart-icon" aria-hidden="true"> *@
-                        @*     <!-- CardSVG placeholder --> *@
-                        @*     <svg viewBox="0 0 24 24" *@
-                        @*          fill="none" *@
-                        @*          stroke="currentColor" *@
-                        @*          stroke-width="1.6" *@
-                        @*          stroke-linecap="round" *@
-                        @*          stroke-linejoin="round" *@
-                        @*          aria-hidden="true"> *@
-                        @*         <path d="M6 6h15l-1.4 8.4A2 2 0 0 1 17.6 16H8.4a2 2 0 0 1-2-1.6L5 4H3"></path> *@
-                        @*         <circle cx="10" cy="20" r="1"></circle> *@
-                        @*         <circle cx="18" cy="20" r="1"></circle> *@
-                        @*     </svg> *@
-                        @*     <div class="cart-badge" id="cart-count">0</div> *@
-                        @* </div> *@
-
-                        @* Changed by Sazib *@
                         <div class="cart" title="Cart" id="cart-icon" aria-hidden="true">
                             <a href="@Url.Action("Cart", "Shop")" style="color: inherit; text-decoration: none;">
                                 <svg viewBox="0 0 24 24"
@@ -203,7 +94,7 @@
                         </div>
 
                         <div class="dropdown" id="account-dropdown">
-                             @if (SignInManager.IsSignedIn(User))
+                            @if (SignInManager.IsSignedIn(User))
                             {
                                 var user = await UserManager.GetUserAsync(User);
                                 var isPatient = await UserManager.IsInRoleAsync(user, "Patient");
@@ -212,7 +103,7 @@
                                 var basicInfo = await DbContext.BasicInfos
                                 .AsNoTracking()
                                 .FirstOrDefaultAsync(b => b.PatientId == user.Id);
-                                var profilePic = basicInfo?.ProfilePictureUrl ?? Url.Content("~/assets/images/default-user.png");
+                                var profilePic = basicInfo?.ProfilePictureUrl ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png");
                                 string displayName = user.UserName;
 
                                 if (isPatient)
@@ -243,6 +134,9 @@
                                     {
                                         <a href="@Url.Action("BasicInfo", "Account")" class="dropdown-item" tabindex="0" role="menuitem">
                                             <i class="fa fa-user"></i> <span>Profile</span>
+                                        </a>
+                                        <a href="@Url.Action("Index", "PatientDashboard")" class="dropdown-item" tabindex="0" role="menuitem">
+                                            <i class="fa fa-user"></i> <span>Dashboard</span>
                                         </a>
                                     }
                                     else if (isAdmin)

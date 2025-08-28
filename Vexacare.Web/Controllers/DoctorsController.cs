@@ -148,6 +148,7 @@ namespace Vexacare.Web.Controllers
                 {
                     model.Id = existingProfile.Id; // THIS IS THE CRITICAL LINE
                 }
+                
                 model.UserId = currentUser.Id;
                 await _doctorProfileService.CreateDoctorBasicProfile(model);
                 var updatedProfile = await _context.DoctorProfiles

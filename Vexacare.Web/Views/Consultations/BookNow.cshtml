@@ -1,4 +1,4 @@
-﻿@model ProfileBasicVM
+@model ProfileBasicVM
 @using System.Text.RegularExpressions
 <section id="tm-booking-section">
     <div class="container">
@@ -12,6 +12,7 @@
                 <div class="tm-card-body">
                     <div class="tm-card-header">
                         <h3 class="tm-professional-name">
+
                             @if(Model!= null)
                             {
                                 @Model.Name

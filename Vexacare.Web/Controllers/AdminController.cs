@@ -12,25 +12,31 @@ using Vexacare.Application.Users.Doctors;
 using Vexacare.Application.UsersVM;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
+using Vexacare.Domain.Entities.Stripe;
 using Vexacare.Infrastructure.Data;
+using Vexacare.Infrastructure.Services.StripeServices;
 
 namespace Vexacare.Web.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly StripeConfigService _stripeConfigService;
 
         private readonly IDoctorService _doctorService;
 
         #region Constructor
-        public AdminController(IDoctorService doctorService)
+        public AdminController(IDoctorService doctorService,
+            StripeConfigService stripeConfigService)
         {
             _doctorService = doctorService;
+            _stripeConfigService = stripeConfigService;
         }
         #endregion
         public IActionResult Index()
         {
             return View();
         }
+        
         #region Doctor List
         [HttpGet]
         public async Task<IActionResult> DoctorList()
@@ -98,6 +104,35 @@ namespace Vexacare.Web.Controllers
             ModelState.AddModelError(string.Empty, "Failed to delete doctor.");
             var doctor = await _doctorService.GetDoctorByIdAsync(id);
             return View(doctor);
+        }
+        #endregion
+
+
+        #region StripeAction
+        public async Task<IActionResult> StripeSettings()
+        {
+            var currentConfig = await _stripeConfigService.GetConfigAsync() ?? new StripeConfig();
+            return View(currentConfig);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> StripeSettings(StripeConfig model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _stripeConfigService.SaveConfigAsync(model);
+                    ViewBag.SuccessMessage = "Stripe settings updated successfully!";
+                    return RedirectToAction("Index", "Admin");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"Error saving settings: {ex.Message}");
+                }
+            }
+            return View(model);
         }
         #endregion
 
