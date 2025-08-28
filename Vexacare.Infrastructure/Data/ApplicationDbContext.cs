@@ -50,6 +50,17 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<Category> Categories { get; set; }
         #endregion
 
+
+
+        // Doctor's Tables
+        #region
+        public DbSet<DoctorProfile> DoctorProfiles { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Availability> Availabilities { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<ServiceType> ServiceTypes { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -1,11 +1,12 @@
-﻿@model DoctorProfileVM
+@model ProfileBasicVM
+@using System.Text.RegularExpressions
 <section id="tm-profile-section">
     <div class="container">
         <div class="tm-profile-container">
             <div class="tm-profile-content-wrapper">
                 <div class="tm-profile-header">
                     <div class="tm-profile-header-left">
-                        <img src="~/assets/images/dr1.png" alt="Dr. Luca Marino"
+                        <img src="@Model.ProfileImagePath" alt="Dr. Luca Marino"
                              class="tm-profile-photo">
                     </div>
                     <div class="tm-card-body">
@@ -16,23 +17,49 @@
                             <div class="tm-professional-rating">
                                 ⭐
                                 4.9 <span class="tm-total-tm-review">
-                                    (@Model.Reviews.Count()
+                                    (40)
                                     reviews)
                                 </span>
                             </div>
                         </div>
                         <div class="tm-speciality-ratings-wrapper">
                             <p class="tm-professional-specialty">
-                                @Model.Category.Name
+                                @Model.Category?.Name
+                                
                             </p>
 
                         </div>
                         <div class="tm-card-tag-wrapper">
-                            <p class="tm-card-tag">
+                            @{
+                                if (!string.IsNullOrEmpty(Model.AreaofExperties))
+                                {
+                                    // Combined regex to match both <li> and <p> tags
+                                    var matches = Regex.Matches(Model.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
+
+                                    if (matches.Count > 0)
+                                    {
+                                        for (int i = 0; i < Math.Min(2, matches.Count); i++)
+                                        {
+                                            <p class="tm-card-tag">@Html.Raw(matches[i].Groups[1].Value.Trim())</p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Fallback for content without expected tags
+                                        var lines = Model.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                        for (int i = 0; i < Math.Min(2, lines.Length); i++)
+                                        {
+                                            <p class="tm-card-tag">@lines[i].Trim()</p>
+                                        }
+                                    }
+                                }
+                            }
+                            @* <p class="tm-card-tag">
                                 Digestive
                                 Disorders
                             </p>
-                            <p class="tm-card-tag">Gut Inflammation</p>
+                            <p class="tm-card-tag">Gut Inflammation</p> *@
                         </div>
 
                         <div class="tm-card-availability-wrapper">
@@ -59,7 +86,7 @@
                                               stroke-width="1.5" />
                                     </svg>
                                 </span>
-                                <span>@Model.PatientsCount+ Patients</span>
+                                <span>650+ Patients</span>
                             </div>
                             <div class="tm-card-availability-item ">
                                 <span>
@@ -79,7 +106,7 @@
                                               stroke-linecap="round" />
                                     </svg>
                                 </span>
-                                <span>@Model.ServiceType.Name</span>
+                                <span>@Model.ServiceType?.Name</span>
                             </div>
                             <div class="tm-card-availability-item ">
                                 <span>
@@ -137,7 +164,7 @@
                                     <i class="far fa-clock"></i> 1
                                     day
                                 </span>
-                                <span class="tm-professional-price">$@Model.ConsultationFee</span>
+                                <span class="tm-professional-price">$500</span>
                             </div>
                             <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@Model.Id" class="tm-book-now-btn">
                                 Book
@@ -149,25 +176,17 @@
                 <div class="tm-about-section">
                     <h2 class="tm-doctor-profile-header">About @Model.Name</h2>
                     <p class="tm-section-content">
-                        Dr. Luca Marino is a renowned
-                        gastroenterologist with over 15 years of experience
-                        in treating digestive disorders and gut
-                        inflammation. He employs a holistic approach to
-                        patient care, ensuring personalized treatment plans
-                        tailored to individual needs. With a strong academic
-                        background and extensive clinical expertise, Dr.
-                        Marino is committed to improving patient outcomes
-                        through advanced medical techniques and
-                        compassionate care.
+                        @Html.Raw(Model.About)
                     </p>
                 </div>
                 <div class="tm-areas-section">
                     <h2 class="tm-doctor-profile-header">Areas of Expertise</h2>
                     <ul class="tm-section-content">
-                        <li>Gut Microbiota Analysis</li>
+                        @Html.Raw(Model.AreaofExperties)
+                        @* <li>Gut Microbiota Analysis</li>
                         <li>IBS Treatment</li>
                         <li>Probiotic Therapy</li>
-                        <li>Functional Lab Testing, etc.</li>
+                        <li>Functional Lab Testing, etc.</li> *@
                     </ul>
                 </div>
                 <div class="tm-education-section">
@@ -176,7 +195,8 @@
                         Certifications
                     </h2>
                     <ul class="tm-section-content">
-                        <li>
+                        @Html.Raw(Model.EducationDetails)
+                        @* <li>
                             MD - Internal Medicine, University of Amsterdam
                             (2008)
                         </li>
@@ -184,17 +204,17 @@
                             Specialist in Gastroenterology, University of
                             Amsterdam (2010)
                         </li>
-                        <li>Certified in Functional Medicine (2012)</li>
+                        <li>Certified in Functional Medicine (2012)</li> *@
                     </ul>
                 </div>
                 <div class="tm-language-section">
                     <h2 class="tm-doctor-profile-header">Languages</h2>
-                    <p class="tm-section-content">@Model.Languages (Native), Dutch (Fluent), German (Professional)</p>
+                    <p class="tm-section-content">(Native), Dutch (Fluent), German (Professional)</p>
                 </div>
                 <div class="tm-reviews-section">
                     <h2 class="tm-doctor-profile-header">Recent Patient reviews</h2>
                     <div class="tm-reviews">
-                        @foreach (var review in Model.Reviews.OrderByDescending(r=>r.CreatedAt).Take(5))
+                        @* @foreach (var review in Model.Reviews?.OrderByDescending(r=>r.CreatedAt).Take(5))
                         {
                             <div class="tm-review">
                                 <div class="tm-review-header">
@@ -213,7 +233,7 @@
                                     @review.Comment
                                 </p>
                             </div>
-                        }
+                        } *@
                         <div class="tm-review-see-more">
                             <a href="#" class="tm-see-more">See More</a>
                         </div>

@@ -19,13 +19,12 @@ using Vexacare.Infrastructure.Services.DoctorProfileServices;
 using Vexacare.Infrastructure.Services.LocationServices;
 using Vexacare.Infrastructure.Services.ProductServices;
 using Vexacare.Infrastructure.Services.ServiceTypes;
-using Vexacare.Infrastructure.Services.StripeServices;
 
+using Vexacare.Infrastructure.Services.StripeServices;
 
 // Aliases to avoid conflict with Stripe
 using AppOrderService = Vexacare.Infrastructure.Services.OrderService;
 using AppProductService = Vexacare.Infrastructure.Services.ProductService;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +56,7 @@ builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
+#endregion
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

@@ -11,5 +11,6 @@ namespace Vexacare.Application.Interfaces
     public interface ILocationService
     {
         Task<IEnumerable<LocationVM>> GetAllLocationsAsync(); // Changed to plural
+        Task<LocationVM> GetLocationByIdAsync(int id);
     }
 }
