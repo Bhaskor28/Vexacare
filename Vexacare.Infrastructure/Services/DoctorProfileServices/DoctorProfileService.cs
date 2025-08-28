@@ -48,6 +48,10 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
                 existingDoctor = await _context.DoctorProfiles
                     .FirstOrDefaultAsync(dp => dp.Id == model.Id);
             }
+            var existingDoctor = await _context.DoctorProfiles
+                .FirstOrDefaultAsync(dp => dp.Id == model.Id);
+            string imageUrl = null;
+
             if (model.DoctorImage != null)
             {
                 if (existingDoctor != null && !string.IsNullOrEmpty(existingDoctor.ProfileImagePath))
@@ -63,6 +67,7 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
             }
             if (existingDoctor != null)
             {
+
                 // Update existing doctor profile - map properties to the tracked entity
                 _mapper.Map(model, existingDoctor); // This maps from source to destination
                 existingDoctor.ProfileImagePath = imageUrl;
@@ -70,6 +75,13 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
 
                 // No need to call Update() on a tracked entity
                 // Entity Framework automatically detects changes on tracked entities
+
+                // Update existing doctor profile
+                _mapper.Map(model, existingDoctor); // Map from source to destination
+                existingDoctor.ProfileImagePath = imageUrl;
+                existingDoctor.ModifiedDate = DateTime.Now;
+
+                _context.DoctorProfiles.Update(existingDoctor);
             }
             else
             {
@@ -144,6 +156,14 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
                 .ToListAsync();
 
             return _mapper.Map<IEnumerable<ProfileBasicVM>>(filteredProfiles);
+        public Task<ProfileBasicVM> GetDoctorProfileByIdAsync(string doctorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<ProfileBasicVM>> GetFilteredDoctorProfilesAsync(int? categoryId, int? serviceTypeId, int? locationId, int? availableId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

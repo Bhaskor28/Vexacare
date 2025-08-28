@@ -52,8 +52,6 @@ namespace Vexacare.Web.Controllers
             }
 
             //var doctors = await _doctorProfileService.GetAllDoctorProfiles();
-
-
             // Get all categories, service types, and locations for dropdowns
             ViewBag.Categories = await _categoryService.GetAllCategories();
             ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
@@ -74,8 +72,6 @@ namespace Vexacare.Web.Controllers
                 return NotFound();
             }
 
-
-
             ViewBag.Categories = await _categoryService.GetAllCategories();
             ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
             //ViewBag.Location = await _locationService.GetLocationByIdAsync(doctor.LocationId.Value);
@@ -94,10 +90,6 @@ namespace Vexacare.Web.Controllers
             {
                 return NotFound();
             }
-
-
-            
-
             return View(doctor);
         }
         #endregion BookNow
@@ -112,10 +104,6 @@ namespace Vexacare.Web.Controllers
             {
                 return NotFound();
             }
-
-
-           
-
             return View(doctor);
         }
         #endregion

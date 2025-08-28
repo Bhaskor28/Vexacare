@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Vexacare.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class FixProductColumnWithBaseEntity : Migration
+    public partial class CreateAllTableNew : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,6 +69,59 @@ namespace Vexacare.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderNotes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Shipping = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -74,6 +129,7 @@ namespace Vexacare.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ProductType = table.Column<int>(type: "int", nullable: false),
+                    BreifDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ProductImages = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -83,6 +139,36 @@ namespace Vexacare.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StripeConfigs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublishableKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SecretKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsTestMode = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StripeConfigs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -393,12 +479,34 @@ namespace Vexacare.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductBenefits",
                 columns: table => new
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    BenefitId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    BenefitId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -415,6 +523,113 @@ namespace Vexacare.Infrastructure.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DoctorProfiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AreaofExperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    About = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EducationDetails = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfileImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    SubCategory = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ServiceTypeId = table.Column<int>(type: "int", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MyProperty = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoctorProfiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DoctorProfiles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DoctorProfiles_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DoctorProfiles_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DoctorProfiles_ServiceTypes_ServiceTypeId",
+                        column: x => x.ServiceTypeId,
+                        principalTable: "ServiceTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Availabilities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DoctorProfileId = table.Column<int>(type: "int", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Availabilities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Availabilities_DoctorProfiles_DoctorProfileId",
+                        column: x => x.DoctorProfileId,
+                        principalTable: "DoctorProfiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PatientName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReviewDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(MAX)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DoctorProfileId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_DoctorProfiles_DoctorProfileId",
+                        column: x => x.DoctorProfileId,
+                        principalTable: "DoctorProfiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "1", null, "Admin", "ADMIN" },
+                    { "2", null, "Doctor", "DOCTOR" },
+                    { "3", null, "Patient", "PATIENT" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -457,6 +672,11 @@ namespace Vexacare.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Availabilities_DoctorProfileId",
+                table: "Availabilities",
+                column: "DoctorProfileId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BasicInfos_PatientId",
                 table: "BasicInfos",
                 column: "PatientId");
@@ -465,6 +685,26 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "IX_DietProfileInfos_PatientId",
                 table: "DietProfileInfos",
                 column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorProfiles_CategoryId",
+                table: "DoctorProfiles",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorProfiles_LocationId",
+                table: "DoctorProfiles",
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorProfiles_ServiceTypeId",
+                table: "DoctorProfiles",
+                column: "ServiceTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorProfiles_UserId",
+                table: "DoctorProfiles",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GastrointestinalInfos_PatientId",
@@ -482,9 +722,19 @@ namespace Vexacare.Infrastructure.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderItem_OrderId",
+                table: "OrderItem",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductBenefits_BenefitId",
                 table: "ProductBenefits",
                 column: "BenefitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_DoctorProfileId",
+                table: "Reviews",
+                column: "DoctorProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SymptomsInfos_PatientId",
@@ -516,6 +766,9 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Availabilities");
+
+            migrationBuilder.DropTable(
                 name: "BasicInfos");
 
             migrationBuilder.DropTable(
@@ -531,7 +784,16 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "LifestyleInfos");
 
             migrationBuilder.DropTable(
+                name: "OrderItem");
+
+            migrationBuilder.DropTable(
                 name: "ProductBenefits");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "StripeConfigs");
 
             migrationBuilder.DropTable(
                 name: "SymptomsInfos");
@@ -543,13 +805,28 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "Benefits");
 
             migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "DoctorProfiles");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
+
+            migrationBuilder.DropTable(
+                name: "ServiceTypes");
         }
     }
 }

@@ -4,11 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Vexacare.Application.Categories;
 using Vexacare.Application.DoctorProfiles;
+using Stripe;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Mapping;
 using Vexacare.Application.ServiceTypes;
 using Vexacare.Application.Users.Doctors;
-using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
 using Vexacare.Infrastructure.Data.Configurations.Admin;
@@ -20,6 +20,12 @@ using Vexacare.Infrastructure.Services.LocationServices;
 using Vexacare.Infrastructure.Services.ProductServices;
 using Vexacare.Infrastructure.Services.ServiceTypes;
 
+using Vexacare.Infrastructure.Services.StripeServices;
+
+// Aliases to avoid conflict with Stripe
+using AppOrderService = Vexacare.Infrastructure.Services.OrderService;
+using AppProductService = Vexacare.Infrastructure.Services.ProductService;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -29,14 +35,19 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService, AppProductService>();  //change
 builder.Services.AddScoped<IBenefitRepository, BenefitRepository>();
 
 // Add AutoMapper with your assembly
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+
 // In ConfigureServices method of Startup.cs
 builder.Services.AddMemoryCache(); // Add this if not already added
 builder.Services.AddScoped<ICartService, CartService>();
+
+builder.Services.AddScoped<IOrderService, AppOrderService>();  //change
+// Register the StripeConfigService
+builder.Services.AddScoped<StripeConfigService>();
 #endregion
 
 #region Added By Bhaskor
@@ -61,11 +72,14 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedPhoneNumber = false;
 })
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+#endregion
 
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
 
 var app = builder.Build();
+
+// Seed data
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -81,27 +95,27 @@ using (var scope = app.Services.CreateScope())
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred while seeding admin data.");
     }
-}// for automatic seed data after running app
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+// Stripe config
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-    
-
 
 app.Run();
