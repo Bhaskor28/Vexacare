@@ -458,14 +458,14 @@
         }
       }
 
-      .test-status-steps {
-        display: flex !important;
-        justify-content: space-between;
-        gap: 50px;
-        margin-top: 48px;
+.test-status-steps {
+    display: flex !important;
+    justify-content: space-between;
+    gap: 50px;
+    margin-top: 48px;
 
-        position: relative;
-        z-index: 1;
+    position: relative;
+    z-index: 1;
 
         &::after {
           content: "";

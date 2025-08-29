@@ -1,0 +1,233 @@
+﻿@using Vexacare.Application.Orders.OrderViewModel
+@using Vexacare.Domain.Enums
+@model OrderVM
+
+@{
+    ViewData["Title"] = "Edit Order";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit Order</h1>
+        <a href="@Url.Action("DisplayOrderList")" class="btn btn-secondary btn-sm">
+            <i class="fas fa-arrow-left"></i> Back to Orders
+        </a>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Order #@Model.OrderNumber</h6>
+        </div>
+        <div class="card-body">
+            <form asp-controller="OrderManagement" asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
+                <input type="hidden" asp-for="OrderNumber" />
+                <input type="hidden" asp-for="OrderDate" />
+                <input type="hidden" asp-for="FullName" />
+                <input type="hidden" asp-for="Address" />
+                <input type="hidden" asp-for="Country" />
+                <input type="hidden" asp-for="City" />
+                <input type="hidden" asp-for="ZipCode" />
+                <input type="hidden" asp-for="PhoneNumber" />
+                <input type="hidden" asp-for="OrderNotes" />
+                <input type="hidden" asp-for="Subtotal" />
+                <input type="hidden" asp-for="Shipping" />
+                <input type="hidden" asp-for="Tax" />
+                <input type="hidden" asp-for="Total" />
+
+                <!-- Order Information -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h5 class="text-primary mb-3"><i class="fas fa-receipt"></i> Order Information</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Order Number</label>
+                            <input value="@Model.OrderNumber" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Order Date</label>
+                            <input value="@Model.OrderDate.ToString("MMM dd, yyyy")" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Order Notes</label>
+                            <textarea class="form-control" rows="2" readonly>@Model.OrderNotes</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Information -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h5 class="text-primary mb-3"><i class="fas fa-user"></i> Customer Information</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Full Name</label>
+                            <input value="@Model.FullName" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Phone Number</label>
+                            <input value="@Model.PhoneNumber" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Address</label>
+                            <input value="@Model.Address" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">City</label>
+                            <input value="@Model.City" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Zip Code</label>
+                            <input value="@Model.ZipCode" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Country</label>
+                            <input value="@Model.Country" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Information -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h5 class="text-primary mb-3"><i class="fas fa-money-bill-wave"></i> Pricing Information</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Subtotal</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input value="@Model.Subtotal.ToString("F2")" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Shipping</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input value="@Model.Shipping.ToString("F2")" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Tax</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input value="@Model.Tax.ToString("F2")" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Total</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input value="@Model.Total.ToString("F2")" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Status (Editable Section) -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h5 class="text-primary mb-3"><i class="fas fa-truck"></i> Order Status</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="KitState" class="control-label">Kit State</label>
+                            <select asp-for="KitState" asp-items="Html.GetEnumSelectList<KitState>()" class="form-control">
+                                <option value="">-- Select Kit State --</option>
+                            </select>
+                            <span asp-validation-for="KitState" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="StateStatus" class="control-label">State Status</label>
+                            <select asp-for="StateStatus" asp-items="Html.GetEnumSelectList<StateStatus>()" class="form-control">
+                                <option value="">-- Select State Status --</option>
+                            </select>
+                            <span asp-validation-for="StateStatus" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Items (Read-only display) -->
+                @if (Model.OrderItems != null && Model.OrderItems.Any())
+                {
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3"><i class="fas fa-shopping-cart"></i> Order Items</h5>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.OrderItems)
+                                        {
+                                            <tr>
+                                                <td>@item.ProductName</td>
+                                                <td>@item.Quantity</td>
+                                                <td>@item.Price.ToString("C")</td>
+                                                <td>@((item.Quantity * item.Price).ToString("C"))</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- Form Actions -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Status
+                    </button>
+                    <a href="@Url.Action("DisplayOrderList")" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

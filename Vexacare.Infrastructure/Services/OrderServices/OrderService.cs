@@ -43,8 +43,8 @@ namespace Vexacare.Infrastructure.Services
                 Shipping = checkout.Shipping,
                 Tax = checkout.Tax,
                 Total = checkout.Total,
-                KitState = KitState.KitOrdered, // Default Ordered state set
-                StateStatus = StateStatus.Done, // Default Done status
+                KitState = KitState.None, // Default Ordered state set
+                StateStatus = StateStatus.pending, // Default Done status
 
                 OrderItems = cart.Items.Select(item => new OrderItem
                 {

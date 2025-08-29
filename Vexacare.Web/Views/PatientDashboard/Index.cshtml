@@ -1,5 +1,15 @@
-﻿
-    <!-- Dashboard Banner Section Start -->
+﻿@using Vexacare.Domain.Enums
+@model DashboardVM
+
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Patient Dashboard";
+}
+
+ 
+
+<!-- Dashboard Banner Section Start -->
     <section id="dashboard-banner">
         <div class="container">
             <div class="dashboard-banner-content">
@@ -18,6 +28,8 @@
     <section id="test-status">
         <div class="container">
             <!-- IF no test ordered -->
+        @if (Model.KitState == null || Model.KitState == KitState.None)   //if no test kit order ordered
+        {
             <div class="test-status-wrapper">
                 <div class="test-status-header">
                     <h3 class="test-status-title">Your Test Status</h3>
@@ -26,7 +38,7 @@
                 <div class="test-status-content">
                     <div class="test-status-icon">
                         <img src="~/assets/images/test-status-icon.png"
-                             alt="Test Status Icon" />
+                        alt="Test Status Icon" />
                     </div>
 
                     <div class="test-status-text">
@@ -35,84 +47,296 @@
                             to better gut health today.
                         </p>
 
-                        <a href="/shop.html" class="test-order-button">Order Your Kit</a>
+                        <a href="@Url.Action("Index", "Shop")" class="test-order-button">Order Your Kit</a>
                     </div>
                 </div>
             </div>
-
+        }
+        else
+        {
             <!-- IF test ordered -->
-            <div style="display: none"
-                 class="text-status-wrapper text-status-wrapper-ordered">
+            <div class="text-status-wrapper text-status-wrapper-ordered">
                 <div class="test-status-wrapper">
                     <div class="test-status-header">
                         <h3 class="test-status-title">Your Test Status</h3>
 
                         <a href="#" class="how-to-take">
-                            <span><img src="assets/SVG/Playbutton.svg" alt="" /></span>
+                            <span><img src="~/assets/SVG/Playbutton.svg" alt="" /></span>
                             How to take the sample
                         </a>
                     </div>
 
                     <div class="test-status-steps">
+                        @* step-1 *@
                         <div class="test-status-step">
                             <div class="test-status-icon compleate">
-                                <img src="assets/SVG/TestStepCompleate1.svg"
+                                <img src="~/assets/SVG/TestStepCompleate1.svg"
                                      class="step-icon"
                                      alt="Test Status Icon" />
                             </div>
 
                             <p class="test-status-description">Kit Ordered</p>
                         </div>
-
+                        @* Step-2 *@
                         <div class="test-status-step">
-                            <div class="test-status-icon compleate">
-                                <img src="assets/SVG/TestStepCompleate2.svg"
-                                     class="step-icon"
-                                     alt="Test Status Icon" />
-                            </div>
-
+                            @if (Model.KitState == KitState.SampleReceived)
+                            {
+                                @if (Model.StateStatus == StateStatus.Done)
+                                {
+                                    <div class="test-status-icon compleate">
+                                        <img src="~/assets/SVG/TestStepCompleate2.svg"
+                                        class="step-icon"
+                                        alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else if (Model.StateStatus == StateStatus.inProgress)
+                                {
+                                    <div class="test-status-icon pending">
+                                        <img src="~/assets/SVG/TestStepPending2.svg"
+                                        class="step-icon"
+                                        alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="test-status-icon">
+                                        <img src="~/assets/SVG/TestStepDefault2.svg"
+                                        class="step-icon"
+                                        alt="Test Status Icon" />
+                                    </div>
+                                }
+                            }
+                            else if ((int)Model.KitState > 2)
+                            {
+                                <div class="test-status-icon compleate">
+                                    <img src="~/assets/SVG/TestStepCompleate2.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="test-status-icon">
+                                    <img src="~/assets/SVG/TestStepDefault2.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+                            }
                             <p class="test-status-description">Sample Received</p>
                         </div>
-
+                        @* step-3 *@
                         <div class="test-status-step">
-                            <div class="test-status-icon pending">
-                                <img src="assets/SVG/TestStepPending3.svg"
-                                     class="step-icon"
-                                     alt="Test Status Icon" />
-                            </div>
+                            @if (Model.KitState == KitState.InAnalysis)
+                            {
+                                @if (Model.StateStatus == StateStatus.Done)
+                                {
+                                    <div class="test-status-icon compleate">
+                                        <img src="~/assets/SVG/TestStepCompleate3.svg"
+                                        class="step-icon"
+                                        alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else if (Model.StateStatus == StateStatus.inProgress)
+                                {
+                                    <div class="test-status-icon pending">
+                                        <img src="assets/SVG/TestStepPending3.svg"
+                                             class="step-icon"
+                                             alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    
+                                    <div class="test-status-icon">
+                                        <img src="assets/SVG/TestStepDefault3.svg"
+                                                class="step-icon"
+                                                alt="Test Status Icon" />
+                                    </div>
+                                    
+                                }
+                            }
+                            else if ((int)Model.KitState > 3)
+                            {
+                                <div class="test-status-icon compleate">
+                                    <img src="~/assets/SVG/TestStepCompleate3.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="test-status-icon">
+                                    <img src="assets/SVG/TestStepDefault3.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+                            }
 
                             <p class="test-status-description">In Analysis</p>
                         </div>
 
-                        <div class="test-status-step">
-                            <div class="test-status-icon">
-                                <img src="assets/SVG/TestStepDefault4.svg"
-                                     class="step-icon"
-                                     alt="Test Status Icon" />
-                            </div>
+                        @* step-4 *@
 
+                        <div class="test-status-step">
+                            @if(Model.KitState == KitState.AIProcessing)
+                            {
+                                @if (Model.StateStatus == StateStatus.Done)
+                                {
+                                    <div class="test-status-icon compleate">
+                                        <img src="~/assets/SVG/TestStepCompleate4.svg"
+                                        class="step-icon"
+                                        alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else if (Model.StateStatus == StateStatus.inProgress)
+                                {
+                                    <div class="test-status-icon pending">
+                                        <img src="assets/SVG/TestStepPending4.svg"
+                                             class="step-icon"
+                                             alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    
+                                    <div class="test-status-icon">
+                                        <img src="assets/SVG/TestStepDefault4.svg"
+                                                class="step-icon"
+                                                alt="Test Status Icon" />
+                                    </div>
+                                    
+                                }
+                            }
+                            else if ((int)Model.KitState > 4)
+                            {
+                                <div class="test-status-icon compleate">
+                                    <img src="~/assets/SVG/TestStepCompleate4.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="test-status-icon">
+                                    <img src="assets/SVG/TestStepDefault4.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+
+                            }
                             <p class="test-status-description">AI Processing</p>
                         </div>
 
+                        @* step-5 *@
+
                         <div class="test-status-step">
-                            <div class="test-status-icon">
-                                <img src="assets/SVG/TestStepDefault5.svg"
-                                     class="step-icon"
-                                     alt="Test Status Icon" />
-                            </div>
+                            @if(Model.KitState == KitState.MedicalValidation)
+                            {
+                                @if (Model.StateStatus == StateStatus.Done)
+                                {
+                                    <div class="test-status-icon compleate">
+                                        <img src="~/assets/SVG/TestStepCompleate5.svg"
+                                        class="step-icon"
+                                        alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else if (Model.StateStatus == StateStatus.inProgress)
+                                {
+                                    <div class="test-status-icon pending">
+                                        <img src="assets/SVG/TestStepPending5.svg"
+                                             class="step-icon"
+                                             alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    
+                                    <div class="test-status-icon">
+                                        <img src="assets/SVG/TestStepDefault5.svg"
+                                                class="step-icon"
+                                                alt="Test Status Icon" />
+                                    </div>
+                                    
+                                }
+                            }
+                            else if ((int)Model.KitState > 5)
+                            {
+                                <div class="test-status-icon compleate">
+                                    <img src="~/assets/SVG/TestStepCompleate5.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="test-status-icon">
+                                    <img src="assets/SVG/TestStepDefault5.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+
+                            }
 
                             <p class="test-status-description">Medical Validation</p>
                         </div>
 
-                        <div class="test-status-step">
-                            <div class="test-status-icon">
-                                <img src="assets/SVG/TestStepDefault6.svg"
-                                     class="step-icon"
-                                     alt="Test Status Icon" />
-                            </div>
+                        @* step-6 *@
 
+                        <div class="test-status-step">
+                            @if(Model.KitState == KitState.ResultsAvailable)
+                            {
+                                @if (Model.StateStatus == StateStatus.Done)
+                                {
+                                    <div class="test-status-icon compleate">
+                                        <img src="~/assets/SVG/TestStepCompleate6.svg"
+                                        class="step-icon"
+                                        alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else if (Model.StateStatus == StateStatus.inProgress)
+                                {
+                                    <div class="test-status-icon pending">
+                                        <img src="assets/SVG/TestStepPending6.svg"
+                                             class="step-icon"
+                                             alt="Test Status Icon" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    
+                                    <div class="test-status-icon">
+                                        <img src="assets/SVG/TestStepDefault6.svg"
+                                                class="step-icon"
+                                                alt="Test Status Icon" />
+                                    </div>
+                                    
+                                }
+                            }
+                            else if ((int)Model.KitState > 6)
+                            {
+                                <div class="test-status-icon compleate">
+                                    <img src="~/assets/SVG/TestStepCompleate6.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="test-status-icon">
+                                    <img src="assets/SVG/TestStepDefault6.svg"
+                                         class="step-icon"
+                                         alt="Test Status Icon" />
+                                </div>
+
+                            }
+                            
                             <p class="test-status-description">Results Available</p>
                         </div>
+
+                        <div class="test-status-line-bar"></div>
                     </div>
                 </div>
 
@@ -129,6 +353,7 @@
                     </div>
                 </div>
             </div>
+            }
         </div>
     </section>
     <!-- Test Status Section End -->
@@ -139,7 +364,7 @@
                 <!-- Tab Navigations -->
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link"
+                        <button class="nav-link active"
                                 id="overview-tab"
                                 data-bs-toggle="tab"
                                 data-bs-target="#overview-tab-pane"
@@ -163,7 +388,7 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active"
+                        <button class="nav-link"
                                 id="meal-planner-tab"
                                 data-bs-toggle="tab"
                                 data-bs-target="#meal-planner-tab-pane"
@@ -215,7 +440,7 @@
                 <!-- Tab Contents -->
                 <div class="tab-content" id="myTabContent">
                     <!-- Overview Content Start -->
-                    <div class="tab-pane fade"
+                    <div class="tab-pane fade show active"
                          id="overview-tab-pane"
                          role="tabpanel"
                          aria-labelledby="overview-tab"
@@ -1416,7 +1641,7 @@
                     </div>
                     <!-- Recommendations Content End -->
                     <!-- Meal Planner Content Starts -->
-                    <div class="tab-pane fade show active"
+                    <div class="tab-pane fade"
                          id="meal-planner-tab-pane"
                          role="tabpanel"
                          aria-labelledby="meal-planner-tab"

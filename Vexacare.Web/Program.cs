@@ -20,11 +20,12 @@ using Vexacare.Infrastructure.Services.LocationServices;
 using Vexacare.Infrastructure.Services.ProductServices;
 using Vexacare.Infrastructure.Services.ServiceTypes;
 using Vexacare.Infrastructure.Services.StripeServices;
-
+using Vexacare.Infrastructure.Services.PatientDashboardServices;
 
 // Aliases to avoid conflict with Stripe
 using AppOrderService = Vexacare.Infrastructure.Services.OrderService;
 using AppProductService = Vexacare.Infrastructure.Services.ProductService;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +50,7 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrderService, AppOrderService>();  //change
 // Register the StripeConfigService
 builder.Services.AddScoped<StripeConfigService>();
+builder.Services.AddScoped<IPatientDashboardService, PatientDashboardService>(); 
 #endregion
 
 #region Added By Bhaskor

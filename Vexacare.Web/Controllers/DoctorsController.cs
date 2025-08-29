@@ -15,11 +15,11 @@ namespace Vexacare.Web.Controllers
 {
     public class DoctorsController : Controller
     {
+        #region Fields
         private readonly IDoctorProfileService _doctorProfileService;
         private readonly ILocationService _locationService;
         private readonly ICategoryService _categoryService;
         private readonly IServiceTypeService _serviceTypeService;
-        #region Fields
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
