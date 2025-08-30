@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexacare.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Vexacare.Infrastructure.Data;
 namespace Vexacare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250829231831_change doctorprofile table")]
+    partial class changedoctorprofiletable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,8 +189,7 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<int>("DayOfWeek")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DoctorProfileId")
-                        .IsRequired()
+                    b.Property<int>("DoctorProfileId")
                         .HasColumnType("int");
 
                     b.Property<TimeSpan>("EndTime")
@@ -196,7 +198,10 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("SlotDuration")
+                    b.Property<int>("MaxPatientsPerSlot")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SlotDuration")
                         .HasColumnType("int");
 
                     b.Property<TimeSpan>("StartTime")
@@ -248,9 +253,6 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DurationUnit")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("EducationDetails")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -269,6 +271,9 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("MyProperty")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -276,7 +281,7 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<decimal?>("PatientCount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("PricePerConsultation")
+                    b.Property<decimal>("PricePerConsultation")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProfileImagePath")
@@ -285,7 +290,7 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<int>("ServiceTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SessionDuration")
+                    b.Property<int>("SessionDuration")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")

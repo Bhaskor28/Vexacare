@@ -1,4 +1,4 @@
-﻿@model ProfileBasicVM 
+﻿@model PartnerHubVM 
      <!-- Navbar Section Start  -->
 <section id="partner-hub-banner">
     <div class="container">
@@ -654,15 +654,15 @@
 
                                         <label class="profile-intro box" id="profileLabel">
                                             <div class="profile-image">
-                                                @if (Model.ProfileImagePath != null)
+                                                @if (Model.ProfileBasic.ProfileImagePath != null)
                                                 {
-                                                    var path = Model.ProfileImagePath;
+                                                    var path = Model.ProfileBasic.ProfileImagePath;
                                                 }
-                                                <img id="profilePreview" 
-                                                src="@Model.ProfileImagePath"
+                                                <img id="profilePreview"
+                                                     src="@Model.ProfileBasic.ProfileImagePath"
                                                      alt="Profile Preview" 
                                                       />
-                                                <input asp-for="DoctorImage" type="file"
+                                                <input asp-for="ProfileBasic.DoctorImage" type="file"
                                                        id="profileInput"
                                                        accept="image/png, image/jpeg"
                                                        hidden />
@@ -689,15 +689,15 @@
                                                 <label for="" class="profile-edit-label">
                                                     Name
 
-                                                    <input asp-for="Name" type="text"
+                                                    <input asp-for="ProfileBasic.Name" type="text"
                                                            placeholder="Enter Doctor Name"
-                                                           class="form-control profile-edit-input" value="@Model.Name" readonly />
+                                                           class="form-control profile-edit-input" value="@Model.ProfileBasic.Name" readonly />
                                                 </label>
 
                                                 <label  class="profile-edit-label">
                                                     Service Type
 
-                                                    <select asp-for="ServiceTypeId"
+                                                    <select asp-for="ProfileBasic.ServiceTypeId"
                                                             id=""
                                                             class="form-control profile-edit-input form-input-select">
                                                        <option value="">Select Service Type</option>
@@ -718,7 +718,7 @@
                                                 <label for="" class="profile-edit-label">
                                                     Location
 
-                                                    <select asp-for="LocationId"
+                                                    <select asp-for="ProfileBasic.LocationId"
                                                             id=""
                                                             class="form-control profile-edit-input form-input-select">
                                                         <option value="">Select Location</option>
@@ -740,7 +740,7 @@
                                                 <label for="" class="profile-edit-label">
                                                     Service Category
 
-                                                    <select asp-for="CategoryId"
+                                                    <select asp-for="ProfileBasic.CategoryId"
                                                             
                                                             class="form-control profile-edit-input form-input-select">
                                                         <option value="">Select Category</option>
@@ -762,7 +762,7 @@
                                                 <label for="" class="profile-edit-label">
                                                     Gender
 
-                                                    <select asp-for="Gender"
+                                                    <select asp-for="ProfileBasic.Gender"
                                                             id=""
                                                             class="form-control profile-edit-input form-input-select">
                                                         <option value="">Select Gender</option>
@@ -775,15 +775,15 @@
                                                 <label for="" class="profile-edit-label">
                                                     Email
 
-                                                    <input asp-for="Email" type="email"
+                                                    <input asp-for="ProfileBasic.Email" type="email"
                                                            placeholder="Enter Doctor Name"
-                                                           class="form-control profile-edit-input" value="@Model.Email" readonly />
+                                                           class="form-control profile-edit-input" value="@Model.ProfileBasic.Email" readonly />
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
                                                     Areas of Expertise
 
-                                                    <textarea asp-for="AreaofExperties"
+                                                    <textarea asp-for="ProfileBasic.AreaofExperties"
                                                               id="areaofExperties"
                                                                 class="form-control profile-edit-input"></textarea>
 
@@ -792,14 +792,14 @@
 
                                                 <label for="" class="profile-edit-label">
                                                     About Us
-                                                    <textarea asp-for="About"
+                                                    <textarea asp-for="ProfileBasic.About"
                                                               id="aboutEditor"
                                                               class="form-control profile-edit-input"></textarea>
                                                 </label>
 
                                                 <label for="" class="profile-edit-label">
                                                     Education Details
-                                                    <textarea asp-for="EducationDetails" class="form-control" rows="4" id="educationalEditor">
+                                                    <textarea asp-for="ProfileBasic.EducationDetails" class="form-control" rows="4" id="educationalEditor">
                                                     </textarea>
                                                 </label>
                                             </div>
@@ -886,8 +886,12 @@
                                         </div>
                                     </div>
 
+
+
+
+
                                     <div id="session-details-edit-view">
-                                        <form action="" class="profile-edit-form">
+                                        <form asp-controller="Doctors" asp-action="EditProfileBasic" action="" class="profile-edit-form">
                                             <div class="profile-edit-body">
                                                 <div class="availability-section">
                                                     <h3 class="section-title">Availability</h3>

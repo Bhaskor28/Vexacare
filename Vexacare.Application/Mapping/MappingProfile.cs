@@ -75,6 +75,11 @@ namespace Vexacare.Application.Mapping
 
             CreateMap<Order, OrderVM>().ReverseMap();
 
+            // Add these mappings to your existing CreateMap configurations
+            CreateMap<DoctorProfile, DoctorSessionVM>()
+                .ForMember(dest => dest.DoctorProfileId, opt => opt.MapFrom(src => src.Id))
+                .ReverseMap();
+
             #endregion
 
 

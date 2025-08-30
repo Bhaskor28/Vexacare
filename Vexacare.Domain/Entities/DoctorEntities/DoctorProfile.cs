@@ -24,8 +24,15 @@ namespace Vexacare.Domain.Entities.DoctorEntities
         public int LocationId { get; set; }
         public Location? Location { get; set; }
         public string UserId { get; set; }
-        public int MyProperty { get; set; }
         public ApplicationUser User { get; set; }
-        //public ICollection<SubCategory> SubCategories { get; set; }
+        
+
+        // Added by sazib
+        // Add these new properties for consultation settings
+        public decimal? PricePerConsultation { get; set; }
+        public int? SessionDuration { get; set; }
+        
+        public string? DurationUnit { get; set; } // e.g., "Minutes", "Hours"
+        public ICollection<Availability>? Availabilities { get; set; }
     }
 }
