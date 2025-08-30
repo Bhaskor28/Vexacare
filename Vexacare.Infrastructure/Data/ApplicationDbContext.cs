@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Vexacare.Domain.Entities;
+using Vexacare.Domain.Entities.Availabilities;
 using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Domain.Entities.Order;
 using Vexacare.Domain.Entities.PatientEntities;
@@ -45,12 +46,12 @@ namespace Vexacare.Infrastructure.Data
         #region
         public DbSet<DoctorProfile> DoctorProfiles { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<Availability> Availabilities { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<WeekofDay> WeekofDays { get; set; }
+        public DbSet<AvailableDays> AvailableDays { get; set; }
         #endregion
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -29,7 +29,7 @@ namespace Vexacare.Application.DoctorProfiles
         public ServiceType? ServiceType { get; set; }
         public int LocationId { get; set; }
         public Location? Location { get; set; }
-        public int AvailabilityId { get; set; }
-        public Availability Availability { get; set; }
+        //public int AvailabilityId { get; set; }
+        //public Availability Availability { get; set; }
     }
 }

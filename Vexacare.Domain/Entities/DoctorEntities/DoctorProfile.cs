@@ -1,4 +1,5 @@
-﻿using Vexacare.Domain.Entities.PatientEntities;
+﻿using Vexacare.Domain.Entities.Availabilities;
+using Vexacare.Domain.Entities.PatientEntities;
 
 namespace Vexacare.Domain.Entities.DoctorEntities
 {
@@ -24,8 +25,16 @@ namespace Vexacare.Domain.Entities.DoctorEntities
         public int LocationId { get; set; }
         public Location? Location { get; set; }
         public string UserId { get; set; }
-        public int MyProperty { get; set; }
         public ApplicationUser User { get; set; }
+
+        // for session 
+        public decimal? ConsultationPrice { get; set; }
+        public int? DurationValue { get; set; }
+        public string? DurationUnit { get; set; }
+        public int? AvailableDaysId { get; set; }
+        public AvailableDays? AvailableDays { get; set; }
+        //public I<AvailabilityModel>? Availability { get; set; }
         //public ICollection<SubCategory> SubCategories { get; set; }
+
     }
 }

@@ -73,6 +73,8 @@ namespace Vexacare.Web.Controllers
                 ServiceTypeId = doctorProfile?.ServiceTypeId,
                 LocationId = doctorProfile?.LocationId,
                 CategoryId = doctorProfile?.CategoryId,
+                Category = doctorProfile?.Category,
+                ServiceType = doctorProfile?.ServiceType,
                 AreaofExperties = doctorProfile?.AreaofExperties,
                 Gender = doctorProfile?.Gender,
                 About = doctorProfile?.About,

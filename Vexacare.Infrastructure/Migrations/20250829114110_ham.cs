@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Vexacare.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialAfterMearge : Migration
+    public partial class ham : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,6 +53,22 @@ namespace Vexacare.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Available",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WeekDayId = table.Column<int>(type: "int", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Available", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -170,6 +186,20 @@ namespace Vexacare.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StripeConfigs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WeekofDays",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DoctorProfileId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WeekofDays", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -527,6 +557,57 @@ namespace Vexacare.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AvailableDays",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AvailableId = table.Column<int>(type: "int", nullable: false),
+                    WeekofDaysId = table.Column<int>(type: "int", nullable: false),
+                    WeekofDayId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AvailableDays", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AvailableDays_Available_AvailableId",
+                        column: x => x.AvailableId,
+                        principalTable: "Available",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AvailableDays_WeekofDays_WeekofDayId",
+                        column: x => x.WeekofDayId,
+                        principalTable: "WeekofDays",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AvailableWeekofDay",
+                columns: table => new
+                {
+                    AvailablesId = table.Column<int>(type: "int", nullable: false),
+                    WeekofDaysId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AvailableWeekofDay", x => new { x.AvailablesId, x.WeekofDaysId });
+                    table.ForeignKey(
+                        name: "FK_AvailableWeekofDay_Available_AvailablesId",
+                        column: x => x.AvailablesId,
+                        principalTable: "Available",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AvailableWeekofDay_WeekofDays_WeekofDaysId",
+                        column: x => x.WeekofDaysId,
+                        principalTable: "WeekofDays",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DoctorProfiles",
                 columns: table => new
                 {
@@ -546,7 +627,10 @@ namespace Vexacare.Infrastructure.Migrations
                     ServiceTypeId = table.Column<int>(type: "int", nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MyProperty = table.Column<int>(type: "int", nullable: false)
+                    ConsultationPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    DurationValue = table.Column<int>(type: "int", nullable: true),
+                    DurationUnit = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AvailableDaysId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -555,6 +639,12 @@ namespace Vexacare.Infrastructure.Migrations
                         name: "FK_DoctorProfiles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DoctorProfiles_AvailableDays_AvailableDaysId",
+                        column: x => x.AvailableDaysId,
+                        principalTable: "AvailableDays",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -573,29 +663,6 @@ namespace Vexacare.Infrastructure.Migrations
                         name: "FK_DoctorProfiles_ServiceTypes_ServiceTypeId",
                         column: x => x.ServiceTypeId,
                         principalTable: "ServiceTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Availabilities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DoctorProfileId = table.Column<int>(type: "int", nullable: false),
-                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
-                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Availabilities", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Availabilities_DoctorProfiles_DoctorProfileId",
-                        column: x => x.DoctorProfileId,
-                        principalTable: "DoctorProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -673,9 +740,19 @@ namespace Vexacare.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Availabilities_DoctorProfileId",
-                table: "Availabilities",
-                column: "DoctorProfileId");
+                name: "IX_AvailableDays_AvailableId",
+                table: "AvailableDays",
+                column: "AvailableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AvailableDays_WeekofDayId",
+                table: "AvailableDays",
+                column: "WeekofDayId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AvailableWeekofDay_WeekofDaysId",
+                table: "AvailableWeekofDay",
+                column: "WeekofDaysId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BasicInfos_PatientId",
@@ -686,6 +763,11 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "IX_DietProfileInfos_PatientId",
                 table: "DietProfileInfos",
                 column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorProfiles_AvailableDaysId",
+                table: "DoctorProfiles",
+                column: "AvailableDaysId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DoctorProfiles_CategoryId",
@@ -767,7 +849,7 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Availabilities");
+                name: "AvailableWeekofDay");
 
             migrationBuilder.DropTable(
                 name: "BasicInfos");
@@ -821,6 +903,9 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "AvailableDays");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
@@ -828,6 +913,12 @@ namespace Vexacare.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ServiceTypes");
+
+            migrationBuilder.DropTable(
+                name: "Available");
+
+            migrationBuilder.DropTable(
+                name: "WeekofDays");
         }
     }
 }

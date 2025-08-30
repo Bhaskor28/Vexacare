@@ -1,4 +1,5 @@
 ﻿@model ProfileBasicVM 
+@using System.Text.RegularExpressions
      <!-- Navbar Section Start  -->
 <section id="partner-hub-banner">
     <div class="container">
@@ -569,15 +570,15 @@
                                          id="profile-content-normal-view">
                                         <div class="profile-intro">
                                             <div class="profile-image">
-                                                <img src="" alt="" />
+                                                <img src="@(Model?.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
                                             </div>
 
                                             <div class="profile-name">
                                                 <h4 class="profile-name-title">
-                                                    Dr. Emdadul Huq
+                                                    @(Model?.Name)
                                                 </h4>
                                                 <h6 class="profile-name-subtitle">
-                                                    Gut Microbiota
+                                                    @(Model?.Category?.Name)
                                                 </h6>
                                                 <div class="profile-rating">
                                                     <i class="fa-solid fa-star"></i>
@@ -592,50 +593,77 @@
                                             <table cellpadding="14px">
                                                 <tr>
                                                     <td>Service Type</td>
-                                                    <td>Video Consultation</td>
+                                                    <td>@(Model?.ServiceType?.Name ?? "Ex. Video Consultation")</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Areas of Expertise</td>
                                                     <td>
-                                                        <span class="expertise-badge">Digestive Disorders</span>
+                                                        <div class="tm-card-tag-wrapper">
+                                                        @{
+                                                            if (!string.IsNullOrEmpty(Model?.AreaofExperties))
+                                                            {
+                                                                // Combined regex to match both <li> and <p> tags
+                                                                var matches = Regex.Matches(Model.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
+
+                                                                if (matches.Count > 0)
+                                                                {
+                                                                    for (int i = 0; i < Math.Min(2, matches.Count); i++)
+                                                                    {
+                                                                            <span class="expertise-badge">@Html.Raw(matches[i].Groups[1].Value.Trim())</span>
+                                                                        // <p class="tm-card-tag">@Html.Raw(matches[i].Groups[1].Value.Trim())</p>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    // Fallback for content without expected tags
+                                                                    var lines = Model.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                                                    for (int i = 0; i < Math.Min(2, lines.Length); i++)
+                                                                    {
+                                                                            <span class="expertise-badge">@lines[i].Trim()</span>
+                                                                        // <p class="tm-card-tag">@lines[i].Trim()</p>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        </div>
+                                                        @* <span class="expertise-badge">Digestive Disorders</span>
                                                         <span class="expertise-badge">Gut Inflammation</span>
-                                                        <span class="expertise-badge">Microbiota Analysis</span>
+                                                        <span class="expertise-badge">Microbiota Analysis</span> *@
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Email Address</td>
-                                                    <td>hefzurrahman523@gmail.com</td>
+                                                    <td>@(Model?.Email ?? "hefzurrahman523@gmail.com")</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Gender</td>
-                                                    <td>Male</td>
+                                                    <td>@Model?.Gender</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>About Us</td>
                                                     <td>
-                                                        Experienced gastroenterologist with a focus on
-                                                        digestive health and gut microbiome research.
-                                                        Specialized in treating chronic digestive
-                                                        conditions and providing personalized
-                                                        nutrition advice.
+                                                        @Html.Raw(Model.About)
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Education Details</td>
                                                     <td>
-                                                        Dr. John Smith completed his MBBS from Dhaka
+
+                                                        @Html.Raw(Model.EducationDetails)
+                                                        @* Dr. John Smith completed his MBBS from Dhaka
                                                         Medical College and pursued MD in
                                                         Gastroenterology from King’s College, London.
                                                         He has received specialized training in
                                                         nutrition and gut microbiota. With over 10
                                                         years of academic and clinical excellence, he
                                                         continues research in digestive health and
-                                                        patient-centered treatments.
+                                                        patient-centered treatments. *@
                                                     </td>
                                                 </tr>
                                             </table>
@@ -654,14 +682,15 @@
 
                                         <label class="profile-intro box" id="profileLabel">
                                             <div class="profile-image">
-                                                @if (Model.ProfileImagePath != null)
+                                                @* @if (Model.ProfileImagePath != null)
                                                 {
                                                     var path = Model.ProfileImagePath;
                                                 }
                                                 <img id="profilePreview" 
                                                 src="@Model.ProfileImagePath"
                                                      alt="Profile Preview" 
-                                                      />
+                                                      /> *@
+                                                <img id="profilePreview" src="@(Model?.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
                                                 <input asp-for="DoctorImage" type="file"
                                                        id="profileInput"
                                                        accept="image/png, image/jpeg"
@@ -893,6 +922,19 @@
                                                     <h3 class="section-title">Availability</h3>
 
                                                     <div class="availability-table box">
+                                                        @* @{
+                                                        // Razor code to generate next 7 days
+                                                        var startDate = DateTime.Today;
+                                                        var daysOfWeek = new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+                                                        for (int i = 0; i < 7; i++)
+                                                        {
+                                                            var currentDate = startDate.AddDays(i);
+                                                            var dayOfWeek = currentDate.DayOfWeek.ToString();
+                                                            var dayName = daysOfWeek[(int)currentDate.DayOfWeek];
+                                                            var dateString = currentDate.ToString("MMM dd, yyyy");
+                                                            var isChecked = currentDate.DayOfWeek != DayOfWeek.Sunday; Example logic *@
+                                                                                                            
                                                         <!-- Monday -->
                                                         <div class="availability-row">
                                                             <div class="day">Monday</div>
@@ -919,6 +961,7 @@
                                                             </div>
                                                         </div>
 
+                                                            @* } *@
                                                         <!-- Tuesday -->
                                                         <div class="availability-row">
                                                             <div class="day">Tuesday</div>
@@ -1075,8 +1118,10 @@
                                                                 <span class="closed-text">Closed</span>
                                                             </div>
                                                         </div>
+                                                    }
+                                                        </div>
+                                                
                                                     </div>
-                                                </div>
 
                                                 <div class="pricing-section">
                                                     <h3 class="section-title">

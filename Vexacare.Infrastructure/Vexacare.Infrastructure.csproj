@@ -24,4 +24,8 @@
 	<PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\DoctorAvailabilityService\" />
+  </ItemGroup>
+
 </Project>
