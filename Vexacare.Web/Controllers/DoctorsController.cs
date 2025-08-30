@@ -189,49 +189,47 @@ namespace Vexacare.Web.Controllers
 
         #endregion
 
-        #region Session Settings
-        //public async Task<IActionResult> Settings()
-        //{
-        //    var currentUser = await _userManager.GetUserAsync(User);
-        //    if (currentUser == null)
-        //    {
-        //        return RedirectToAction("Login", "Account");
-        //    }
-        //    var doctorId = currentUser.Id;
-        //    var model = await _doctorProfileService.GetProfileSettingsAsync(doctorId);
-        //    return View(model);
-        //}
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Settings(DoctorProfileSettingsVM model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
 
-        //    try
-        //    {
-        //        var success = await _doctorProfileService.SaveProfileSettingsAsync(model);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveAvailability(PartnerHubVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Return to view with errors
+                var doctorProfileId = model.ProfileBasic.UserId;
+                var profileBasic = await _doctorProfileService.GetDoctorProfileByUserIdAsync(doctorProfileId);
 
-        //        if (success)
-        //        {
-        //            TempData["SuccessMessage"] = "Profile settings updated successfully!";
-        //            return RedirectToAction(nameof(Settings));
-        //        }
+                return View("Index", model);
+            }
 
-        //        ModelState.AddModelError("", "Failed to update profile settings.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("", $"An error occurred: {ex.Message}");
-        //    }
+            try
+            {
+                var success = await _doctorProfileService.SaveProfileSettingsAsync(model.ProfileSession);
 
-        //    return View(model);
-        //}
+                if (success)
+                {
+                    TempData["SuccessMessage"] = "Availability settings updated successfully!";
+                    return RedirectToAction("Index");
+                }
 
-        #endregion
+                ModelState.AddModelError("", "Failed to update availability settings.");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"An error occurred: {ex.Message}");
+            }
+
+            // If we got here, something went wrong
+            var currentDoctorProfileId = model.ProfileBasic.UserId;
+            var currentProfileBasic = await _doctorProfileService.GetDoctorProfileByUserIdAsync(currentDoctorProfileId);
+
+            return View("Index", model);
+        }
+
+
+
 
     }
 }

@@ -829,29 +829,31 @@
                                      role="tabpanel"
                                      aria-labelledby="session-details-tab"
                                      tabindex="0">
-                                    <div style="display: none"
+
+                                    <!-- Before page start -->
+                                    <div style="display: flex;"
                                          id="session-details-normal-view">
                                         <div class="session-details-div">
                                             <h4 class="session-details-title">Availability</h4>
 
-                                            <div class="session-details-availability">
-                                                <h6 class="session-details-availability-day">
-                                                    Monday
-                                                </h6>
-                                                <h6 class="session-details-availability-time">
-                                                    10:00 AM - 5:00 PM
-                                                </h6>
-                                            </div>
-
-                                            <div class="session-details-availability">
-                                                <h6 class="session-details-availability-day">
-                                                    Monday
-                                                </h6>
-                                                <h6 class="session-details-availability-time">
-                                                    10:00 AM - 5:00 PM
-                                                </h6>
-                                            </div>
+                                            @if(Model?.ProfileSession?.WeeklyAvailability!=null)
+                                            {
+                                                foreach (var day in Model?.ProfileSession?.WeeklyAvailability.Where(d => d.IsAvailable))
+                                                {
+                                                    <div class="session-details-availability">
+                                                        <h6 class="session-details-availability-day">@day.DayName<h6/>
+                                                        <h6 class="session-details-availability-time">
+                                                            @day.StartTime.ToString(@"hh\:mm") - @day.EndTime.ToString(@"hh\:mm")
+                                                        </h6>
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <p>No availability set</p>
+                                            }
                                         </div>
+
 
                                         <div class="session-details-div">
                                             <h4 class="session-details-title">
@@ -860,7 +862,7 @@
 
                                             <div class="session-details-availability">
                                                 <h6 class="session-details-availability-day">
-                                                    $50 per session
+                                                    $@(Model?.ProfileSession?.PricePerConsultation ?? 0) per session
                                                 </h6>
                                             </div>
                                         </div>
@@ -872,7 +874,7 @@
 
                                             <div class="session-details-availability">
                                                 <h6 class="session-details-availability-day">
-                                                    30 minute
+                                                    @(Model?.ProfileSession?.SessionDuration ?? 0) minutes
                                                 </h6>
                                             </div>
                                         </div>
@@ -885,13 +887,106 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <!-- Before Section end -->
+                                    <!-- Edit View (Form for updating) -->
+                                    <div style="display: none" id="session-details-edit-view">
+                                        <form asp-controller="Doctors" asp-action="SaveAvailability" method="post" class="profile-edit-form">
+                                            <input type="hidden" asp-for="ProfileSession.DoctorProfileId" value="@(Model?.ProfileBasic?.Id)" />
+                                            <div class="profile-edit-body">
+                                                <div class="availability-section">
+                                                    <h3 class="section-title">Availability</h3>
 
+                                                    <div class="availability-table box">
 
+                                                        @if (Model?.ProfileSession?.WeeklyAvailability != null)
+                                                        {
+                                                            for (int i = 0; i < Model.ProfileSession.WeeklyAvailability.Count; i++)
+                                                            {
+                                                                var day = Model.ProfileSession.WeeklyAvailability[i];
 
+                                                                <div class="availability-row">
+                                                                    <div class="day">@day.DayName</div>
+                                                                    <div class="toggle-wrapper">
+                                                                        <div class="toggle normal">
+                                                                            <input asp-for="ProfileSession.WeeklyAvailability[i].IsAvailable" id="monday-toggle"
+                                                                                   type="checkbox"
+                                                                                   checked />
+                                                                            <label class="toggle-item" for="@($"{day.DayOfWeek.ToString().ToLower()}-toggle")"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="time-inputs">
+                                                                        <input asp-for="ProfileSession.WeeklyAvailability[i].StartTime" type="time"
+                                                                               value="@day.StartTime.ToString(@"hh\:mm")"
+                                                                               class="time-input"
+                                                                               id="@($"{day.DayOfWeek.ToString().ToLower()}-start")" />
+                                                                        <span class="to-text">to</span>
+                                                                        <input asp-for="ProfileSession.WeeklyAvailability[i].EndTime"
+                                                                               type="time"
+                                                                               value="@day.EndTime.ToString(@"hh\:mm")"
+                                                                               class="time-input"
+                                                                               id="@($"{day.DayOfWeek.ToString().ToLower()}-end")" />
+                                                                        <span class="closed-text">Closed</span>
+                                                                    </div>
+                                                                    <input type="hidden" asp-for="ProfileSession.WeeklyAvailability[i].DayOfWeek" />
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
 
+                                                <div class="pricing-section">
+                                                    <h3 class="section-title">
+                                                        Price per Consultation
+                                                    </h3>
 
-                                    <div id="session-details-edit-view">
-                                        <form asp-controller="Doctors" asp-action="EditProfileBasic" action="" class="profile-edit-form">
+                                                    <div class="price-input-container">
+                                                        <span class="currency-symbol">$</span>
+                                                        <input asp-for="ProfileSession.PricePerConsultation" type ="number"
+                                                               value="@(Model?.ProfileSession?.PricePerConsultation ?? 0)"
+                                                               class="price-input" />
+                                                    </div>
+
+                                                    <h4 class="section-title">Session Duration</h4>
+
+                                                    <div class="duration-input-container">
+                                                        @* <select asp-for="ProfileSession.SessionDuration" class="form-control form-input-select">
+                                                            <option value="30">30 minutes</option>
+                                                            <option value="45">45 minutes</option>
+                                                            <option value="60" selected>60 minutes</option>
+                                                        </select> *@
+                                                        <input asp-for="ProfileSession.SessionDuration" type = "number"
+                                                               value="@(Model?.ProfileSession?.SessionDuration ?? 0)"
+                                                        class="form-control price-input">
+                                                        </input>
+
+                                                        <select class="form-control form-input-select">
+                                                            <option value="minutes" selected>
+                                                                Minutes
+                                                            </option>
+                                                            <option value="hours">Hours</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-actions profile-edit-actions">
+                                                <button onclick="cancleSessionDetailsEdit()" class="btn btn-primary btn-cancle"
+                                                        type="button">
+                                                    Cancel
+                                                </button>
+
+                                                <button type="submit"
+                                                        class="btn btn-primary btn-save">
+                                                    Save Changes
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                        
+                                @*     <div style="display: none" id="session-details-edit-view">
+                                        <form action="" class="profile-edit-form">
                                             <div class="profile-edit-body">
                                                 <div class="availability-section">
                                                     <h3 class="section-title">Availability</h3>
@@ -1116,7 +1211,7 @@
                                             </div>
 
                                             <div class="profile-actions profile-edit-actions">
-                                                <button class="btn btn-primary btn-cancle"
+                                                <button onclick="cancleSessionDetailsEdit()" class="btn btn-primary btn-cancle"
                                                         type="button">
                                                     Cancel
                                                 </button>
@@ -1128,7 +1223,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                </div>
+                                </div> *@
                                 <!-- Session Details Tab End -->
 
                                 <!-- Recent Review Tab Start -->
@@ -1282,7 +1377,7 @@
 
     function cancleSessionDetailsEdit() {
       document.getElementById("session-details-normal-view").style.display =
-        "block";
+        "flex";
       document.getElementById("session-details-edit-view").style.display =
         "none";
     }
