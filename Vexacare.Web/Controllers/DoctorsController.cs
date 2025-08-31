@@ -15,11 +15,11 @@ namespace Vexacare.Web.Controllers
 {
     public class DoctorsController : Controller
     {
+        #region Fields
         private readonly IDoctorProfileService _doctorProfileService;
         private readonly ILocationService _locationService;
         private readonly ICategoryService _categoryService;
         private readonly IServiceTypeService _serviceTypeService;
-        #region Fields
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
@@ -58,71 +58,92 @@ namespace Vexacare.Web.Controllers
             ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
             ViewBag.Categories = await _categoryService.GetAllCategories();
             ViewBag.Locations = await _locationService.GetAllLocationsAsync();
-            // Create view model with user data
-            var doctorProfile = await _context.DoctorProfiles
-                .Include(d => d.ServiceType)
-                .Include(d => d.Location)
-                .Include(d => d.Category)
-                .FirstOrDefaultAsync(d => d.UserId == currentUser.Id);
 
-            var viewModel = new ProfileBasicVM
+
+            var doctorProfile = new ProfileBasicVM();
+            var doctorSession = new DoctorSessionVM();
+
+            var existingDoctorProfile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(currentUser.Id);
+            var existingDoctorSession = await _doctorProfileService.GetDoctorSessionByUserIdAsync(currentUser.Id);
+
+            if (existingDoctorProfile != null)
             {
-                UserId = currentUser.Id,
-                Name = $"{currentUser.FirstName} {currentUser.LastName}",
-                Email = currentUser.Email,
-                ServiceTypeId = doctorProfile?.ServiceTypeId,
-                LocationId = doctorProfile?.LocationId,
-                CategoryId = doctorProfile?.CategoryId,
-                Category = doctorProfile?.Category,
-                ServiceType = doctorProfile?.ServiceType,
-                AreaofExperties = doctorProfile?.AreaofExperties,
-                Gender = doctorProfile?.Gender,
-                About = doctorProfile?.About,
-                EducationDetails = doctorProfile?.EducationDetails,
-                ProfileImagePath = doctorProfile?.ProfileImagePath
-            };
-
-            return View(viewModel);
-        }
-        public async Task<IActionResult> EditProfileBasic()
-        {
-            // Get the currently logged-in user
-            var currentUser = await _userManager.GetUserAsync(User);
-
-            if (currentUser == null)
+                doctorProfile = existingDoctorProfile;
+            }
+            if (existingDoctorSession != null)
             {
-                return RedirectToAction("Login", "Account");
+                doctorSession = existingDoctorSession;
             }
 
-            ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
-            ViewBag.Categories = await _categoryService.GetAllCategories();
-            ViewBag.Locations = await _locationService.GetAllLocationsAsync();
+            doctorProfile.Name = $"{currentUser.FirstName} {currentUser.LastName}";
+            doctorProfile.Email = currentUser.Email;
 
-            // Load existing doctor profile
-            var doctorProfile = await _context.DoctorProfiles
-                .FirstOrDefaultAsync(d => d.UserId == currentUser.Id);
-
-            var viewModel = new ProfileBasicVM
+            var partnerHubVM = new PartnerHubVM
             {
-                UserId = currentUser.Id,
-                Name = $"{currentUser.FirstName} {currentUser.LastName}",
-                Email = currentUser.Email,
-                ServiceTypeId = doctorProfile?.ServiceTypeId,
-                LocationId = doctorProfile?.LocationId,
-                CategoryId = doctorProfile?.CategoryId,
-                AreaofExperties = doctorProfile?.AreaofExperties,
-                Gender = doctorProfile?.Gender,
-                About = doctorProfile?.About,
-                EducationDetails = doctorProfile?.EducationDetails,
-                ProfileImagePath = doctorProfile?.ProfileImagePath
+                ProfileBasic = doctorProfile,
+                ProfileSession = doctorSession
             };
 
-            return View(viewModel);
+
+
+            //var viewModel = new ProfileBasicVM
+            //{
+            //    UserId = currentUser.Id,
+            //    Name = $"{currentUser.FirstName} {currentUser.LastName}",
+            //    Email = currentUser.Email,
+            //    ServiceTypeId = doctorProfile?.ServiceTypeId,
+            //    LocationId = doctorProfile?.LocationId,
+            //    CategoryId = doctorProfile?.CategoryId,
+            //    AreaofExperties = doctorProfile?.AreaofExperties,
+            //    Gender = doctorProfile?.Gender,
+            //    About = doctorProfile?.About,
+            //    EducationDetails = doctorProfile?.EducationDetails,
+            //    ProfileImagePath = doctorProfile?.ProfileImagePath
+            //};
+            //return View(viewModel);
+            return View(partnerHubVM);
         }
+
+        #region Edit Profile Basic
+        //public async Task<IActionResult> EditProfileBasic()
+        //{
+        //    // Get the currently logged-in user
+        //    var currentUser = await _userManager.GetUserAsync(User);
+
+        //    if (currentUser == null)
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
+        //    ViewBag.Categories = await _categoryService.GetAllCategories();
+        //    ViewBag.Locations = await _locationService.GetAllLocationsAsync();
+
+        //    // Load existing doctor profile
+        //    var doctorProfile = await _context.DoctorProfiles
+        //        .FirstOrDefaultAsync(d => d.UserId == currentUser.Id);
+
+        //    var viewModel = new ProfileBasicVM
+        //    {
+        //        UserId = currentUser.Id,
+        //        Name = $"{currentUser.FirstName} {currentUser.LastName}",
+        //        Email = currentUser.Email,
+        //        ServiceTypeId = doctorProfile?.ServiceTypeId,
+        //        LocationId = doctorProfile?.LocationId,
+        //        CategoryId = doctorProfile?.CategoryId,
+        //        AreaofExperties = doctorProfile?.AreaofExperties,
+        //        Gender = doctorProfile?.Gender,
+        //        About = doctorProfile?.About,
+        //        EducationDetails = doctorProfile?.EducationDetails,
+        //        ProfileImagePath = doctorProfile?.ProfileImagePath
+        //    };
+
+        //    return View(viewModel);
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProfileBasic(ProfileBasicVM model)
+        public async Task<IActionResult> EditProfileBasic(PartnerHubVM model)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
@@ -143,24 +164,17 @@ namespace Vexacare.Web.Controllers
             try
             {
                 var existingProfile = await _context.DoctorProfiles
-            .FirstOrDefaultAsync(d => d.UserId == currentUser.Id);
+                .FirstOrDefaultAsync(d => d.UserId == currentUser.Id);
 
                 // Set the ID from the existing profile to ensure update, not create
                 if (existingProfile != null)
                 {
-                    model.Id = existingProfile.Id; // THIS IS THE CRITICAL LINE
+                    model.ProfileBasic.Id = existingProfile.Id; // THIS IS THE CRITICAL LINE
                 }
                 
-                model.UserId = currentUser.Id;
-                await _doctorProfileService.CreateDoctorBasicProfile(model);
-                var updatedProfile = await _context.DoctorProfiles
-                    .FirstOrDefaultAsync(d => d.UserId == currentUser.Id);
+                model.ProfileBasic.UserId = currentUser.Id;
+                await _doctorProfileService.CreateDoctorBasicProfile(model.ProfileBasic);
 
-                // Pass the updated image path to the view
-                if (updatedProfile != null)
-                {
-                    model.ProfileImagePath = updatedProfile.ProfileImagePath;
-                }
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -173,11 +187,49 @@ namespace Vexacare.Web.Controllers
             }
         }
 
-        public async Task<IActionResult> EditProfileSession()
-        {
-            
+        #endregion
 
-            return View();
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveAvailability(PartnerHubVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Return to view with errors
+                var doctorProfileId = model.ProfileBasic.UserId;
+                var profileBasic = await _doctorProfileService.GetDoctorProfileByUserIdAsync(doctorProfileId);
+
+                return View("Index", model);
+            }
+
+            try
+            {
+                var success = await _doctorProfileService.SaveProfileSettingsAsync(model.ProfileSession);
+
+                if (success)
+                {
+                    TempData["SuccessMessage"] = "Availability settings updated successfully!";
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("", "Failed to update availability settings.");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"An error occurred: {ex.Message}");
+            }
+
+            // If we got here, something went wrong
+            var currentDoctorProfileId = model.ProfileBasic.UserId;
+            var currentProfileBasic = await _doctorProfileService.GetDoctorProfileByUserIdAsync(currentDoctorProfileId);
+
+            return View("Index", model);
         }
+
+
+
+
     }
 }

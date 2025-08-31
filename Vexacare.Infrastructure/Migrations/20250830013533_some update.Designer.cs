@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexacare.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Vexacare.Infrastructure.Data;
 namespace Vexacare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250830013533_some update")]
+    partial class someupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,7 +178,7 @@ namespace Vexacare.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.Availabilities.Available", b =>
+            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Availability", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -204,50 +207,9 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Available");
-                });
+                    b.HasIndex("DoctorProfileId");
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.Availabilities.AvailableDays", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AvailableId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WeekofDayId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WeekofDaysId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AvailableId");
-
-                    b.HasIndex("WeekofDayId");
-
-                    b.ToTable("AvailableDays");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.Availabilities.WeekofDay", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WeekofDays");
+                    b.ToTable("Availabilities");
                 });
 
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Category", b =>
@@ -283,14 +245,8 @@ namespace Vexacare.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AvailableDaysId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<decimal?>("ConsultationPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -340,8 +296,6 @@ namespace Vexacare.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AvailableDaysId");
 
                     b.HasIndex("CategoryId");
 
@@ -1136,7 +1090,7 @@ namespace Vexacare.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.Availabilities.AvailableDays", b =>
+            modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Availability", b =>
                 {
                     b.HasOne("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", "DoctorProfile")
                         .WithMany("Availabilities")
@@ -1144,17 +1098,11 @@ namespace Vexacare.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Available");
-
-                    b.Navigation("WeekofDay");
+                    b.Navigation("DoctorProfile");
                 });
 
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", b =>
                 {
-                    b.HasOne("Vexacare.Domain.Entities.Availabilities.AvailableDays", "AvailableDays")
-                        .WithMany()
-                        .HasForeignKey("AvailableDaysId");
-
                     b.HasOne("Vexacare.Domain.Entities.DoctorEntities.Category", "Category")
                         .WithMany("DoctorProfile")
                         .HasForeignKey("CategoryId")
@@ -1178,8 +1126,6 @@ namespace Vexacare.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("AvailableDays");
 
                     b.Navigation("Category");
 
@@ -1304,16 +1250,6 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Navigation("Benefit");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.Availabilities.Available", b =>
-                {
-                    b.Navigation("WeekofDays");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.Availabilities.WeekofDay", b =>
-                {
-                    b.Navigation("Availables");
                 });
 
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Category", b =>

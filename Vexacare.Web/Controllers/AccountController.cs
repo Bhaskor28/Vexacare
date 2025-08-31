@@ -59,21 +59,27 @@ namespace Vexacare.Web.Controllers
                     LastName = model.LastName
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
+                try
                 {
-                    // Assign Patient role
-                    await _userManager.AddToRoleAsync(user, "Patient");
-                    await _context.SaveChangesAsync();
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+
+                    var result = await _userManager.CreateAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        // Assign Patient role
+                        await _userManager.AddToRoleAsync(user, "Patient");
+                        await _context.SaveChangesAsync();
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
+                        //return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Login", "Account");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception (ex) as needed
+                    ModelState.AddModelError(string.Empty, "An error occurred while creating the account. Please try again.");
                 }
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
             }
 
             return View(model);

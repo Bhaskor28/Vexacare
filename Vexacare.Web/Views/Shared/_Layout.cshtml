@@ -104,7 +104,7 @@
                                 .AsNoTracking()
                                 .FirstOrDefaultAsync(b => b.PatientId == user.Id);
                                 var profilePic = basicInfo?.ProfilePictureUrl ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png");
-                                string displayName = user.UserName;
+                                string displayName = "Admin"; //by default name is admin
 
                                 if (isPatient)
                                 {
