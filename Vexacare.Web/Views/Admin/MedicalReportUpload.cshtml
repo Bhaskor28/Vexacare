@@ -1,0 +1,97 @@
+﻿@using Newtonsoft.Json
+@using System.Text.Json
+@* Views/Admin/MedicalReportUpload.cshtml *@
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Medical Report Analysis";
+    var isApiAvailable = ViewBag.IsApiAvailable ?? false;
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3>Medical Report Analysis</h3>
+            </div>
+            <div class="card-body">
+                @if (!isApiAvailable)
+                {
+                    <div class="alert alert-warning">
+                        <strong>Warning:</strong> Medical Report API is not available.
+                        Please make sure your API project is running on @ViewBag.ApiUrl
+                        <br />
+                        <small>Run your API project and ensure it's accessible at this URL.</small>
+                    </div>
+                }
+
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+                }
+
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                }
+
+                <form asp-action="ProcessMedicalReport" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label for="medicalReport">Upload Medical Report (PDF):</label>
+                        <input type="file" name="medicalReport" class="form-control" accept=".pdf" required
+                        @(!isApiAvailable ? "disabled" : "") />
+                        <small class="form-text text-muted">
+                            Maximum file size: 10MB. Only PDF files are supported.
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3"
+                    @(!isApiAvailable ? "disabled" : "")>
+                        <i class="fas fa-file-medical"></i> Analyze Medical Report
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (TempData["ProcessedReport"] != null)
+{
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Analysis Results</h4>
+                </div>
+                <div class="card-body">
+                    @{
+                        var jsonDocument = JsonDocument.Parse(TempData["ProcessedReport"].ToString());
+                        var fileName = jsonDocument.RootElement.GetProperty("fileName").GetString();
+                    }
+                    <div class="alert alert-info">
+                        <strong>File:</strong> @fileName
+                    </div>
+                    <pre class="bg-light p-3 rounded">@TempData["ProcessedReport"]</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        // Enable/disable form based on API availability
+        $(document).ready(function() {
+        @if (!isApiAvailable)
+        {
+            <text>
+                    $('form').on('submit', function(e) {
+                        e.preventDefault();
+                        alert('API is not available. Please start the API project first.');
+                    });
+            </text>
+        }
+        });
+    </script>
+}

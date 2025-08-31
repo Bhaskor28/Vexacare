@@ -25,6 +25,8 @@ using Vexacare.Infrastructure.Services.PatientDashboardServices;
 // Aliases to avoid conflict with Stripe
 using AppOrderService = Vexacare.Infrastructure.Services.OrderService;
 using AppProductService = Vexacare.Infrastructure.Services.ProductService;
+using Vexacare.Application.MedicalReport;
+using Vexacare.Infrastructure.Services.MedicalReportServices;
 
 
 
@@ -50,7 +52,19 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrderService, AppOrderService>();  //change
 // Register the StripeConfigService
 builder.Services.AddScoped<StripeConfigService>();
-builder.Services.AddScoped<IPatientDashboardService, PatientDashboardService>(); 
+builder.Services.AddScoped<IPatientDashboardService, PatientDashboardService>();
+
+
+// Add to your services configuration
+builder.Services.AddHttpClient<IMedicalReportService, MedicalReportService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"]);
+    client.Timeout = TimeSpan.FromMinutes(5);
+});
+
+// Add to your configuration
+builder.Services.AddScoped<IMedicalReportService, MedicalReportService>();
+
 #endregion
 
 #region Added By Bhaskor
