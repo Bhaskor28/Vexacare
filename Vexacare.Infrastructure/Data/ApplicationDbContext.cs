@@ -50,7 +50,7 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<ServiceType> ServiceTypes { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<WeekofDay> WeekofDays { get; set; }
-        public DbSet<AvailableDays> AvailableDays { get; set; }
+        public DbSet<Availability> Availabilities { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,5 +1,6 @@
-﻿@model ProfileBasicVM 
+﻿@model PartnerHubVM
 @using System.Text.RegularExpressions
+@using Vexacare.Application.DoctorProfiles
      <!-- Navbar Section Start  -->
 <section id="partner-hub-banner">
     <div class="container">
@@ -570,15 +571,15 @@
                                          id="profile-content-normal-view">
                                         <div class="profile-intro">
                                             <div class="profile-image">
-                                                <img src="@(Model?.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
+                                                <img src="@(Model?.ProfileBasic.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
                                             </div>
 
                                             <div class="profile-name">
                                                 <h4 class="profile-name-title">
-                                                    @(Model?.Name)
+                                                    @(Model?.ProfileBasic.Name)
                                                 </h4>
                                                 <h6 class="profile-name-subtitle">
-                                                    @(Model?.Category?.Name)
+                                                    @(Model?.ProfileBasic.Category?.Name)
                                                 </h6>
                                                 <div class="profile-rating">
                                                     <i class="fa-solid fa-star"></i>
@@ -593,7 +594,7 @@
                                             <table cellpadding="14px">
                                                 <tr>
                                                     <td>Service Type</td>
-                                                    <td>@(Model?.ServiceType?.Name ?? "Ex. Video Consultation")</td>
+                                                    <td>@(Model?.ProfileBasic.ServiceType?.Name ?? "Ex. Video Consultation")</td>
                                                 </tr>
 
                                                 <tr>
@@ -601,10 +602,10 @@
                                                     <td>
                                                         <div class="tm-card-tag-wrapper">
                                                         @{
-                                                            if (!string.IsNullOrEmpty(Model?.AreaofExperties))
+                                                                if (!string.IsNullOrEmpty(Model?.ProfileBasic.AreaofExperties))
                                                             {
                                                                 // Combined regex to match both <li> and <p> tags
-                                                                var matches = Regex.Matches(Model.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
+                                                                    var matches = Regex.Matches(Model.ProfileBasic.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
 
                                                                 if (matches.Count > 0)
                                                                 {
@@ -617,7 +618,7 @@
                                                                 else
                                                                 {
                                                                     // Fallback for content without expected tags
-                                                                    var lines = Model.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                                                                        var lines = Model.ProfileBasic.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
 
                                                                     for (int i = 0; i < Math.Min(2, lines.Length); i++)
                                                                     {
@@ -636,18 +637,18 @@
 
                                                 <tr>
                                                     <td>Email Address</td>
-                                                    <td>@(Model?.Email ?? "hefzurrahman523@gmail.com")</td>
+                                                    <td>@(Model?.ProfileBasic.Email ?? "hefzurrahman523@gmail.com")</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Gender</td>
-                                                    <td>@Model?.Gender</td>
+                                                    <td>@Model?.ProfileBasic.Gender</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>About Us</td>
                                                     <td>
-                                                        @Html.Raw(Model.About)
+                                                        @Html.Raw(Model.ProfileBasic.About)
                                                     </td>
                                                 </tr>
 
@@ -655,7 +656,7 @@
                                                     <td>Education Details</td>
                                                     <td>
 
-                                                        @Html.Raw(Model.EducationDetails)
+                                                        @Html.Raw(Model.ProfileBasic.EducationDetails)
                                                         @* Dr. John Smith completed his MBBS from Dhaka
                                                         Medical College and pursued MD in
                                                         Gastroenterology from King’s College, London.
@@ -690,8 +691,8 @@
                                                      src="@Model.ProfileBasic.ProfileImagePath"
                                                      alt="Profile Preview" 
                                                       /> *@
-                                                <img id="profilePreview" src="@(Model?.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
-                                                <input asp-for="DoctorImage" type="file"
+                                                <img id="profilePreview" src="@(Model?.ProfileBasic.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
+                                                <input asp-for="ProfileBasic.DoctorImage" type="file"
                                                        id="profileInput"
                                                        accept="image/png, image/jpeg"
                                                        hidden />
