@@ -1,6 +1,5 @@
-﻿@model PartnerHubVM
+﻿@model PartnerHubVM 
 @using System.Text.RegularExpressions
-@using Vexacare.Application.DoctorProfiles
      <!-- Navbar Section Start  -->
 <section id="partner-hub-banner">
     <div class="container">
@@ -571,15 +570,15 @@
                                          id="profile-content-normal-view">
                                         <div class="profile-intro">
                                             <div class="profile-image">
-                                                <img src="@(Model?.ProfileBasic.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
+                                                <img src="@(Model.ProfileBasic?.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
                                             </div>
 
                                             <div class="profile-name">
                                                 <h4 class="profile-name-title">
-                                                    @(Model?.ProfileBasic.Name)
+                                                    @(Model.ProfileBasic?.Name)
                                                 </h4>
                                                 <h6 class="profile-name-subtitle">
-                                                    @(Model?.ProfileBasic.Category?.Name)
+                                                    @(Model.ProfileBasic?.Category?.Name)
                                                 </h6>
                                                 <div class="profile-rating">
                                                     <i class="fa-solid fa-star"></i>
@@ -594,40 +593,40 @@
                                             <table cellpadding="14px">
                                                 <tr>
                                                     <td>Service Type</td>
-                                                    <td>@(Model?.ProfileBasic.ServiceType?.Name ?? "Ex. Video Consultation")</td>
+                                                    <td>@(Model.ProfileBasic?.ServiceType?.Name)</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Areas of Expertise</td>
                                                     <td>
                                                         <div class="tm-card-tag-wrapper">
-                                                        @{
-                                                                if (!string.IsNullOrEmpty(Model?.ProfileBasic.AreaofExperties))
-                                                            {
-                                                                // Combined regex to match both <li> and <p> tags
-                                                                    var matches = Regex.Matches(Model.ProfileBasic.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
-
-                                                                if (matches.Count > 0)
+                                                            @{
+                                                                if (!string.IsNullOrEmpty(Model.ProfileBasic?.AreaofExperties))
                                                                 {
-                                                                    for (int i = 0; i < Math.Min(2, matches.Count); i++)
+                                                                    // Combined regex to match both <li> and <p> tags
+                                                                    var matches = Regex.Matches(Model.ProfileBasic?.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
+
+                                                                    if (matches.Count > 0)
                                                                     {
+                                                                        for (int i = 0; i < Math.Min(2, matches.Count); i++)
+                                                                        {
                                                                             <span class="expertise-badge">@Html.Raw(matches[i].Groups[1].Value.Trim())</span>
-                                                                        // <p class="tm-card-tag">@Html.Raw(matches[i].Groups[1].Value.Trim())</p>
+                                                                            // <p class="tm-card-tag">@Html.Raw(matches[i].Groups[1].Value.Trim())</p>
+                                                                        }
                                                                     }
-                                                                }
-                                                                else
-                                                                {
-                                                                    // Fallback for content without expected tags
-                                                                        var lines = Model.ProfileBasic.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-                                                                    for (int i = 0; i < Math.Min(2, lines.Length); i++)
+                                                                    else
                                                                     {
+                                                                        // Fallback for content without expected tags
+                                                                        var lines = Model.ProfileBasic?.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                                                        for (int i = 0; i < Math.Min(2, lines.Length); i++)
+                                                                        {
                                                                             <span class="expertise-badge">@lines[i].Trim()</span>
-                                                                        // <p class="tm-card-tag">@lines[i].Trim()</p>
+                                                                            // <p class="tm-card-tag">@lines[i].Trim()</p>
+                                                                        }
                                                                     }
                                                                 }
                                                             }
-                                                        }
                                                         </div>
                                                         @* <span class="expertise-badge">Digestive Disorders</span>
                                                         <span class="expertise-badge">Gut Inflammation</span>
@@ -637,26 +636,30 @@
 
                                                 <tr>
                                                     <td>Email Address</td>
-                                                    <td>@(Model?.ProfileBasic.Email ?? "hefzurrahman523@gmail.com")</td>
+                                                    <td>@Model.ProfileBasic?.Email</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Gender</td>
-                                                    <td>@Model?.ProfileBasic.Gender</td>
+                                                    <td>@Model.ProfileBasic?.Gender</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>About Us</td>
                                                     <td>
-                                                        @Html.Raw(Model.ProfileBasic.About)
+                                                        @Html.Raw(Model.ProfileBasic?.About)
+                                                        @* Experienced gastroenterologist with a focus on
+                                                        digestive health and gut microbiome research.
+                                                        Specialized in treating chronic digestive
+                                                        conditions and providing personalized
+                                                        nutrition advice. *@
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Education Details</td>
                                                     <td>
-
-                                                        @Html.Raw(Model.ProfileBasic.EducationDetails)
+                                                        @Html.Raw(Model.ProfileBasic?.EducationDetails)
                                                         @* Dr. John Smith completed his MBBS from Dhaka
                                                         Medical College and pursued MD in
                                                         Gastroenterology from King’s College, London.
@@ -917,8 +920,8 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <!-- Before Section end -->
-                                    <!-- Edit View (Form for updating) -->
+                                    @* before end *@
+                                    
                                     <div style="display: none" id="session-details-edit-view">
                                         <form asp-controller="Doctors" asp-action="SaveAvailability" method="post" class="profile-edit-form">
                                             <input type="hidden" asp-for="ProfileSession.DoctorProfileId" value="@(Model?.ProfileBasic?.Id)" />
@@ -934,27 +937,29 @@
                                                             {
                                                                 var day = Model.ProfileSession.WeeklyAvailability[i];
 
+																var dayOfWeek = day.DayOfWeek.ToString().ToLower();
+
                                                                 <div class="availability-row">
                                                                     <div class="day">@day.DayName</div>
                                                                     <div class="toggle-wrapper">
                                                                         <div class="toggle normal">
-                                                                            <input asp-for="ProfileSession.WeeklyAvailability[i].IsAvailable" id="monday-toggle"
+                                                                            <input asp-for="ProfileSession.WeeklyAvailability[i].IsAvailable" id="@($"{dayOfWeek}-toggle")"
                                                                                    type="checkbox"
                                                                                    checked />
-                                                                            <label class="toggle-item" for="@($"{day.DayOfWeek.ToString().ToLower()}-toggle")"></label>
+                                                                            <label class="toggle-item" for="@($"{dayOfWeek}-toggle")"></label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="time-inputs">
                                                                         <input asp-for="ProfileSession.WeeklyAvailability[i].StartTime" type="time"
                                                                                value="@day.StartTime.ToString(@"hh\:mm")"
                                                                                class="time-input"
-                                                                               id="@($"{day.DayOfWeek.ToString().ToLower()}-start")" />
+                                                                               id="@($"{dayOfWeek}-start")" />
                                                                         <span class="to-text">to</span>
                                                                         <input asp-for="ProfileSession.WeeklyAvailability[i].EndTime"
                                                                                type="time"
                                                                                value="@day.EndTime.ToString(@"hh\:mm")"
                                                                                class="time-input"
-                                                                               id="@($"{day.DayOfWeek.ToString().ToLower()}-end")" />
+                                                                               id="@($"{dayOfWeek}-end")" />
                                                                         <span class="closed-text">Closed</span>
                                                                     </div>
                                                                     <input type="hidden" asp-for="ProfileSession.WeeklyAvailability[i].DayOfWeek" />
@@ -979,11 +984,7 @@
                                                     <h4 class="section-title">Session Duration</h4>
 
                                                     <div class="duration-input-container">
-                                                        @* <select asp-for="ProfileSession.SessionDuration" class="form-control form-input-select">
-                                                            <option value="30">30 minutes</option>
-                                                            <option value="45">45 minutes</option>
-                                                            <option value="60" selected>60 minutes</option>
-                                                        </select> *@
+                                                        
                                                         <input asp-for="ProfileSession.SessionDuration" type = "number"
                                                                value="@(Model?.ProfileSession?.SessionDuration ?? 0)"
                                                         class="form-control price-input">
