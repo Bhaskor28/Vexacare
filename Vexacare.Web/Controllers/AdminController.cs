@@ -1,22 +1,10 @@
-
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using System.Text.Json;
-using Vexacare.Application.Doctors.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using Vexacare.Application.MedicalReport;
-using Vexacare.Application.Patients.ViewModels;
 using Vexacare.Application.Users.Doctors;
 using Vexacare.Application.UsersVM;
-using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.MedicalReport;
-using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.Stripe;
-using Vexacare.Infrastructure.Data;
 using Vexacare.Infrastructure.Services.StripeServices;
 
 namespace Vexacare.Web.Controllers
@@ -50,7 +38,7 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
-        
+
         #region Doctor List
         [HttpGet]
         public async Task<IActionResult> DoctorList()
