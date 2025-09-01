@@ -887,8 +887,8 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <!-- Before Section end -->
-                                    <!-- Edit View (Form for updating) -->
+                                    @* before end *@
+                                    
                                     <div style="display: none" id="session-details-edit-view">
                                         <form asp-controller="Doctors" asp-action="SaveAvailability" method="post" class="profile-edit-form">
                                             <input type="hidden" asp-for="ProfileSession.DoctorProfileId" value="@(Model?.ProfileBasic?.Id)" />
@@ -904,27 +904,29 @@
                                                             {
                                                                 var day = Model.ProfileSession.WeeklyAvailability[i];
 
+																var dayOfWeek = day.DayOfWeek.ToString().ToLower();
+
                                                                 <div class="availability-row">
                                                                     <div class="day">@day.DayName</div>
                                                                     <div class="toggle-wrapper">
                                                                         <div class="toggle normal">
-                                                                            <input asp-for="ProfileSession.WeeklyAvailability[i].IsAvailable" id="monday-toggle"
+                                                                            <input asp-for="ProfileSession.WeeklyAvailability[i].IsAvailable" id="@($"{dayOfWeek}-toggle")"
                                                                                    type="checkbox"
                                                                                    checked />
-                                                                            <label class="toggle-item" for="@($"{day.DayOfWeek.ToString().ToLower()}-toggle")"></label>
+                                                                            <label class="toggle-item" for="@($"{dayOfWeek}-toggle")"></label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="time-inputs">
                                                                         <input asp-for="ProfileSession.WeeklyAvailability[i].StartTime" type="time"
                                                                                value="@day.StartTime.ToString(@"hh\:mm")"
                                                                                class="time-input"
-                                                                               id="@($"{day.DayOfWeek.ToString().ToLower()}-start")" />
+                                                                               id="@($"{dayOfWeek}-start")" />
                                                                         <span class="to-text">to</span>
                                                                         <input asp-for="ProfileSession.WeeklyAvailability[i].EndTime"
                                                                                type="time"
                                                                                value="@day.EndTime.ToString(@"hh\:mm")"
                                                                                class="time-input"
-                                                                               id="@($"{day.DayOfWeek.ToString().ToLower()}-end")" />
+                                                                               id="@($"{dayOfWeek}-end")" />
                                                                         <span class="closed-text">Closed</span>
                                                                     </div>
                                                                     <input type="hidden" asp-for="ProfileSession.WeeklyAvailability[i].DayOfWeek" />
@@ -949,11 +951,7 @@
                                                     <h4 class="section-title">Session Duration</h4>
 
                                                     <div class="duration-input-container">
-                                                        @* <select asp-for="ProfileSession.SessionDuration" class="form-control form-input-select">
-                                                            <option value="30">30 minutes</option>
-                                                            <option value="45">45 minutes</option>
-                                                            <option value="60" selected>60 minutes</option>
-                                                        </select> *@
+                                                        
                                                         <input asp-for="ProfileSession.SessionDuration" type = "number"
                                                                value="@(Model?.ProfileSession?.SessionDuration ?? 0)"
                                                         class="form-control price-input">
