@@ -1,4 +1,5 @@
 ﻿@model PartnerHubVM 
+@using System.Text.RegularExpressions
      <!-- Navbar Section Start  -->
 <section id="partner-hub-banner">
     <div class="container">
@@ -569,15 +570,15 @@
                                          id="profile-content-normal-view">
                                         <div class="profile-intro">
                                             <div class="profile-image">
-                                                <img src="" alt="" />
+                                                <img src="@(Model.ProfileBasic?.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
                                             </div>
 
                                             <div class="profile-name">
                                                 <h4 class="profile-name-title">
-                                                    Dr. Emdadul Huq
+                                                    @(Model.ProfileBasic?.Name)
                                                 </h4>
                                                 <h6 class="profile-name-subtitle">
-                                                    Gut Microbiota
+                                                    @(Model.ProfileBasic?.Category?.Name)
                                                 </h6>
                                                 <div class="profile-rating">
                                                     <i class="fa-solid fa-star"></i>
@@ -592,50 +593,81 @@
                                             <table cellpadding="14px">
                                                 <tr>
                                                     <td>Service Type</td>
-                                                    <td>Video Consultation</td>
+                                                    <td>@(Model.ProfileBasic?.ServiceType?.Name)</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Areas of Expertise</td>
                                                     <td>
-                                                        <span class="expertise-badge">Digestive Disorders</span>
+                                                        <div class="tm-card-tag-wrapper">
+                                                            @{
+                                                                if (!string.IsNullOrEmpty(Model.ProfileBasic?.AreaofExperties))
+                                                                {
+                                                                    // Combined regex to match both <li> and <p> tags
+                                                                    var matches = Regex.Matches(Model.ProfileBasic?.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
+
+                                                                    if (matches.Count > 0)
+                                                                    {
+                                                                        for (int i = 0; i < Math.Min(2, matches.Count); i++)
+                                                                        {
+                                                                            <span class="expertise-badge">@Html.Raw(matches[i].Groups[1].Value.Trim())</span>
+                                                                            // <p class="tm-card-tag">@Html.Raw(matches[i].Groups[1].Value.Trim())</p>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        // Fallback for content without expected tags
+                                                                        var lines = Model.ProfileBasic?.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                                                        for (int i = 0; i < Math.Min(2, lines.Length); i++)
+                                                                        {
+                                                                            <span class="expertise-badge">@lines[i].Trim()</span>
+                                                                            // <p class="tm-card-tag">@lines[i].Trim()</p>
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        </div>
+                                                        @* <span class="expertise-badge">Digestive Disorders</span>
                                                         <span class="expertise-badge">Gut Inflammation</span>
-                                                        <span class="expertise-badge">Microbiota Analysis</span>
+                                                        <span class="expertise-badge">Microbiota Analysis</span> *@
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Email Address</td>
-                                                    <td>hefzurrahman523@gmail.com</td>
+                                                    <td>@Model.ProfileBasic?.Email</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Gender</td>
-                                                    <td>Male</td>
+                                                    <td>@Model.ProfileBasic?.Gender</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>About Us</td>
                                                     <td>
-                                                        Experienced gastroenterologist with a focus on
+                                                        @Html.Raw(Model.ProfileBasic?.About)
+                                                        @* Experienced gastroenterologist with a focus on
                                                         digestive health and gut microbiome research.
                                                         Specialized in treating chronic digestive
                                                         conditions and providing personalized
-                                                        nutrition advice.
+                                                        nutrition advice. *@
                                                     </td>
                                                 </tr>
 
                                                 <tr>
                                                     <td>Education Details</td>
                                                     <td>
-                                                        Dr. John Smith completed his MBBS from Dhaka
+                                                        @Html.Raw(Model.ProfileBasic?.EducationDetails)
+                                                        @* Dr. John Smith completed his MBBS from Dhaka
                                                         Medical College and pursued MD in
                                                         Gastroenterology from King’s College, London.
                                                         He has received specialized training in
                                                         nutrition and gut microbiota. With over 10
                                                         years of academic and clinical excellence, he
                                                         continues research in digestive health and
-                                                        patient-centered treatments.
+                                                        patient-centered treatments. *@
                                                     </td>
                                                 </tr>
                                             </table>
