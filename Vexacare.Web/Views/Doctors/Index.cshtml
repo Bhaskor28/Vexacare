@@ -686,14 +686,15 @@
 
                                         <label class="profile-intro box" id="profileLabel">
                                             <div class="profile-image">
-                                                @if (Model.ProfileBasic.ProfileImagePath != null)
+                                                @* @if (Model.ProfileImagePath != null)
                                                 {
                                                     var path = Model.ProfileBasic.ProfileImagePath;
                                                 }
                                                 <img id="profilePreview"
                                                      src="@Model.ProfileBasic.ProfileImagePath"
                                                      alt="Profile Preview" 
-                                                      />
+                                                      /> *@
+                                                <img id="profilePreview" src="@(Model?.ProfileBasic.ProfileImagePath ?? Url.Content("~/assets/images/Admin-Profile-PNG-Pic.png"))" alt="" />
                                                 <input asp-for="ProfileBasic.DoctorImage" type="file"
                                                        id="profileInput"
                                                        accept="image/png, image/jpeg"

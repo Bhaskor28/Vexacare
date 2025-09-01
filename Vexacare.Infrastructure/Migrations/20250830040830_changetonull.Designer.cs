@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexacare.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Vexacare.Infrastructure.Data;
 namespace Vexacare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250830040830_changetonull")]
+    partial class changetonull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,21 +186,11 @@ namespace Vexacare.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DayOfWeek")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DoctorProfileId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("SlotDuration")
-                        .HasColumnType("int");
 
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
@@ -298,6 +291,9 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<string>("DurationUnit")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("DurationValue")
+                        .HasColumnType("int");
+
                     b.Property<string>("EducationDetails")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -323,16 +319,10 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Property<decimal?>("PatientCount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("PricePerConsultation")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("ProfileImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ServiceTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SessionDuration")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -1138,9 +1128,15 @@ namespace Vexacare.Infrastructure.Migrations
 
             modelBuilder.Entity("Vexacare.Domain.Entities.Availabilities.AvailableDays", b =>
                 {
-                    b.HasOne("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", "DoctorProfile")
-                        .WithMany("Availabilities")
-                        .HasForeignKey("DoctorProfileId")
+                    b.HasOne("Vexacare.Domain.Entities.Availabilities.Available", "Available")
+                        .WithMany("WeekofDays")
+                        .HasForeignKey("AvailableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Vexacare.Domain.Entities.Availabilities.WeekofDay", "WeekofDay")
+                        .WithMany("Availables")
+                        .HasForeignKey("WeekofDayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1323,8 +1319,6 @@ namespace Vexacare.Infrastructure.Migrations
 
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", b =>
                 {
-                    b.Navigation("Availabilities");
-
                     b.Navigation("Reviews");
                 });
 

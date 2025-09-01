@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vexacare.Domain.Common;
-
-namespace Vexacare.Domain.Entities.ProductEntities
+﻿namespace Vexacare.Domain.Entities.ProductEntities
 {
     //map table of product and benefit
     public class ProductBenefit

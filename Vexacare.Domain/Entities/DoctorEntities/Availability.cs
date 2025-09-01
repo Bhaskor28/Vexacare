@@ -11,7 +11,7 @@ namespace Vexacare.Domain.Entities.DoctorEntities
 {
     public class Availability : BaseEntity
     {
-        
+
         [Required]
         public int? DoctorProfileId { get; set; }
 
@@ -26,6 +26,6 @@ namespace Vexacare.Domain.Entities.DoctorEntities
         //added by sazib
         // Add these properties for better time slot management
         public int? SlotDuration { get; set; } = 60; // Duration in minutes
-        
+
     }
 }

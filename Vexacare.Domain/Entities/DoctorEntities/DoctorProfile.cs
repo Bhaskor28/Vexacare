@@ -1,4 +1,5 @@
-﻿using Vexacare.Domain.Entities.PatientEntities;
+﻿using Vexacare.Domain.Entities.Availabilities;
+using Vexacare.Domain.Entities.PatientEntities;
 
 namespace Vexacare.Domain.Entities.DoctorEntities
 {

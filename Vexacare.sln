@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vexacare.Infrastructure", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vexacare.Web", "Vexacare.Web\Vexacare.Web.csproj", "{842F45AC-5FA0-48ED-87E0-E36E38AC5A27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "D:\AI\WebAPI\WebAPI.csproj", "{CBDFF89E-E1F7-BCEF-18C7-323348628913}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{842F45AC-5FA0-48ED-87E0-E36E38AC5A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{842F45AC-5FA0-48ED-87E0-E36E38AC5A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{842F45AC-5FA0-48ED-87E0-E36E38AC5A27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBDFF89E-E1F7-BCEF-18C7-323348628913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBDFF89E-E1F7-BCEF-18C7-323348628913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBDFF89E-E1F7-BCEF-18C7-323348628913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBDFF89E-E1F7-BCEF-18C7-323348628913}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
