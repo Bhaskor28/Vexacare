@@ -105,42 +105,7 @@ namespace Vexacare.Web.Controllers
         }
 
         #region Edit Profile Basic
-        //public async Task<IActionResult> EditProfileBasic()
-        //{
-        //    // Get the currently logged-in user
-        //    var currentUser = await _userManager.GetUserAsync(User);
-
-        //    if (currentUser == null)
-        //    {
-        //        return RedirectToAction("Login", "Account");
-        //    }
-
-        //    ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
-        //    ViewBag.Categories = await _categoryService.GetAllCategories();
-        //    ViewBag.Locations = await _locationService.GetAllLocationsAsync();
-
-        //    // Load existing doctor profile
-        //    var doctorProfile = await _context.DoctorProfiles
-        //        .FirstOrDefaultAsync(d => d.UserId == currentUser.Id);
-
-        //    var viewModel = new ProfileBasicVM
-        //    {
-        //        UserId = currentUser.Id,
-        //        Name = $"{currentUser.FirstName} {currentUser.LastName}",
-        //        Email = currentUser.Email,
-        //        ServiceTypeId = doctorProfile?.ServiceTypeId,
-        //        LocationId = doctorProfile?.LocationId,
-        //        CategoryId = doctorProfile?.CategoryId,
-        //        AreaofExperties = doctorProfile?.AreaofExperties,
-        //        Gender = doctorProfile?.Gender,
-        //        About = doctorProfile?.About,
-        //        EducationDetails = doctorProfile?.EducationDetails,
-        //        ProfileImagePath = doctorProfile?.ProfileImagePath
-        //    };
-
-        //    return View(viewModel);
-        //}
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfileBasic(PartnerHubVM model)
@@ -188,8 +153,6 @@ namespace Vexacare.Web.Controllers
         }
 
         #endregion
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

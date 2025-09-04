@@ -943,10 +943,20 @@
                                                                     <div class="day">@day.DayName</div>
                                                                     <div class="toggle-wrapper">
                                                                         <div class="toggle normal">
-                                                                            <input asp-for="ProfileSession.WeeklyAvailability[i].IsAvailable" id="@($"{dayOfWeek}-toggle")"
-                                                                                   type="checkbox"
-                                                                                   checked />
-                                                                            <label class="toggle-item" for="@($"{dayOfWeek}-toggle")"></label>
+                                                                            @if (day.IsAvailable == true)
+                                                                            {
+                                                                                <input asp-for="ProfileSession.WeeklyAvailability[i].IsAvailable" id="@($"{dayOfWeek}-toggle")"
+                                                                                type="checkbox"
+                                                                                checked />
+                                                                                <label class="toggle-item" for="@($"{dayOfWeek}-toggle")"></label>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <input asp-for="ProfileSession.WeeklyAvailability[i].IsAvailable" id="@($"{dayOfWeek}-toggle")"
+                                                                                type="checkbox"
+                                                                                />
+                                                                                <label class="toggle-item" for="@($"{dayOfWeek}-toggle")"></label>
+                                                                            }
                                                                         </div>
                                                                     </div>
                                                                     <div class="time-inputs">
@@ -1447,8 +1457,7 @@
             closedText.style.display = "none";
             startInput.style.display = "inline-block";
             endInput.style.display = "inline-block";
-            timeInputs.querySelector(".to-text").style.display =
-              "inline-block";
+            timeInputs.querySelector(".to-text").style.display = "inline-block";
           } else {
             startInput.disabled = true;
             endInput.disabled = true;
@@ -1459,9 +1468,6 @@
           }
         }
       });
-
-      // Set Tuesday to closed by default (as in the image)
-      document.getElementById("tuesday-toggle").click();
     });
 </script>
 

@@ -2054,38 +2054,36 @@ p {
                         z-index: 2;
                       }
 
-                      label.toggle-item {
-                        width: 60px;
-                        height: 30px;
-                        display: inline-block;
-                        background: var(--primary-bg);
-                        border: 0.5px solid rgba(117, 117, 117, 0.31);
-                        border-radius: 50px;
-                        position: relative;
-                        cursor: pointer;
-                        box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2),
-                          0 -3px 4px rgba(0, 0, 0, 0.15);
-                        transition: background-color 0.4s ease;
-
-                        &::before {
-                          content: "";
-                          position: absolute;
-                          width: 25px;
-                          height: 25px;
-                          top: 0.1em;
-                          left: 0.1em;
-                          background: #fff;
-                          border-radius: 50%;
-                          box-shadow: inset 0.5px -1px 1px rgba(0, 0, 0, 0.35);
-                          transform: rotate(-25deg);
-                          transition: left 0.4s ease, transform 0.3s ease;
-                        }
+label.toggle-item {
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    background: #f2f2f2;
+    border: 0.5px solid rgba(117, 117, 117, 0.31);
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2), 0 -3px 4px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.4s ease;
+    &::before
+{
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 0.1em;
+    left: 0.1em;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: inset 0.5px -1px 1px rgba(0, 0, 0, 0.35);
+    transform: rotate(-25deg);
+    transition: left 0.4s ease, transform 0.3s ease;
+}
                       }
 
-                      input:checked + label.toggle-item {
-                        background: #f2f2f2;
-
-                        &::before {
+input:checked + label.toggle-item {
+    background: var(--primary-bg);
+    &::before {
                           left: calc(100% - 1.9em);
                           transform: rotate(0deg);
                         }
