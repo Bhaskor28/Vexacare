@@ -11,6 +11,10 @@ namespace Vexacare.Application.DoctorProfiles
         public ProfileBasicVM? ProfileBasic { get; set; }
         public DoctorSessionVM? ProfileSession { get; set; }
 
+        //add by Bhaskor 
+        public DateTime? SelectedDate { get; set; }
+        public string? SelectedDayName { get; set; }
+
         // You can add other properties for different tabs if needed
         //public object AnalysisReports { get; set; }
         //public object VideoConsultation { get; set; }

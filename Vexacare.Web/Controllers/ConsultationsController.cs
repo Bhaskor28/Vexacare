@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Globalization;
 using Vexacare.Application.Categories;
 using Vexacare.Application.DoctorProfiles;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Products.ViewModels;
 using Vexacare.Application.ServiceTypes;
 using Vexacare.Application.UsersVM;
+using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
 
@@ -82,19 +85,23 @@ namespace Vexacare.Web.Controllers
 
         #region BookNow
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> BookNow(int id)
+        public async Task<IActionResult> BookNow(string id,DateTime? SelectedDate)
         {
             // Get the doctor by ID
-            var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
+            var existingDoctorProfile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(id);
+            var existingDoctorSession = await _doctorProfileService.GetDoctorSessionByUserIdAsync(id);
 
-            if (doctor == null)
+            var partnerHubVM = new PartnerHubVM
             {
-                return NotFound();
-            }
-
-            return View(doctor);
+                ProfileBasic = existingDoctorProfile,
+                ProfileSession = existingDoctorSession,
+                SelectedDate = SelectedDate==null?DateTime.Now:SelectedDate,
+                SelectedDayName = SelectedDate?.ToString("dddd", CultureInfo.InvariantCulture)
+            };
+            return View(partnerHubVM);
         }
         #endregion BookNow
+        
 
         #region ConfirmPay
         //[Authorize(Roles = "Patient")]
