@@ -10,6 +10,7 @@ namespace Vexacare.Application.DoctorProfiles
     {
         public ProfileBasicVM? ProfileBasic { get; set; }
         public DoctorSessionVM? ProfileSession { get; set; }
+        public ChangePasswordVM? ChangePassword { get; set; }
 
         // You can add other properties for different tabs if needed
         //public object AnalysisReports { get; set; }

@@ -154,6 +154,7 @@ namespace Vexacare.Web.Controllers
 
         #endregion
 
+        #region Save Availability
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAvailability(PartnerHubVM model)
@@ -190,6 +191,82 @@ namespace Vexacare.Web.Controllers
 
             return View("Index", model);
         }
+
+        #endregion
+
+        #region change passwrod
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(PartnerHubVM model)
+        {
+            // Preserve the active tab
+            if (!string.IsNullOrEmpty(Request.Form["ActiveTab"]))
+            {
+                ViewBag.ActiveTab = Request.Form["ActiveTab"];
+            }
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            try
+            {
+                // Only proceed with password change if ModelState is valid
+                if (ModelState.IsValid)
+                {
+                    var result = await _userManager.ChangePasswordAsync(
+                        currentUser,
+                        model.ChangePassword.OldPassword,
+                        model.ChangePassword.NewPassword
+                    );
+
+                    if (result.Succeeded)
+                    {
+                        // Refresh the sign-in cookie to reflect the password change
+                        await _signInManager.RefreshSignInAsync(currentUser);
+
+                        TempData["SuccessMessage"] = "Password changed successfully!";
+                        return RedirectToAction("Index");
+                    }
+
+                    // Add errors from Identity to ModelState
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                        // Add field-specific errors if available
+                        if (error.Code.Contains("Password"))
+                        {
+                            ModelState.AddModelError("ChangePassword.NewPassword", error.Description);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"An error occurred while changing password: {ex.Message}");
+            }
+
+            // If we got here, something went wrong - reload all necessary data
+            ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
+            ViewBag.Categories = await _categoryService.GetAllCategories();
+            ViewBag.Locations = await _locationService.GetAllLocationsAsync();
+
+            var profile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(currentUser.Id);
+            var session = await _doctorProfileService.GetDoctorSessionByUserIdAsync(currentUser.Id);
+
+            model.ProfileBasic = profile ?? new ProfileBasicVM();
+            model.ProfileSession = session ?? new DoctorSessionVM();
+
+            // Ensure the change password tab is active when returning with errors
+            ViewBag.ActiveTab = "change-password";
+
+            return View("Index", model);
+        }
+
+        #endregion
 
 
 

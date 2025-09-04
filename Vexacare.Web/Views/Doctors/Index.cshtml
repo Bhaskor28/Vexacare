@@ -1,6 +1,81 @@
 ﻿@model PartnerHubVM 
 @using System.Text.RegularExpressions
      <!-- Navbar Section Start  -->
+/* Password validation styles */
+
+<style>
+    .password-strength {
+        margin-top: 0.5rem;
+    }
+
+    .password-strength-text {
+        font-size: 0.75rem;
+        display: block;
+        margin-top: 0.25rem;
+    }
+
+    .password-requirements {
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        background-color: #f8f9fa;
+        border-radius: 0.25rem;
+        border: 1px solid #e9ecef;
+    }
+
+    .password-requirements ul {
+        margin-top: 0.25rem;
+    }
+
+    .password-requirements li {
+        font-size: 0.75rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .password-requirements .fa-check {
+        color: #28a745;
+    }
+
+    .password-requirements .fa-times {
+        color: #dc3545;
+    }
+
+    .password-match {
+        margin-top: 0.5rem;
+    }
+
+    .password-match-text {
+        font-size: 0.75rem;
+        display: block;
+    }
+
+    /* Progress bar colors */
+    .progress-bar-weak {
+        background-color: #dc3545;
+    }
+
+    .progress-bar-medium {
+        background-color: #ffc107;
+    }
+
+    .progress-bar-strong {
+        background-color: #28a745;
+    }
+
+    .progress-bar-very-strong {
+        background-color: #007bff;
+    }
+
+    /* Input validation states */
+    .is-valid {
+        border-color: #28a745 !important;
+    }
+
+    .is-invalid {
+        border-color: #dc3545 !important;
+    }
+</style>
+
+
 <section id="partner-hub-banner">
     <div class="container">
         <div class="partner-hub-banner-content">
@@ -1278,7 +1353,10 @@
                                     location, and any relevant details.
                                 </div>
                                 <!-- Recent Review Tab End -->
+                                @*
                                 <!-- Change Password Tab Start -->
+                                
+
                                 <div class="tab-pane fade"
                                      id="change-password"
                                      role="tabpanel"
@@ -1348,6 +1426,96 @@
                                     </form>
                                 </div>
                                 <!-- Change Password Tab End -->
+
+                                *@
+
+                                @* Added by Sazib *@
+
+                                <!-- Change Password Tab Start -->
+                                <div class="tab-pane fade"
+                                     id="change-password"
+                                     role="tabpanel"
+                                     aria-labelledby="change-password-tab"
+                                     tabindex="0">
+                                    <form asp-action="ChangePassword" method="post" id="change-password-form">
+                                        <input type="hidden" name="ActiveTab" value="change-password" />
+                                        <legend class="form-legend">Change Password</legend>
+
+                                        <!-- Display general validation errors -->
+                                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                                        <label for="" class="form-label">
+                                            Old Password
+                                            <div style="position: relative">
+                                                <input asp-for="ChangePassword.OldPassword" type="password"
+                                                       placeholder="Enter your old password"
+                                                       class="form-control form-input" />
+                                                <span asp-validation-for="ChangePassword.OldPassword" class="text-danger"></span>
+                                            </div>
+                                        </label>
+
+                                        <label for="" class="form-label">
+                                            New Password
+                                            <div style="position: relative">
+                                                <input asp-for="ChangePassword.NewPassword" type="password"
+                                                       placeholder="Enter your new password"
+                                                       class="form-control form-input"
+                                                       data-toggle="tooltip"
+                                                       data-placement="right"
+                                                       title="Password must be at least 6 characters long and contain uppercase, lowercase, number, and special character" />
+                                                <span asp-validation-for="ChangePassword.NewPassword" class="text-danger"></span>
+
+                                                <!-- Password strength indicator -->
+                                                <div class="password-strength mt-2">
+                                                    <div class="progress" style="height: 5px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                                                    </div>
+                                                    <small class="password-strength-text text-muted"></small>
+                                                </div>
+
+                                                <!-- Password requirements -->
+                                                <div class="password-requirements mt-2">
+                                                    <small class="text-muted">Password must contain:</small>
+                                                    <ul class="list-unstyled mb-0">
+                                                        <li class="req-uppercase"><i class="fas fa-times text-danger"></i> Uppercase letter</li>
+                                                        <li class="req-lowercase"><i class="fas fa-times text-danger"></i> Lowercase letter</li>
+                                                        <li class="req-number"><i class="fas fa-times text-danger"></i> Number</li>
+                                                        <li class="req-special"><i class="fas fa-times text-danger"></i> Special character</li>
+                                                        <li class="req-length"><i class="fas fa-times text-danger"></i> At least 6 characters</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </label>
+
+                                        <label for="" class="form-label">
+                                            Confirm Password
+                                            <div style="position: relative">
+                                                <input asp-for="ChangePassword.ConfirmPassword" type="password"
+                                                       placeholder="Enter your confirm password"
+                                                       class="form-control form-input" />
+                                                <span asp-validation-for="ChangePassword.ConfirmPassword" class="text-danger"></span>
+
+                                                <!-- Password match indicator -->
+                                                <div class="password-match mt-2">
+                                                    <small class="password-match-text text-muted"></small>
+                                                </div>
+                                            </div>
+                                        </label>
+
+                                        <button type="submit" id="submit-password-btn"
+                                                class="btn btn-primary update-password-btn" disabled>
+                                            Update Password
+                                        </button>
+                                    </form>
+                                </div>
+                                <!-- Change Password Tab End -->
+
+                                @* end Sazib added part *@
+
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -1475,3 +1643,164 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
+
+
+
+        @* Added by Sazib *@
+<script>
+        // Password validation functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const newPasswordInput = document.querySelector('input[name="ChangePassword.NewPassword"]');
+        const confirmPasswordInput = document.querySelector('input[name="ChangePassword.ConfirmPassword"]');
+        const submitButton = document.getElementById('submit-password-btn');
+        const progressBar = document.querySelector('.password-strength .progress-bar');
+        const strengthText = document.querySelector('.password-strength-text');
+        const matchText = document.querySelector('.password-match-text');
+
+        if (newPasswordInput && confirmPasswordInput) {
+            // Real-time password strength checking
+            newPasswordInput.addEventListener('input', function() {
+                validatePasswordStrength(this.value);
+                validatePasswordMatch();
+                updateSubmitButton();
+            });
+
+            // Real-time password matching
+            confirmPasswordInput.addEventListener('input', function() {
+                validatePasswordMatch();
+                updateSubmitButton();
+            });
+
+            // Validate on form submission
+            const form = document.getElementById('change-password-form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    if (!isFormValid()) {
+                        e.preventDefault();
+                        highlightInvalidFields();
+                    }
+                });
+            }
+        }
+
+        function validatePasswordStrength(password) {
+            let strength = 0;
+            const requirements = {
+                hasUpper: /[A-Z]/.test(password),
+                hasLower: /[a-z]/.test(password),
+                hasNumber: /\d/.test(password),
+                hasSpecial: /[^A-Za-z0-9]/.test(password),
+                hasLength: password.length >= 6
+            };
+
+            // Update requirement indicators
+            updateRequirement('req-uppercase', requirements.hasUpper);
+            updateRequirement('req-lowercase', requirements.hasLower);
+            updateRequirement('req-number', requirements.hasNumber);
+            updateRequirement('req-special', requirements.hasSpecial);
+            updateRequirement('req-length', requirements.hasLength);
+
+            // Calculate strength score
+            if (requirements.hasUpper) strength += 20;
+            if (requirements.hasLower) strength += 20;
+            if (requirements.hasNumber) strength += 20;
+            if (requirements.hasSpecial) strength += 20;
+            if (requirements.hasLength) strength += 20;
+
+            // Update progress bar
+            progressBar.style.width = strength + '%';
+
+            // Set progress bar color and text based on strength
+            if (strength < 40) {
+                progressBar.className = 'progress-bar progress-bar-weak';
+                strengthText.textContent = 'Weak password';
+                strengthText.className = 'password-strength-text text-danger';
+            } else if (strength < 80) {
+                progressBar.className = 'progress-bar progress-bar-medium';
+                strengthText.textContent = 'Medium strength';
+                strengthText.className = 'password-strength-text text-warning';
+            } else if (strength < 100) {
+                progressBar.className = 'progress-bar progress-bar-strong';
+                strengthText.textContent = 'Strong password';
+                strengthText.className = 'password-strength-text text-success';
+            } else {
+                progressBar.className = 'progress-bar progress-bar-very-strong';
+                strengthText.textContent = 'Very strong password';
+                strengthText.className = 'password-strength-text text-primary';
+            }
+        }
+
+        function updateRequirement(className, isValid) {
+            const element = document.querySelector(`.${className}`);
+            if (element) {
+                const icon = element.querySelector('i');
+                if (icon) {
+                    icon.className = isValid ? 'fas fa-check text-success' : 'fas fa-times text-danger';
+                }
+            }
+        }
+
+        function validatePasswordMatch() {
+            const newPassword = newPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (confirmPassword.length === 0) {
+                matchText.textContent = '';
+                matchText.className = 'password-match-text text-muted';
+                confirmPasswordInput.classList.remove('is-valid', 'is-invalid');
+            } else if (newPassword === confirmPassword) {
+                matchText.textContent = 'Passwords match';
+                matchText.className = 'password-match-text text-success';
+                confirmPasswordInput.classList.add('is-valid');
+                confirmPasswordInput.classList.remove('is-invalid');
+            } else {
+                matchText.textContent = 'Passwords do not match';
+                matchText.className = 'password-match-text text-danger';
+                confirmPasswordInput.classList.add('is-invalid');
+                confirmPasswordInput.classList.remove('is-valid');
+            }
+        }
+
+        function updateSubmitButton() {
+            const isStrongPassword = calculatePasswordScore(newPasswordInput.value) >= 80;
+            const passwordsMatch = newPasswordInput.value === confirmPasswordInput.value;
+            const hasOldPassword = document.querySelector('input[name="ChangePassword.OldPassword"]').value.length > 0;
+
+            submitButton.disabled = !(isStrongPassword && passwordsMatch && hasOldPassword);
+        }
+
+        function calculatePasswordScore(password) {
+            let score = 0;
+            if (/[A-Z]/.test(password)) score += 20;
+            if (/[a-z]/.test(password)) score += 20;
+            if (/\d/.test(password)) score += 20;
+            if (/[^A-Za-z0-9]/.test(password)) score += 20;
+            if (password.length >= 6) score += 20;
+            return score;
+        }
+
+        function isFormValid() {
+            const oldPassword = document.querySelector('input[name="ChangePassword.OldPassword"]').value;
+            const newPassword = newPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            return oldPassword.length > 0 &&
+                   calculatePasswordScore(newPassword) >= 80 &&
+                   newPassword === confirmPassword;
+        }
+
+        function highlightInvalidFields() {
+            const fields = [
+                document.querySelector('input[name="ChangePassword.OldPassword"]'),
+                newPasswordInput,
+                confirmPasswordInput
+            ];
+
+            fields.forEach(field => {
+                if (field.value.length === 0) {
+                    field.classList.add('is-invalid');
+                }
+            });
+        }
+    });
+</script>
