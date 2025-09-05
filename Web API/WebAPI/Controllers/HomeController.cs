@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("analyze-medical-report")]
-        public async Task<IActionResult> AnalyzeMedicalReport(IFormFile medicalReport)
+        public async Task<IActionResult> AnalyzeMedicalReport(IFormFile medicalReport, [FromForm] string userAllInfo)
         {
             // Validate the file
             if (medicalReport == null || medicalReport.Length == 0)
@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
             try
             {
                 // Create structured prompt for medical report analysis
-                string medicalPrompt = CreateMedicalAnalysisPrompt(extractedText);
+                string medicalPrompt = CreateMedicalAnalysisPrompt(extractedText, userAllInfo);
 
                 // Create chat messages
                 var messages = new List<ChatMessage>
@@ -104,56 +104,132 @@ namespace WebAPI.Controllers
             return stringBuilder.ToString();
         }
 
-        private string CreateMedicalAnalysisPrompt(string medicalText)
+        private string CreateMedicalAnalysisPrompt(string medicalText, string patientAllInfo)
         {
-            return @"
+            return @$"
             You are a medical report analysis assistant. Analyze the following medical report and provide a structured response.
 
-            **INPUT FORMAT:**
-            - Medical report text extracted from PDF
-            - May contain patient information, test results, diagnoses, medications, etc.
-
-            **REQUIRED OUTPUT FORMAT (JSON structure):**
-            {
-            ""patientInformation"": {
-            ""age"": ""extracted or estimated"",
-            ""gender"": ""extracted if available"",
-            ""relevantHistory"": ""summary""
-            },
-            ""keyFindings"": [
-            ""list of main medical findings""
-            ],
-            ""diagnoses"": [
-            ""list of diagnoses if mentioned""
-            ],
-            ""medications"": [
-            ""list of medications prescribed""
-            ],
-            ""testResults"": {
-            ""abnormalResults"": [""list""],
-            ""normalResults"": [""list""]
-            },
-            ""recommendations"": [
-            ""suggested follow-up actions""
-            ],
-            ""riskAssessment"": ""low/medium/high with explanation"",
-            ""summary"": ""brief overall summary""
-            }
-
-            **ADDITIONAL INSTRUCTIONS:**
-            1. Extract and structure all available medical information
-            2. If information is not available in the report, state ""Not specified""
-            3. Maintain patient privacy - do not include identifying information
-            4. Focus on clinically relevant information
-            5. Use medical terminology appropriately
-            6. Flag any critical or urgent findings
+            **USER BASIC INFORMATION:**
+            {patientAllInfo}
 
             **MEDICAL REPORT TEXT:**
-            " + medicalText + @"
+            {medicalText}
+
+            **REQUIRED OUTPUT FORMAT (JSON structure):**
+            {{
+                ""patientInformation"": {{
+                    ""age"": ""extracted or estimated"",
+                    ""gender"": ""extracted if available"",
+                    ""relevantHistory"": ""summary""
+                }},
+                ""keyFindings"": [
+                    ""list of main medical findings""
+                ],
+                ""diagnoses"": [
+                    ""list of diagnoses if mentioned""
+                ],
+                ""medications"": [
+                    ""list of medications prescribed""
+                ],
+                ""testResults"": {{
+                    ""abnormalResults"": [""list""],
+                    ""normalResults"": [""list""]
+                }},
+                ""recommendations"": {{
+                    ""diet"": [
+                        {{
+                            ""title"": ""recommendation title"",
+                            ""description"": ""detailed description"",
+                            ""impact"": ""specific impact or benefit"",
+                            ""duration"": ""recommended duration"",
+                            ""keyPoints"": ""key implementation points"",
+                            ""mainBenefits"": [""benefit 1"", ""benefit 2""],
+                            ""howToUse"": ""detailed usage instructions"",
+                            ""applicationFrequency"": ""how often to apply"",
+                            ""caution"": ""any precautions or warnings"",
+                            ""goal"": ""primary objective of this recommendation""
+                        }}
+                    ],
+                    ""supplements"": [
+                        {{
+                            ""title"": ""supplement name"",
+                            ""description"": ""detailed description"",
+                            ""dosage"": ""recommended dosage"",
+                            ""frequency"": ""how often to take"",
+                            ""duration"": ""recommended duration"",
+                            ""purpose"": ""primary purpose"",
+                            ""benefits"": [""benefit 1"", ""benefit 2""],
+                            ""instructions"": ""how to take"",
+                            ""precautions"": ""any precautions"",
+                            ""interactions"": ""potential interactions""
+                        }}
+                    ],
+                    ""galenicForm"": [
+                        {{
+                            ""title"": ""form recommendation title"",
+                            ""description"": ""detailed description"",
+                            ""formType"": ""tablet/capsule/liquid etc"",
+                            ""advantages"": [""advantage 1"", ""advantage 2""],
+                            ""usageInstructions"": ""how to use this form"",
+                            ""duration"": ""recommended duration"",
+                            ""compatibility"": ""compatibility with other forms""
+                        }}
+                    ],
+                    ""lifestyle"": [
+                        {{
+                            ""title"": ""lifestyle recommendation title"",
+                            ""description"": ""detailed description"",
+                            ""frequency"": ""how often to practice"",
+                            ""duration"": ""recommended duration"",
+                            ""benefits"": [""benefit 1"", ""benefit 2""],
+                            ""implementationSteps"": ""step-by-step instructions"",
+                            ""timeRequired"": ""time commitment needed"",
+                            ""precautions"": ""any precautions""
+                        }}
+                    ]
+                }},
+                ""riskAssessment"": ""low/medium/high with explanation"",
+                ""summary"": ""brief overall summary""
+            }}
+
+            **CRITICAL INSTRUCTIONS:**
+            1. Provide COMPLETE, DETAILED recommendations for each category as shown in the structure
+            2. Each recommendation should have all the specified fields filled
+            3. For diet recommendations, include specific foods, quantities, and meal timing
+            4. For supplements, include exact dosages, brands (if known), and timing
+            5. For galenic forms, specify exact formulations and administration methods
+            6. For lifestyle, provide actionable, measurable activities
+            7. All recommendations should be personalized based on the user's medical report and information
+            8. Include practical implementation details and timelines
+            9. Provide cautions and precautions where applicable
+            10. Return ONLY valid JSON - no additional text or explanations
+
+            **EXAMPLE DIET RECOMMENDATION:**
+            {{
+                ""title"": ""Increase Probiotic Intake"",
+                ""description"": ""Include natural probiotics in your diet to boost digestion, balance gut flora, and improve gut health."",
+                ""impact"": ""Improves bacterial diversity by 25%"",
+                ""duration"": ""3-4 weeks"",
+                ""keyPoints"": ""Include in breakfast 3 times per week. Start with small portions and gradually increase."",
+                ""mainBenefits"": [
+                    ""Improves Digestive Health: Supports gut flora balance, aiding in better digestion and reduced bloating"",
+                    ""Strengthens Immune System: Boosts body's natural defenses by enhancing microbiome diversity"",
+                    ""Enhances Nutrient Absorption: Helps body absorb vitamins and minerals more efficiently""
+                ],
+                ""howToUse"": ""Start by gradually introducing fermented foods into daily routine. Consume 100-150ml per day, preferably in the morning on empty stomach or alongside meals. Can be taken directly or combined with smoothies, oats, or salads. Ensure consistent intake for 2-4 weeks."",
+                ""applicationFrequency"": ""Daily"",
+                ""caution"": ""Not recommended during antibiotic treatment. Begin with smaller portions if new to fermented foods."",
+                ""goal"": ""Improve gut flora and immune system""
+            }}
 
             **ANALYSIS:**
-            Please provide the analysis in the exact JSON format specified above.";
+            Provide ONLY the JSON object, no additional text:";
         }
+
+
+
+
+
 
         [HttpGet("health")]
         public IActionResult HealthCheck()

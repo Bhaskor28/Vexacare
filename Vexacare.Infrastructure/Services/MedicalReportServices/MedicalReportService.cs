@@ -26,7 +26,7 @@ namespace Vexacare.Infrastructure.Services.MedicalReportServices
             _httpClient.Timeout = TimeSpan.FromMinutes(5);
         }
 
-        public async Task<MedicalReportAnalysisResult> AnalyzeMedicalReportAsync(IFormFile medicalReport)
+        public async Task<MedicalReportAnalysisResult> AnalyzeMedicalReportAsync(IFormFile medicalReport, string userAllInfo)
         {
             try
             {
@@ -35,11 +35,19 @@ namespace Vexacare.Infrastructure.Services.MedicalReportServices
                 _logger.LogInformation("Sending medical report to API: {FileName}", medicalReport.FileName);
 
                 using var content = new MultipartFormDataContent();
+
+                // Add medical report file
                 using var fileStream = medicalReport.OpenReadStream();
                 var fileContent = new StreamContent(fileStream);
                 fileContent.Headers.ContentType = new MediaTypeHeaderValue(medicalReport.ContentType);
                 content.Add(fileContent, "medicalReport", medicalReport.FileName);
 
+
+                // Add additional parameters
+                content.Add(new StringContent(userAllInfo), "userAllInfo");
+
+
+                // Send POST request to the API
                 var response = await _httpClient.PostAsync(apiUrl, content);
 
                 // Read the response content first
@@ -59,14 +67,14 @@ namespace Vexacare.Infrastructure.Services.MedicalReportServices
                             ErrorMessage = "API returned empty response"
                         };
                     }
-
+                    string analysisJson = null;
                     try
                     {
                         var result = JsonSerializer.Deserialize<ApiResponse>(responseContent,
                             new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                         // Extract JSON from the Markdown code blocks
-                        string analysisJson = ExtractJsonFromMarkdown(result.Analysis.ToString());
+                        analysisJson = ExtractJsonFromMarkdown(result.Analysis.ToString());
 
                         if (string.IsNullOrEmpty(analysisJson))
                         {
@@ -93,6 +101,7 @@ namespace Vexacare.Infrastructure.Services.MedicalReportServices
                     catch (JsonException jsonEx)
                     {
                         _logger.LogError(jsonEx, "Failed to parse API response JSON");
+                        _logger.LogError("Raw JSON that failed to parse: {AnalysisJson}", analysisJson);  //if unable to parse JSON
                         return new MedicalReportAnalysisResult
                         {
                             Success = false,
@@ -183,7 +192,7 @@ namespace Vexacare.Infrastructure.Services.MedicalReportServices
             public bool Success { get; set; }
             public string FileName { get; set; }
             public int ExtractedTextLength { get; set; }
-            public string Analysis { get; set; } // Change to string
+            public object Analysis { get; set; } // Change to Object
         }
     }
 }

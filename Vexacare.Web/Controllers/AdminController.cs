@@ -1,9 +1,14 @@
-using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
+using System.Text;
+using System.Text.Json;
+using Vexacare.Application.Interfaces;
 using Vexacare.Application.MedicalReport;
 using Vexacare.Application.Users.Doctors;
 using Vexacare.Application.UsersVM;
 using Vexacare.Domain.Entities.MedicalReport;
+using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.Stripe;
 using Vexacare.Infrastructure.Services.StripeServices;
 
@@ -18,13 +23,17 @@ namespace Vexacare.Web.Controllers
         private readonly IMedicalReportService _medicalReportService;
         private readonly ILogger<AdminController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IOrderService _orderService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         #region Constructor
         public AdminController(IDoctorService doctorService,
             StripeConfigService stripeConfigService,
             IMedicalReportService medicalReportService,
             ILogger<AdminController> logger,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IOrderService orderService,
+            UserManager<ApplicationUser> userManager
             )
         {
             _doctorService = doctorService;
@@ -32,6 +41,8 @@ namespace Vexacare.Web.Controllers
             _medicalReportService = medicalReportService;
             _logger = logger;
             _configuration = configuration;
+            _orderService = orderService;
+            _userManager = userManager;
         }
         #endregion
         public IActionResult Index()
@@ -159,7 +170,7 @@ namespace Vexacare.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ProcessMedicalReport(IFormFile medicalReport)
+        public async Task<IActionResult> ProcessMedicalReport(IFormFile medicalReport, int orderId)
         {
             // Check if API is available first
             var isApiAvailable = await _medicalReportService.TestApiConnectionAsync();
@@ -183,9 +194,21 @@ namespace Vexacare.Web.Controllers
 
             try
             {
-                _logger.LogInformation("Processing medical report: {FileName}", medicalReport.FileName);
+                _logger.LogInformation("Processing medical report: {FileName} for Order : {OrderId}", medicalReport.FileName, orderId);
 
-                var result = await _medicalReportService.AnalyzeMedicalReportAsync(medicalReport);
+
+                var order = await _orderService.GetOrderByIdAsync(orderId);
+
+                
+                var userAllInfo = await GetUserAllInfoByIdAsync(order.UserId);
+
+                if (string.IsNullOrEmpty(userAllInfo))
+                {
+                    TempData["ErrorMessage"] = "User information not found.";
+                    return RedirectToAction("MedicalReportUpload");
+                }
+
+                var result = await _medicalReportService.AnalyzeMedicalReportAsync(medicalReport, userAllInfo);
 
                 if (result.Success)
                 {
@@ -243,6 +266,120 @@ namespace Vexacare.Web.Controllers
         }
 
         #endregion
+
+
+        private async Task<string> GetUserAllInfoByIdAsync(string userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+
+                var userInfoBuilder = new StringBuilder();
+
+                if (user != null)
+                {
+                    userInfoBuilder.AppendLine("=== USER CORE INFORMATION ===");
+                    userInfoBuilder.AppendLine($"Name: {user.FirstName} {user.LastName}");
+                    userInfoBuilder.AppendLine($"Email: {user.Email}");
+                }
+
+                //// Basic Information
+                //if (basicInfo != null)
+                //{
+                //    userInfoBuilder.AppendLine("=== BASIC INFORMATION ===");
+                //    userInfoBuilder.AppendLine($"Name: {basicInfo.FirstName} {basicInfo.LastName}");
+                //    userInfoBuilder.AppendLine($"Age: {basicInfo.Age}");
+                //    userInfoBuilder.AppendLine($"Gender: {basicInfo.Gender}");
+                //    userInfoBuilder.AppendLine($"Date of Birth: {basicInfo.DateOfBirth:yyyy-MM-dd}");
+                //    userInfoBuilder.AppendLine($"Contact: {basicInfo.PhoneNumber} | {basicInfo.Email}");
+                //    userInfoBuilder.AppendLine($"Address: {basicInfo.Address}");
+                //    userInfoBuilder.AppendLine();
+                //}
+
+                //// Medical Information
+                //if (medicalInfo != null)
+                //{
+                //    userInfoBuilder.AppendLine("=== MEDICAL INFORMATION ===");
+                //    userInfoBuilder.AppendLine($"Height: {medicalInfo.Height} cm");
+                //    userInfoBuilder.AppendLine($"Weight: {medicalInfo.Weight} kg");
+                //    userInfoBuilder.AppendLine($"BMI: {medicalInfo.BMI}");
+                //    userInfoBuilder.AppendLine($"Blood Type: {medicalInfo.BloodType}");
+                //    userInfoBuilder.AppendLine($"Chronic Conditions: {medicalInfo.ChronicConditions}");
+                //    userInfoBuilder.AppendLine($"Previous Surgeries: {medicalInfo.PreviousSurgeries}");
+                //    userInfoBuilder.AppendLine($"Current Health Status: {medicalInfo.CurrentHealthStatus}");
+                //    userInfoBuilder.AppendLine();
+                //}
+
+                //// Lifestyle Information
+                //if (lifestyleInfo != null)
+                //{
+                //    userInfoBuilder.AppendLine("=== LIFESTYLE INFORMATION ===");
+                //    userInfoBuilder.AppendLine($"Activity Level: {lifestyleInfo.ActivityLevel}");
+                //    userInfoBuilder.AppendLine($"Exercise Frequency: {lifestyleInfo.ExerciseFrequency}");
+                //    userInfoBuilder.AppendLine($"Smoking Status: {lifestyleInfo.SmokingStatus}");
+                //    userInfoBuilder.AppendLine($"Alcohol Consumption: {lifestyleInfo.AlcoholConsumption}");
+                //    userInfoBuilder.AppendLine($"Sleep Pattern: {lifestyleInfo.SleepPattern}");
+                //    userInfoBuilder.AppendLine($"Stress Level: {lifestyleInfo.StressLevel}");
+                //    userInfoBuilder.AppendLine();
+                //}
+
+                //// Dietary Information
+                //if (dietaryInfo != null)
+                //{
+                //    userInfoBuilder.AppendLine("=== DIETARY INFORMATION ===");
+                //    userInfoBuilder.AppendLine($"Diet Type: {dietaryInfo.DietType}");
+                //    userInfoBuilder.AppendLine($"Food Preferences: {dietaryInfo.FoodPreferences}");
+                //    userInfoBuilder.AppendLine($"Restrictions: {dietaryInfo.DietaryRestrictions}");
+                //    userInfoBuilder.AppendLine($"Average Calories: {dietaryInfo.AverageCaloricIntake}");
+                //    userInfoBuilder.AppendLine($"Water Intake: {dietaryInfo.WaterIntake} liters/day");
+                //    userInfoBuilder.AppendLine();
+                //}
+
+                //// Allergy Information
+                //if (allergyInfo != null && allergyInfo.Any())
+                //{
+                //    userInfoBuilder.AppendLine("=== ALLERGIES ===");
+                //    foreach (var allergy in allergyInfo)
+                //    {
+                //        userInfoBuilder.AppendLine($"- {allergy.AllergenName}: {allergy.Severity} (Reaction: {allergy.Reaction})");
+                //    }
+                //    userInfoBuilder.AppendLine();
+                //}
+
+                //// Current Medications
+                //if (medicationInfo != null && medicationInfo.Any())
+                //{
+                //    userInfoBuilder.AppendLine("=== CURRENT MEDICATIONS ===");
+                //    foreach (var medication in medicationInfo)
+                //    {
+                //        userInfoBuilder.AppendLine($"- {medication.MedicationName}: {medication.Dosage} {medication.Frequency}");
+                //        if (!string.IsNullOrEmpty(medication.Purpose))
+                //            userInfoBuilder.AppendLine($"  Purpose: {medication.Purpose}");
+                //    }
+                //    userInfoBuilder.AppendLine();
+                //}
+
+                //// Family History
+                //if (familyHistory != null && familyHistory.Any())
+                //{
+                //    userInfoBuilder.AppendLine("=== FAMILY MEDICAL HISTORY ===");
+                //    foreach (var history in familyHistory)
+                //    {
+                //        userInfoBuilder.AppendLine($"- {history.Relation}: {history.Condition} ({history.AgeAtDiagnosis} years)");
+                //    }
+                //    userInfoBuilder.AppendLine();
+                //}
+
+                return userInfoBuilder.ToString();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching user basic information for user: {UserId}", userId);
+
+                // Return minimal information if some services fail
+                return $"User ID: {userId}. Error retrieving complete information: {ex.Message}";
+            }
+        }
 
     }
 }

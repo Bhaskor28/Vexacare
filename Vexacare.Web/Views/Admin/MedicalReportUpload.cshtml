@@ -38,6 +38,12 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-group">
+                        <label for="orderId">Order ID:</label>
+                        <input type="text" name="orderId" class="form-control" required
+                               @(!isApiAvailable ? "disabled" : "") />
+                    </div>
+
+                    <div class="form-group">
                         <label for="medicalReport">Upload Medical Report (PDF):</label>
                         <input type="file" name="medicalReport" class="form-control" accept=".pdf" required
                         @(!isApiAvailable ? "disabled" : "") />

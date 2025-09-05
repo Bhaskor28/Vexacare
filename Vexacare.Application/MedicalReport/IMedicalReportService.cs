@@ -10,7 +10,7 @@ namespace Vexacare.Application.MedicalReport
 {
     public interface IMedicalReportService
     {
-        Task<MedicalReportAnalysisResult> AnalyzeMedicalReportAsync(IFormFile medicalReport);
+        Task<MedicalReportAnalysisResult> AnalyzeMedicalReportAsync(IFormFile medicalReport, string userAllInfo);
         Task<bool> TestApiConnectionAsync();
     }
 }
