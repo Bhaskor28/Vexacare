@@ -68,9 +68,6 @@ namespace Vexacare.Web.Controllers
                     {
                         // Assign Patient role
                         await _userManager.AddToRoleAsync(user, "Patient");
-                        await _context.SaveChangesAsync();
-                        //await _signInManager.SignInAsync(user, isPersistent: false);
-                        //return RedirectToAction("Index", "Home");
                         return RedirectToAction("Login", "Account");
                     }
                 }

@@ -232,16 +232,18 @@ namespace Vexacare.Web.Controllers
                         return RedirectToAction("Index");
                     }
 
-                    // Add errors from Identity to ModelState
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                        // Add field-specific errors if available
-                        if (error.Code.Contains("Password"))
-                        {
-                            ModelState.AddModelError("ChangePassword.NewPassword", error.Description);
-                        }
-                    }
+                    //// Add errors from Identity to ModelState
+                    //foreach (var error in result.Errors)
+                    //{
+                    //    ModelState.AddModelError("", error.Description);
+                    //    // Add field-specific errors if available
+                    //    if (error.Code.Contains("Password"))
+                    //    {
+                    //        ModelState.AddModelError("ChangePassword.NewPassword", error.Description);
+                    //    }
+                    //}
+                    ModelState.AddModelError("ChangePassword.OldPassword", "Incorrect Password.");
+
                 }
             }
             catch (Exception ex)
