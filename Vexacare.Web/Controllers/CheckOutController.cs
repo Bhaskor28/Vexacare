@@ -112,6 +112,7 @@ namespace Vexacare.Web.Controllers
             }
 
             var domain = "http://localhost:5244/";
+            //var domain = "http://vexacare.somee.com/";   // use this when published to somee.com
 
             var options = new SessionCreateOptions
             {
