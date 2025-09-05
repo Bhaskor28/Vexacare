@@ -85,7 +85,26 @@ namespace Vexacare.Web.Controllers
 
         #region BookNow
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> BookNow(string id,DateTime? SelectedDate)
+
+        [HttpGet]
+        public async Task<IActionResult> BookNow(string id, DateTime? SelectedDate)
+        {
+            var existingDoctorProfile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(id);
+            var existingDoctorSession = await _doctorProfileService.GetDoctorSessionByUserIdAsync(id);
+
+            var partnerHubVM = new PartnerHubVM
+            {
+                ProfileBasic = existingDoctorProfile,
+                ProfileSession = existingDoctorSession,
+                SelectedDate = SelectedDate == null ? DateTime.Now : SelectedDate,
+                SelectedDayName = SelectedDate?.ToString("dddd", CultureInfo.InvariantCulture),
+
+            };
+            return View(partnerHubVM);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> BookNow(string id, DateTime? SelectedDate, List<TimeSpan>? SelectedTimeSlots)
         {
             // Get the doctor by ID
             var existingDoctorProfile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(id);
@@ -96,25 +115,29 @@ namespace Vexacare.Web.Controllers
                 ProfileBasic = existingDoctorProfile,
                 ProfileSession = existingDoctorSession,
                 SelectedDate = SelectedDate==null?DateTime.Now:SelectedDate,
-                SelectedDayName = SelectedDate?.ToString("dddd", CultureInfo.InvariantCulture)
+                SelectedDayName = SelectedDate?.ToString("dddd", CultureInfo.InvariantCulture),
+                SelectedSlot = SelectedTimeSlots ?? new List<TimeSpan>()
             };
             return View(partnerHubVM);
         }
         #endregion BookNow
-        
+
 
         #region ConfirmPay
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> ConfirmPay(int id)
+        public async Task<IActionResult> ConfirmPay(string doctorId, DateTime? selectedTime, List<TimeSpan>? selectedSlot)
         {
-            var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
+            var existingDoctorProfile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(doctorId);
+            var existingDoctorSession = await _doctorProfileService.GetDoctorSessionByUserIdAsync(doctorId);
 
-            if (doctor == null)
+            var partnerHubVM = new PartnerHubVM
             {
-                return NotFound();
-            }
-
-            return View(doctor);
+                ProfileBasic = existingDoctorProfile,
+                ProfileSession = existingDoctorSession,
+                SelectedDate = selectedTime,
+                SelectedSlot = selectedSlot ?? new List<TimeSpan>()
+            };
+            return View(partnerHubVM);
         }
         #endregion
         [Authorize(Roles = "Patient")]

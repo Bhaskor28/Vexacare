@@ -15,6 +15,7 @@ namespace Vexacare.Application.DoctorProfiles
         //add by Bhaskor 
         public DateTime? SelectedDate { get; set; }
         public string? SelectedDayName { get; set; }
+        public List<TimeSpan>? SelectedSlot { get; set; } = new List<TimeSpan>();
 
         // You can add other properties for different tabs if needed
         //public object AnalysisReports { get; set; }

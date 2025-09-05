@@ -186,10 +186,10 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="tm-booking-section">
+            <form asp-asp-controller="Consultations" asp-action="BookNow" method="post" id="booking-form">
+                <div class="tm-booking-section">
                 <div class="tm-booking-container">
-                    <form asp-asp-controller="Consultations" asp-action="BookNow" method="post">
+                    
                     <!-- Choose Date -->
                     <div class="tm-booking-date">
                         <h3>Choose a date</h3>
@@ -228,19 +228,20 @@
                                 <div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div><div>Su</div>
                             </div>
                             
-                                <!-- Your date input -->
-                                <input type="date"
+                                    <!-- Your date input -->
+                                <input type="date" id="date-picker"
                                        asp-for="SelectedDate"
-                                       value="@(Model.SelectedDate?.ToString("yyyy-MM-dd") ?? DateTime.Today.ToString("yyyy-MM-dd"))"
                                        min="@DateTime.Today.ToString("yyyy-MM-dd")"
                                        class="form-control"
                                        onchange="this.form.submit()" />
+                            
+                                
                            
                             @* <div class="tm-calendar-grid"
                                  id="tm-calendar-grid"></div> *@
                         </div>
                     </div>
-                    </form>
+                    
                     <!-- Select Time -->
                     <div class="tm-booking-time">
                         <h3>Select a time</h3>
@@ -271,7 +272,6 @@
                                     var noonSlots = timeSlots.Where(t => t.Hours >= 12 && t.Hours < 14).ToList();
                                     var afternoonSlots = timeSlots.Where(t => t.Hours >= 14 && t.Hours < 17).ToList();
                                     var eveningSlots = timeSlots.Where(t => t.Hours >= 17).ToList();
-
                                     // Display each group
                                     if (morningSlots.Any())
                                     {
@@ -281,7 +281,10 @@
                                                 @foreach (var slot in morningSlots)
                                                 {
                                                     var displayTime = DateTime.Today.Add(slot).ToString("hh\\:mm tt");
-                                                    <button class="tm-time-btn">@displayTime</button>
+                                                        <label class="tm-time-btn @(Model.SelectedSlot.Contains(slot) ? "active" : "")" >
+                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot" style="display: none;" />
+                                                            @displayTime
+                                                        </label>
                                                 }
                                             </div>
                                         </div>
@@ -295,7 +298,10 @@
                                                 @foreach (var slot in noonSlots)
                                                 {
                                                     var displayTime = DateTime.Today.Add(slot).ToString("hh\\:mm tt");
-                                                    <button class="tm-time-btn">@displayTime</button>
+                                                        <label class="tm-time-btn">
+                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot" style="display: none;" />
+                                                            @displayTime
+                                                        </label>
                                                 }
                                             </div>
                                         </div>
@@ -309,7 +315,10 @@
                                                 @foreach (var slot in afternoonSlots)
                                                 {
                                                     var displayTime = DateTime.Today.Add(slot).ToString("hh\\:mm tt");
-                                                    <button class="tm-time-btn">@displayTime</button>
+                                                        <label class="tm-time-btn">
+                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot" style="display: none;" />
+                                                            @displayTime
+                                                        </label>
                                                 }
                                             </div>
                                         </div>
@@ -323,7 +332,11 @@
                                                 @foreach (var slot in eveningSlots)
                                                 {
                                                     var displayTime = DateTime.Today.Add(slot).ToString("hh\\:mm tt");
-                                                    <button class="tm-time-btn">@displayTime</button>
+
+                                                        <label class="tm-time-btn">
+                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot" style="display: none;" />
+                                                            @displayTime
+                                                        </label>
                                                 }
                                             </div>
                                         </div>
@@ -427,7 +440,7 @@
                             </div>
                         </div> *@
                     </div>
-
+                    
                 </div>
 
                 <!-- Navigation Buttons -->
@@ -445,8 +458,7 @@
                             </svg>
                         </span> Back
                     </a>
-                    <a asp-controller="Consultations" asp-action="ConfirmPay" asp-route-id="@Model.ProfileBasic.Id"
-                       class="tm-btn-confirm">
+                    <button type="submit" class="tm-btn-confirm">
                         Confirm
                         <span>
                             <svg xmlns="http:www.w3.org/2000/svg"
@@ -458,10 +470,13 @@
                                       stroke-linejoin="round" />
                             </svg>
                         </span>
-                    </a>
+                    </button>
+                    
                 </div>
+                 
             </div>
-
+           
+            </form>
         </div>
 
         <div class="tm-all-rights-reserved-area">
@@ -542,4 +557,12 @@
         btn.classList.add('active');
       });
     });
+
+
+    //script added by Bhaskor Roy
+
+    
+
+
 </script>
+
