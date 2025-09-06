@@ -237,11 +237,74 @@ namespace Vexacare.Infrastructure.Services.PatientProfileServices
 
         public async Task<TherapiesInfoVM> GetTherapiesInfoAsync(string patientId)
         {
-            return null;
+            var therapiesInfo = await _context.TherapiesInfos
+                .FirstOrDefaultAsync(t => t.PatientId == patientId);
+
+            var model = new TherapiesInfoVM();
+
+            if (therapiesInfo != null)
+            {
+                model.UsedAntibioticsRecently = therapiesInfo.UsedAntibioticsRecently;
+                model.AntibioticName = therapiesInfo.AntibioticName;
+                model.EndOfTherapyDate = therapiesInfo.EndOfTherapyDate;
+                model.UsesProbiotics = therapiesInfo.UsesProbiotics;
+                model.UsesPrebiotics = therapiesInfo.UsesPrebiotics;
+                model.UsesMinerals = therapiesInfo.UsesMinerals;
+                model.UsesVitamins = therapiesInfo.UsesVitamins;
+                model.UsesOtherSupplements = therapiesInfo.UsesOtherSupplements;
+                model.OtherSupplementsDescription = therapiesInfo.OtherSupplementsDescription;
+
+                if (therapiesInfo.PrimaryObjective.HasValue)
+                {
+                    model.PrimaryObjective = (PrimaryHealthObjective)therapiesInfo.PrimaryObjective.Value;
+                }
+
+                if (!string.IsNullOrEmpty(therapiesInfo.SecondaryObjectives))
+                {
+                    model.SecondaryObjectives = therapiesInfo.SecondaryObjectives
+                        .Split(',')
+                        .Select(o => (SecondaryObjective)Enum.Parse(typeof(SecondaryObjective), o))
+                        .ToList();
+                }
+            }
+            return model;
         }
         public async Task<bool> SaveTherapiesInfoAsync(string patientId, TherapiesInfoVM model)
         {
-            return false;
+            try
+            {
+                var therapiesInfo = await _context.TherapiesInfos
+                    .FirstOrDefaultAsync(t => t.PatientId == patientId) ?? new TherapiesInfo { PatientId = patientId };
+
+                therapiesInfo.UsedAntibioticsRecently = model.UsedAntibioticsRecently;
+                therapiesInfo.AntibioticName = model.UsedAntibioticsRecently == true ? model.AntibioticName : null;
+                therapiesInfo.EndOfTherapyDate = model.UsedAntibioticsRecently == true ? model.EndOfTherapyDate : null;
+                therapiesInfo.UsesProbiotics = model.UsesProbiotics;
+                therapiesInfo.UsesPrebiotics = model.UsesPrebiotics;
+                therapiesInfo.UsesMinerals = model.UsesMinerals;
+                therapiesInfo.UsesVitamins = model.UsesVitamins;
+                therapiesInfo.UsesOtherSupplements = model.UsesOtherSupplements;
+                therapiesInfo.OtherSupplementsDescription = model.UsesOtherSupplements ? model.OtherSupplementsDescription : null;
+                therapiesInfo.PrimaryObjective = (int?)model.PrimaryObjective;
+                therapiesInfo.SecondaryObjectives = model.SecondaryObjectives.Any() ?
+                    string.Join(",", model.SecondaryObjectives.Select(o => o.ToString())) : null;
+
+                if (therapiesInfo.Id == 0)
+                {
+                    _context.TherapiesInfos.Add(therapiesInfo);
+                }
+                else
+                {
+                    _context.TherapiesInfos.Update(therapiesInfo);
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

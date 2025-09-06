@@ -225,8 +225,8 @@ namespace Vexacare.Web.Controllers
         //end of step 5
         #endregion
 
-        //step 6: Lifestyle info
         #region LifestyleInfo
+        //step 6: Lifestyle info
         [HttpGet]
         public async Task<IActionResult> LifestyleInfo()
         {
@@ -249,49 +249,18 @@ namespace Vexacare.Web.Controllers
             }
             return View("LifestyleInfo", model);
         }
-
-        #endregion
         //end of step 6
+        #endregion
+
 
         #region TherapiesInfo
         [HttpGet]
         public async Task<IActionResult> TherapiesInfo()
         {
             var patientId = _userManager.GetUserId(User);
-            var therapiesInfo = await _context.TherapiesInfos
-                .FirstOrDefaultAsync(t => t.PatientId == patientId);
-
-            var model = new TherapiesInfoVM();
-
-            if (therapiesInfo != null)
-            {
-                model.UsedAntibioticsRecently = therapiesInfo.UsedAntibioticsRecently;
-                model.AntibioticName = therapiesInfo.AntibioticName;
-                model.EndOfTherapyDate = therapiesInfo.EndOfTherapyDate;
-                model.UsesProbiotics = therapiesInfo.UsesProbiotics;
-                model.UsesPrebiotics = therapiesInfo.UsesPrebiotics;
-                model.UsesMinerals = therapiesInfo.UsesMinerals;
-                model.UsesVitamins = therapiesInfo.UsesVitamins;
-                model.UsesOtherSupplements = therapiesInfo.UsesOtherSupplements;
-                model.OtherSupplementsDescription = therapiesInfo.OtherSupplementsDescription;
-
-                if (therapiesInfo.PrimaryObjective.HasValue)
-                {
-                    model.PrimaryObjective = (PrimaryHealthObjective)therapiesInfo.PrimaryObjective.Value;
-                }
-
-                if (!string.IsNullOrEmpty(therapiesInfo.SecondaryObjectives))
-                {
-                    model.SecondaryObjectives = therapiesInfo.SecondaryObjectives
-                        .Split(',')
-                        .Select(o => (SecondaryObjective)Enum.Parse(typeof(SecondaryObjective), o))
-                        .ToList();
-                }
-            }
+            var model = await _patientService.GetTherapiesInfoAsync(patientId) ?? new TherapiesInfoVM();
             return View(model);
         }
-       
-        
 
         [HttpPost]
         public async Task<IActionResult> TherapiesInfo(TherapiesInfoVM model)
@@ -299,35 +268,12 @@ namespace Vexacare.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
-                var therapiesInfo = await _context.TherapiesInfos
-                    .FirstOrDefaultAsync(t => t.PatientId == userId) ?? new TherapiesInfo { PatientId = userId };
-
-                therapiesInfo.UsedAntibioticsRecently = model.UsedAntibioticsRecently;
-                therapiesInfo.AntibioticName = model.UsedAntibioticsRecently == true ? model.AntibioticName : null;
-                therapiesInfo.EndOfTherapyDate = model.UsedAntibioticsRecently == true ? model.EndOfTherapyDate : null;
-                therapiesInfo.UsesProbiotics = model.UsesProbiotics;
-                therapiesInfo.UsesPrebiotics = model.UsesPrebiotics;
-                therapiesInfo.UsesMinerals = model.UsesMinerals;
-                therapiesInfo.UsesVitamins = model.UsesVitamins;
-                therapiesInfo.UsesOtherSupplements = model.UsesOtherSupplements;
-                therapiesInfo.OtherSupplementsDescription = model.UsesOtherSupplements ? model.OtherSupplementsDescription : null;
-                therapiesInfo.PrimaryObjective = (int?)model.PrimaryObjective;
-                therapiesInfo.SecondaryObjectives = model.SecondaryObjectives.Any() ?
-                    string.Join(",", model.SecondaryObjectives.Select(o => o.ToString())) : null;
-
-                if (therapiesInfo.Id == 0)
+                var result = await _patientService.SaveTherapiesInfoAsync(userId, model);
+                if(result)
                 {
-                    _context.TherapiesInfos.Add(therapiesInfo);
+                    return RedirectToAction("Index", "PatientDashboard");
                 }
-                else
-                {
-                    _context.TherapiesInfos.Update(therapiesInfo);
-                }
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "PatientDashboard");
             }
-
             return View(model);
         }
         #endregion
