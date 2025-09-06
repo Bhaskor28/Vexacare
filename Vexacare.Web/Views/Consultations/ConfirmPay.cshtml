@@ -1,10 +1,11 @@
 ﻿@model PartnerHubVM
+@using System.Text.RegularExpressions
 <section id="tm-payment-section">
     <div class="container">
         <div class="tm-profile-container">
             <div class="tm-profile-header">
                 <div class="tm-profile-header-left">
-                    <img src="~/assets/images/dr1.png"
+                    <img src="@Model.ProfileBasic.ProfileImagePath"
                          alt="Dr. Luca Marino"
                          class="tm-profile-photo">
                 </div>
@@ -23,16 +24,44 @@
                     </div>
                     <div class="tm-speciality-ratings-wrapper">
                         <p class="tm-professional-specialty">
-                            Gastroenterologist
+                            @Model.ProfileBasic?.Category?.Name
                         </p>
 
                     </div>
                     <div class="tm-card-tag-wrapper">
-                        <p class="tm-card-tag">
+                        @{
+                            if (!string.IsNullOrEmpty(Model.ProfileBasic?.AreaofExperties))
+                            {
+                                // Combined regex to match both <li> and <p> tags
+                                var matches = Regex.Matches(Model.ProfileBasic.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
+
+                                if (matches.Count > 0)
+                                {
+                                    for (int i = 0; i < Math.Min(2, matches.Count); i++)
+                                    {
+                                        <p class="tm-card-tag">@Html.Raw(matches[i].Groups[1].Value.Trim())</p>
+                                    }
+                                }
+                                else
+                                {
+                                    // Fallback for content without expected tags
+                                    var lines = Model.ProfileBasic?.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                    for (int i = 0; i < Math.Min(2, lines.Length); i++)
+                                    {
+                                        <p class="tm-card-tag">@lines[i].Trim()</p>
+                                    }
+                                }
+                            }
+                        }
+                        @*
+                             <p class="tm-card-tag">
                             Digestive
                             Disorders
                         </p>
                         <p class="tm-card-tag">Gut Inflammation</p>
+                        *@
+                       
                     </div>
 
                     <div class="tm-card-availability-wrapper">
@@ -79,7 +108,7 @@
                                           stroke-linecap="round" />
                                 </svg>
                             </span>
-                            <span>Video consultation</span>
+                            <span>@Model.ProfileBasic?.ServiceType?.Name</span>
                         </div>
                         <div class="tm-card-availability-item ">
                             <span>
@@ -127,15 +156,23 @@
                                           stroke-linejoin="round" />
                                 </svg>
                             </span>
-                            <span>Available Tue, Thu, Fri</span>
+                            @foreach (var day in Model.ProfileSession.WeeklyAvailability)
+                            {
+                                if (day.IsAvailable)
+                                {
+                                    <span>@day.DayName.ToString().Substring(0, 3),</span>
+                                }
+
+                            }
+                            @* <span>Available sun, mon, thursday </span> *@
                         </div>
                     </div>
 
                     <div class="tm-card-footer">
                         <div class="tm-card-footer-left">
                             <span class="tm-service-duration">
-                                <i class="far fa-clock"></i> 1
-                                day
+                                <i class="far fa-clock"></i>  @Model.ProfileSession.SessionDuration
+                                Minutes
                             </span>
                             <span class="tm-professional-price">$320</span>
                         </div>
@@ -347,7 +384,9 @@
                                 <div class="tm-booking-info">
                                     <div class="tm-booking-info-item">
                                         <span class="tm-common-label">Date & Time</span>
+                                                
                                         <p class="tm-booking-info-para">
+
                                             10:00 - 11:00 AM, 15 August 2025
                                         </p>
                                     </div>

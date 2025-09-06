@@ -11,6 +11,7 @@ using Vexacare.Application.Interfaces;
 using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Domain.Entities.ProductEntities;
 using Vexacare.Infrastructure.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Vexacare.Infrastructure.Services.DoctorProfileServices
 {
@@ -99,6 +100,34 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
         .FirstOrDefaultAsync(dp => dp.Id == doctorId);
 
             return _mapper.Map<ProfileBasicVM>(doctor);
+        }
+        // New method specifically for PartnerHubVM
+        public async Task<IEnumerable<PartnerHubVM>> GetAllDoctorProfilesForPartnerHub()
+        {
+            var doctorProfiles = await _context.DoctorProfiles
+                .Include(dp => dp.Category)
+                .Include(dp => dp.ServiceType)
+                .Include(dp => dp.Location)
+                .Include(dp => dp.Reviews).
+                ToListAsync();
+                
+
+            var partnerHubVMs = new List<PartnerHubVM>();
+
+            foreach (var doctorProfile in doctorProfiles)
+            {
+                var partnerHubVM = new PartnerHubVM
+                {
+                    ProfileBasic = _mapper.Map<ProfileBasicVM>(doctorProfile),
+                    ProfileSession = MapToDoctorSessionVM(doctorProfile),
+
+                };
+            
+
+                partnerHubVMs.Add(partnerHubVM);
+            }
+
+            return partnerHubVMs;
         }
 
         public async Task<IEnumerable<ProfileBasicVM>> GetFilteredDoctorProfilesAsync(int? categoryId, int? serviceTypeId, int? locationId, int? availableId)
@@ -259,5 +288,33 @@ namespace Vexacare.Infrastructure.Services.DoctorProfileServices
         }
 
 
+
+
+
+        // Manual mapping method to convert DoctorProfile to DoctorSessionVM
+        private DoctorSessionVM MapToDoctorSessionVM(DoctorProfile doctorProfile)
+        {
+            return new DoctorSessionVM
+            {
+                DoctorProfileId = doctorProfile.Id,
+                PricePerConsultation = doctorProfile.PricePerConsultation,
+                SessionDuration = doctorProfile.SessionDuration,
+                WeeklyAvailability = doctorProfile.Availabilities?
+                    .Select(a => new DayAvailabilityVM
+                    {
+                        DayOfWeek = a.DayOfWeek,
+                        StartTime = a.StartTime,
+                        EndTime = a.EndTime,
+                        IsAvailable = a.IsAvailable
+                    })
+                    .OrderBy(a => a.DayOfWeek)
+                    .ToList() ?? new List<DayAvailabilityVM>()
+            };
+        }
+
+
     }
 }
+
+
+

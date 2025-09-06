@@ -1,4 +1,4 @@
-@model ProfileBasicVM
+@model PartnerHubVM
 @using System.Text.RegularExpressions
 <section id="tm-profile-section">
     <div class="container">
@@ -6,13 +6,13 @@
             <div class="tm-profile-content-wrapper">
                 <div class="tm-profile-header">
                     <div class="tm-profile-header-left">
-                        <img src="@Model.ProfileImagePath" alt="Dr. Luca Marino"
+                        <img src="@Model.ProfileBasic?.ProfileImagePath" alt="Dr. Luca Marino"
                              class="tm-profile-photo">
                     </div>
                     <div class="tm-card-body">
                         <div class="tm-card-header">
                             <h3 class="tm-professional-name">
-                                @Model.Name 
+                                @Model.ProfileBasic?.Name 
                             </h3>
                             <div class="tm-professional-rating">
                                 ⭐
@@ -24,16 +24,16 @@
                         </div>
                         <div class="tm-speciality-ratings-wrapper">
                             <p class="tm-professional-specialty">
-                                @Model.Category?.Name
+                                @Model.ProfileBasic.Category?.Name
                             </p>
 
                         </div>
                         <div class="tm-card-tag-wrapper">
                             @{
-                                if (!string.IsNullOrEmpty(Model.AreaofExperties))
+                                if (!string.IsNullOrEmpty(Model.ProfileBasic?.AreaofExperties))
                                 {
                                     // Combined regex to match both <li> and <p> tags
-                                    var matches = Regex.Matches(Model.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
+                                    var matches = Regex.Matches(Model.ProfileBasic.AreaofExperties, @"<(?:li|p)>(.*?)</(?:li|p)>");
 
                                     if (matches.Count > 0)
                                     {
@@ -45,7 +45,7 @@
                                     else
                                     {
                                         // Fallback for content without expected tags
-                                        var lines = Model.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                                        var lines = Model.ProfileBasic.AreaofExperties.Split(new[] { '\n', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
 
                                         for (int i = 0; i < Math.Min(2, lines.Length); i++)
                                         {
@@ -105,7 +105,7 @@
                                               stroke-linecap="round" />
                                     </svg>
                                 </span>
-                                <span>@Model.ServiceType?.Name</span>
+                                <span>@Model.ProfileBasic.ServiceType?.Name</span>
                             </div>
                             <div class="tm-card-availability-item ">
                                 <span>
@@ -153,19 +153,27 @@
                                               stroke-linejoin="round" />
                                     </svg>
                                 </span>
-                                <span>Available Tue, Thu, Fri</span>
+                                <span>Available </span>
+                                @foreach (var day in Model.ProfileSession.WeeklyAvailability)
+                                {
+                                    if (day.IsAvailable)
+                                    {
+                                        <span>@day.DayName.ToString().Substring(0, 3),</span>
+                                    }
+
+                                }
+                               
                             </div>
                         </div>
 
                         <div class="tm-card-footer">
                             <div class="tm-card-footer-left">
                                 <span class="tm-service-duration">
-                                    <i class="far fa-clock"></i> 1
-                                    day
+                                    <i class="far fa-clock"></i> @Model.ProfileSession.SessionDuration 
                                 </span>
-                                <span class="tm-professional-price">$500</span>
+                                <span class="tm-professional-price">$@Model.ProfileSession.PricePerConsultation</span>
                             </div>
-                            <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@Model.Id" class="tm-book-now-btn">
+                            <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@Model.ProfileBasic.UserId" class="tm-book-now-btn">
                                 Book
                                 Now
                             </a>
@@ -173,15 +181,15 @@
                     </div>
                 </div>
                 <div class="tm-about-section">
-                    <h2 class="tm-doctor-profile-header">About @Model.Name</h2>
+                    <h2 class="tm-doctor-profile-header">About @Model.ProfileBasic.Name</h2>
                     <p class="tm-section-content">
-                        @Html.Raw(Model.About)
+                        @Html.Raw(Model.ProfileBasic.About)
                     </p>
                 </div>
                 <div class="tm-areas-section">
                     <h2 class="tm-doctor-profile-header">Areas of Expertise</h2>
                     <ul class="tm-section-content">
-                        @Html.Raw(Model.AreaofExperties)
+                        @Html.Raw(Model.ProfileBasic.AreaofExperties)
                         @* <li>Gut Microbiota Analysis</li>
                         <li>IBS Treatment</li>
                         <li>Probiotic Therapy</li>
@@ -194,7 +202,7 @@
                         Certifications
                     </h2>
                     <ul class="tm-section-content">
-                        @Html.Raw(Model.EducationDetails)
+                        @Html.Raw(Model.ProfileBasic.EducationDetails)
                         @* <li>
                             MD - Internal Medicine, University of Amsterdam
                             (2008)

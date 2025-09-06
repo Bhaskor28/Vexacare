@@ -1,4 +1,4 @@
-@model IEnumerable<ProfileBasicVM>
+@model IEnumerable<PartnerHubVM>
 <!-- Consultations & Home Care Hero Section start -->
             <section id="consultations-hero">
                 <div class="container">
@@ -227,15 +227,15 @@
             {
                 <!-- card 1 -->
                 <div class="tm-professional-card">
-                    <img src="@doctor.ProfileImagePath"
+                    <img src="@doctor.ProfileBasic.ProfileImagePath"
                          alt="Dr. Luca Marino"
                          class="tm-professional-photo">
                     <div class="tm-card-body">
                         <div class="tm-card-header">
                             <h3 class="tm-professional-name">
-                                @doctor.Name
+                                @doctor.ProfileBasic.Name
                             </h3>
-                            <a asp-controller="Consultations" asp-action="Profile" asp-route-id="@doctor.Id"
+                            <a asp-controller="Consultations" asp-action="Profile" asp-route-id="@doctor.ProfileBasic.UserId"
                                class="tm-view-profile-link">
                                 View
                                 Profile
@@ -243,7 +243,7 @@
                         </div>
                         <div class="tm-speciality-ratings-wrapper">
                             <p class="tm-professional-specialty">
-                                @doctor.Category?.Name
+                                @doctor.ProfileBasic.Category?.Name
                             </p>
                             <span class="tm-professional-rating">
                                 ⭐
@@ -275,7 +275,7 @@
                                               stroke-linejoin="round" />
                                     </svg>
                                 </span>
-                                <span>@doctor.ServiceType.Name</span>
+                                <span>@doctor.ProfileBasic.ServiceType.Name</span>
                             </div>
                             <div class="tm-card-availability-item ">
                                 <span>
@@ -323,19 +323,26 @@
                                               stroke-linejoin="round" />
                                     </svg>
                                 </span>
-                                <span>Available Tue, Thu, Fri</span>
+                                <span>Available </span>
+                                @foreach (var day in doctor?.ProfileSession?.WeeklyAvailability)
+                                {
+                                    if (day.IsAvailable)
+                                    {
+                                        <span>@day.DayName.ToString().Substring(0, 3),</span>
+                                    }
+
+                                }
                             </div>
                         </div>
 
                         <div class="tm-card-footer">
                             <div class="tm-card-footer-left">
                                 <span class="tm-service-duration">
-                                    <i class="far fa-clock"></i> 1
-                                    day
+                                    <i class="far fa-clock"></i> @doctor.ProfileSession.SessionDuration Min
                                 </span>
-                                <span class="tm-professional-price">$700</span>
+                                <span class="tm-professional-price">$@doctor.ProfileSession?.PricePerConsultation</span>
                             </div>
-                            <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@doctor.UserId" class="tm-book-now-btn">
+                            <a asp-controller="Consultations" asp-action="BookNow" asp-route-id="@doctor.ProfileBasic.UserId" class="tm-book-now-btn">
                                 Book
                                 Now
                             </a>

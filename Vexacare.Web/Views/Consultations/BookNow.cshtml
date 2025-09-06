@@ -173,12 +173,11 @@
                     <div class="tm-card-footer">
                         <div class="tm-card-footer-left">
                             <span class="tm-service-duration">
-                                <i class="far fa-clock"></i> @Model.ProfileSession.SessionDuration
-                                Minutes
+                                <i class="far fa-clock"></i>      
                             </span>
                             <span class="tm-professional-price">$@Model.ProfileSession.PricePerConsultation</span>
                         </div>
-                        <a asp-controller="Consultations" asp-action="Profile" asp-route-id="@Model.ProfileBasic?.Id"
+                        <a asp-controller="Consultations" asp-action="Profile" asp-route-id="@Model.ProfileBasic?.UserId"
                            class="tm-view-profile-link">
                             View
                             Profile
@@ -186,10 +185,10 @@
                     </div>
                 </div>
             </div>
-            <form asp-asp-controller="Consultations" asp-action="BookNow" method="post" id="booking-form">
+            <form asp-asp-controller="Consultations" asp-action="ConfirmPay" method="post" id="booking-form">
                 <div class="tm-booking-section">
                 <div class="tm-booking-container">
-                    
+                    <input type="hidden" name="doctorId" value="@Model.ProfileBasic?.UserId" />
                     <!-- Choose Date -->
                     <div class="tm-booking-date">
                         <h3>Choose a date</h3>
@@ -228,12 +227,11 @@
                                 <div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div><div>Su</div>
                             </div>
                             
-                                    <!-- Your date input -->
+                                <!-- Date input - REMOVE onchange submit -->
                                 <input type="date" id="date-picker"
                                        asp-for="SelectedDate"
                                        min="@DateTime.Today.ToString("yyyy-MM-dd")"
-                                       class="form-control"
-                                       onchange="this.form.submit()" />
+                                       class="form-control" />
                             
                                 
                            
@@ -281,8 +279,9 @@
                                                 @foreach (var slot in morningSlots)
                                                 {
                                                     var displayTime = DateTime.Today.Add(slot).ToString("hh\\:mm tt");
-                                                        <label class="tm-time-btn @(Model.SelectedSlot.Contains(slot) ? "active" : "")" >
-                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot" style="display: none;" />
+                                                        <label class="tm-time-btn @(Model.SelectedSlot.Contains(slot) ? "active" : "")">
+                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot"
+                                                                   @(Model.SelectedSlot.Contains(slot) ? "checked" : "") style="display: none;" />
                                                             @displayTime
                                                         </label>
                                                 }
@@ -298,8 +297,9 @@
                                                 @foreach (var slot in noonSlots)
                                                 {
                                                     var displayTime = DateTime.Today.Add(slot).ToString("hh\\:mm tt");
-                                                        <label class="tm-time-btn">
-                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot" style="display: none;" />
+                                                        <label class="tm-time-btn @(Model.SelectedSlot.Contains(slot) ? "active" : "")">
+                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot"
+                                                                   @(Model.SelectedSlot.Contains(slot) ? "checked" : "") style="display: none;" />
                                                             @displayTime
                                                         </label>
                                                 }
@@ -315,8 +315,9 @@
                                                 @foreach (var slot in afternoonSlots)
                                                 {
                                                     var displayTime = DateTime.Today.Add(slot).ToString("hh\\:mm tt");
-                                                        <label class="tm-time-btn">
-                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot" style="display: none;" />
+                                                        <label class="tm-time-btn @(Model.SelectedSlot.Contains(slot) ? "active" : "")">
+                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot"
+                                                                   @(Model.SelectedSlot.Contains(slot) ? "checked" : "") style="display: none;" />
                                                             @displayTime
                                                         </label>
                                                 }
@@ -333,8 +334,9 @@
                                                 {
                                                     var displayTime = DateTime.Today.Add(slot).ToString("hh\\:mm tt");
 
-                                                        <label class="tm-time-btn">
-                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot" style="display: none;" />
+                                                        <label class="tm-time-btn @(Model.SelectedSlot.Contains(slot) ? "active" : "")">
+                                                            <input type="checkbox" name="SelectedTimeSlots" value="@slot"
+                                                                   @(Model.SelectedSlot.Contains(slot) ? "checked" : "") style="display: none;" />
                                                             @displayTime
                                                         </label>
                                                 }
@@ -458,7 +460,7 @@
                             </svg>
                         </span> Back
                     </a>
-                    <button type="submit" class="tm-btn-confirm">
+                        <button type="submit" class="tm-btn-confirm" id="confirm-button">
                         Confirm
                         <span>
                             <svg xmlns="http:www.w3.org/2000/svg"
@@ -488,6 +490,7 @@
 <script src="assets/js/jquery-3.7.1.min.js"></script>
 <script src="assets/js/main.js"></script>
 
+@*
 <script>
     const tmCalendarGrid = document.getElementById('tm-calendar-grid');
     const tmMonthLabel = document.querySelector('.tm-cal-month');
@@ -514,12 +517,12 @@
 
           const dateObj = new Date(year, monthIndex, dayCount);
 
-          // Disable past dates
+          Disable past dates
           if (dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
             btn.disabled = true;
           }
 
-          // Highlight today
+          Highlight today
           if (dateObj.toDateString() === today.toDateString()) {
             btn.classList.add('today');
           }
@@ -550,7 +553,7 @@
 
     renderCalendar(currentMonth);
 
-    // Time slot selection
+    Time slot selection
     document.querySelectorAll('.tm-time-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tm-time-btn').forEach(b => b.classList.remove('active'));
@@ -559,10 +562,149 @@
     });
 
 
-    //script added by Bhaskor Roy
+    script added by Bhaskor Roy
 
     
 
 
 </script>
+*@
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded - initializing time slot selection');
 
+            // Initialize time slot selection
+            initializeTimeSlotSelection();
+
+            // Date change handler
+            const datePicker = document.getElementById('date-picker');
+            if (datePicker) {
+                datePicker.addEventListener('change', function() {
+                    console.log('Date changed, submitting to BookNow');
+                    document.getElementById('booking-form').action = '@Url.Action("BookNow", "Consultations")';
+                    document.getElementById('booking-form').submit();
+                });
+            }
+
+            // Confirm button handler
+            const confirmBtn = document.getElementById('confirm-button');
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', function(e) {
+                    const selectedTimeSlots = document.querySelectorAll('input[name="SelectedTimeSlots"]:checked');
+                    const selectedDate = document.getElementById('date-picker').value;
+
+                    if (!selectedDate) {
+                        e.preventDefault();
+                        alert('Please select a date.');
+                        return false;
+                    }
+
+                    if (selectedTimeSlots.length === 0) {
+                        e.preventDefault();
+                        alert('Please select at least one time slot.');
+                        return false;
+                    }
+
+                    document.getElementById('booking-form').action = '@Url.Action("ConfirmPay", "Consultations")';
+                    return true;
+                });
+            }
+        });
+
+        function initializeTimeSlotSelection() {
+            console.log('Initializing time slot selection');
+
+            // Add click event to all time slot buttons
+            const timeSlotButtons = document.querySelectorAll('.tm-time-btn');
+            console.log('Found', timeSlotButtons.length, 'time slot buttons');
+
+            timeSlotButtons.forEach(btn => {
+                // Remove any existing event listeners
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+
+                // Add click event to the new button
+                newBtn.addEventListener('click', function(e) {
+                    console.log('Time slot clicked:', this.textContent.trim());
+
+                    // Toggle active class
+                    this.classList.toggle('active');
+
+                    // Find the checkbox and toggle its checked state
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    if (checkbox) {
+                        checkbox.checked = !checkbox.checked;
+                        console.log('Checkbox state:', checkbox.checked);
+                    }
+
+                    // Prevent form submission
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+
+            // Initialize active state based on checked checkboxes (for page reloads)
+            document.querySelectorAll('input[name="SelectedTimeSlots"]').forEach(checkbox => {
+                const label = checkbox.closest('.tm-time-btn');
+                if (label && checkbox.checked) {
+                    label.classList.add('active');
+                }
+            });
+
+            console.log('Time slot initialization complete');
+        }
+    </script>
+
+    <style>
+        /* Time slot styling */
+        .tm-time-btn {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: #333333;
+            font-weight: 500;
+            text-align: center;
+            min-width: 100px;
+        }
+
+            .tm-time-btn:hover {
+                background-color: #f0f0f0;
+                border-color: #007bff;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .tm-time-btn.active {
+                background-color: #007bff !important;
+                color: white !important;
+                border-color: #007bff !important;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+            }
+
+            /* Hide the actual checkbox */
+            .tm-time-btn input[type="checkbox"] {
+                display: none;
+            }
+
+        .tm-calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .tm-cal-prev, .tm-cal-next {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+    </style>
+}

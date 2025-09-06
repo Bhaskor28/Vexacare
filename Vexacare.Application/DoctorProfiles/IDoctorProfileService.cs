@@ -16,5 +16,6 @@ namespace Vexacare.Application.DoctorProfiles
         Task<bool> SaveProfileSettingsAsync(DoctorSessionVM model);
         Task InitializeDefaultAvailabilityAsync(int doctorProfileId);
         Task<ProfileBasicVM> GetDoctorProfileByUserIdAsync(string doctorId);
+        Task<IEnumerable<PartnerHubVM>> GetAllDoctorProfilesForPartnerHub();
     }
 }
