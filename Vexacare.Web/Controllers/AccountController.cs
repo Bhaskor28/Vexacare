@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Patients.ViewModels;
+using Vexacare.Application.Users.Patients;
 using Vexacare.Domain.Entities;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Infrastructure.Data;
@@ -20,6 +21,7 @@ namespace Vexacare.Web.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ICartService _cartService;
+        private readonly IPatientService _patientService;
         #endregion
 
         #region Constructor
@@ -28,13 +30,15 @@ namespace Vexacare.Web.Controllers
         SignInManager<ApplicationUser> signInManager,
         ApplicationDbContext context,
         IWebHostEnvironment webHostEnvironment,
-        ICartService cartService)
+        ICartService cartService,
+        IPatientService patientService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _webHostEnvironment = webHostEnvironment;
             _cartService = cartService;
+            _patientService = patientService;
         }
         #endregion
 
@@ -82,32 +86,16 @@ namespace Vexacare.Web.Controllers
             return View(model);
         }
         #endregion
-        //end of step 1
+        
         #region BasicInfo
         //step 1: basic info
         [Authorize(Roles = "Patient")]
         public async Task<IActionResult> BasicInfo()
         {
             var patientId = _userManager.GetUserId(User);
-            
-            var basicInfo = await _context.BasicInfos
-                .FirstOrDefaultAsync(b => b.PatientId == patientId);
-
-            var model = new BasicInfoVM();
-
-            if (basicInfo != null)
-            {
-                model.DateOfBirth = basicInfo.DateOfBirth;
-                model.Gender = basicInfo.Gender;
-                model.Country = basicInfo.Country;
-                model.City = basicInfo.City;
-                model.Postcode = basicInfo.Postcode;
-                model.ProfilePictureUrl = basicInfo.ProfilePictureUrl;
-            }
-
-            return View(model); // ✅ always returns non-null model
+            var model = await _patientService.GetBasicInfoAsync(patientId) ?? new BasicInfoVM();
+            return View(model);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> BasicInfo(BasicInfoVM model)
@@ -115,100 +103,27 @@ namespace Vexacare.Web.Controllers
             if (ModelState.IsValid)
             {
                 var patientId = _userManager.GetUserId(User);
-
-                // Handle file upload
-                string profilePictureUrl = null;
-                if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
+                var result = await _patientService.SaveBasicInfoAsync(patientId, model);
+                if (result)
                 {
-                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-                    if (!Directory.Exists(uploadsFolder))
-                    {
-                        Directory.CreateDirectory(uploadsFolder);
-                    }
-
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfilePicture.FileName;
-                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.ProfilePicture.CopyToAsync(fileStream);
-                    }
-
-                    profilePictureUrl = "/uploads/" + uniqueFileName;
+                    return RedirectToAction("HealthInfo", "Account");
                 }
-
-                // Check if BasicInfo already exists for this patient
-                var existingInfo = await _context.BasicInfos
-                    .FirstOrDefaultAsync(b => b.PatientId == patientId);
-
-                if (existingInfo != null)
-                {
-                    // Update existing record
-                    existingInfo.ProfilePictureUrl = profilePictureUrl ?? existingInfo.ProfilePictureUrl;
-                    existingInfo.DateOfBirth = model.DateOfBirth;
-                    existingInfo.Gender = model.Gender;
-                    existingInfo.Country = model.Country;
-                    existingInfo.City = model.City;
-                    existingInfo.Postcode = model.Postcode;
-
-                    _context.BasicInfos.Update(existingInfo);
-                }
-                else
-                {
-                    // Create new record
-                    var basicInfo = new BasicInfo
-                    {
-                        PatientId = patientId,
-                        ProfilePictureUrl = profilePictureUrl,
-                        DateOfBirth = model.DateOfBirth,
-                        Gender = model.Gender,
-                        Country = model.Country,
-                        City = model.City,
-                        Postcode = model.Postcode
-                    };
-
-                    _context.BasicInfos.Add(basicInfo);
-                }
-
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction("HealthInfo", "Account"); // Redirect to next step
             }
-
             return View("BasicInfo", model);
         }
 
         //end of step 1
         #endregion
-        //step 2: Health info
-        #region HealthInfo
 
+        #region HealthInfo
+        //step 2: Health info
         [Authorize(Roles = "Patient")]
 
         public async Task<IActionResult> HealthInfo()
         {
             var patientId = _userManager.GetUserId(User);
-            var healthInfo = await _context.HealthInfos
-                .FirstOrDefaultAsync(b => b.PatientId == patientId);
-
-            if (healthInfo != null)
-            {
-                var model = new HealthInfoVM
-                {
-                    Height = healthInfo.Height,
-                    Weight = healthInfo.Weight,
-                    BMI = healthInfo.BMI,
-                    MainDiagnoses = healthInfo.MainDiagnoses,
-                    DiagnosisDate = healthInfo.DiagnosisDate,
-                    DrugName = healthInfo.DrugName,
-                    Dosage = healthInfo.Dosage,
-                    Frequency = healthInfo.Frequency,
-                    StartDate = healthInfo.StartDate
-                };
-                
-                return View(model);
-            }
-            return View();
+            var model = await _patientService.GetHealthInfoAsync(patientId) ?? new HealthInfoVM();
+            return View(model);
         }
 
         [HttpPost]
@@ -216,84 +131,25 @@ namespace Vexacare.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = _userManager.GetUserId(User);
-
-                // Check if HealthInfo already exists for this patient
-                var existingInfo = await _context.HealthInfos
-                    .FirstOrDefaultAsync(h => h.PatientId == userId);
-
-                if (existingInfo != null)
+                var patientId = _userManager.GetUserId(User);
+                var result = await _patientService.SaveHealthInfoAsync(patientId, model);
+                if (result)
                 {
-                    // Update existing record
-                    existingInfo.Height = model.Height;
-                    existingInfo.Weight = model.Weight;
-                    existingInfo.BMI = model.BMI; // Or calculate: (model.Weight / (model.Height * model.Height)) * 10000
-                    existingInfo.MainDiagnoses = model.MainDiagnoses;
-                    existingInfo.DiagnosisDate = model.DiagnosisDate;
-                    existingInfo.DrugName = model.DrugName;
-                    existingInfo.Dosage = model.Dosage;
-                    existingInfo.Frequency = model.Frequency;
-                    existingInfo.StartDate = model.StartDate;
-
-                    _context.HealthInfos.Update(existingInfo);
+                    return RedirectToAction("GastrointestinalInfo", "Account");
                 }
-                else
-                {
-                    // Create new record
-                    var healthInfo = new HealthInfo
-                    {
-                        PatientId = userId,
-                        Height = model.Height,
-                        Weight = model.Weight,
-                        BMI = model.BMI, // Or calculate here
-                        MainDiagnoses = model.MainDiagnoses,
-                        DiagnosisDate = model.DiagnosisDate,
-                        DrugName = model.DrugName,
-                        Dosage = model.Dosage,
-                        Frequency = model.Frequency,
-                        StartDate = model.StartDate
-                    };
-
-                    _context.HealthInfos.Add(healthInfo);
-                }
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction("GastrointestinalInfo", "Account");
             }
-
             return View("HealthInfo", model);
         }
         //end of step 2
         #endregion
 
-        //step 3: Gastrointestinal info
         #region GastrointestinalInfo
-        
+        //step 3: Gastrointestinal info
         public async Task<IActionResult> GastrointestinalInfo()
         {
             var patientId = _userManager.GetUserId(User);
-            var giInfo = await _context.GastrointestinalInfos
-                .FirstOrDefaultAsync(g => g.PatientId == patientId);
-
-            if (giInfo != null)
-            {
-                var model = new GastrointestinalInfoVM
-                {
-                    Id = giInfo.Id,
-                    PreviousGIProblems = giInfo.PreviousGIProblems,
-                    OnsetDateOfFirstSymptoms = giInfo.OnsetDateOfFirstSymptoms,
-                    TreatmentsPerformed = giInfo.TreatmentsPerformed,
-                    GIPathology = giInfo.GIPathology,
-                    OtherRelevantMedicalConditions = giInfo.OtherRelevantMedicalConditions,
-                    DegreeOfRelationship = giInfo.DegreeOfRelationship,
-                    TypeOfSurgery = giInfo.TypeOfSurgery,
-                    DateOfSurgery = giInfo.DateOfSurgery,
-                    Outcome = giInfo.Outcome
-                };
-                return View(model);
-            }
-
-            return View();
+            var model = await _patientService.GetGastrointestinalInfoAsync(patientId) ?? new GastrointestinalInfoVM();
+            return View(model);
         }
 
         [HttpPost]
@@ -302,85 +158,26 @@ namespace Vexacare.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
-
-                // Check if GastrointestinalInfo already exists for this patient
-                var existingInfo = await _context.GastrointestinalInfos
-                    .FirstOrDefaultAsync(g => g.PatientId == userId);
-
-                if (existingInfo != null)
+                var result = await _patientService.SaveGastrointestinalInfoAsync(userId, model);
+                if (result)
                 {
-                    // Update existing record
-                    existingInfo.PreviousGIProblems = model.PreviousGIProblems;
-                    existingInfo.OnsetDateOfFirstSymptoms = model.OnsetDateOfFirstSymptoms;
-                    existingInfo.TreatmentsPerformed = model.TreatmentsPerformed;
-                    existingInfo.GIPathology = model.GIPathology;
-                    existingInfo.OtherRelevantMedicalConditions = model.OtherRelevantMedicalConditions;
-                    existingInfo.DegreeOfRelationship = model.DegreeOfRelationship;
-                    existingInfo.TypeOfSurgery = model.TypeOfSurgery;
-                    existingInfo.DateOfSurgery = model.DateOfSurgery;
-                    existingInfo.Outcome = model.Outcome;
-
-                    _context.GastrointestinalInfos.Update(existingInfo);
+                    return RedirectToAction("SymptomsInfo", "Account");
                 }
-                else
-                {
-                    // Create new record
-                    var gastrointestinalInfo = new GastrointestinalInfo
-                    {
-                        PatientId = userId,
-                        PreviousGIProblems = model.PreviousGIProblems,
-                        OnsetDateOfFirstSymptoms = model.OnsetDateOfFirstSymptoms,
-                        TreatmentsPerformed = model.TreatmentsPerformed,
-                        GIPathology = model.GIPathology,
-                        OtherRelevantMedicalConditions = model.OtherRelevantMedicalConditions,
-                        DegreeOfRelationship = model.DegreeOfRelationship,
-                        TypeOfSurgery = model.TypeOfSurgery,
-                        DateOfSurgery = model.DateOfSurgery,
-                        Outcome = model.Outcome
-                    };
-
-                    _context.GastrointestinalInfos.Add(gastrointestinalInfo);
-                }
-
-                await _context.SaveChangesAsync();
                 return RedirectToAction("SymptomsInfo", "Account");
             }
-
-            // If model state is invalid, return to view with validation messages
             return View("GastrointestinalInfo", model);
         }
-
-        #endregion
         //end of step 3
+        #endregion
 
-        //step 4: Symtoms info
         #region SymptomsInfo
-
-
-
+        //step 4: Symtoms info
         [HttpGet]
         public async Task<IActionResult> SymptomsInfo()
         {
             var patientId = _userManager.GetUserId(User);
-            var symptomsInfo = await _context.SymptomsInfos
-                .FirstOrDefaultAsync(s => s.PatientId == patientId);
-            if (symptomsInfo != null)
-            {
-                var model = new SymptomsInfoVM
-                {
-                    FrequencyOfEvaluations = symptomsInfo.FrequencyOfEvaluations,
-                    BristolScale = symptomsInfo.BristolScale,
-                    BloatingSeverity = symptomsInfo.BloatingSeverity,
-                    IntestinalGas = symptomsInfo.IntestinalGas,
-                    AbdominalPain = symptomsInfo.AbdominalPain,
-                    DigestiveDifficulties = symptomsInfo.DigestiveDifficulties,
-                    DiagnosedIntolerances = symptomsInfo.DiagnosedIntolerances,
-                    CertifiedAllergies = symptomsInfo.CertifiedAllergies,
-                    TestsPerformed = symptomsInfo.TestsPerformed
-                };
-                return View(model);
-            }
-            return View();
+            var model = await _patientService.GetSymptomsInfoAsync(patientId) ?? new SymptomsInfoVM();
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> SymptomsInfo(SymptomsInfoVM model)
@@ -389,86 +186,26 @@ namespace Vexacare.Web.Controllers
             {
                 var patientId = _userManager.GetUserId(User);
                 // Check if SymptomsInfo already exists for this patient
-                var existingInfo = await _context.SymptomsInfos
-                    .FirstOrDefaultAsync(s => s.PatientId == patientId);
-
-                if (existingInfo != null)
+                var result = await _patientService.SaveSymptomsInfoAsync(patientId, model);
+                if (result)
                 {
-                    // Update existing record
-                    existingInfo.FrequencyOfEvaluations = model.FrequencyOfEvaluations;
-                    existingInfo.BristolScale = model.BristolScale;
-                    existingInfo.BloatingSeverity = model.BloatingSeverity;
-                    existingInfo.IntestinalGas = model.IntestinalGas;
-                    existingInfo.AbdominalPain = model.AbdominalPain;
-                    existingInfo.DigestiveDifficulties = model.DigestiveDifficulties;
-                    existingInfo.DiagnosedIntolerances = model.DiagnosedIntolerances;
-                    existingInfo.CertifiedAllergies = model.CertifiedAllergies;
-                    existingInfo.TestsPerformed = model.TestsPerformed;
-
-                    _context.SymptomsInfos.Update(existingInfo);
+                    return RedirectToAction("DietProfileInfo", "Account");
                 }
-                else
-                {
-                    // Create new record
-                    var symptomsInfo = new SymptomsInfo
-                    {
-                        PatientId = patientId,
-                        FrequencyOfEvaluations = model.FrequencyOfEvaluations,
-                        BristolScale = model.BristolScale,
-                        BloatingSeverity = model.BloatingSeverity,
-                        IntestinalGas = model.IntestinalGas,
-                        AbdominalPain = model.AbdominalPain,
-                        DigestiveDifficulties = model.DigestiveDifficulties,
-                        DiagnosedIntolerances = model.DiagnosedIntolerances,
-                        CertifiedAllergies = model.CertifiedAllergies,
-                        TestsPerformed = model.TestsPerformed
-                    };
-                    _context.SymptomsInfos.Add(symptomsInfo);
-                }
-                await _context.SaveChangesAsync();
-                return RedirectToAction("DietProfileInfo", "Account");
             }
             return View("SymptomsInfo", model);
         }
         //end of step 4
 
         #endregion
-        //end of step 4
 
-        //step 5: DietProfile info
+
         #region DietProfileInfo
-        
+        //step 5: DietProfile info
         public async Task<IActionResult> DietProfileInfo()
         {
             var patientId = _userManager.GetUserId(User);
-            var dietInfo = await _context.DietProfileInfos
-                .FirstOrDefaultAsync(d => d.PatientId == patientId);
-
-            if (dietInfo != null)
-            {
-                var model = new DietProfileInfoVM
-                {
-                    DietFood = dietInfo.DietFood,
-                    DietTypeOther = dietInfo.DietTypeOther,
-                    Vegetables = dietInfo.Vegetables,
-                    Fruits = dietInfo.Fruits,
-                    WholeGrains = dietInfo.WholeGrains,
-                    AnimalProteins = dietInfo.AnimalProteins,
-                    PlantProteins = dietInfo.PlantProteins,
-                    DairyProducts = dietInfo.DairyProducts,
-                    FermentedFoods = dietInfo.FermentedFoods,
-                    Water = dietInfo.Water,
-                    Alcohol = dietInfo.Alcohol,
-                    BreakfastTime = dietInfo.BreakfastTime,
-                    LunchTime = dietInfo.LunchTime,
-                    DinnerTime = dietInfo.DinnerTime,
-                    SnacksTime = dietInfo.SnacksTime
-
-                };
-                return View(model);
-
-            }
-            return View();
+            var dietInfo = await _patientService.GetDietProfileInfoAsync(patientId) ?? new DietProfileInfoVM();
+            return View(dietInfo);
         }
 
         [HttpPost]
@@ -477,67 +214,16 @@ namespace Vexacare.Web.Controllers
             if (ModelState.IsValid)
             {
                 var patientId = _userManager.GetUserId(User);
-
-                // Check if DietProfileInfo already exists for this patient
-                var existingInfo = await _context.DietProfileInfos
-                    .FirstOrDefaultAsync(d => d.PatientId == patientId);
-
-                if (existingInfo != null)
+                var retult = await _patientService.SaveDietProfileInfoAsync(patientId, model);
+                if(retult)
                 {
-                    // Update existing record
-                    existingInfo.DietFood = model.DietFood;
-                    existingInfo.DietTypeOther = model.DietTypeOther;
-                    existingInfo.Vegetables = model.Vegetables;
-                    existingInfo.Fruits = model.Fruits;
-                    existingInfo.WholeGrains = model.WholeGrains;
-                    existingInfo.AnimalProteins = model.AnimalProteins;
-                    existingInfo.PlantProteins = model.PlantProteins;
-                    existingInfo.DairyProducts = model.DairyProducts;
-                    existingInfo.FermentedFoods = model.FermentedFoods;
-                    existingInfo.Water = model.Water;
-                    existingInfo.Alcohol = model.Alcohol;
-                    existingInfo.BreakfastTime = model.BreakfastTime;
-                    existingInfo.LunchTime = model.LunchTime;
-                    existingInfo.SnacksTime = model.SnacksTime;
-                    existingInfo.DinnerTime = model.DinnerTime;
-
-                    _context.DietProfileInfos.Update(existingInfo);
+                    return RedirectToAction("LifestyleInfo", "Account");
                 }
-                else
-                {
-                    // Create new record
-                    var dietInfo = new DietProfileInfo
-                    {
-                        PatientId = patientId,
-                        DietFood = model.DietFood,
-                        DietTypeOther = model.DietTypeOther,
-                        Vegetables = model.Vegetables,
-                        Fruits = model.Fruits,
-                        WholeGrains = model.WholeGrains,
-                        AnimalProteins = model.AnimalProteins,
-                        PlantProteins = model.PlantProteins,
-                        DairyProducts = model.DairyProducts,
-                        FermentedFoods = model.FermentedFoods,
-                        Water = model.Water,
-                        Alcohol = model.Alcohol,
-                        BreakfastTime = model.BreakfastTime,
-                        LunchTime = model.LunchTime,
-                        SnacksTime = model.SnacksTime,
-                        DinnerTime = model.DinnerTime
-                    };
-
-                    _context.DietProfileInfos.Add(dietInfo);
-                }
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction("LifestyleInfo", "Account"); // Update with your next step
             }
-
             return View("DietProfileInfo", model);
         }
         //end of step 5
         #endregion
-        //end of step 4
 
         //step 6: Lifestyle info
         #region LifestyleInfo
@@ -545,34 +231,8 @@ namespace Vexacare.Web.Controllers
         public async Task<IActionResult> LifestyleInfo()
         {
             var patientId = _userManager.GetUserId(User);
-            var lifestyleInfo = await _context.LifestyleInfos
-                .FirstOrDefaultAsync(l => l.PatientId == patientId);
-
-            if (lifestyleInfo != null)
-            {
-                // Map existing info to view model
-                var model = new LifestyleInfoVM
-                {
-                    Id = lifestyleInfo.Id,
-                    ActivityType = lifestyleInfo.ActivityType,
-                    SessionsPerWeek = lifestyleInfo.SessionsPerWeek,
-                    AverageDurationMinutes = lifestyleInfo.AverageDurationMinutes,
-                    AverageHoursOfSleep = lifestyleInfo.AverageHoursOfSleep,
-                    SleepQualityRating = lifestyleInfo.SleepQualityRating,
-                    SpecificProblems = lifestyleInfo.SpecificProblems,
-                    StressLevel = lifestyleInfo.StressLevel,
-                    IsSmoker = lifestyleInfo.IsSmoker,
-                    CigarettesPerDay = lifestyleInfo.CigarettesPerDay
-                };
-                return View(model);
-            }
-
-            // Return view with new model with default values
-            return View(new LifestyleInfoVM
-            {
-                SleepQualityRating = 5,
-                StressLevel = 5
-            });
+            var lifestyleInfo = await _patientService.GetLifestyleInfoAsync(patientId) ?? new LifestyleInfoVM();
+            return View(lifestyleInfo);
         }
 
         [HttpPost]
@@ -581,51 +241,12 @@ namespace Vexacare.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
-
-                // Check if LifestyleInfo already exists for this patient
-                var existingInfo = await _context.LifestyleInfos
-                    .FirstOrDefaultAsync(l => l.PatientId == userId);
-
-                if (existingInfo != null)
+                var result = await _patientService.SaveLifestyleInfoAsync(userId, model);
+                if (result)
                 {
-                    // Update existing record
-                    existingInfo.ActivityType = model.ActivityType;
-                    existingInfo.SessionsPerWeek = model.SessionsPerWeek;
-                    existingInfo.AverageDurationMinutes = model.AverageDurationMinutes;
-                    existingInfo.AverageHoursOfSleep = model.AverageHoursOfSleep;
-                    existingInfo.SleepQualityRating = model.SleepQualityRating;
-                    existingInfo.SpecificProblems = model.SpecificProblems;
-                    existingInfo.StressLevel = model.StressLevel;
-                    existingInfo.IsSmoker = model.IsSmoker;
-                    existingInfo.CigarettesPerDay = model.IsSmoker == true ? model.CigarettesPerDay : null;
-
-                    _context.LifestyleInfos.Update(existingInfo);
+                    return RedirectToAction("TherapiesInfo", "Account");
                 }
-                else
-                {
-                    // Create new record
-                    var lifestyleInfo = new LifestyleInfo
-                    {
-                        PatientId = userId,
-                        ActivityType = model.ActivityType,
-                        SessionsPerWeek = model.SessionsPerWeek,
-                        AverageDurationMinutes = model.AverageDurationMinutes,
-                        AverageHoursOfSleep = model.AverageHoursOfSleep,
-                        SleepQualityRating = model.SleepQualityRating,
-                        SpecificProblems = model.SpecificProblems,
-                        StressLevel = model.StressLevel,
-                        IsSmoker = model.IsSmoker,
-                        CigarettesPerDay = model.IsSmoker == true ? model.CigarettesPerDay : null
-                    };
-
-                    _context.LifestyleInfos.Add(lifestyleInfo);
-                }
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction("TherapiesInfo", "Account");
             }
-
-            // If model state is invalid, return to view with validation messages
             return View("LifestyleInfo", model);
         }
 
@@ -667,7 +288,6 @@ namespace Vexacare.Web.Controllers
                         .ToList();
                 }
             }
-
             return View(model);
         }
        

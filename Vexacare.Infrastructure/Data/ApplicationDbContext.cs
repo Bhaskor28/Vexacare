@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Vexacare.Domain.Entities;
-using Vexacare.Domain.Entities.Availabilities;
 using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Domain.Entities.Order;
 using Vexacare.Domain.Entities.PatientEntities;
@@ -29,7 +26,7 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<SymptomsInfo> SymptomsInfos { get; set; }
         public DbSet<LifestyleInfo> LifestyleInfos { get; set; }
         public DbSet<TherapiesInfo> TherapiesInfos { get; set; }
-        
+
         #region Sazib
         //product Tables
         public DbSet<Product> Products { get; set; }
@@ -49,7 +46,6 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<WeekofDay> WeekofDays { get; set; }
         public DbSet<Availability> Availabilities { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)

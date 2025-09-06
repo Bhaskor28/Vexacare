@@ -3,6 +3,7 @@ using Vexacare.Application.Categories;
 using Vexacare.Application.DoctorProfiles;
 using Vexacare.Application.Locations;
 using Vexacare.Application.Orders.OrderViewModel;
+using Vexacare.Application.Patients.ViewModels;
 using Vexacare.Application.Products.ViewModels;
 using Vexacare.Application.ServiceTypes;
 using Vexacare.Application.UsersVM;
@@ -80,11 +81,17 @@ namespace Vexacare.Application.Mapping
                 .ForMember(dest => dest.DoctorProfileId, opt => opt.MapFrom(src => src.Id))
                 .ReverseMap();
 
-            #endregion
+            CreateMap<BasicInfo, BasicInfoVM>().ReverseMap();
+            CreateMap<HealthInfo, HealthInfoVM>().ReverseMap();
+            CreateMap<GastrointestinalInfo, GastrointestinalInfoVM>().ReverseMap();
+            CreateMap<SymptomsInfo, SymptomsInfoVM>().ReverseMap();
+            CreateMap<DietProfileInfo, DietProfileInfoVM>().ReverseMap();
+            CreateMap<LifestyleInfo, LifestyleInfoVM>().ReverseMap();
+        #endregion
 
 
-            #region by Bhaskor
-            CreateMap<DoctorVM, ApplicationUser>().ReverseMap();
+        #region by Bhaskor
+        CreateMap<DoctorVM, ApplicationUser>().ReverseMap();
             CreateMap<LocationVM, Location>().ReverseMap();
             CreateMap<DoctorProfileVM, DoctorProfile>().ReverseMap();
             CreateMap<CategoryVM, Category>().ReverseMap();
@@ -93,6 +100,10 @@ namespace Vexacare.Application.Mapping
             #endregion
 
         }
+
+        
+
+        
 
     }
 }

@@ -12,8 +12,8 @@ using Vexacare.Infrastructure.Data;
 namespace Vexacare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250830013533_some update")]
-    partial class someupdate
+    [Migration("20250906005117_Update all users table")]
+    partial class Updatealluserstable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -496,13 +496,11 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -564,8 +562,7 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Country")
                         .HasColumnType("int");
@@ -574,7 +571,6 @@ namespace Vexacare.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Gender")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("PatientId")
@@ -583,8 +579,7 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.Property<string>("Postcode")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfilePictureUrl")
                         .HasColumnType("nvarchar(max)");
@@ -619,12 +614,10 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.Property<string>("DietFood")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DietTypeOther")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DinnerTime")
                         .IsRequired()
@@ -680,26 +673,22 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.Property<string>("DegreeOfRelationship")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GIPathology")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("OnsetDateOfFirstSymptoms")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("OtherRelevantMedicalConditions")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Outcome")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PatientId")
                         .IsRequired()
@@ -707,18 +696,15 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.Property<string>("PreviousGIProblems")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TreatmentsPerformed")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeOfSurgery")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -735,43 +721,39 @@ namespace Vexacare.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal?>("BMI")
+                    b.Property<decimal>("BMI")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("DiagnosisDate")
+                    b.Property<DateTime>("DiagnosisDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Dosage")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DrugName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Frequency")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Height")
+                    b.Property<decimal>("Height")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("MainDiagnoses")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PatientId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("Weight")
+                    b.Property<decimal>("Weight")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -791,37 +773,35 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.Property<string>("ActivityType")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AverageDurationMinutes")
+                    b.Property<int>("AverageDurationMinutes")
                         .HasColumnType("int");
 
-                    b.Property<double?>("AverageHoursOfSleep")
+                    b.Property<double>("AverageHoursOfSleep")
                         .HasColumnType("float");
 
-                    b.Property<int?>("CigarettesPerDay")
+                    b.Property<int>("CigarettesPerDay")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("IsSmoker")
+                    b.Property<bool>("IsSmoker")
                         .HasColumnType("bit");
 
                     b.Property<string>("PatientId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("SessionsPerWeek")
+                    b.Property<int>("SessionsPerWeek")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SleepQualityRating")
+                    b.Property<int>("SleepQualityRating")
                         .HasColumnType("int");
 
                     b.Property<string>("SpecificProblems")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StressLevel")
+                    b.Property<int>("StressLevel")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -850,13 +830,11 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.Property<string>("CertifiedAllergies")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DiagnosedIntolerances")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("DigestiveDifficulties")
                         .HasColumnType("int");
@@ -873,8 +851,7 @@ namespace Vexacare.Infrastructure.Migrations
 
                     b.Property<string>("TestsPerformed")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -69,6 +69,8 @@
                 @* <form asp-action="BasicInfo" mathod="post" class="login-form-input-wrapper"> *@
                     @* change this sazib *@
                 <form asp-action="BasicInfo" method="post" enctype="multipart/form-data" class="login-form-input-wrapper">
+                    <!-- Hidden field to preserve ProfilePictureUrl -->
+                    <input type="hidden" asp-for="ProfilePictureUrl" />
 
                     @* Display all model-level errors *@
                     <!-- Profile Picture Upload -->

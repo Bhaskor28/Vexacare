@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vexacare.Domain.Entities.Availabilities;
-
-namespace Vexacare.Application.DoctorAvailabilities
+﻿namespace Vexacare.Application.DoctorAvailabilities
 {
     public class AvailableListVM
     {

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Vexacare.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ham : Migration
+    public partial class Updatealluserstable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,8 +32,8 @@ namespace Vexacare.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -53,22 +53,6 @@ namespace Vexacare.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Available",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    WeekDayId = table.Column<int>(type: "int", nullable: false),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
-                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Available", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,20 +173,6 @@ namespace Vexacare.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WeekofDays",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DoctorProfileId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WeekofDays", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -316,10 +286,10 @@ namespace Vexacare.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProfilePictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Gender = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     Country = table.Column<int>(type: "int", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Postcode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Postcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PatientId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -339,8 +309,8 @@ namespace Vexacare.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DietFood = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DietTypeOther = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    DietFood = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DietTypeOther = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Vegetables = table.Column<int>(type: "int", nullable: false),
                     Fruits = table.Column<int>(type: "int", nullable: false),
                     WholeGrains = table.Column<int>(type: "int", nullable: false),
@@ -373,15 +343,15 @@ namespace Vexacare.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PreviousGIProblems = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    PreviousGIProblems = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OnsetDateOfFirstSymptoms = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TreatmentsPerformed = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    GIPathology = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    OtherRelevantMedicalConditions = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    DegreeOfRelationship = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TypeOfSurgery = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    TreatmentsPerformed = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GIPathology = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OtherRelevantMedicalConditions = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DegreeOfRelationship = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeOfSurgery = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfSurgery = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Outcome = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Outcome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PatientId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -401,15 +371,15 @@ namespace Vexacare.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Height = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Weight = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    BMI = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    MainDiagnoses = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    DiagnosisDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DrugName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Dosage = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Frequency = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Height = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Weight = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BMI = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MainDiagnoses = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DiagnosisDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DrugName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Dosage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Frequency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PatientId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -429,15 +399,15 @@ namespace Vexacare.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ActivityType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SessionsPerWeek = table.Column<int>(type: "int", nullable: true),
-                    AverageDurationMinutes = table.Column<int>(type: "int", nullable: true),
-                    AverageHoursOfSleep = table.Column<double>(type: "float", nullable: true),
-                    SleepQualityRating = table.Column<int>(type: "int", nullable: true),
-                    SpecificProblems = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    StressLevel = table.Column<int>(type: "int", nullable: true),
-                    IsSmoker = table.Column<bool>(type: "bit", nullable: true),
-                    CigarettesPerDay = table.Column<int>(type: "int", nullable: true),
+                    ActivityType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SessionsPerWeek = table.Column<int>(type: "int", nullable: false),
+                    AverageDurationMinutes = table.Column<int>(type: "int", nullable: false),
+                    AverageHoursOfSleep = table.Column<double>(type: "float", nullable: false),
+                    SleepQualityRating = table.Column<int>(type: "int", nullable: false),
+                    SpecificProblems = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StressLevel = table.Column<int>(type: "int", nullable: false),
+                    IsSmoker = table.Column<bool>(type: "bit", nullable: false),
+                    CigarettesPerDay = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -463,9 +433,9 @@ namespace Vexacare.Infrastructure.Migrations
                     IntestinalGas = table.Column<int>(type: "int", nullable: true),
                     AbdominalPain = table.Column<int>(type: "int", nullable: true),
                     DigestiveDifficulties = table.Column<int>(type: "int", nullable: true),
-                    DiagnosedIntolerances = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    CertifiedAllergies = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    TestsPerformed = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    DiagnosedIntolerances = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CertifiedAllergies = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TestsPerformed = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PatientId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -557,57 +527,6 @@ namespace Vexacare.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AvailableDays",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AvailableId = table.Column<int>(type: "int", nullable: false),
-                    WeekofDaysId = table.Column<int>(type: "int", nullable: false),
-                    WeekofDayId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AvailableDays", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AvailableDays_Available_AvailableId",
-                        column: x => x.AvailableId,
-                        principalTable: "Available",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AvailableDays_WeekofDays_WeekofDayId",
-                        column: x => x.WeekofDayId,
-                        principalTable: "WeekofDays",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AvailableWeekofDay",
-                columns: table => new
-                {
-                    AvailablesId = table.Column<int>(type: "int", nullable: false),
-                    WeekofDaysId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AvailableWeekofDay", x => new { x.AvailablesId, x.WeekofDaysId });
-                    table.ForeignKey(
-                        name: "FK_AvailableWeekofDay_Available_AvailablesId",
-                        column: x => x.AvailablesId,
-                        principalTable: "Available",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AvailableWeekofDay_WeekofDays_WeekofDaysId",
-                        column: x => x.WeekofDaysId,
-                        principalTable: "WeekofDays",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DoctorProfiles",
                 columns: table => new
                 {
@@ -627,10 +546,9 @@ namespace Vexacare.Infrastructure.Migrations
                     ServiceTypeId = table.Column<int>(type: "int", nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ConsultationPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    DurationValue = table.Column<int>(type: "int", nullable: true),
-                    DurationUnit = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AvailableDaysId = table.Column<int>(type: "int", nullable: false)
+                    PricePerConsultation = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    SessionDuration = table.Column<int>(type: "int", nullable: true),
+                    DurationUnit = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -639,12 +557,6 @@ namespace Vexacare.Infrastructure.Migrations
                         name: "FK_DoctorProfiles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DoctorProfiles_AvailableDays_AvailableDaysId",
-                        column: x => x.AvailableDaysId,
-                        principalTable: "AvailableDays",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -663,6 +575,30 @@ namespace Vexacare.Infrastructure.Migrations
                         name: "FK_DoctorProfiles_ServiceTypes_ServiceTypeId",
                         column: x => x.ServiceTypeId,
                         principalTable: "ServiceTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Availabilities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DoctorProfileId = table.Column<int>(type: "int", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    SlotDuration = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Availabilities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Availabilities_DoctorProfiles_DoctorProfileId",
+                        column: x => x.DoctorProfileId,
+                        principalTable: "DoctorProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -740,19 +676,9 @@ namespace Vexacare.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AvailableDays_AvailableId",
-                table: "AvailableDays",
-                column: "AvailableId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AvailableDays_WeekofDayId",
-                table: "AvailableDays",
-                column: "WeekofDayId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AvailableWeekofDay_WeekofDaysId",
-                table: "AvailableWeekofDay",
-                column: "WeekofDaysId");
+                name: "IX_Availabilities_DoctorProfileId",
+                table: "Availabilities",
+                column: "DoctorProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BasicInfos_PatientId",
@@ -763,11 +689,6 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "IX_DietProfileInfos_PatientId",
                 table: "DietProfileInfos",
                 column: "PatientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DoctorProfiles_AvailableDaysId",
-                table: "DoctorProfiles",
-                column: "AvailableDaysId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DoctorProfiles_CategoryId",
@@ -849,7 +770,7 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AvailableWeekofDay");
+                name: "Availabilities");
 
             migrationBuilder.DropTable(
                 name: "BasicInfos");
@@ -903,9 +824,6 @@ namespace Vexacare.Infrastructure.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AvailableDays");
-
-            migrationBuilder.DropTable(
                 name: "Categories");
 
             migrationBuilder.DropTable(
@@ -913,12 +831,6 @@ namespace Vexacare.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ServiceTypes");
-
-            migrationBuilder.DropTable(
-                name: "Available");
-
-            migrationBuilder.DropTable(
-                name: "WeekofDays");
         }
     }
 }

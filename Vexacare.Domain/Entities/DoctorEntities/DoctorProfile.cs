@@ -1,5 +1,4 @@
-﻿using Vexacare.Domain.Entities.Availabilities;
-using Vexacare.Domain.Entities.PatientEntities;
+﻿using Vexacare.Domain.Entities.PatientEntities;
 
 namespace Vexacare.Domain.Entities.DoctorEntities
 {
@@ -26,13 +25,13 @@ namespace Vexacare.Domain.Entities.DoctorEntities
         public Location? Location { get; set; }
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
-        
+
 
         // Added by sazib
         // Add these new properties for consultation settings
         public decimal? PricePerConsultation { get; set; }
         public int? SessionDuration { get; set; }
-        
+
         public string? DurationUnit { get; set; } // e.g., "Minutes", "Hours"
         public ICollection<Availability>? Availabilities { get; set; }
     }

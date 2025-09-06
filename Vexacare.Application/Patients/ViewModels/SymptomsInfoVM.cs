@@ -10,47 +10,51 @@ namespace Vexacare.Application.Patients.ViewModels
     public class SymptomsInfoVM
     {
         // Intestinal Function
-        [Required]
+        [Required(ErrorMessage = "Frequency of evacuations is required")]
         [Display(Name = "Frequency of evacuations")]
+        [Range(0, 50, ErrorMessage = "Frequency must be between 0 and 50")]
         public int? FrequencyOfEvaluations { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bristol Scale is required")]
         [Display(Name = "Bristol Scale")]
+        [Range(1, 7, ErrorMessage = "Bristol Scale must be between 1 and 7")]
         public int? BristolScale { get; set; }
 
-
         // Current Symptoms (0-10 scales)
-        [Required]
+        [Required(ErrorMessage = "Bloating Severity is required")]
         [Display(Name = "Bloating Severity")]
+        [Range(0, 10, ErrorMessage = "Bloating Severity must be between 0 and 10")]
         public int? BloatingSeverity { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Intestinal Gas is required")]
         [Display(Name = "Intestinal Gas")]
+        [Range(0, 10, ErrorMessage = "Intestinal Gas must be between 0 and 10")]
         public int? IntestinalGas { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Abdominal Pain is required")]
         [Display(Name = "Abdominal Pain")]
+        [Range(0, 10, ErrorMessage = "Abdominal Pain must be between 0 and 10")]
         public int? AbdominalPain { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Digestive Difficulties is required")]
         [Display(Name = "Digestive Difficulties")]
+        [Range(0, 10, ErrorMessage = "Digestive Difficulties must be between 0 and 10")]
         public int? DigestiveDifficulties { get; set; }
 
-
         // Food Sensitivities
-        [Required]
+        [Required(ErrorMessage = "Diagnosed Intolerances is required")]
         [Display(Name = "Diagnosed Intolerances")]
-        [StringLength(255)]
-        public string DiagnosedIntolerances { get; set; }
+        [StringLength(255, ErrorMessage = "Diagnosed Intolerances cannot exceed 255 characters")]
+        public string DiagnosedIntolerances { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Certified Allergies is required")]
         [Display(Name = "Certified Allergies")]
-        [StringLength(255)]
-        public string CertifiedAllergies { get; set; }
+        [StringLength(255, ErrorMessage = "Certified Allergies cannot exceed 255 characters")]
+        public string CertifiedAllergies { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Tests Performed is required")]
         [Display(Name = "Tests Performed")]
-        [StringLength(255)]
-        public string TestsPerformed { get; set; }
+        [StringLength(255, ErrorMessage = "Tests Performed cannot exceed 255 characters")]
+        public string TestsPerformed { get; set; } = string.Empty;
     }
 }

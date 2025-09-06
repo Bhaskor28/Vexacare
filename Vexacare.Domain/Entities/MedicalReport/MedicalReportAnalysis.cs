@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace Vexacare.Domain.Entities.MedicalReport
 {
+
+    public class MedicalReportAnalysisResult
+    {
+        public bool Success { get; set; }
+        public string FileName { get; set; }
+        public int ExtractedTextLength { get; set; }
+        public MedicalReportAnalysis Analysis { get; set; }
+        public string ErrorMessage { get; set; }
+        public DateTime ProcessedAt { get; set; }
+    }
+
     public class MedicalReportAnalysis
     {
         public PatientInformation PatientInformation { get; set; } = new PatientInformation();
@@ -18,7 +29,19 @@ namespace Vexacare.Domain.Entities.MedicalReport
         public string Summary { get; set; }
     }
 
-    // Add these new classes for the recommendation structure
+    public class PatientInformation
+    {
+        public string Age { get; set; }
+        public string Gender { get; set; }
+        public string RelevantHistory { get; set; }
+    }
+
+    public class TestResults
+    {
+        public List<string> AbnormalResults { get; set; }
+        public List<string> NormalResults { get; set; }
+    }
+
     public class RecommendationObject
     {
         public List<DietRecommendation> Diet { get; set; } = new List<DietRecommendation>();

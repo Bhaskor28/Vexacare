@@ -124,12 +124,12 @@
                                        class="form-range-input"
                                        min="1"
                                        max="10"
-                                       value="@(Model.SleepQualityRating ?? 5)" />
+                                       value="@(Model.SleepQualityRating)" />
                                 <div class="range-labels">
                                     <span>1</span>
                                     <span>10</span>
                                 </div>
-                                <span class="range-value">@(Model.SleepQualityRating ?? 5)</span>
+                                <span class="range-value">@(Model.SleepQualityRating)</span>
                             </div>
                             <span asp-validation-for="SleepQualityRating" class="text-danger"></span>
                         </div>
@@ -154,12 +154,12 @@
                                        class="form-range-input"
                                        min="1"
                                        max="10"
-                                       value="@(Model.StressLevel ?? 5)" />
+                                       value="@(Model.StressLevel)" />
                                 <div class="range-labels">
                                     <span>1</span>
                                     <span>10</span>
                                 </div>
-                                <span class="range-value">@(Model.StressLevel ?? 5)</span>
+                                <span class="range-value">@(Model.StressLevel)</span>
                             </div>
                             <span asp-validation-for="StressLevel" class="text-danger"></span>
                         </div>

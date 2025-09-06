@@ -27,6 +27,7 @@ using AppOrderService = Vexacare.Infrastructure.Services.OrderService;
 using AppProductService = Vexacare.Infrastructure.Services.ProductService;
 using Vexacare.Application.MedicalReport;
 using Vexacare.Infrastructure.Services.MedicalReportServices;
+using Vexacare.Infrastructure.Services.PatientProfileServices;
 
 
 
@@ -64,6 +65,8 @@ builder.Services.AddHttpClient<IMedicalReportService, MedicalReportService>(clie
 
 // Add to your configuration
 builder.Services.AddScoped<IMedicalReportService, MedicalReportService>();
+
+builder.Services.AddScoped<IPatientService, PatientService>();
 
 #endregion
 
