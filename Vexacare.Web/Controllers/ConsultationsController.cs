@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Globalization;
 using Vexacare.Application.Categories;
@@ -18,6 +19,7 @@ namespace Vexacare.Web.Controllers
 {
     public class ConsultationsController : Controller
     {
+        private readonly IMemoryCache _cache;
         private readonly IDoctorProfileService _doctorProfileService;
         private readonly IServiceTypeService _serviceTypeService;
         private readonly ILocationService _locationService;
@@ -28,6 +30,7 @@ namespace Vexacare.Web.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         // Single constructor with all dependencies
         public ConsultationsController(
+            IMemoryCache cache,
             IDoctorProfileService doctorProfileService,
             IServiceTypeService serviceTypeService,
             ILocationService locationService,
@@ -37,6 +40,7 @@ namespace Vexacare.Web.Controllers
             RoleManager<IdentityRole> roleManager,
              IMapper mapper)
         {
+            _cache = cache;
             _doctorProfileService = doctorProfileService;
             _serviceTypeService = serviceTypeService;
             _locationService = locationService;
@@ -63,29 +67,48 @@ namespace Vexacare.Web.Controllers
             // Get all doctors for total count
             var allDoctors = await _doctorProfileService.GetAllDoctorProfiles();
             ViewBag.TotalItem = allDoctors.Count();
-            var doctorProfiles = await _doctorProfileService.GetFilteredDoctorProfilesAsync(categoryId,serviceTypeId,locationId,availableId);
+            var doctorProfiles = await _doctorProfileService.GetAllDoctorProfilesForPartnerHub();
             return View(doctorProfiles);
         }
         #region Profile
-        public async Task<IActionResult> Profile(int id)
+        public async Task<IActionResult> Profile(string id)
         {
-            var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
+            var existingDoctorProfile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(id);
+            var existingDoctorSession = await _doctorProfileService.GetDoctorSessionByUserIdAsync(id);
 
-            if (doctor == null)
+            var partnerHubVM = new PartnerHubVM
             {
-                return NotFound();
-            }
+                ProfileBasic = existingDoctorProfile,
+                ProfileSession = existingDoctorSession,
+                
 
-            ViewBag.Categories = await _categoryService.GetAllCategories();
-            ViewBag.ServiceTypes = await _serviceTypeService.GetAllServiceTypes();
-            //ViewBag.Location = await _locationService.GetLocationByIdAsync(doctor.LocationId.Value);
-            return View(doctor);
+            };
+            return View(partnerHubVM);
         }
         #endregion
 
         #region BookNow
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> BookNow(string id,DateTime? SelectedDate)
+
+        [HttpGet]
+        public async Task<IActionResult> BookNow(string id, DateTime? SelectedDate)
+        {
+            var existingDoctorProfile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(id);
+            var existingDoctorSession = await _doctorProfileService.GetDoctorSessionByUserIdAsync(id);
+
+            var partnerHubVM = new PartnerHubVM
+            {
+                ProfileBasic = existingDoctorProfile,
+                ProfileSession = existingDoctorSession,
+                SelectedDate = SelectedDate == null ? DateTime.Now : SelectedDate,
+                SelectedDayName = SelectedDate?.ToString("dddd", CultureInfo.InvariantCulture),
+
+            };
+            return View(partnerHubVM);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> BookNow(string id, DateTime? SelectedDate, List<TimeSpan>? SelectedTimeSlots)
         {
             // Get the doctor by ID
             var existingDoctorProfile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(id);
@@ -96,26 +119,77 @@ namespace Vexacare.Web.Controllers
                 ProfileBasic = existingDoctorProfile,
                 ProfileSession = existingDoctorSession,
                 SelectedDate = SelectedDate==null?DateTime.Now:SelectedDate,
-                SelectedDayName = SelectedDate?.ToString("dddd", CultureInfo.InvariantCulture)
+                SelectedDayName = SelectedDate?.ToString("dddd", CultureInfo.InvariantCulture),
+                SelectedSlot = SelectedTimeSlots ?? new List<TimeSpan>()
             };
+            // Generate a unique cache key
+            var cacheKey = $"Booking_{id}_{User.Identity.Name}";
+            // Set cache options
+            var cacheOptions = new MemoryCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromMinutes(30)) // Cache expires after 30 minutes of inactivity
+                .SetAbsoluteExpiration(TimeSpan.FromHours(2)); // Cache expires after 2 hours max
+
+            // Store the VM in cache
+            _cache.Set(cacheKey, partnerHubVM, cacheOptions);
             return View(partnerHubVM);
         }
         #endregion BookNow
-        
+
 
         #region ConfirmPay
         //[Authorize(Roles = "Patient")]
-        public async Task<IActionResult> ConfirmPay(int id)
+        
+        [HttpPost]
+        [Authorize(Roles = "Patient")]
+     public async Task<IActionResult> ConfirmPay(string doctorId, DateTime? SelectedDate, List<TimeSpan> SelectedTimeSlots)
         {
-            var doctor = await _doctorProfileService.GetDoctorProfileByIdAsync(id);
-
-            if (doctor == null)
+            try
             {
-                return NotFound();
-            }
+                // Try to get from cache first
+                var cacheKey = $"Booking_{doctorId}_{User.Identity.Name}";
 
-            return View(doctor);
+                PartnerHubVM partnerHubVM;
+
+                if (_cache.TryGetValue(cacheKey, out partnerHubVM) && partnerHubVM != null)
+                {
+                    // Update cached data with form values
+                    if (SelectedDate.HasValue)
+                        partnerHubVM.SelectedDate = SelectedDate.Value;
+
+                    if (SelectedTimeSlots != null && SelectedTimeSlots.Any())
+                        partnerHubVM.SelectedSlot = SelectedTimeSlots;
+                }
+                else
+                {
+                    // Fallback: get data from services
+                    var existingDoctorProfile = await _doctorProfileService.GetDoctorProfileByUserIdAsync(doctorId);
+                    var existingDoctorSession = await _doctorProfileService.GetDoctorSessionByUserIdAsync(doctorId);
+
+                    partnerHubVM = new PartnerHubVM
+                    {
+                        ProfileBasic = existingDoctorProfile,
+                        ProfileSession = existingDoctorSession,
+                        SelectedDate = SelectedDate ?? DateTime.Now,
+                        SelectedSlot = SelectedTimeSlots ?? new List<TimeSpan>(),
+                        SelectedDayName = SelectedDate?.ToString("dddd", CultureInfo.InvariantCulture)
+                    };
+
+                    // Store in cache for future use
+                    var cacheOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromMinutes(30));
+                    _cache.Set(cacheKey, partnerHubVM, cacheOptions);
+                }
+
+                return View(partnerHubVM);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in ConfirmPay");
+                TempData["Error"] = "An error occurred while processing your booking.";
+                return RedirectToAction("Index");
+            }
         }
+        
         #endregion
         [Authorize(Roles = "Patient")]
         public IActionResult Confirmed()

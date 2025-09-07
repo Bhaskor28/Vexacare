@@ -97,6 +97,7 @@ namespace Vexacare.Application.Mapping
             CreateMap<CategoryVM, Category>().ReverseMap();
             CreateMap<ServiceTypeVM, ServiceType>().ReverseMap();
             CreateMap<ProfileBasicVM, DoctorProfile>().ReverseMap();
+            CreateMap<DoctorSessionVM, DoctorProfile>().ReverseMap();
             #endregion
 
         }

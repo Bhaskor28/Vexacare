@@ -33,7 +33,7 @@ namespace Vexacare.Web.Controllers
             {
                 await _roleManager.CreateAsync(new IdentityRole("Doctor"));
             }
-            var doctors = await _doctorprofileService.GetAllDoctorProfiles();
+            var doctors = await _doctorprofileService.GetAllDoctorProfilesForPartnerHub();
 
             // Add doctors to ViewBag
             ViewBag.Doctors = doctors;

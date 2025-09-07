@@ -236,15 +236,15 @@
             <div class="col-span-3">
                 <article class="doctor-card" role="article" aria-label="">
                     <div class="doc-image" aria-hidden="true">
-                            <img src="@doctor.ProfileImagePath"
-                             alt="@doctor.Name">
+                            <img src="@doctor.ProfileBasic?.ProfileImagePath"
+                             alt="@doctor.ProfileBasic.Name">
                     </div>
                     <div class="doc-body">
-                        <h3 class="doc-name">@doctor.Name</h3>
-                        <p class="doc-role">"@doctor.Category.Name"</p>
+                        <h3 class="doc-name">@doctor.ProfileBasic.Name</h3>
+                        <p class="doc-role">"@doctor.ProfileBasic.Category.Name"</p>
                             <a asp-controller="Consultations"
                                asp-action="BookNow"
-                               asp-route-id="@doctor.Id"
+                               asp-route-id="@doctor.ProfileBasic.UserId"
                                class="btn-book">
                                 Book Consultation
                             </a>
