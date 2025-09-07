@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Vexacare.Domain.Entities.BlogManagement;
 using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Domain.Entities.Order;
 using Vexacare.Domain.Entities.PatientEntities;
@@ -39,7 +40,7 @@ namespace Vexacare.Infrastructure.Data
         #endregion
 
 
-        // Doctor's Tables
+        // Doctor's Tables by Bhaskor
         #region
         public DbSet<DoctorProfile> DoctorProfiles { get; set; }
         public DbSet<Review> Reviews { get; set; }
@@ -47,6 +48,8 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<ServiceType> ServiceTypes { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Availability> Availabilities { get; set; }
+        public DbSet<BlogCategory> BlogCategories { get; set; }
+        public DbSet<BlogPost> BlogPosts { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

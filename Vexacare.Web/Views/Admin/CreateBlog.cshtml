@@ -1,0 +1,177 @@
+﻿@using Vexacare.Application.BlogPosts
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Create Blog Post";
+}
+@model BlogPostVM
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Blog Management</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Blog" asp-action="Index">Blog Posts</a></li>
+        <li class="breadcrumb-item active">Create Post</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-edit me-1"></i>
+            Create New Blog Post
+        </div>
+        <div class="card-body">
+            <form asp-controller="Admin" asp-action="CreateBlog" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group mb-3">
+                            <label for="Title" class="form-label">Title</label>
+                            <input asp-for="Title" class="form-control" placeholder="Enter blog title" required />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="Content" class="form-label">Content</label>
+                            <textarea asp-for="Content"  class="form-control" id="mainContent" rows="12" placeholder="Write your blog content here..." required></textarea>
+                            <span class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="Excerpt" class="form-label">Excerpt</label>
+                            <textarea asp-for="Excerpt" class="form-control" rows="3" placeholder="Short description of your blog post"></textarea>
+                            <span asp-validation-for="Excerpt" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Featured Image
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group mb-3">
+                                    <label for="FeaturedImage" class="form-label">Upload Image</label>
+                                    <input asp-for="FeaturedImage" type="file" class="form-control" accept="image/*" id="imageUpload" />
+                                    <span asp-validation-for="FeaturedImage" class="text-danger"></span>
+                                </div>
+                                <div id="imagePreview" class="mt-2 text-center" style="display: none;">
+                                    <img id="preview" class="img-fluid rounded" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Categories & Tags
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group mb-3">
+                                    <label for="CategoryId" class="form-label">Category</label>
+                                    <select asp-for="CategoryId" class="form-select">
+                                        
+                                        @foreach (var category in ViewBag.BlogCategories)
+                                        {
+                                            <option value="@category.Id">@category.Name</option>
+                                        }
+                                        @* <option value="">Select Category</option>
+                                        <option value="1">Technology</option>
+                                        <option value="2">Design</option>
+                                        <option value="3">Marketing</option>
+                                        <option value="4">Business</option>
+                                        <option value="5">Productivity</option> *@
+                                    </select>
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="Tags" class="form-label">Tags (comma separated)</label>
+                                    <input asp-for="Tags" class="form-control" placeholder="e.g., health, wellness, tips" />
+                                    <span asp-validation-for="Tags" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Publish
+                            </div>
+                            <div class="card-body">
+                                @* <div class="form-group mb-3">
+                                    <label for="Status" class="form-label">Status</label>
+                                    <select name="Status" class="form-select">
+                                        <option value="Draft">Draft</option>
+                                        <option value="Published">Published</option>
+                                    </select>
+                                </div> *@
+                                
+                                 <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Publish</button>
+                                    @* <button type="submit" name="saveAsDraft" value="true" class="btn btn-secondary">Save Draft</button> *@
+                                </div> 
+                            </div>
+                        </div>
+
+                       @*  <div class="card mb-4">
+                            <div class="card-header">
+                                SEO Settings
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group mb-3">
+                                    <label for="MetaDescription" class="form-label">Meta Description</label>
+                                    <textarea name="MetaDescription" class="form-control" rows="3" placeholder="Brief description for search engines"></textarea>
+                                    <span class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="Slug" class="form-label">URL Slug</label>
+                                    <input name="Slug" class="form-control" placeholder="custom-url-slug" id="slugInput" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div> *@
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    @section Scripts {
+   
+    <script>
+        // Initialize CKEditor
+        @*
+        ClassicEditor
+            .create(document.querySelector('#blogContent'), {
+                toolbar: {
+                    items: [
+                        'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                        'blockQuote', 'insertTable', '|', 'undo', 'redo'
+                    ]
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            *@
+
+        // Image preview functionality
+        document.getElementById('imageUpload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById('preview');
+                    preview.src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Auto-generate slug from title
+        
+    </script>
+
+}
+

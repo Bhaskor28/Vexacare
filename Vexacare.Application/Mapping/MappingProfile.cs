@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Vexacare.Application.BlogPosts;
 using Vexacare.Application.Categories;
 using Vexacare.Application.DoctorProfiles;
 using Vexacare.Application.Locations;
@@ -7,11 +8,11 @@ using Vexacare.Application.Patients.ViewModels;
 using Vexacare.Application.Products.ViewModels;
 using Vexacare.Application.ServiceTypes;
 using Vexacare.Application.UsersVM;
+using Vexacare.Domain.Entities.BlogManagement;
 using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Domain.Entities.Order;
 using Vexacare.Domain.Entities.PatientEntities;
 using Vexacare.Domain.Entities.ProductEntities;
-
 namespace Vexacare.Application.Mapping
 {
     public class MappingProfile : Profile
@@ -31,7 +32,7 @@ namespace Vexacare.Application.Mapping
                 .ForMember(dest => dest.BenefitName,
                            opt => opt.MapFrom(src => src.Benefit.BenefitName));
 
-            
+
             CreateMap<Product, EditProductVM>()
                 .ForMember(dest => dest.SelectedBenefitIds,
                            opt => opt.MapFrom(src => src.ProductBenefits.Select(pb => pb.BenefitId).ToList())
@@ -47,7 +48,7 @@ namespace Vexacare.Application.Mapping
                     }
                 }
             );
-           
+
             // Reverse mapping for update operations
             CreateMap<EditProductVM, Product>()
                 .ForMember(dest => dest.ProductBenefits,
@@ -57,7 +58,7 @@ namespace Vexacare.Application.Mapping
 
 
             CreateMap<Product, ProductDetailsVM>()
-                .ForMember(dest => dest.ProductImagePath, otp => otp.MapFrom(src=>src.ProductImages))
+                .ForMember(dest => dest.ProductImagePath, otp => otp.MapFrom(src => src.ProductImages))
                 .ForMember(dest => dest.ProductBenefits,
                            opt => opt.MapFrom(src => src.ProductBenefits));
 
@@ -87,24 +88,26 @@ namespace Vexacare.Application.Mapping
             CreateMap<SymptomsInfo, SymptomsInfoVM>().ReverseMap();
             CreateMap<DietProfileInfo, DietProfileInfoVM>().ReverseMap();
             CreateMap<LifestyleInfo, LifestyleInfoVM>().ReverseMap();
-        #endregion
+            #endregion
 
 
-        #region by Bhaskor
-        CreateMap<DoctorVM, ApplicationUser>().ReverseMap();
+            #region by Bhaskor
+            CreateMap<DoctorVM, ApplicationUser>().ReverseMap();
             CreateMap<LocationVM, Location>().ReverseMap();
             CreateMap<DoctorProfileVM, DoctorProfile>().ReverseMap();
             CreateMap<CategoryVM, Category>().ReverseMap();
             CreateMap<ServiceTypeVM, ServiceType>().ReverseMap();
             CreateMap<ProfileBasicVM, DoctorProfile>().ReverseMap();
             CreateMap<DoctorSessionVM, DoctorProfile>().ReverseMap();
+            CreateMap<BlogPostVM, BlogPost>().ReverseMap();
+            CreateMap<BlogCategoryVM, BlogCategory>().ReverseMap();
             #endregion
 
         }
 
-        
 
-        
+
+
 
     }
 }

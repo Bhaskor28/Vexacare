@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
+using Vexacare.Application.BlogPosts;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.MedicalReport;
 using Vexacare.Application.Users.Doctors;
@@ -19,7 +21,8 @@ namespace Vexacare.Web.Controllers
         private readonly StripeConfigService _stripeConfigService;
 
         private readonly IDoctorService _doctorService;
-
+        private readonly IBlogPostService _blogPostService;
+        private readonly IBlogCategoryService _blogCategoryService;
         private readonly IMedicalReportService _medicalReportService;
         private readonly ILogger<AdminController> _logger;
         private readonly IConfiguration _configuration;
@@ -28,6 +31,8 @@ namespace Vexacare.Web.Controllers
 
         #region Constructor
         public AdminController(IDoctorService doctorService,
+            IBlogPostService blogPostService,
+            IBlogCategoryService blogCategoryService,
             StripeConfigService stripeConfigService,
             IMedicalReportService medicalReportService,
             ILogger<AdminController> logger,
@@ -37,6 +42,8 @@ namespace Vexacare.Web.Controllers
             )
         {
             _doctorService = doctorService;
+            _blogPostService = blogPostService;
+            _blogCategoryService = blogCategoryService;
             _stripeConfigService = stripeConfigService;
             _medicalReportService = medicalReportService;
             _logger = logger;
@@ -267,7 +274,7 @@ namespace Vexacare.Web.Controllers
 
         #endregion
 
-
+        #region GetAll Patient Infofor AI Prompt
         private async Task<string> GetUserAllInfoByIdAsync(string userId)
         {
             try
@@ -380,6 +387,46 @@ namespace Vexacare.Web.Controllers
                 return $"User ID: {userId}. Error retrieving complete information: {ex.Message}";
             }
         }
+        #endregion
+
+        #region Writting a Blog
+        
+        public async Task<IActionResult> BlogIndex()
+        {
+            ViewBag.BlogPosts = await _blogPostService.GetAllBlogPostAsync();
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> CreateBlog()
+        {
+            
+
+            ViewBag.BlogCategories = await _blogCategoryService.GetAllcategorysAsync();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateBlog(BlogPostVM model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+                
+            }
+            
+            await _blogPostService.CreateBlogPostAsync(model);
+           
+            return RedirectToAction("BlogIndex");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditBlog(int id)
+        {
+
+
+            ViewBag.BlogCategories = await _blogCategoryService.GetAllcategorysAsync();
+            return View();
+        }
+        #endregion
 
     }
 }

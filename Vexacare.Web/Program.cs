@@ -28,6 +28,8 @@ using AppProductService = Vexacare.Infrastructure.Services.ProductService;
 using Vexacare.Application.MedicalReport;
 using Vexacare.Infrastructure.Services.MedicalReportServices;
 using Vexacare.Infrastructure.Services.PatientProfileServices;
+using Vexacare.Application.BlogPosts;
+using Vexacare.Infrastructure.Services.BlogManagements;
 
 
 
@@ -76,7 +78,8 @@ builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IDoctorProfileService, DoctorProfileService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>();
-
+builder.Services.AddScoped<IBlogCategoryService, BlogCategoryService>();
+builder.Services.AddScoped<IBlogPostService, BlogPostService>();
 #endregion
 
 builder.Services.AddControllersWithViews();
