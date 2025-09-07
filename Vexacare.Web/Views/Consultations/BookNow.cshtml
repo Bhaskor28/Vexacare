@@ -185,7 +185,7 @@
                     </div>
                 </div>
             </div>
-            <form asp-asp-controller="Consultations" asp-action="ConfirmPay" method="post" id="booking-form">
+            <form id="booking-form">
                 <div class="tm-booking-section">
                 <div class="tm-booking-container">
                     <input type="hidden" name="doctorId" value="@Model.ProfileBasic?.UserId" />
@@ -460,7 +460,7 @@
                             </svg>
                         </span> Back
                     </a>
-                        <button type="submit" class="tm-btn-confirm" id="confirm-button">
+                    <button type="button" class="tm-btn-confirm" id="confirm-button">
                         Confirm
                         <span>
                             <svg xmlns="http:www.w3.org/2000/svg"
@@ -479,10 +479,6 @@
             </div>
            
             </form>
-        </div>
-
-        <div class="tm-all-rights-reserved-area">
-            <p>© 2025 MicroHealth. All rights reserved.</p>
         </div>
     </div>
 </section>
@@ -570,72 +566,46 @@
 </script>
 *@
 @section Scripts {
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function() {
             console.log('Page loaded - initializing time slot selection');
 
             // Initialize time slot selection
             initializeTimeSlotSelection();
 
             // Date change handler
-            const datePicker = document.getElementById('date-picker');
-            if (datePicker) {
-                datePicker.addEventListener('change', function() {
-                    console.log('Date changed, submitting to BookNow');
-                    document.getElementById('booking-form').action = '@Url.Action("BookNow", "Consultations")';
-                    document.getElementById('booking-form').submit();
-                });
-            }
+            $('#date-picker').change(function() {
+                console.log('Date changed, submitting to BookNow');
+                $('#booking-form').attr('action', '@Url.Action("BookNow", "Consultations")');
+                $('#booking-form').submit();
+            });
 
             // Confirm button handler
-            const confirmBtn = document.getElementById('confirm-button');
-            if (confirmBtn) {
-                confirmBtn.addEventListener('click', function(e) {
-                    const selectedTimeSlots = document.querySelectorAll('input[name="SelectedTimeSlots"]:checked');
-                    const selectedDate = document.getElementById('date-picker').value;
-
-                    if (!selectedDate) {
-                        e.preventDefault();
-                        alert('Please select a date.');
-                        return false;
-                    }
-
-                    if (selectedTimeSlots.length === 0) {
-                        e.preventDefault();
-                        alert('Please select at least one time slot.');
-                        return false;
-                    }
-
-                    document.getElementById('booking-form').action = '@Url.Action("ConfirmPay", "Consultations")';
-                    return true;
-                });
-            }
+            $('#confirm-button').click(function(e) {
+                handleConfirmButtonClick(e);
+            });
         });
 
         function initializeTimeSlotSelection() {
             console.log('Initializing time slot selection');
 
             // Add click event to all time slot buttons
-            const timeSlotButtons = document.querySelectorAll('.tm-time-btn');
-            console.log('Found', timeSlotButtons.length, 'time slot buttons');
+            $('.tm-time-btn').each(function() {
+                const $btn = $(this);
 
-            timeSlotButtons.forEach(btn => {
-                // Remove any existing event listeners
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-
-                // Add click event to the new button
-                newBtn.addEventListener('click', function(e) {
-                    console.log('Time slot clicked:', this.textContent.trim());
+                // Remove any existing event listeners and re-bind
+                $btn.off('click').on('click', function(e) {
+                    console.log('Time slot clicked:', $btn.text().trim());
 
                     // Toggle active class
-                    this.classList.toggle('active');
+                    $btn.toggleClass('active');
 
                     // Find the checkbox and toggle its checked state
-                    const checkbox = this.querySelector('input[type="checkbox"]');
-                    if (checkbox) {
-                        checkbox.checked = !checkbox.checked;
-                        console.log('Checkbox state:', checkbox.checked);
+                    const $checkbox = $btn.find('input[type="checkbox"]');
+                    if ($checkbox.length) {
+                        $checkbox.prop('checked', !$checkbox.prop('checked'));
+                        console.log('Checkbox state:', $checkbox.prop('checked'));
                     }
 
                     // Prevent form submission
@@ -644,67 +614,86 @@
                 });
             });
 
-            // Initialize active state based on checked checkboxes (for page reloads)
-            document.querySelectorAll('input[name="SelectedTimeSlots"]').forEach(checkbox => {
-                const label = checkbox.closest('.tm-time-btn');
-                if (label && checkbox.checked) {
-                    label.classList.add('active');
+            // Initialize active state based on checked checkboxes
+            $('input[name="SelectedTimeSlots"]').each(function() {
+                const $checkbox = $(this);
+                const $label = $checkbox.closest('.tm-time-btn');
+                if ($checkbox.prop('checked')) {
+                    $label.addClass('active');
                 }
             });
 
             console.log('Time slot initialization complete');
         }
+
+        function handleConfirmButtonClick(e) {
+            console.log('Confirm button clicked');
+
+            const selectedTimeSlots = $('input[name="SelectedTimeSlots"]:checked');
+            const selectedDate = $('#date-picker').val();
+
+            if (!selectedDate) {
+                alert('Please select a date.');
+                return false;
+            }
+
+            if (selectedTimeSlots.length === 0) {
+                alert('Please select at least one time slot.');
+                return false;
+            }
+
+            // Show loading
+            $('#confirm-button').prop('disabled', true).html('Processing... <i class="fas fa-spinner fa-spin"></i>');
+
+            // Save checkout data to cache
+            saveCheckoutToCache();
+
+            // Prevent default form submission
+            e.preventDefault();
+            return false;
+        }
+
+        function saveCheckoutToCache() {
+            console.log('Saving checkout data to cache...');
+
+            $.post('@Url.Action("SaveCheckoutToCache", "Consultations")',
+                $('#booking-form').serialize(),
+                function(response) {
+                    if (response.success) {
+                        console.log('Checkout data saved, processing payment...');
+                        processPayment();
+                    } else {
+                        alert('Error: ' + response.message);
+                        resetConfirmButton();
+                    }
+                }
+            ).fail(function() {
+                alert('Error saving checkout data. Please try again.');
+                resetConfirmButton();
+            });
+        }
+
+        function processPayment() {
+            console.log('Processing payment...');
+
+            $.post('@Url.Action("ProcessPayment", "CheckOut")',
+                function(response) {
+                    if (response.success) {
+                        // Redirect to Stripe checkout page
+                        window.location.href = response.redirectUrl;
+                    } else {
+                        alert('Payment failed: ' + response.message);
+                        resetConfirmButton();
+                    }
+                }
+            ).fail(function() {
+                alert('Error processing payment. Please try again.');
+                resetConfirmButton();
+            });
+        }
+
+        function resetConfirmButton() {
+            $('#confirm-button').prop('disabled', false).html('Confirm <span>...</span>');
+        }
     </script>
-
-    <style>
-        /* Time slot styling */
-        .tm-time-btn {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-block;
-            padding: 10px 15px;
-            margin: 5px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            background-color: #ffffff;
-            color: #333333;
-            font-weight: 500;
-            text-align: center;
-            min-width: 100px;
-        }
-
-            .tm-time-btn:hover {
-                background-color: #f0f0f0;
-                border-color: #007bff;
-                transform: translateY(-2px);
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            }
-
-            .tm-time-btn.active {
-                background-color: #007bff !important;
-                color: white !important;
-                border-color: #007bff !important;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 8px rgba(0,123,255,0.3);
-            }
-
-            /* Hide the actual checkbox */
-            .tm-time-btn input[type="checkbox"] {
-                display: none;
-            }
-
-        .tm-calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .tm-cal-prev, .tm-cal-next {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-        }
-    </style>
 }

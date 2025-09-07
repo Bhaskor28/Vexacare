@@ -319,6 +319,7 @@ namespace Vexacare.Web.Controllers
             return View(model);
         }
         #endregion
+
         #region SignOut
         //Sign Out
         [HttpPost]
