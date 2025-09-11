@@ -676,7 +676,7 @@
         function processPayment() {
             console.log('Processing payment...');
 
-            $.post('@Url.Action("ProcessPayment", "CheckOut")',
+            $.post('@Url.Action("ProcessPayment", "BookingPayment")',
                 function(response) {
                     if (response.success) {
                         // Redirect to Stripe checkout page

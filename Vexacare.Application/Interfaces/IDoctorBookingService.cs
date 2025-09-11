@@ -15,6 +15,7 @@ namespace Vexacare.Application.Interfaces
         // Booking methods
         Task<bool> CreateBookingAsync(DoctorBookingVM bookingVm, string userId);
         Task<PartnerHubVM> GetBookingFromCacheAsync(string userId);
+        Task ClearBookingFromCacheAsync(string userId);
         //Task<DoctorBookingVM> GetBookingByIdAsync(int bookingId);
         //Task<DoctorBookingVM> GetBookingByNumberAsync(string bookingNumber);
         //Task<List<DoctorBookingVM>> GetUserBookingsAsync(string userId);

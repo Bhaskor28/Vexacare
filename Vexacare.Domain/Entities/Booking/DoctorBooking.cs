@@ -9,14 +9,14 @@ namespace Vexacare.Domain.Entities.Booking
     public class DoctorBooking
     {
         public int Id { get; set; }
-        public string BookingNumber { get; set; }
+        public string? BookingNumber { get; set; }
 
-        public DateTime BookingDate { get; set; } = DateTime.UtcNow;
-        public DateTime AppointmentDate { get; set; }
-        public TimeSpan AppointmentTime { get; set; }
+        public DateTime? BookingDate { get; set; } = DateTime.UtcNow;
+        public DateTime? AppointmentDate { get; set; }
+        public TimeSpan? AppointmentTime { get; set; }
 
         // Doctor Information
-        public int DoctorId { get; set; }
+        public string DoctorId { get; set; }
         
         // Patient Information
         public string PatientId { get; set; }

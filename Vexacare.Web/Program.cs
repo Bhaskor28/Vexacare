@@ -28,6 +28,7 @@ using AppProductService = Vexacare.Infrastructure.Services.ProductService;
 using Vexacare.Application.MedicalReport;
 using Vexacare.Infrastructure.Services.MedicalReportServices;
 using Vexacare.Infrastructure.Services.PatientProfileServices;
+using Vexacare.Infrastructure.Services.DoctorBookingServices;
 
 
 
@@ -67,6 +68,7 @@ builder.Services.AddHttpClient<IMedicalReportService, MedicalReportService>(clie
 builder.Services.AddScoped<IMedicalReportService, MedicalReportService>();
 
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IDoctorBookingService, DoctorBookingService>();
 
 #endregion
 

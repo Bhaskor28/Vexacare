@@ -27,13 +27,14 @@ namespace Vexacare.Infrastructure.Services.DoctorBookingServices
                     BookingDate = bookingVm.BookingDate,
                     AppointmentDate = bookingVm.AppointmentDate,
                     AppointmentTime = bookingVm.AppointmentTime,
-                    DoctorId = bookingVm.DoctorId,
+
                     PatientId = bookingVm.PatientId,
-                    ConsultationFee = bookingVm.ConsultationFee,
-                    NumberOfBookingSlots = bookingVm.NumberOfBookingSlots,
-                    TotalAmount = bookingVm.TotalAmount,
+                    DoctorId = bookingVm.DoctorId,
+                    ConsultationFee = bookingVm.ConsultationFee ?? 0,
+                    NumberOfBookingSlots = bookingVm.NumberOfBookingSlots ?? 1,
+                    TotalAmount = bookingVm.TotalAmount ?? 0,
                     Status = bookingVm.Status,
-                    PaymentStatus = bookingVm.PaymentStatus
+                    PaymentStatus = PaymentStatus.Paid
                 };
                 _context.DoctorBookings.Add(book);
                 await _context.SaveChangesAsync();
@@ -51,6 +52,11 @@ namespace Vexacare.Infrastructure.Services.DoctorBookingServices
         {
             var cacheKey = $"Booking_{userId}";
             return _cache.Get<PartnerHubVM>(cacheKey);
+        }
+        public async Task ClearBookingFromCacheAsync(string userId)
+        {
+            var cacheKey = $"Booking_{userId}";
+            _cache.Remove(cacheKey);
         }
     }
 }

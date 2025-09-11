@@ -15,13 +15,13 @@ namespace Vexacare.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly StripeConfigService _stripeConfigService;
         private readonly IDoctorBookingService _doctorBookingServices;
-        private readonly ILogger _logger;
+        private readonly ILogger<BookingPaymentController> _logger;
 
         public BookingPaymentController(
             UserManager<ApplicationUser> userManager,
             StripeConfigService stripeConfigService,
             IDoctorBookingService doctorBookingServices,
-            ILogger logger
+            ILogger<BookingPaymentController> logger
             )
         {
             _userManager = userManager;
@@ -50,18 +50,32 @@ namespace Vexacare.Web.Controllers
                 if (session.PaymentStatus == "paid")
                 {
                     var userId = TempData["UserId"].ToString();
-                    var checkout = await _doctorBookingServices.GetBookingFromCacheAsync(userId);
+                    var partnerHub = await _doctorBookingServices.GetBookingFromCacheAsync(userId);
+                    var BookingInfo = new DoctorBookingVM()
+                    {
+                        BookingNumber = $"BK{DateTime.Now.Ticks}",
+                        BookingDate = DateTime.Now,
+                        AppointmentDate = partnerHub.SelectedDate,
+                        AppointmentTime = partnerHub.SelectedSlot[0], // Assuming single slot for simplicity
+                        DoctorId = partnerHub.ProfileBasic.UserId,
+                        PatientId = userId,
+                        ConsultationFee = partnerHub.ProfileSession.PricePerConsultation,
+                        NumberOfBookingSlots = partnerHub.SelectedSlot.Count,
+                        TotalAmount = partnerHub.ProfileSession.PricePerConsultation * partnerHub.SelectedSlot.Count,
+                        Status = Domain.Entities.Booking.BookingStatus.Confirmed,
+                        PaymentStatus = Domain.Entities.Booking.PaymentStatus.Paid
+                    };
 
                     // Create order
-                    var order = await _doctorBookingServices.CreateOrderAsync(checkout, userId);
-                    await _doctorBookingServices.ClearCheckoutCacheAsync(userId);
+                    var booking = await _doctorBookingServices.CreateBookingAsync(BookingInfo, userId);
+                    await _doctorBookingServices.ClearBookingFromCacheAsync(userId);
 
                     // Clear temp data
                     TempData.Remove("SessionId");
                     TempData.Remove("UserId");
 
                     // Redirect to order confirmation page
-                    return RedirectToAction("OrderConfirmation", new { orderId = order.Id });
+                    return RedirectToAction("Confirmed", "Consultations");
                 }
                 else
                 {
@@ -159,25 +173,6 @@ namespace Vexacare.Web.Controllers
                 sessionId = session.Id
             });
         }
-
-        //// ... rest of your controller methods remain the same
-        //[Authorize(Roles = "Patient")]
-        //public async Task<IActionResult> OrderConfirmation(int orderId)
-        //{
-        //    var userId = _userManager.GetUserId(User);
-        //    if (string.IsNullOrEmpty(userId))
-        //    {
-        //        return RedirectToAction("Login", "Account");
-        //    }
-
-        //    var order = await _orderService.GetOrderByIdAsync(orderId);
-        //    if (order == null || order.UserId != userId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(order);
-        //}
 
         [Authorize(Roles = "Patient")]
         public IActionResult BookingFailed()
