@@ -9,6 +9,7 @@ using Vexacare.Application.Categories;
 using Vexacare.Application.DoctorProfiles;
 using Vexacare.Application.Interfaces;
 using Vexacare.Application.Products.ViewModels;
+using Vexacare.Application.Products.ViewModels.Checkout;
 using Vexacare.Application.ServiceTypes;
 using Vexacare.Application.UsersVM;
 using Vexacare.Domain.Entities.DoctorEntities;
@@ -19,6 +20,7 @@ namespace Vexacare.Web.Controllers
 {
     public class ConsultationsController : Controller
     {
+        #region fields and constructor
         private readonly IMemoryCache _cache;
         private readonly IDoctorProfileService _doctorProfileService;
         private readonly IServiceTypeService _serviceTypeService;
@@ -50,7 +52,9 @@ namespace Vexacare.Web.Controllers
             _mapper = mapper;
             _roleManager = roleManager;
         }
+        #endregion
 
+        #region Index
         public async Task<IActionResult> Index(int? categoryId, int? serviceTypeId, int? locationId, int? availableId)
         {
             if (!await _roleManager.RoleExistsAsync("Doctor"))
@@ -70,6 +74,8 @@ namespace Vexacare.Web.Controllers
             var doctorProfiles = await _doctorProfileService.GetAllDoctorProfilesForPartnerHub();
             return View(doctorProfiles);
         }
+        #endregion
+
         #region Profile
         public async Task<IActionResult> Profile(string id)
         {
@@ -137,11 +143,10 @@ namespace Vexacare.Web.Controllers
 
 
         #region ConfirmPay
-        //[Authorize(Roles = "Patient")]
-        
+                
         [HttpPost]
         [Authorize(Roles = "Patient")]
-     public async Task<IActionResult> ConfirmPay(string doctorId, DateTime? SelectedDate, List<TimeSpan> SelectedTimeSlots)
+        public async Task<IActionResult> ConfirmPay(string doctorId, DateTime? SelectedDate, List<TimeSpan> SelectedTimeSlots)
         {
             try
             {
@@ -196,6 +201,54 @@ namespace Vexacare.Web.Controllers
         {
             return View();
         }
+
+
+        //added by sazib or payment
+
+        #region save checkout to cache
+        // POST: Save Checkout Data to Cache
+        [Authorize(Roles = "Patient")]
+        [HttpPost]
+        public async Task<IActionResult> SaveCheckoutToCache(string doctorId, DateTime? SelectedDate, List<TimeSpan> SelectedTimeSlots)
+        {
+            var userId = _userManager.GetUserId(User);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Json(new { success = false, message = "User not authenticated" });
+            }
+
+            try
+            {
+                // Debug: log the received values
+                _logger.LogInformation($"DoctorId: {doctorId}, Date: {SelectedDate}, Slots: {SelectedTimeSlots?.Count}");
+                var cacheKey = $"Booking_{userId}";
+
+                PartnerHubVM partnerHubVM = new PartnerHubVM();
+                partnerHubVM.ProfileBasic = await _doctorProfileService.GetDoctorProfileByUserIdAsync(doctorId);
+                partnerHubVM.ProfileSession = await _doctorProfileService.GetDoctorSessionByUserIdAsync(doctorId);
+
+                if (partnerHubVM != null)
+                {
+                    // Update cached data with form values
+                    if (SelectedDate.HasValue)
+                        partnerHubVM.SelectedDate = SelectedDate.Value;
+
+                    if (SelectedTimeSlots != null && SelectedTimeSlots.Any())
+                        partnerHubVM.SelectedSlot = SelectedTimeSlots;
+
+                    _cache.Set(cacheKey, partnerHubVM, TimeSpan.FromHours(1)); // Store for 1 hour
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false, message = "Error saving booking data" });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error saving booking data");
+                return Json(new { success = false, message = "Error saving booking data" });
+            }
+        }
+        #endregion
 
     }
 }

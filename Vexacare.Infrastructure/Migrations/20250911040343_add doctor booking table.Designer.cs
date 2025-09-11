@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vexacare.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Vexacare.Infrastructure.Data;
 namespace Vexacare.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250911040343_add doctor booking table")]
+    partial class adddoctorbookingtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,7 +178,6 @@ namespace Vexacare.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.BlogManagement.BlogCategory", b =>
             modelBuilder.Entity("Vexacare.Domain.Entities.Booking.DoctorBooking", b =>
                 {
                     b.Property<int>("Id")
@@ -184,66 +186,6 @@ namespace Vexacare.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BlogCategories");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.BlogManagement.BlogPost", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("BlogCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Excerpt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FeaturedImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogCategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("BlogPosts");
                     b.Property<DateTime?>("AppointmentDate")
                         .HasColumnType("datetime2");
 
@@ -1173,21 +1115,6 @@ namespace Vexacare.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Vexacare.Domain.Entities.BlogManagement.BlogPost", b =>
-                {
-                    b.HasOne("Vexacare.Domain.Entities.BlogManagement.BlogCategory", null)
-                        .WithMany("BlogPosts")
-                        .HasForeignKey("BlogCategoryId");
-
-                    b.HasOne("Vexacare.Domain.Entities.DoctorEntities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Availability", b =>
                 {
                     b.HasOne("Vexacare.Domain.Entities.DoctorEntities.DoctorProfile", "DoctorProfile")
@@ -1348,11 +1275,6 @@ namespace Vexacare.Infrastructure.Migrations
                     b.Navigation("Benefit");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Vexacare.Domain.Entities.BlogManagement.BlogCategory", b =>
-                {
-                    b.Navigation("BlogPosts");
                 });
 
             modelBuilder.Entity("Vexacare.Domain.Entities.DoctorEntities.Category", b =>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Vexacare.Domain.Entities.BlogManagement;
+using Vexacare.Domain.Entities.Booking;
 using Vexacare.Domain.Entities.DoctorEntities;
 using Vexacare.Domain.Entities.Order;
 using Vexacare.Domain.Entities.PatientEntities;
@@ -36,6 +37,9 @@ namespace Vexacare.Infrastructure.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<StripeConfig> StripeConfigs { get; set; }
+
+        // Booking Tables
+        public DbSet<DoctorBooking>DoctorBookings { get; set; }
 
         #endregion
 

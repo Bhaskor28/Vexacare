@@ -30,8 +30,7 @@ using Vexacare.Infrastructure.Services.MedicalReportServices;
 using Vexacare.Infrastructure.Services.PatientProfileServices;
 using Vexacare.Application.BlogPosts;
 using Vexacare.Infrastructure.Services.BlogManagements;
-
-
+using Vexacare.Infrastructure.Services.DoctorBookingServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,6 +68,7 @@ builder.Services.AddHttpClient<IMedicalReportService, MedicalReportService>(clie
 builder.Services.AddScoped<IMedicalReportService, MedicalReportService>();
 
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IDoctorBookingService, DoctorBookingService>();
 
 #endregion
 

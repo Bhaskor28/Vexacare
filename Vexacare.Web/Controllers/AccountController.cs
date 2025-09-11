@@ -54,6 +54,12 @@ namespace Vexacare.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var existingUser = await _userManager.FindByEmailAsync(model.Email);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError(nameof(model.Email), "This email address is already registered. Please use a different email or try logging in.");
+                    return View(model);
+                }
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -255,6 +261,7 @@ namespace Vexacare.Web.Controllers
 
         #region TherapiesInfo
         [HttpGet]
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> TherapiesInfo()
         {
             var patientId = _userManager.GetUserId(User);
@@ -319,6 +326,7 @@ namespace Vexacare.Web.Controllers
             return View(model);
         }
         #endregion
+
         #region SignOut
         //Sign Out
         [HttpPost]
